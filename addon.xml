@@ -3,9 +3,6 @@
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skinshortcuts" version="1.0.0" />
-        <import addon="script.skin.helper.service" version="1.0.0" />
-        <import addon="script.skin.helper.widgets" version="1.0.0" />
-        <import addon="script.skin.helper.backgrounds" version="1.0.0" />
         <import addon="plugin.video.themoviedb.helper" version="1.0.0" />
         <import addon="resource.images.studios.coloured" version="0.0.1" />
     </requires>
