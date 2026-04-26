@@ -3,11 +3,11 @@
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skinshortcuts" version="1.0.0" />
-        <import addon="script.skin.helper.service" version="1.30.0" />
-        <import addon="script.skin.helper.widgets" version="1.30.0" />
-        <import addon="script.skin.helper.backgrounds" version="1.0.36" />
-        <import addon="plugin.video.themoviedb.helper" version="5.2.12" />
-        <import addon="resource.images.studios.coloured" version="0.0.23" />
+        <import addon="script.skin.helper.service" version="1.0.0" />
+        <import addon="script.skin.helper.widgets" version="1.0.0" />
+        <import addon="script.skin.helper.backgrounds" version="1.0.0" />
+        <import addon="plugin.video.themoviedb.helper" version="1.0.0" />
+        <import addon="resource.images.studios.coloured" version="0.0.1" />
     </requires>
     <!--
         Inter font files must be present in fonts/ before the skin will load.
