@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window id="10109" type="dialog">
+  <controls>
+    <control type="group">
+      <left>0</left>
+      <top>0</top>
+      <width>1920</width>
+      <height>1080</height>
+    </control>
+  </controls>
+</window>
