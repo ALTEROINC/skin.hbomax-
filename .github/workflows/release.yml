@@ -1,0 +1,45 @@
+name: Release Kodi Addon
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build addon zip
+        env:
+          TAG_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          VERSION="${TAG_NAME#v}"
+          STAGE_DIR="$(mktemp -d)"
+          ADDON_DIR="${STAGE_DIR}/skin.hbomax"
+          ZIP_NAME="skin.hbomax-${VERSION}.zip"
+
+          mkdir -p "${ADDON_DIR}"
+
+          rsync -a ./ "${ADDON_DIR}/" \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='tools/' \
+            --exclude='*.md' \
+            --exclude='*.py' \
+            --exclude='*.txt'
+
+          cd "${STAGE_DIR}"
+          zip -r "${GITHUB_WORKSPACE}/${ZIP_NAME}" "skin.hbomax"
+
+      - name: Attach zip to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: skin.hbomax-*.zip
