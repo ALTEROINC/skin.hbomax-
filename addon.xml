@@ -2,7 +2,7 @@
 <addon id="skin.hbomax" version="1.0.0" name="HBO Max" provider-name="Michael Hernandez">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
-        <import addon="script.skinshortcuts" version="2.1.0" />
+        <import addon="script.skinshortcuts" version="1.0.0" />
         <import addon="script.skin.helper.service" version="1.30.0" />
         <import addon="script.skin.helper.widgets" version="1.30.0" />
         <import addon="script.skin.helper.backgrounds" version="1.0.36" />
