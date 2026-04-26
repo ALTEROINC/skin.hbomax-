@@ -1,90 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fonts>
-  <fontset id="Default">
+  <fontset id="Default" idloc="30002" unicode="true">
     <font>
       <name>Default</name>
       <filename>DejaVuSans.ttf</filename>
       <size>20</size>
     </font>
     <font>
-      <name>Badge</name>
+      <name>DefaultMedium</name>
       <filename>DejaVuSans.ttf</filename>
-      <size>16</size>
+      <size>20</size>
     </font>
     <font>
-      <name>ButtonLabel</name>
-      <filename>DejaVuSans.ttf</filename>
-      <size>22</size>
-    </font>
-    <font>
-      <name>CardLabel</name>
-      <filename>DejaVuSans.ttf</filename>
-      <size>22</size>
-    </font>
-    <font>
-      <name>ClockDisplay</name>
-      <filename>DejaVuSans.ttf</filename>
-      <size>28</size>
-    </font>
-    <font>
-      <name>DialogBody</name>
-      <filename>DejaVuSans.ttf</filename>
-      <size>24</size>
-    </font>
-    <font>
-      <name>DialogTitle</name>
+      <name>DefaultLarge</name>
       <filename>DejaVuSans.ttf</filename>
       <size>36</size>
     </font>
     <font>
-      <name>HeroTitle</name>
-      <filename>DejaVuSans.ttf</filename>
-      <size>64</size>
-    </font>
-    <font>
-      <name>MetadataInfo</name>
-      <filename>DejaVuSans.ttf</filename>
-      <size>20</size>
-    </font>
-    <font>
-      <name>NavItem</name>
-      <filename>DejaVuSans.ttf</filename>
-      <size>24</size>
-    </font>
-    <font>
-      <name>SectionHeader</name>
-      <filename>DejaVuSans.ttf</filename>
-      <size>32</size>
-    </font>
-    <font>
-      <name>SettingsLabel</name>
-      <filename>DejaVuSans.ttf</filename>
-      <size>26</size>
-    </font>
-    <font>
-      <name>SettingsValue</name>
-      <filename>DejaVuSans.ttf</filename>
-      <size>26</size>
-    </font>
-    <font>
-      <name>font16</name>
+      <name>DefaultSmall</name>
       <filename>DejaVuSans.ttf</filename>
       <size>16</size>
-    </font>
-    <font>
-      <name>font18</name>
-      <filename>DejaVuSans.ttf</filename>
-      <size>18</size>
-    </font>
-    <font>
-      <name>font20</name>
-      <filename>DejaVuSans.ttf</filename>
-      <size>20</size>
-    </font>
-    <font>
-      <name>font64</name>
-      <filename>DejaVuSans.ttf</filename>
-      <size>64</size>
     </font>
   </fontset>
 </fonts>
