@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 import hashlib
-import os
 from pathlib import Path
-import shutil
+import subprocess
 import sys
+import tempfile
 import xml.etree.ElementTree as ET
 
 
@@ -40,15 +40,34 @@ def package_skin(root_dir: Path, skin_dir: Path, repo_dir: Path) -> tuple[Path, 
     version = read_addon_version(addon_xml_path)
     zip_output_dir = repo_dir / SKIN_ID
     zip_output_dir.mkdir(parents=True, exist_ok=True)
-    zip_base_path = zip_output_dir / f"{SKIN_ID}-{version}"
+    archive_path = zip_output_dir / f"{SKIN_ID}-{version}.zip"
 
-    archive_path = shutil.make_archive(
-        str(zip_base_path),
-        "zip",
-        root_dir=root_dir,
-        base_dir=skin_dir.name,
-    )
-    return Path(archive_path), version
+    with tempfile.TemporaryDirectory() as temp_dir_str:
+        temp_dir = Path(temp_dir_str)
+        staged_skin_dir = temp_dir / SKIN_ID
+        staged_skin_dir.mkdir(parents=True, exist_ok=True)
+
+        rsync_cmd = [
+            "rsync",
+            "-av",
+            "--exclude=.git",
+            "--exclude=.github",
+            "--exclude=tools",
+            "--exclude=*.md",
+            "--exclude=*.py",
+            "--exclude=*.txt",
+            f"{skin_dir}/",
+            f"{staged_skin_dir}/",
+        ]
+        zip_cmd = ["zip", "-r", str(archive_path), SKIN_ID]
+
+        try:
+            subprocess.run(rsync_cmd, check=True, cwd=temp_dir)
+            subprocess.run(zip_cmd, check=True, cwd=temp_dir)
+        except subprocess.CalledProcessError as exc:
+            fail(f"failed to package {SKIN_ID}: {exc}")
+
+    return archive_path, version
 
 
 def collect_addon_xml_strings(root_dir: Path) -> list[str]:
