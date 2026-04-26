@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<window>
+<window type="home" id="10000">
+  <defaultcontrol always="true">9001</defaultcontrol>
+  <backgroundcolor>FF0A0A0F</backgroundcolor>
   <controls>
-    <control type="image">
-      <left>0</left>
-      <top>0</top>
-      <width>1920</width>
-      <height>1080</height>
-      <colordiffuse>FF0A0A0F</colordiffuse>
-    </control>
-    <control type="label">
+    <control type="label" id="9001">
       <left>80</left>
       <top>80</top>
       <width>800</width>
       <height>100</height>
-      <label>HBO Max Skin Loading</label>
+      <label>HBO Max Skin Works!</label>
       <font>Default</font>
       <textcolor>FFFFFFFF</textcolor>
     </control>
