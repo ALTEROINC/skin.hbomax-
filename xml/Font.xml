@@ -3,22 +3,22 @@
   <fontset id="Default" idloc="30002" unicode="true">
     <font>
       <name>Default</name>
-      <filename>DejaVuSans.ttf</filename>
+      <filename>arial.ttf</filename>
       <size>20</size>
     </font>
     <font>
       <name>DefaultMedium</name>
-      <filename>DejaVuSans.ttf</filename>
+      <filename>arial.ttf</filename>
       <size>20</size>
     </font>
     <font>
       <name>DefaultLarge</name>
-      <filename>DejaVuSans.ttf</filename>
+      <filename>arial.ttf</filename>
       <size>36</size>
     </font>
     <font>
       <name>DefaultSmall</name>
-      <filename>DejaVuSans.ttf</filename>
+      <filename>arial.ttf</filename>
       <size>16</size>
     </font>
   </fontset>
