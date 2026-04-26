@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window>
+    <defaultcontrol always="true">1010</defaultcontrol>
+    <backgroundcolor>$INFO[Skin.String(ColorBackground)]</backgroundcolor>
+
+    <onload condition="Skin.HasSetting(HeroAutoRotate)">AlarmClock(hero_rotate,Action(MoveRight),8,loop,silent)</onload>
+    <onunload>ClearProperty(SkinHelper.WidgetContainer)</onunload>
+    <onunload>ClearProperty(TMDbHelper.WidgetContainer)</onunload>
+    <onunload condition="System.HasAlarm(hero_rotate)">CancelAlarm(hero_rotate,silent)</onunload>
+
+    <controls>
+        <!-- Hero overlay -->
+        <control type="group">
+            <left>0</left>
+            <top>0</top>
+            <width>1920</width>
+            <height>540</height>
+
+            <control type="group">
+                <left>80</left>
+                <top>360</top>
+                <width>760</width>
+                <height>128</height>
+                <animation effect="slide" start="0,40" end="0,0" time="500" tween="back" easing="out">Visible</animation>
+
+                <control type="textbox" id="1004">
+                    <left>0</left>
+                    <top>0</top>
+                    <width>760</width>
+                    <height>88</height>
+                    <font>font28</font>
+                    <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                    <label>$INFO[Container(1010).ListItem.Plot]</label>
+                    <autoscroll>false</autoscroll>
+                    <visible>Skin.HasSetting(ShowHeroPlot)</visible>
+                </control>
+
+                <control type="grouplist">
+                    <left>0</left>
+                    <top>80</top>
+                    <width>760</width>
+                    <height>48</height>
+                    <itemgap>16</itemgap>
+                    <orientation>horizontal</orientation>
+
+                    <control type="button" id="1201">
+                        <width>160</width>
+                        <height>48</height>
+                        <font>font24</font>
+                        <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                        <focusedcolor>$INFO[Skin.String(ColorTextPrimary)]</focusedcolor>
+                        <label>Play</label>
+                        <onclick>PlayMedia($INFO[Container(1010).ListItem.FileNameAndPath])</onclick>
+                    </control>
+
+                    <control type="button" id="1202">
+                        <width>220</width>
+                        <height>48</height>
+                        <font>font24</font>
+                        <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                        <focusedcolor>$INFO[Skin.String(ColorTextPrimary)]</focusedcolor>
+                        <label>Watchlist</label>
+                        <onclick>Action(ContextMenu)</onclick>
+                    </control>
+
+                    <control type="button" id="1203">
+                        <width>180</width>
+                        <height>48</height>
+                        <font>font24</font>
+                        <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                        <focusedcolor>$INFO[Skin.String(ColorTextPrimary)]</focusedcolor>
+                        <label>More Info</label>
+                        <onclick>Action(Info)</onclick>
+                    </control>
+                </control>
+            </control>
+
+            <control type="grouplist">
+                <left>80</left>
+                <top>492</top>
+                <width>220</width>
+                <height>16</height>
+                <itemgap>10</itemgap>
+                <orientation>horizontal</orientation>
+                <visible>Skin.HasSetting(ShowHeroDots)</visible>
+
+                <control type="image" id="1101">
+                    <width>16</width>
+                    <height>16</height>
+                    <texture>special://skin/media/hbomax/dot.png</texture>
+                </control>
+
+                <control type="image" id="1102">
+                    <width>16</width>
+                    <height>16</height>
+                    <texture>special://skin/media/hbomax/dot.png</texture>
+                </control>
+
+                <control type="image" id="1103">
+                    <width>16</width>
+                    <height>16</height>
+                    <texture>special://skin/media/hbomax/dot.png</texture>
+                </control>
+
+                <control type="image" id="1104">
+                    <width>16</width>
+                    <height>16</height>
+                    <texture>special://skin/media/hbomax/dot.png</texture>
+                </control>
+            </control>
+        </control>
+
+        <!-- Hero carousel data source -->
+        <control type="fixedlist" id="1010">
+            <left>0</left>
+            <top>0</top>
+            <width>1920</width>
+            <height>540</height>
+            <onleft>1010</onleft>
+            <onright>1010</onright>
+            <onup>9001</onup>
+            <ondown>2001</ondown>
+            <scrolltime tween="sine">300</scrolltime>
+            <orientation>horizontal</orientation>
+            <viewtype label="HeroCarousel">list</viewtype>
+            <content>$INFO[Skin.String(HeroWidgetPath)]</content>
+            <itemlayout width="1920" height="540">
+                <include>HeroCard</include>
+            </itemlayout>
+            <focusedlayout width="1920" height="540">
+                <include>HeroCard</include>
+            </focusedlayout>
+        </control>
+
+        <control type="group">
+            <left>80</left>
+            <top>588</top>
+            <width>1760</width>
+            <height>804</height>
+
+            <control type="label">
+                <left>0</left>
+                <top>0</top>
+                <width>520</width>
+                <height>40</height>
+                <font>font32</font>
+                <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                <label>Continue Watching</label>
+            </control>
+
+            <control type="panel" id="2001">
+                <left>0</left>
+                <top>56</top>
+                <width>1760</width>
+                <height>220</height>
+                <onup>1010</onup>
+                <ondown>2101</ondown>
+                <scrolltime tween="sine">250</scrolltime>
+                <orientation>horizontal</orientation>
+                <itemgap>16</itemgap>
+                <content>plugin://script.skin.helper.widgets/?mediatype=movies&amp;type=inprogress</content>
+                <itemlayout width="140" height="232">
+                    <include>PosterCard</include>
+                </itemlayout>
+                <focusedlayout width="140" height="232">
+                    <include>PosterCard</include>
+                </focusedlayout>
+            </control>
+
+            <control type="label">
+                <left>0</left>
+                <top>324</top>
+                <width>520</width>
+                <height>40</height>
+                <font>font32</font>
+                <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                <label>Recommended For You</label>
+            </control>
+
+            <control type="panel" id="2101">
+                <left>0</left>
+                <top>380</top>
+                <width>1760</width>
+                <height>220</height>
+                <onup>2001</onup>
+                <ondown>2201</ondown>
+                <scrolltime tween="sine">250</scrolltime>
+                <orientation>horizontal</orientation>
+                <itemgap>16</itemgap>
+                <content>plugin://plugin.video.themoviedb.helper/?info=trakt_recommendations_movies</content>
+                <itemlayout width="140" height="232">
+                    <include>PosterCard</include>
+                </itemlayout>
+                <focusedlayout width="140" height="232">
+                    <include>PosterCard</include>
+                </focusedlayout>
+            </control>
+
+            <control type="label">
+                <left>0</left>
+                <top>648</top>
+                <width>520</width>
+                <height>40</height>
+                <font>font32</font>
+                <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                <label>Popular Movies</label>
+            </control>
+
+            <control type="panel" id="2201">
+                <left>0</left>
+                <top>704</top>
+                <width>1760</width>
+                <height>220</height>
+                <onup>2101</onup>
+                <ondown>2201</ondown>
+                <scrolltime tween="sine">250</scrolltime>
+                <orientation>horizontal</orientation>
+                <itemgap>16</itemgap>
+                <content>plugin://plugin.video.themoviedb.helper/?info=popular_movies</content>
+                <itemlayout width="140" height="232">
+                    <include>PosterCard</include>
+                </itemlayout>
+                <focusedlayout width="140" height="232">
+                    <include>PosterCard</include>
+                </focusedlayout>
+            </control>
+        </control>
+
+        <control type="group" id="100">
+            <left>0</left>
+            <top>40</top>
+            <width>1920</width>
+            <height>72</height>
+
+            <control type="fixedlist" id="9001">
+                <left>80</left>
+                <top>0</top>
+                <width>1200</width>
+                <height>72</height>
+                <onleft>9001</onleft>
+                <onright>9001</onright>
+                <onup>9001</onup>
+                <ondown>1010</ondown>
+                <scrolltime tween="sine">250</scrolltime>
+                <orientation>horizontal</orientation>
+                <viewtype label="MainMenu">list</viewtype>
+                <content>plugin://script.skinshortcuts/?path=mainmenu&amp;type=list</content>
+                <animation effect="fade" start="30" end="100" time="1">Focus</animation>
+                <animation effect="fade" start="100" end="30" time="500" delay="2000">UnFocus</animation>
+                <itemlayout width="180" height="72">
+                    <control type="label">
+                        <left>0</left>
+                        <top>0</top>
+                        <width>180</width>
+                        <height>72</height>
+                        <font>font24</font>
+                        <textcolor>$INFO[Skin.String(ColorTextMuted)]</textcolor>
+                        <aligny>center</aligny>
+                        <label>$INFO[ListItem.Label]</label>
+                    </control>
+                </itemlayout>
+                <focusedlayout width="180" height="72">
+                    <control type="label">
+                        <left>0</left>
+                        <top>0</top>
+                        <width>180</width>
+                        <height>72</height>
+                        <font>font24</font>
+                        <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                        <aligny>center</aligny>
+                        <label>$INFO[ListItem.Label]</label>
+                    </control>
+                </focusedlayout>
+                <onclick>$INFO[ListItem.Property(path)]</onclick>
+            </control>
+        </control>
+        <include condition="Skin.HasSetting(DebugOverlay)">DebugOverlay</include>
+    </controls>
+</window>

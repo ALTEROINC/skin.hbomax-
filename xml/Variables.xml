@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<includes>
+    <variable name="CardArtVar">
+        <value condition="!String.IsEmpty(ListItem.Art(poster))">$INFO[ListItem.Art(poster)]</value>
+        <value condition="!String.IsEmpty(ListItem.Thumbnail)">$INFO[ListItem.Thumbnail]</value>
+        <value>special://skin/media/hbomax/placeholder-poster.png</value>
+    </variable>
+
+    <variable name="CardLandscapeArtVar">
+        <value condition="!String.IsEmpty(ListItem.Art(landscape))">$INFO[ListItem.Art(landscape)]</value>
+        <value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+        <value>special://skin/media/hbomax/placeholder-landscape.png</value>
+    </variable>
+
+    <variable name="HeroFanartVar">
+        <value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(SkinHelper.RandomFanart))">$INFO[Window(Home).Property(SkinHelper.RandomFanart)]</value>
+        <value>special://skin/media/hbomax/backgrounds/default-bg.jpg</value>
+    </variable>
+
+    <variable name="ClearLogoVar">
+        <value condition="!String.IsEmpty(ListItem.Art(clearlogo))">$INFO[ListItem.Art(clearlogo)]</value>
+        <value />
+    </variable>
+
+    <variable name="StudioLogoVar">
+        <value condition="!String.IsEmpty(ListItem.Art(clearart))">$INFO[ListItem.Art(clearart)]</value>
+        <value>$INFO[ListItem.Studio]</value>
+    </variable>
+
+    <variable name="RatingVar">
+        <value condition="!String.IsEmpty(ListItem.Rating)">★ $INFO[ListItem.Rating]</value>
+        <value />
+    </variable>
+
+    <variable name="RuntimeVar">
+        <value condition="!String.IsEmpty(ListItem.Duration(hh:mm))">$INFO[ListItem.Duration(hh:mm)]</value>
+        <value condition="!String.IsEmpty(ListItem.Property(TMDbHelper.Runtime))">$INFO[ListItem.Property(TMDbHelper.Runtime)]</value>
+        <value />
+    </variable>
+
+    <variable name="CardProgressVar">
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),100)">140</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),95)">133</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),90)">126</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),85)">119</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),80)">112</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),75)">105</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),70)">98</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),65)">91</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),60)">84</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),55)">77</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),50)">70</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),45)">63</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),40)">56</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),35)">49</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),30)">42</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),25)">35</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),20)">28</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),15)">21</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),10)">14</value>
+        <value condition="Integer.IsGreaterOrEqual(ListItem.Property(PercentPlayed),5)">7</value>
+        <value>0</value>
+    </variable>
+</includes>

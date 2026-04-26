@@ -1,0 +1,238 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: skin.hbomax\n"
+"Language: en_GB\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "#32000"
+msgid "Home"
+msgstr "Home"
+
+msgctxt "#32001"
+msgid "Movies"
+msgstr "Movies"
+
+msgctxt "#32002"
+msgid "TV Shows"
+msgstr "TV Shows"
+
+msgctxt "#32003"
+msgid "Live TV"
+msgstr "Live TV"
+
+msgctxt "#32004"
+msgid "Search"
+msgstr "Search"
+
+msgctxt "#32005"
+msgid "Settings"
+msgstr "Settings"
+
+msgctxt "#32006"
+msgid "Skin Settings"
+msgstr "Skin Settings"
+
+msgctxt "#32007"
+msgid "Continue Watching"
+msgstr "Continue Watching"
+
+msgctxt "#32008"
+msgid "Recommended For You"
+msgstr "Recommended For You"
+
+msgctxt "#32009"
+msgid "New on HBO Max"
+msgstr "New on HBO Max"
+
+msgctxt "#32010"
+msgid "Popular Movies"
+msgstr "Popular Movies"
+
+msgctxt "#32011"
+msgid "Popular TV Shows"
+msgstr "Popular TV Shows"
+
+msgctxt "#32012"
+msgid "More Like This"
+msgstr "More Like This"
+
+msgctxt "#32013"
+msgid "Trailers & More"
+msgstr "Trailers & More"
+
+msgctxt "#32014"
+msgid "Cast"
+msgstr "Cast"
+
+msgctxt "#32015"
+msgid "Play"
+msgstr "Play"
+
+msgctxt "#32016"
+msgid "Add to Watchlist"
+msgstr "Add to Watchlist"
+
+msgctxt "#32017"
+msgid "Download"
+msgstr "Download"
+
+msgctxt "#32018"
+msgid "See All"
+msgstr "See All"
+
+msgctxt "#32019"
+msgid "Next Episode"
+msgstr "Next Episode"
+
+msgctxt "#32020"
+msgid "Play Next"
+msgstr "Play Next"
+
+msgctxt "#32021"
+msgid "Cancel"
+msgstr "Cancel"
+
+msgctxt "#32022"
+msgid "Subtitles"
+msgstr "Subtitles"
+
+msgctxt "#32023"
+msgid "Enable Subtitles"
+msgstr "Enable Subtitles"
+
+msgctxt "#32024"
+msgid "Download Subtitles"
+msgstr "Download Subtitles"
+
+msgctxt "#32025"
+msgid "Home Screen"
+msgstr "Home Screen"
+
+msgctxt "#32026"
+msgid "Appearance"
+msgstr "Appearance"
+
+msgctxt "#32027"
+msgid "Metadata"
+msgstr "Metadata"
+
+msgctxt "#32028"
+msgid "Playback"
+msgstr "Playback"
+
+msgctxt "#32029"
+msgid "About"
+msgstr "About"
+
+msgctxt "#32030"
+msgid "Built for Kodi Omega (v21)"
+msgstr "Built for Kodi Omega (v21)"
+
+msgctxt "#32031"
+msgid "Powered by TMDB Helper + Skin Helper"
+msgstr "Powered by TMDB Helper + Skin Helper"
+
+msgctxt "#32032"
+msgid "Nothing here yet"
+msgstr "Nothing here yet"
+
+msgctxt "#32033"
+msgid "Add some movies to your library to get started"
+msgstr "Add some movies to your library to get started"
+
+msgctxt "#32034"
+msgid "Sort"
+msgstr "Sort"
+
+msgctxt "#32035"
+msgid "All"
+msgstr "All"
+
+msgctxt "#32036"
+msgid "Genre"
+msgstr "Genre"
+
+msgctxt "#32037"
+msgid "Year"
+msgstr "Year"
+
+msgctxt "#32038"
+msgid "Rating"
+msgstr "Rating"
+
+msgctxt "#32039"
+msgid "Remove from list"
+msgstr "Remove from list"
+
+msgctxt "#32040"
+msgid "Mark as watched"
+msgstr "Mark as watched"
+
+msgctxt "#32041"
+msgid "Show information"
+msgstr "Show information"
+
+msgctxt "#32042"
+msgid "Go to show"
+msgstr "Go to show"
+
+msgctxt "#32043"
+msgid "Play from beginning"
+msgstr "Play from beginning"
+
+msgctxt "#32044"
+msgid "Auto-rotate hero carousel"
+msgstr "Auto-rotate hero carousel"
+
+msgctxt "#32045"
+msgid "Rotation speed"
+msgstr "Rotation speed"
+
+msgctxt "#32046"
+msgid "Show carousel dots"
+msgstr "Show carousel dots"
+
+msgctxt "#32047"
+msgid "Show plot text on hero"
+msgstr "Show plot text on hero"
+
+msgctxt "#32048"
+msgid "Prefer logo over title"
+msgstr "Prefer logo over title"
+
+msgctxt "#32049"
+msgid "Card style"
+msgstr "Card style"
+
+msgctxt "#32050"
+msgid "Always show nav bar"
+msgstr "Always show nav bar"
+
+msgctxt "#32051"
+msgid "Show clock"
+msgstr "Show clock"
+
+msgctxt "#32052"
+msgid "Custom accent color"
+msgstr "Custom accent color"
+
+msgctxt "#32053"
+msgid "Show ratings"
+msgstr "Show ratings"
+
+msgctxt "#32054"
+msgid "Show duration"
+msgstr "Show duration"
+
+msgctxt "#32055"
+msgid "Show genre"
+msgstr "Show genre"
+
+msgctxt "#32056"
+msgid "Show studio logo"
+msgstr "Show studio logo"
+
+msgctxt "#32057"
+msgid "Enable trailer preview"
+msgstr "Enable trailer preview"

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<includes>
+    <include name="ButtonPrimary">
+        <param name="ControlId" />
+        <param name="Label" />
+        <param name="Icon" />
+        <param name="Action" />
+        <control type="group">
+            <width>200</width>
+            <height>56</height>
+            <animation effect="zoom" start="100" end="103" time="150" tween="sine">Focus</animation>
+            <animation effect="zoom" start="103" end="100" time="120" tween="sine">UnFocus</animation>
+
+            <control type="button" id="$PARAM[ControlId]">
+                <left>0</left>
+                <top>0</top>
+                <width>200</width>
+                <height>56</height>
+                <font>ButtonLabel</font>
+                <textcolor>00FFFFFF</textcolor>
+                <focusedcolor>00FFFFFF</focusedcolor>
+                <label>-</label>
+                <onclick>$PARAM[Action]</onclick>
+            </control>
+
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>200</width>
+                <height>56</height>
+                <texture border="12" colordiffuse="$INFO[Skin.String(ColorAccentPurple)]">special://skin/media/hbomax/btn-primary.png</texture>
+                <aspectratio>stretch</aspectratio>
+                <visible>!Control.HasFocus($PARAM[ControlId])</visible>
+            </control>
+
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>200</width>
+                <height>56</height>
+                <texture border="12" colordiffuse="$INFO[Skin.String(ColorFocus)]">special://skin/media/hbomax/btn-primary.png</texture>
+                <aspectratio>stretch</aspectratio>
+                <visible>Control.HasFocus($PARAM[ControlId])</visible>
+            </control>
+
+            <control type="image">
+                <left>28</left>
+                <top>16</top>
+                <width>24</width>
+                <height>24</height>
+                <texture>$PARAM[Icon]</texture>
+                <aspectratio>keep</aspectratio>
+                <visible>!String.IsEmpty($PARAM[Icon])</visible>
+            </control>
+
+            <control type="label">
+                <left>64</left>
+                <top>0</top>
+                <width>108</width>
+                <height>56</height>
+                <font>ButtonLabel</font>
+                <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                <align>left</align>
+                <aligny>center</aligny>
+                <label>$PARAM[Label]</label>
+                <visible>!String.IsEmpty($PARAM[Icon])</visible>
+            </control>
+
+            <control type="label">
+                <left>16</left>
+                <top>0</top>
+                <width>168</width>
+                <height>56</height>
+                <font>ButtonLabel</font>
+                <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                <align>center</align>
+                <aligny>center</aligny>
+                <label>$PARAM[Label]</label>
+                <visible>String.IsEmpty($PARAM[Icon])</visible>
+            </control>
+        </control>
+    </include>
+
+    <include name="ButtonSecondary">
+        <param name="ControlId" />
+        <param name="Label" />
+        <param name="Icon" />
+        <param name="Action" />
+        <control type="group">
+            <width>200</width>
+            <height>56</height>
+            <animation effect="zoom" start="100" end="103" time="150" tween="sine">Focus</animation>
+            <animation effect="zoom" start="103" end="100" time="120" tween="sine">UnFocus</animation>
+
+            <control type="button" id="$PARAM[ControlId]">
+                <left>0</left>
+                <top>0</top>
+                <width>200</width>
+                <height>56</height>
+                <font>ButtonLabel</font>
+                <textcolor>00FFFFFF</textcolor>
+                <focusedcolor>00FFFFFF</focusedcolor>
+                <label>-</label>
+                <onclick>$PARAM[Action]</onclick>
+            </control>
+
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>200</width>
+                <height>56</height>
+                <texture border="12" colordiffuse="$INFO[Skin.String(ColorElevated)]">special://skin/media/hbomax/btn-secondary.png</texture>
+                <aspectratio>stretch</aspectratio>
+            </control>
+
+            <control type="image">
+                <left>-2</left>
+                <top>-2</top>
+                <width>204</width>
+                <height>60</height>
+                <texture border="12" colordiffuse="$INFO[Skin.String(ColorFocus)]">special://skin/media/hbomax/card-focus.png</texture>
+                <aspectratio>stretch</aspectratio>
+                <visible>Control.HasFocus($PARAM[ControlId])</visible>
+            </control>
+
+            <control type="image">
+                <left>24</left>
+                <top>16</top>
+                <width>24</width>
+                <height>24</height>
+                <texture>$PARAM[Icon]</texture>
+                <aspectratio>keep</aspectratio>
+                <visible>!String.IsEmpty($PARAM[Icon])</visible>
+            </control>
+
+            <control type="label">
+                <left>60</left>
+                <top>0</top>
+                <width>116</width>
+                <height>56</height>
+                <font>ButtonLabel</font>
+                <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                <align>left</align>
+                <aligny>center</aligny>
+                <label>$PARAM[Label]</label>
+                <visible>!String.IsEmpty($PARAM[Icon])</visible>
+            </control>
+
+            <control type="label">
+                <left>16</left>
+                <top>0</top>
+                <width>168</width>
+                <height>56</height>
+                <font>ButtonLabel</font>
+                <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                <align>center</align>
+                <aligny>center</aligny>
+                <label>$PARAM[Label]</label>
+                <visible>String.IsEmpty($PARAM[Icon])</visible>
+            </control>
+        </control>
+    </include>
+
+    <include name="ButtonIcon">
+        <param name="ControlId" />
+        <param name="Icon" />
+        <param name="Action" />
+        <param name="Tooltip" />
+        <param name="Width" />
+        <param name="Height" />
+        <param name="IconSize" />
+        <control type="group">
+            <width>$PARAM[Width]</width>
+            <height>78</height>
+
+            <control type="button" id="$PARAM[ControlId]">
+                <left>0</left>
+                <top>0</top>
+                <width>$PARAM[Width]</width>
+                <height>$PARAM[Height]</height>
+                <font>Badge</font>
+                <textcolor>00FFFFFF</textcolor>
+                <focusedcolor>00FFFFFF</focusedcolor>
+                <label>-</label>
+                <onclick>$PARAM[Action]</onclick>
+            </control>
+
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>$PARAM[Width]</width>
+                <height>$PARAM[Height]</height>
+                <texture colordiffuse="CC1C1830">special://skin/media/hbomax/btn-secondary.png</texture>
+                <aspectratio>stretch</aspectratio>
+            </control>
+
+            <control type="image">
+                <left>-2</left>
+                <top>-2</top>
+                <width>$PARAM[Width]</width>
+                <height>$PARAM[Height]</height>
+                <texture border="12" colordiffuse="$INFO[Skin.String(ColorFocus)]">special://skin/media/hbomax/card-focus.png</texture>
+                <aspectratio>stretch</aspectratio>
+                <visible>Control.HasFocus($PARAM[ControlId])</visible>
+            </control>
+
+            <control type="image">
+                <left>14</left>
+                <top>14</top>
+                <width>$PARAM[IconSize]</width>
+                <height>$PARAM[IconSize]</height>
+                <texture>$PARAM[Icon]</texture>
+                <aspectratio>keep</aspectratio>
+            </control>
+
+            <control type="label">
+                <left>-32</left>
+                <top>60</top>
+                <width>120</width>
+                <height>18</height>
+                <font>Badge</font>
+                <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                <align>center</align>
+                <label>$PARAM[Tooltip]</label>
+                <visible>Control.HasFocus($PARAM[ControlId])</visible>
+                <animation effect="fade" start="0" end="100" time="150" tween="sine">Visible</animation>
+                <animation effect="fade" start="100" end="0" time="120" tween="sine">Hidden</animation>
+            </control>
+        </control>
+    </include>
+
+    <include name="ButtonText">
+        <param name="ControlId" />
+        <param name="Label" />
+        <param name="Action" />
+        <param name="Width" />
+        <control type="group">
+            <width>$PARAM[Width]</width>
+            <height>40</height>
+
+            <control type="button" id="$PARAM[ControlId]">
+                <left>0</left>
+                <top>0</top>
+                <width>$PARAM[Width]</width>
+                <height>40</height>
+                <font>CardLabel</font>
+                <textcolor>$INFO[Skin.String(ColorAccentPurple)]</textcolor>
+                <focusedcolor>$INFO[Skin.String(ColorFocus)]</focusedcolor>
+                <align>center</align>
+                <aligny>center</aligny>
+                <label>$PARAM[Label]</label>
+                <onclick>$PARAM[Action]</onclick>
+            </control>
+
+            <control type="image">
+                <left>16</left>
+                <top>36</top>
+                <width>$PARAM[Width]</width>
+                <height>1</height>
+                <texture colordiffuse="$INFO[Skin.String(ColorFocus)]">white.png</texture>
+                <aspectratio>stretch</aspectratio>
+                <visible>Control.HasFocus($PARAM[ControlId])</visible>
+            </control>
+        </control>
+    </include>
+</includes>

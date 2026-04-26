@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window>
+    <defaultcontrol always="true">600</defaultcontrol>
+    <backgroundcolor>$INFO[Skin.String(ColorBackground)]</backgroundcolor>
+    <onback>ActivateWindow(Home)</onback>
+
+    <controls>
+        <include>NavBar</include>
+
+        <control type="image">
+            <left>0</left>
+            <top>0</top>
+            <width>1920</width>
+            <height>1080</height>
+            <texture colordiffuse="$INFO[Skin.String(ColorBackground)]">white.png</texture>
+            <aspectratio>stretch</aspectratio>
+            <animation effect="fade" start="100" end="0" time="250">WindowClose</animation>
+        </control>
+
+        <control type="label">
+            <left>80</left>
+            <top>40</top>
+            <width>520</width>
+            <height>40</height>
+            <font>SectionHeader</font>
+            <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+            <label>Movies</label>
+            <visible>Container(610).Content(movies)</visible>
+        </control>
+
+        <control type="label">
+            <left>80</left>
+            <top>40</top>
+            <width>520</width>
+            <height>40</height>
+            <font>SectionHeader</font>
+            <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+            <label>TV Shows</label>
+            <visible>Container(610).Content(tvshows)</visible>
+        </control>
+
+        <control type="grouplist">
+            <left>80</left>
+            <top>104</top>
+            <width>1760</width>
+            <height>56</height>
+            <itemgap>12</itemgap>
+            <orientation>horizontal</orientation>
+            <animation effect="slide" start="0,-20" end="0,0" time="300" tween="sine" delay="100">WindowOpen</animation>
+
+            <control type="button" id="600">
+                <width>84</width>
+                <height>40</height>
+                <font>Badge</font>
+                <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                <focusedcolor>$INFO[Skin.String(ColorTextPrimary)]</focusedcolor>
+                <label>All</label>
+                <onclick>Container.SetViewMode(50)</onclick>
+            </control>
+
+            <control type="button" id="601">
+                <width>104</width>
+                <height>40</height>
+                <font>Badge</font>
+                <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                <focusedcolor>$INFO[Skin.String(ColorTextPrimary)]</focusedcolor>
+                <label>Movies</label>
+                <onclick>ActivateWindow(MyVideoNav,movies,return)</onclick>
+            </control>
+
+            <control type="button" id="602">
+                <width>118</width>
+                <height>40</height>
+                <font>Badge</font>
+                <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                <focusedcolor>$INFO[Skin.String(ColorTextPrimary)]</focusedcolor>
+                <label>TV Shows</label>
+                <onclick>ActivateWindow(MyVideoNav,tvshows,return)</onclick>
+            </control>
+
+            <control type="button" id="603">
+                <width>96</width>
+                <height>40</height>
+                <font>Badge</font>
+                <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                <focusedcolor>$INFO[Skin.String(ColorTextPrimary)]</focusedcolor>
+                <label>Genre</label>
+                <onclick>Container.SetSortMethod(Genre)</onclick>
+            </control>
+
+            <control type="button" id="604">
+                <width>84</width>
+                <height>40</height>
+                <font>Badge</font>
+                <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                <focusedcolor>$INFO[Skin.String(ColorTextPrimary)]</focusedcolor>
+                <label>Year</label>
+                <onclick>Container.SetSortMethod(Year)</onclick>
+            </control>
+
+            <control type="button" id="605">
+                <width>92</width>
+                <height>40</height>
+                <font>Badge</font>
+                <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                <focusedcolor>$INFO[Skin.String(ColorTextPrimary)]</focusedcolor>
+                <label>Rating</label>
+                <onclick>Container.SetSortMethod(Rating)</onclick>
+            </control>
+
+            <control type="group" id="609">
+                <left>0</left>
+                <top>0</top>
+                <width>200</width>
+                <height>56</height>
+                <include content="ButtonSecondary">
+                    <param name="ControlId" value="609" />
+                    <param name="Label" value="Sort: A-Z" />
+                    <param name="Icon" value="special://skin/media/hbomax/icons/dropdown.png" />
+                    <param name="Action" value="Container.SetSortMethod(Label)" />
+                </include>
+            </control>
+        </control>
+
+        <control type="panel" id="610">
+            <left>80</left>
+            <top>184</top>
+            <width>1760</width>
+            <height>872</height>
+            <onup>600</onup>
+            <ondown>610</ondown>
+            <onleft>610</onleft>
+            <onright>610</onright>
+            <viewtype label="LibraryGrid">panel</viewtype>
+            <scrolltime tween="sine">300</scrolltime>
+            <orientation>vertical</orientation>
+            <pagecontrol>611</pagecontrol>
+            <itemgap>16</itemgap>
+            <animation effect="fade" start="0" end="100" time="400" tween="sine">WindowOpen</animation>
+            <content condition="Container.Content(movies)">library://video/movies/titles.xml</content>
+            <content condition="Container.Content(tvshows)">library://video/tvshows/titles.xml</content>
+            <itemlayout width="238" height="381">
+                <control type="group">
+                    <left>0</left>
+                    <top>0</top>
+                    <width>238</width>
+                    <height>381</height>
+                    <include>PosterCard</include>
+                </control>
+            </itemlayout>
+            <focusedlayout width="238" height="381">
+                <control type="group">
+                    <left>0</left>
+                    <top>0</top>
+                    <width>238</width>
+                    <height>381</height>
+                    <include>PosterCard</include>
+                </control>
+            </focusedlayout>
+        </control>
+
+        <control type="label">
+            <left>660</left>
+            <top>420</top>
+            <width>600</width>
+            <height>48</height>
+            <font>DialogTitle</font>
+            <textcolor>$INFO[Skin.String(ColorTextMuted)]</textcolor>
+            <align>center</align>
+            <label>Nothing here yet</label>
+            <visible>Integer.IsEqual(Container(610).NumItems,0)</visible>
+        </control>
+
+        <control type="label">
+            <left>540</left>
+            <top>484</top>
+            <width>840</width>
+            <height>32</height>
+            <font>DialogBody</font>
+            <textcolor>$INFO[Skin.String(ColorTextMuted)]</textcolor>
+            <align>center</align>
+            <label>Add some movies to your library to get started</label>
+            <visible>Integer.IsEqual(Container(610).NumItems,0)</visible>
+        </control>
+
+        <control type="group">
+            <left>1420</left>
+            <top>268</top>
+            <width>420</width>
+            <height>544</height>
+            <visible>Control.HasFocus(610)</visible>
+            <animation effect="slide" start="60,0" end="0,0" time="300" tween="sine">Visible</animation>
+            <animation effect="slide" start="0,0" end="60,0" time="200" tween="sine">Hidden</animation>
+
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>420</width>
+                <height>544</height>
+                <texture background="true">$INFO[Container(610).ListItem.Art(fanart)]</texture>
+                <colordiffuse>$INFO[Skin.String(ColorCardShadow)]</colordiffuse>
+                <aspectratio>scale</aspectratio>
+            </control>
+
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>420</width>
+                <height>544</height>
+                <texture colordiffuse="$INFO[Skin.String(ColorElevated)]">white.png</texture>
+                <aspectratio>stretch</aspectratio>
+            </control>
+
+            <control type="image">
+                <left>32</left>
+                <top>32</top>
+                <width>320</width>
+                <height>96</height>
+                <texture background="true">$INFO[Container(610).ListItem.Art(clearlogo)]</texture>
+                <aspectratio>keep</aspectratio>
+                <visible>!String.IsEmpty(Container(610).ListItem.Art(clearlogo))</visible>
+            </control>
+
+            <control type="label">
+                <left>32</left>
+                <top>32</top>
+                <width>356</width>
+                <height>64</height>
+                <font>HeroTitle</font>
+                <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                <label>$INFO[Container(610).ListItem.Label]</label>
+                <visible>String.IsEmpty(Container(610).ListItem.Art(clearlogo))</visible>
+            </control>
+
+            <control type="grouplist">
+                <left>32</left>
+                <top>148</top>
+                <width>356</width>
+                <height>28</height>
+                <itemgap>10</itemgap>
+                <orientation>horizontal</orientation>
+
+                <control type="label">
+                    <width>72</width>
+                    <height>28</height>
+                    <font>MetadataInfo</font>
+                    <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                    <label>$INFO[Container(610).ListItem.Year]</label>
+                </control>
+
+                <control type="label">
+                    <width>20</width>
+                    <height>28</height>
+                    <font>MetadataInfo</font>
+                    <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                    <align>center</align>
+                    <label>·</label>
+                </control>
+
+                <control type="label">
+                    <width>96</width>
+                    <height>28</height>
+                    <font>MetadataInfo</font>
+                    <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                    <label>$VAR[RatingVar]</label>
+                </control>
+
+                <control type="label">
+                    <width>20</width>
+                    <height>28</height>
+                    <font>MetadataInfo</font>
+                    <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                    <align>center</align>
+                    <label>·</label>
+                </control>
+
+                <control type="label">
+                    <width>128</width>
+                    <height>28</height>
+                    <font>MetadataInfo</font>
+                    <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                    <label>$VAR[RuntimeVar]</label>
+                </control>
+            </control>
+
+            <control type="textbox">
+                <left>32</left>
+                <top>196</top>
+                <width>356</width>
+                <height>108</height>
+                <font>DialogBody</font>
+                <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                <label>$INFO[Container(610).ListItem.Plot]</label>
+                <autoscroll>false</autoscroll>
+            </control>
+
+            <control type="group" id="620">
+                <left>32</left>
+                <top>332</top>
+                <width>200</width>
+                <height>56</height>
+                <include content="ButtonPrimary">
+                    <param name="ControlId" value="620" />
+                    <param name="Label" value="Play" />
+                    <param name="Icon" value="special://skin/media/hbomax/icons/play.png" />
+                    <param name="Action" value="PlayMedia($INFO[Container(610).ListItem.FileNameAndPath])" />
+                </include>
+            </control>
+
+            <control type="group" id="621">
+                <left>32</left>
+                <top>404</top>
+                <width>200</width>
+                <height>56</height>
+                <include content="ButtonSecondary">
+                    <param name="ControlId" value="621" />
+                    <param name="Label" value="Info" />
+                    <param name="Icon" value="special://skin/media/hbomax/icons/info.png" />
+                    <param name="Action" value="Action(Info)" />
+                </include>
+            </control>
+        </control>
+        <include condition="Skin.HasSetting(DebugOverlay)">DebugOverlay</include>
+    </controls>
+</window>

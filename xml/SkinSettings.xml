@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window>
+    <defaultcontrol always="true">300</defaultcontrol>
+    <backgroundcolor>$INFO[Skin.String(ColorBackground)]</backgroundcolor>
+
+    <onload>SetProperty(SkinSettingsCategory,Home Screen)</onload>
+    <onunload>ClearProperty(SkinSettingsCategory)</onunload>
+
+    <controls>
+        <control type="image">
+            <left>0</left>
+            <top>0</top>
+            <width>1920</width>
+            <height>1080</height>
+            <texture colordiffuse="$INFO[Skin.String(ColorBackground)]">white.png</texture>
+            <aspectratio>stretch</aspectratio>
+        </control>
+
+        <control type="label">
+            <left>80</left>
+            <top>40</top>
+            <width>400</width>
+            <height>48</height>
+            <font>SectionHeader</font>
+            <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+            <align>left</align>
+            <aligny>center</aligny>
+            <label>Settings</label>
+        </control>
+
+        <control type="button" id="399">
+            <left>1720</left>
+            <top>32</top>
+            <width>120</width>
+            <height>56</height>
+            <font>NavItem</font>
+            <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+            <focusedcolor>$INFO[Skin.String(ColorTextPrimary)]</focusedcolor>
+            <label>Close</label>
+            <onclick>ActivateWindow(Home)</onclick>
+        </control>
+
+        <control type="image">
+            <left>80</left>
+            <top>120</top>
+            <width>280</width>
+            <height>840</height>
+            <texture colordiffuse="$INFO[Skin.String(ColorSurface)]">white.png</texture>
+            <aspectratio>stretch</aspectratio>
+        </control>
+
+        <control type="grouplist" id="300">
+            <left>80</left>
+            <top>140</top>
+            <width>280</width>
+            <height>800</height>
+            <itemgap>8</itemgap>
+            <orientation>vertical</orientation>
+
+            <control type="group" id="301">
+                <width>280</width>
+                <height>64</height>
+                <onright>410</onright>
+                <ondown>302</ondown>
+                <onup>399</onup>
+                <onclick>SetProperty(SkinSettingsCategory,Home Screen)</onclick>
+                <include content="SettingCategoryItem">
+                    <param name="Label" value="Home Screen" />
+                </include>
+            </control>
+
+            <control type="group" id="302">
+                <width>280</width>
+                <height>64</height>
+                <onright>420</onright>
+                <ondown>303</ondown>
+                <onup>301</onup>
+                <onclick>SetProperty(SkinSettingsCategory,Appearance)</onclick>
+                <include content="SettingCategoryItem">
+                    <param name="Label" value="Appearance" />
+                </include>
+            </control>
+
+            <control type="group" id="303">
+                <width>280</width>
+                <height>64</height>
+                <onright>430</onright>
+                <ondown>304</ondown>
+                <onup>302</onup>
+                <onclick>SetProperty(SkinSettingsCategory,Metadata)</onclick>
+                <include content="SettingCategoryItem">
+                    <param name="Label" value="Metadata" />
+                </include>
+            </control>
+
+            <control type="group" id="304">
+                <width>280</width>
+                <height>64</height>
+                <onright>440</onright>
+                <ondown>305</ondown>
+                <onup>303</onup>
+                <onclick>SetProperty(SkinSettingsCategory,Playback)</onclick>
+                <include content="SettingCategoryItem">
+                    <param name="Label" value="Playback" />
+                </include>
+            </control>
+
+            <control type="group" id="305">
+                <width>280</width>
+                <height>64</height>
+                <onright>450</onright>
+                <ondown>399</ondown>
+                <onup>304</onup>
+                <onclick>SetProperty(SkinSettingsCategory,About)</onclick>
+                <include content="SettingCategoryItem">
+                    <param name="Label" value="About" />
+                </include>
+            </control>
+        </control>
+
+        <control type="group" id="400">
+            <left>400</left>
+            <top>120</top>
+            <width>1440</width>
+            <height>840</height>
+
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>1440</width>
+                <height>840</height>
+                <texture colordiffuse="$INFO[Skin.String(ColorElevated)]">white.png</texture>
+                <aspectratio>stretch</aspectratio>
+            </control>
+
+            <control type="group" id="401">
+                <visible>String.IsEqual(Window.Property(SkinSettingsCategory),Home Screen)</visible>
+
+                <control type="label">
+                    <left>48</left>
+                    <top>40</top>
+                    <width>520</width>
+                    <height>40</height>
+                    <font>SectionHeader</font>
+                    <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                    <label>Home Screen</label>
+                </control>
+
+                <control type="group" id="410">
+                    <left>48</left>
+                    <top>108</top>
+                    <width>480</width>
+                    <height>56</height>
+                    <onleft>301</onleft>
+                    <ondown>412</ondown>
+                    <include content="SettingToggle">
+                        <param name="ControlId" value="410" />
+                        <param name="SettingId" value="HeroAutoRotate" />
+                        <param name="Label" value="Auto-rotate hero carousel" />
+                    </include>
+                </control>
+
+                <control type="group" id="412">
+                    <left>48</left>
+                    <top>196</top>
+                    <width>480</width>
+                    <height>56</height>
+                    <onleft>301</onleft>
+                    <onup>410</onup>
+                    <ondown>415</ondown>
+                    <include content="SettingSelect">
+                        <param name="ControlId" value="412" />
+                        <param name="SettingId" value="HeroRotateInterval" />
+                        <param name="Label" value="Rotation speed" />
+                        <param name="Values" value="5s|8s|12s" />
+                        <param name="ValueLabel" value="$INFO[String.IsEqual(Skin.String(HeroRotateInterval),5000),5s,$INFO[String.IsEqual(Skin.String(HeroRotateInterval),12000),12s,8s]]" />
+                        <param name="LeftAction" value="Skin.SetString(HeroRotateInterval,5000)" />
+                        <param name="RightAction" value="Skin.SetString(HeroRotateInterval,12000)" />
+                    </include>
+                </control>
+
+                <control type="group" id="415">
+                    <left>48</left>
+                    <top>284</top>
+                    <width>480</width>
+                    <height>56</height>
+                    <onleft>301</onleft>
+                    <onup>412</onup>
+                    <ondown>416</ondown>
+                    <include content="SettingToggle">
+                        <param name="ControlId" value="415" />
+                        <param name="SettingId" value="ShowHeroDots" />
+                        <param name="Label" value="Show carousel dots" />
+                    </include>
+                </control>
+
+                <control type="group" id="416">
+                    <left>48</left>
+                    <top>372</top>
+                    <width>480</width>
+                    <height>56</height>
+                    <onleft>301</onleft>
+                    <onup>415</onup>
+                    <ondown>417</ondown>
+                    <include content="SettingToggle">
+                        <param name="ControlId" value="416" />
+                        <param name="SettingId" value="ShowHeroPlot" />
+                        <param name="Label" value="Show plot text on hero" />
+                    </include>
+                </control>
+
+                <control type="group" id="417">
+                    <left>48</left>
+                    <top>460</top>
+                    <width>480</width>
+                    <height>56</height>
+                    <onleft>301</onleft>
+                    <onup>416</onup>
+                    <include content="SettingToggle">
+                        <param name="ControlId" value="417" />
+                        <param name="SettingId" value="ShowHeroClearLogo" />
+                        <param name="Label" value="Prefer clearlogo over title" />
+                    </include>
+                </control>
+            </control>
+
+            <control type="group" id="402">
+                <visible>String.IsEqual(Window.Property(SkinSettingsCategory),Appearance)</visible>
+
+                <control type="label">
+                    <left>48</left>
+                    <top>40</top>
+                    <width>520</width>
+                    <height>40</height>
+                    <font>SectionHeader</font>
+                    <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                    <label>Appearance</label>
+                </control>
+
+                <control type="group" id="420">
+                    <left>48</left>
+                    <top>108</top>
+                    <width>480</width>
+                    <height>56</height>
+                    <onleft>302</onleft>
+                    <ondown>424</ondown>
+                    <include content="SettingSelect">
+                        <param name="ControlId" value="420" />
+                        <param name="SettingId" value="ShelfCardStyle" />
+                        <param name="Label" value="Card style" />
+                        <param name="Values" value="Poster|Landscape" />
+                        <param name="ValueLabel" value="$INFO[String.IsEqual(Skin.String(ShelfCardStyle),landscape),Landscape,Poster]" />
+                        <param name="LeftAction" value="Skin.SetString(ShelfCardStyle,poster)" />
+                        <param name="RightAction" value="Skin.SetString(ShelfCardStyle,landscape)" />
+                    </include>
+                </control>
+
+                <control type="group" id="424">
+                    <left>48</left>
+                    <top>196</top>
+                    <width>480</width>
+                    <height>56</height>
+                    <onleft>302</onleft>
+                    <onup>420</onup>
+                    <ondown>425</ondown>
+                    <include content="SettingToggle">
+                        <param name="ControlId" value="424" />
+                        <param name="SettingId" value="NavBarAlwaysVisible" />
+                        <param name="Label" value="Always show nav bar" />
+                    </include>
+                </control>
+
+                <control type="group" id="425">
+                    <left>48</left>
+                    <top>284</top>
+                    <width>480</width>
+                    <height>56</height>
+                    <onleft>302</onleft>
+                    <onup>424</onup>
+                    <ondown>426</ondown>
+                    <include content="SettingToggle">
+                        <param name="ControlId" value="425" />
+                        <param name="SettingId" value="ShowClockInNav" />
+                        <param name="Label" value="Show clock in nav" />
+                    </include>
+                </control>
+
+                <control type="group" id="426">
+                    <left>48</left>
+                    <top>372</top>
+                    <width>480</width>
+                    <height>56</height>
+                    <onleft>302</onleft>
+                    <onup>425</onup>
+                    <ondown>427</ondown>
+                    <include content="SettingToggle">
+                        <param name="ControlId" value="426" />
+                        <param name="SettingId" value="UseCustomAccent" />
+                        <param name="Label" value="Custom accent color" />
+                    </include>
+                </control>
+
+                <control type="group" id="427">
+                    <left>48</left>
+                    <top>460</top>
+                    <width>480</width>
+                    <height>56</height>
+                    <onleft>302</onleft>
+                    <onup>426</onup>
+                    <visible>Skin.HasSetting(UseCustomAccent)</visible>
+                    <include content="SettingTextInput">
+                        <param name="ControlId" value="427" />
+                        <param name="SettingId" value="AccentColorCustom" />
+                        <param name="Label" value="Accent color value" />
+                        <param name="Hint" value="Enter accent hex" />
+                        <param name="ValueLabel" value="$INFO[Skin.String(AccentColorCustom)]" />
+                    </include>
+                </control>
+            </control>
+
+            <control type="group" id="403">
+                <visible>String.IsEqual(Window.Property(SkinSettingsCategory),Metadata)</visible>
+
+                <control type="label">
+                    <left>48</left>
+                    <top>40</top>
+                    <width>520</width>
+                    <height>40</height>
+                    <font>SectionHeader</font>
+                    <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                    <label>Metadata</label>
+                </control>
+
+                <control type="group" id="430">
+                    <left>48</left>
+                    <top>108</top>
+                    <width>480</width>
+                    <height>56</height>
+                    <onleft>303</onleft>
+                    <ondown>432</ondown>
+                    <include content="SettingToggle">
+                        <param name="ControlId" value="430" />
+                        <param name="SettingId" value="ShowRatings" />
+                        <param name="Label" value="Show ratings" />
+                    </include>
+                </control>
+
+                <control type="group" id="432">
+                    <left>48</left>
+                    <top>196</top>
+                    <width>480</width>
+                    <height>56</height>
+                    <onleft>303</onleft>
+                    <onup>430</onup>
+                    <ondown>433</ondown>
+                    <include content="SettingToggle">
+                        <param name="ControlId" value="432" />
+                        <param name="SettingId" value="ShowDuration" />
+                        <param name="Label" value="Show duration" />
+                    </include>
+                </control>
+
+                <control type="group" id="433">
+                    <left>48</left>
+                    <top>284</top>
+                    <width>480</width>
+                    <height>56</height>
+                    <onleft>303</onleft>
+                    <onup>432</onup>
+                    <ondown>434</ondown>
+                    <include content="SettingToggle">
+                        <param name="ControlId" value="433" />
+                        <param name="SettingId" value="ShowGenre" />
+                        <param name="Label" value="Show genre" />
+                    </include>
+                </control>
+
+                <control type="group" id="434">
+                    <left>48</left>
+                    <top>372</top>
+                    <width>480</width>
+                    <height>56</height>
+                    <onleft>303</onleft>
+                    <onup>433</onup>
+                    <include content="SettingToggle">
+                        <param name="ControlId" value="434" />
+                        <param name="SettingId" value="ShowStudioLogo" />
+                        <param name="Label" value="Show studio logo" />
+                    </include>
+                </control>
+            </control>
+
+            <control type="group" id="404">
+                <visible>String.IsEqual(Window.Property(SkinSettingsCategory),Playback)</visible>
+
+                <control type="label">
+                    <left>48</left>
+                    <top>40</top>
+                    <width>520</width>
+                    <height>40</height>
+                    <font>SectionHeader</font>
+                    <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                    <label>Playback</label>
+                </control>
+
+                <control type="group" id="440">
+                    <left>48</left>
+                    <top>108</top>
+                    <width>480</width>
+                    <height>56</height>
+                    <onleft>304</onleft>
+                    <include content="SettingToggle">
+                        <param name="ControlId" value="440" />
+                        <param name="SettingId" value="EnableTrailerPreview" />
+                        <param name="Label" value="Enable trailer preview" />
+                    </include>
+                </control>
+            </control>
+
+            <control type="group" id="405">
+                <visible>String.IsEqual(Window.Property(SkinSettingsCategory),About)</visible>
+
+                <control type="label" id="450">
+                    <left>48</left>
+                    <top>72</top>
+                    <width>700</width>
+                    <height>80</height>
+                    <font>HeroTitle</font>
+                    <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                    <label>HBO Max</label>
+                </control>
+
+                <control type="label">
+                    <left>48</left>
+                    <top>164</top>
+                    <width>300</width>
+                    <height>32</height>
+                    <font>MetadataInfo</font>
+                    <textcolor>$INFO[Skin.String(ColorTextMuted)]</textcolor>
+                    <label>v1.0.0</label>
+                </control>
+
+                <control type="label">
+                    <left>48</left>
+                    <top>236</top>
+                    <width>700</width>
+                    <height>32</height>
+                    <font>MetadataInfo</font>
+                    <textcolor>$INFO[Skin.String(ColorTextMuted)]</textcolor>
+                    <label>Built for Kodi Omega (v21)</label>
+                </control>
+
+                <control type="label">
+                    <left>48</left>
+                    <top>276</top>
+                    <width>900</width>
+                    <height>32</height>
+                    <font>MetadataInfo</font>
+                    <textcolor>$INFO[Skin.String(ColorTextMuted)]</textcolor>
+                    <label>Powered by TMDB Helper + Skin Helper</label>
+                </control>
+            </control>
+        </control>
+        <include condition="Skin.HasSetting(DebugOverlay)">DebugOverlay</include>
+    </controls>
+</window>
