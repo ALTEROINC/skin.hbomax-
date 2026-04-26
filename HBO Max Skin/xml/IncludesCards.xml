@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<includes>
+    <include name="PosterCard">
+        <control type="group">
+            <width>140</width>
+            <height>232</height>
+
+            <control type="image">
+                <left>0</left>
+                <top>2</top>
+                <width>140</width>
+                <height>210</height>
+                <texture>special://skin/media/hbomax/card-shadow.png</texture>
+                <aspectratio>stretch</aspectratio>
+            </control>
+
+            <control type="group">
+                <left>0</left>
+                <top>0</top>
+                <width>140</width>
+                <height>210</height>
+                <animation effect="zoom" start="100" end="105" time="200" tween="sine">Focus</animation>
+                <animation effect="zoom" start="105" end="100" time="150" tween="sine">UnFocus</animation>
+
+                <control type="image">
+                    <left>0</left>
+                    <top>0</top>
+                    <width>140</width>
+                    <height>210</height>
+                    <texture background="true">$INFO[ListItem.Thumbnail]</texture>
+                    <aspectratio>scale</aspectratio>
+                    <visible>!String.IsEmpty(ListItem.Thumbnail)</visible>
+                </control>
+
+                <control type="image">
+                    <left>0</left>
+                    <top>0</top>
+                    <width>140</width>
+                    <height>210</height>
+                    <texture background="true">$INFO[ListItem.Art(poster)]</texture>
+                    <aspectratio>scale</aspectratio>
+                    <visible>String.IsEmpty(ListItem.Thumbnail)</visible>
+                </control>
+
+                <control type="image">
+                    <left>-8</left>
+                    <top>-8</top>
+                    <width>156</width>
+                    <height>226</height>
+                    <texture border="8">special://skin/media/hbomax/card-focus.png</texture>
+                    <colordiffuse>$INFO[Skin.String(ColorFocus)]</colordiffuse>
+                    <animation effect="fade" start="0" end="60" time="1">Focus</animation>
+                    <animation effect="fade" start="60" end="0" time="150" tween="sine">UnFocus</animation>
+                </control>
+
+                <control type="image">
+                    <left>0</left>
+                    <top>206</top>
+                    <width>140</width>
+                    <height>4</height>
+                    <texture colordiffuse="$INFO[Skin.String(ColorTextMuted)]">special://skin/media/hbomax/progress-bar-bg.png</texture>
+                    <aspectratio>stretch</aspectratio>
+                    <visible>!String.IsEmpty(ListItem.Property(ResumeTime))</visible>
+                </control>
+
+                <control type="image">
+                    <left>0</left>
+                    <top>206</top>
+                    <width>140</width>
+                    <height>4</height>
+                    <texture colordiffuse="$INFO[Skin.String(ColorAccentPurple)]">special://skin/media/hbomax/progress-bar-fill.png</texture>
+                    <aspectratio aligny="center">scale</aspectratio>
+                    <visible>!String.IsEmpty(ListItem.Property(ResumeTime))</visible>
+                </control>
+            </control>
+
+            <control type="label">
+                <left>0</left>
+                <top>214</top>
+                <width>140</width>
+                <height>18</height>
+                <font>font18</font>
+                <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                <align>left</align>
+                <aligny>top</aligny>
+                <scroll>false</scroll>
+                <label>$INFO[ListItem.Label]</label>
+                <animation effect="fade" start="0" end="100" time="200" tween="sine">Focus</animation>
+                <animation effect="fade" start="100" end="0" time="150" tween="sine">UnFocus</animation>
+            </control>
+        </control>
+    </include>
+
+    <include name="LandscapeCard">
+        <control type="group">
+            <width>320</width>
+            <height>180</height>
+
+            <control type="image">
+                <left>0</left>
+                <top>2</top>
+                <width>320</width>
+                <height>180</height>
+                <texture>special://skin/media/hbomax/card-shadow.png</texture>
+                <aspectratio>stretch</aspectratio>
+            </control>
+
+            <control type="group">
+                <left>0</left>
+                <top>0</top>
+                <width>320</width>
+                <height>180</height>
+                <animation effect="zoom" start="100" end="105" time="200" tween="sine">Focus</animation>
+                <animation effect="zoom" start="105" end="100" time="150" tween="sine">UnFocus</animation>
+
+                <control type="image">
+                    <left>0</left>
+                    <top>0</top>
+                    <width>320</width>
+                    <height>180</height>
+                    <texture background="true">$INFO[ListItem.Art(landscape)]</texture>
+                    <aspectratio>scale</aspectratio>
+                </control>
+
+                <control type="image">
+                    <left>0</left>
+                    <top>72</top>
+                    <width>320</width>
+                    <height>108</height>
+                    <texture>special://skin/media/hbomax/hero-gradient.png</texture>
+                    <aspectratio>stretch</aspectratio>
+                </control>
+
+                <control type="image">
+                    <left>-8</left>
+                    <top>-8</top>
+                    <width>336</width>
+                    <height>196</height>
+                    <texture border="8">special://skin/media/hbomax/card-focus.png</texture>
+                    <colordiffuse>$INFO[Skin.String(ColorFocus)]</colordiffuse>
+                    <animation effect="fade" start="0" end="60" time="1">Focus</animation>
+                    <animation effect="fade" start="60" end="0" time="150" tween="sine">UnFocus</animation>
+                </control>
+
+                <control type="label">
+                    <left>16</left>
+                    <top>138</top>
+                    <width>288</width>
+                    <height>24</height>
+                    <font>font18</font>
+                    <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                    <shadowcolor>$INFO[Skin.String(ColorBackground)]</shadowcolor>
+                    <align>left</align>
+                    <aligny>center</aligny>
+                    <label>$INFO[ListItem.Label]</label>
+                </control>
+            </control>
+        </control>
+    </include>
+
+    <include name="HeroCard">
+        <control type="group">
+            <width>1920</width>
+            <height>540</height>
+
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>1920</width>
+                <height>540</height>
+                <texture background="true">$INFO[ListItem.Art(fanart)]</texture>
+                <aspectratio scalediffuse="false">scale</aspectratio>
+                <animation effect="fade" start="0" end="100" time="600" tween="sine">Visible</animation>
+                <animation effect="fade" start="100" end="0" time="400" tween="sine">Hidden</animation>
+            </control>
+
+            <control type="image">
+                <left>0</left>
+                <top>240</top>
+                <width>1920</width>
+                <height>300</height>
+                <texture>special://skin/media/hbomax/hero-gradient.png</texture>
+                <aspectratio>stretch</aspectratio>
+            </control>
+
+            <control type="group">
+                <left>80</left>
+                <top>176</top>
+                <width>760</width>
+                <height>164</height>
+                <animation effect="slide" start="0,40" end="0,0" time="500" tween="back" easing="out">Visible</animation>
+
+                <control type="image">
+                    <left>0</left>
+                    <top>0</top>
+                    <width>520</width>
+                    <height>120</height>
+                    <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
+                    <aspectratio>keep</aspectratio>
+                    <visible>!String.IsEmpty(ListItem.Art(clearlogo))</visible>
+                </control>
+
+                <control type="label">
+                    <left>0</left>
+                    <top>0</top>
+                    <width>760</width>
+                    <height>80</height>
+                    <font>font64</font>
+                    <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                    <label>$INFO[ListItem.Label]</label>
+                    <visible>String.IsEmpty(ListItem.Art(clearlogo))</visible>
+                </control>
+
+                <control type="grouplist">
+                    <left>0</left>
+                    <top>132</top>
+                    <width>760</width>
+                    <height>32</height>
+                    <itemgap>12</itemgap>
+                    <orientation>horizontal</orientation>
+
+                    <control type="label">
+                        <width>90</width>
+                        <height>32</height>
+                        <font>font20</font>
+                        <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                        <label>$INFO[ListItem.Year]</label>
+                    </control>
+
+                    <control type="label">
+                        <width>20</width>
+                        <height>32</height>
+                        <font>font20</font>
+                        <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                        <align>center</align>
+                        <label>•</label>
+                    </control>
+
+                    <control type="label">
+                        <width>80</width>
+                        <height>32</height>
+                        <font>font20</font>
+                        <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                        <label>$INFO[ListItem.Rating]</label>
+                    </control>
+
+                    <control type="label">
+                        <width>20</width>
+                        <height>32</height>
+                        <font>font20</font>
+                        <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                        <align>center</align>
+                        <label>•</label>
+                    </control>
+
+                    <control type="label">
+                        <width>160</width>
+                        <height>32</height>
+                        <font>font20</font>
+                        <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                        <label>$INFO[ListItem.Duration]</label>
+                    </control>
+                </control>
+            </control>
+        </control>
+    </include>
+</includes>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window>
+    <defaultcontrol always="true">802</defaultcontrol>
+
+    <controls>
+        <control type="group">
+            <left>0</left>
+            <top>1000</top>
+            <width>1920</width>
+            <height>80</height>
+            <visible>!System.IdleTime(3) | Player.Paused</visible>
+            <animation effect="fade" start="0" end="100" time="150" tween="sine">Visible</animation>
+            <animation effect="fade" start="100" end="0" time="400" tween="sine">Hidden</animation>
+
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>1920</width>
+                <height>80</height>
+                <texture colordiffuse="$INFO[Skin.String(ColorBackground)]" flipy="true">special://skin/media/hbomax/osd-top-gradient.png</texture>
+                <aspectratio>stretch</aspectratio>
+            </control>
+
+            <control type="label" id="800">
+                <left>80</left>
+                <top>24</top>
+                <width>120</width>
+                <height>28</height>
+                <font>MetadataInfo</font>
+                <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                <label>$INFO[Player.Time]</label>
+            </control>
+
+            <control type="label" id="801">
+                <left>1720</left>
+                <top>24</top>
+                <width>120</width>
+                <height>28</height>
+                <font>MetadataInfo</font>
+                <textcolor>$INFO[Skin.String(ColorTextMuted)]</textcolor>
+                <align>right</align>
+                <label>-$INFO[Player.TimeRemaining]</label>
+            </control>
+
+            <control type="sliderex" id="802">
+                <left>220</left>
+                <top>41</top>
+                <width>1480</width>
+                <height>20</height>
+                <info>Player.Progress</info>
+                <texturesliderbar>white.png</texturesliderbar>
+                <texturesliderbarfocus>white.png</texturesliderbarfocus>
+                <textureslidernib>special://skin/media/hbomax/osd-scrubber.png</textureslidernib>
+                <textureslidernibfocus>special://skin/media/hbomax/osd-scrubber.png</textureslidernibfocus>
+                <colordiffuse>$INFO[Skin.String(ColorProgressBg)]</colordiffuse>
+            </control>
+
+            <control type="image" id="803">
+                <left>220</left>
+                <top>41</top>
+                <width>1480</width>
+                <height>6</height>
+                <texture colordiffuse="$INFO[Skin.String(ColorProgressBg)]">white.png</texture>
+                <aspectratio>stretch</aspectratio>
+            </control>
+
+            <control type="image" id="804">
+                <left>220</left>
+                <top>41</top>
+                <width>740</width>
+                <height>6</height>
+                <texture colordiffuse="$INFO[Skin.String(ColorTextMuted)]">white.png</texture>
+                <aspectratio>stretch</aspectratio>
+            </control>
+
+            <control type="image" id="805">
+                <left>220</left>
+                <top>41</top>
+                <width>740</width>
+                <height>6</height>
+                <texture colordiffuse="$INFO[Skin.String(ColorProgressFill)]">white.png</texture>
+                <aspectratio>stretch</aspectratio>
+            </control>
+        </control>
+        <include condition="Skin.HasSetting(DebugOverlay)">DebugOverlay</include>
+    </controls>
+</window>

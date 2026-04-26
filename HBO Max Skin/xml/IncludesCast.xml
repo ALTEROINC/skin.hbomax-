@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<includes>
+    <include name="CastCard">
+        <control type="group">
+            <width>120</width>
+            <height>154</height>
+
+            <control type="image">
+                <left>10</left>
+                <top>0</top>
+                <width>100</width>
+                <height>100</height>
+                <texture background="true">$INFO[ListItem.Thumbnail]</texture>
+                <aspectratio>scale</aspectratio>
+                <masktexture>special://skin/media/hbomax/circle-mask.png</masktexture>
+            </control>
+
+            <control type="image">
+                <left>6</left>
+                <top>-4</top>
+                <width>108</width>
+                <height>108</height>
+                <texture border="8">special://skin/media/hbomax/card-focus.png</texture>
+                <colordiffuse>$INFO[Skin.String(ColorFocus)]</colordiffuse>
+                <visible>Control.HasFocus(500)</visible>
+            </control>
+
+            <control type="label">
+                <left>0</left>
+                <top>108</top>
+                <width>120</width>
+                <height>20</height>
+                <font>Badge</font>
+                <textcolor>$INFO[Skin.String(ColorTextSecondary)]</textcolor>
+                <align>center</align>
+                <label>$INFO[ListItem.Label]</label>
+            </control>
+
+            <control type="label">
+                <left>0</left>
+                <top>132</top>
+                <width>120</width>
+                <height>18</height>
+                <font>font16</font>
+                <textcolor>$INFO[Skin.String(ColorTextMuted)]</textcolor>
+                <align>center</align>
+                <label>$INFO[ListItem.Property(Role)]</label>
+            </control>
+        </control>
+    </include>
+</includes>

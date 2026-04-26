@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window>
+    <defaultcontrol always="true">831</defaultcontrol>
+    <onback>PreviousMenu</onback>
+
+    <controls>
+        <control type="group">
+            <left>0</left>
+            <top>680</top>
+            <width>1920</width>
+            <height>400</height>
+            <animation effect="slide" start="0,400" end="0,0" time="350" tween="back" easing="out">WindowOpen</animation>
+            <animation effect="slide" start="0,0" end="0,400" time="250" tween="sine">WindowClose</animation>
+
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>1920</width>
+                <height>400</height>
+                <texture border="12" colordiffuse="$INFO[Skin.String(ColorSurface)]">special://skin/media/hbomax/btn-secondary.png</texture>
+                <aspectratio>stretch</aspectratio>
+            </control>
+
+            <control type="label">
+                <left>80</left>
+                <top>32</top>
+                <width>400</width>
+                <height>40</height>
+                <font>SectionHeader</font>
+                <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                <label>$LOCALIZE[32022]</label>
+            </control>
+
+            <control type="group" id="849">
+                <left>1784</left>
+                <top>24</top>
+                <width>56</width>
+                <height>78</height>
+                <include content="ButtonIcon">
+                    <param name="ControlId" value="849" />
+                    <param name="Icon" value="special://skin/media/hbomax/icons/close.png" />
+                    <param name="Action" value="PreviousMenu" />
+                    <param name="Tooltip" value="$LOCALIZE[32021]" />
+                    <param name="Width" value="56" />
+                    <param name="Height" value="56" />
+                    <param name="IconSize" value="28" />
+                </include>
+            </control>
+
+            <control type="list" id="831">
+                <left>80</left>
+                <top>96</top>
+                <width>1760</width>
+                <height>208</height>
+                <onup>831</onup>
+                <ondown>840</ondown>
+                <pagecontrol>832</pagecontrol>
+                <scrolltime tween="sine">250</scrolltime>
+                <itemlayout height="56" width="1760">
+                    <control type="group">
+                        <width>1760</width>
+                        <height>56</height>
+                        <control type="label">
+                            <left>24</left>
+                            <top>0</top>
+                            <width>1712</width>
+                            <height>56</height>
+                            <font>CardLabel</font>
+                            <textcolor>$INFO[Skin.String(ColorTextMuted)]</textcolor>
+                            <aligny>center</aligny>
+                            <label>$INFO[ListItem.Label]</label>
+                        </control>
+                    </control>
+                </itemlayout>
+                <focusedlayout height="56" width="1760">
+                    <control type="group">
+                        <width>1760</width>
+                        <height>56</height>
+                        <control type="image">
+                            <left>0</left>
+                            <top>0</top>
+                            <width>1760</width>
+                            <height>56</height>
+                            <texture colordiffuse="$INFO[Skin.String(ColorElevated)]">white.png</texture>
+                            <aspectratio>stretch</aspectratio>
+                        </control>
+                        <control type="image">
+                            <left>0</left>
+                            <top>0</top>
+                            <width>3</width>
+                            <height>56</height>
+                            <texture colordiffuse="$INFO[Skin.String(ColorAccentPurple)]">white.png</texture>
+                            <aspectratio>stretch</aspectratio>
+                        </control>
+                        <control type="image">
+                            <left>-2</left>
+                            <top>-2</top>
+                            <width>1764</width>
+                            <height>60</height>
+                            <texture border="12" colordiffuse="$INFO[Skin.String(ColorFocus)]">special://skin/media/hbomax/card-focus.png</texture>
+                            <aspectratio>stretch</aspectratio>
+                        </control>
+                        <control type="label">
+                            <left>24</left>
+                            <top>0</top>
+                            <width>1712</width>
+                            <height>56</height>
+                            <font>CardLabel</font>
+                            <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                            <aligny>center</aligny>
+                            <label>$INFO[ListItem.Label]</label>
+                        </control>
+                    </control>
+                </focusedlayout>
+                <onclick>SetSubtitles($INFO[ListItem.Label])</onclick>
+            </control>
+
+            <control type="group" id="840">
+                <left>80</left>
+                <top>320</top>
+                <width>480</width>
+                <height>56</height>
+                <onup>831</onup>
+                <onright>841</onright>
+                <include content="SettingToggle">
+                    <param name="ControlId" value="840" />
+                    <param name="SettingId" value="subtitlesenabled" />
+                    <param name="Label" value="$LOCALIZE[32023]" />
+                </include>
+            </control>
+
+            <control type="group" id="841">
+                <left>576</left>
+                <top>320</top>
+                <width>200</width>
+                <height>56</height>
+                <onleft>840</onleft>
+                <onup>831</onup>
+                <include content="ButtonSecondary">
+                    <param name="ControlId" value="841" />
+                    <param name="Label" value="$LOCALIZE[32024]" />
+                    <param name="Icon" value="special://skin/media/hbomax/icons/download.png" />
+                    <param name="Action" value="ActivateWindow(SubtitleSearch)" />
+                </include>
+            </control>
+        </control>
+        <include condition="Skin.HasSetting(DebugOverlay)">DebugOverlay</include>
+    </controls>
+</window>

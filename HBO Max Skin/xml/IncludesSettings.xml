@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<includes>
+    <include name="SettingToggle">
+        <param name="ControlId" />
+        <param name="SettingId" />
+        <param name="Label" />
+        <control type="group">
+            <width>480</width>
+            <height>56</height>
+
+            <control type="image">
+                <left>-2</left>
+                <top>-2</top>
+                <width>484</width>
+                <height>60</height>
+                <texture border="2">special://skin/media/hbomax/card-focus.png</texture>
+                <colordiffuse>$INFO[Skin.String(ColorFocus)]</colordiffuse>
+                <visible>Control.HasFocus($PARAM[ControlId])</visible>
+            </control>
+
+            <control type="label">
+                <left>0</left>
+                <top>0</top>
+                <width>332</width>
+                <height>56</height>
+                <font>SettingsLabel</font>
+                <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                <aligny>center</aligny>
+                <label>$PARAM[Label]</label>
+            </control>
+
+            <control type="button">
+                <id>$PARAM[ControlId]</id>
+                <left>0</left>
+                <top>0</top>
+                <width>480</width>
+                <height>56</height>
+                <font>Badge</font>
+                <textcolor>00FFFFFF</textcolor>
+                <focusedcolor>00FFFFFF</focusedcolor>
+                <label>-</label>
+                <onclick>Skin.ToggleSetting($PARAM[SettingId])</onclick>
+            </control>
+
+            <control type="togglebutton">
+                <left>372</left>
+                <top>12</top>
+                <width>80</width>
+                <height>32</height>
+                <font>Badge</font>
+                <textcolor>00FFFFFF</textcolor>
+                <focusedcolor>00FFFFFF</focusedcolor>
+                <label>-</label>
+                <selected>Skin.HasSetting($PARAM[SettingId])</selected>
+            </control>
+
+            <control type="image">
+                <left>372</left>
+                <top>12</top>
+                <width>80</width>
+                <height>32</height>
+                <texture colordiffuse="$INFO[Skin.String(ColorSurface)]">white.png</texture>
+                <aspectratio>stretch</aspectratio>
+                <visible>!Skin.HasSetting($PARAM[SettingId])</visible>
+            </control>
+
+            <control type="image">
+                <left>372</left>
+                <top>12</top>
+                <width>80</width>
+                <height>32</height>
+                <texture colordiffuse="$INFO[Skin.String(ColorAccentPurple)]">white.png</texture>
+                <aspectratio>stretch</aspectratio>
+                <visible>Skin.HasSetting($PARAM[SettingId])</visible>
+            </control>
+
+            <control type="image">
+                <left>378</left>
+                <top>16</top>
+                <width>24</width>
+                <height>24</height>
+                <texture colordiffuse="$INFO[Skin.String(ColorTextMuted)]">white.png</texture>
+                <aspectratio>stretch</aspectratio>
+                <visible>!Skin.HasSetting($PARAM[SettingId])</visible>
+                <animation effect="slide" start="20,0" end="0,0" time="200" tween="sine">Visible</animation>
+            </control>
+
+            <control type="image">
+                <left>422</left>
+                <top>16</top>
+                <width>24</width>
+                <height>24</height>
+                <texture colordiffuse="$INFO[Skin.String(ColorTextPrimary)]">white.png</texture>
+                <aspectratio>stretch</aspectratio>
+                <visible>Skin.HasSetting($PARAM[SettingId])</visible>
+                <animation effect="slide" start="-20,0" end="0,0" time="200" tween="sine">Visible</animation>
+            </control>
+        </control>
+    </include>
+
+    <include name="SettingSelect">
+        <param name="ControlId" />
+        <param name="Label" />
+        <param name="Values" />
+        <param name="ValueLabel" />
+        <param name="LeftAction" />
+        <param name="RightAction" />
+        <control type="group">
+            <width>480</width>
+            <height>56</height>
+
+            <control type="image">
+                <left>-2</left>
+                <top>-2</top>
+                <width>484</width>
+                <height>60</height>
+                <texture border="2">special://skin/media/hbomax/card-focus.png</texture>
+                <colordiffuse>$INFO[Skin.String(ColorFocus)]</colordiffuse>
+                <visible>Control.HasFocus($PARAM[ControlId])</visible>
+            </control>
+
+            <control type="label">
+                <left>0</left>
+                <top>0</top>
+                <width>260</width>
+                <height>56</height>
+                <font>SettingsLabel</font>
+                <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                <aligny>center</aligny>
+                <label>$PARAM[Label]</label>
+            </control>
+
+            <control type="button" id="$PARAM[ControlId]">
+                <left>292</left>
+                <top>0</top>
+                <width>40</width>
+                <height>56</height>
+                <font>NavItem</font>
+                <textcolor>$INFO[Skin.String(ColorTextMuted)]</textcolor>
+                <focusedcolor>$INFO[Skin.String(ColorAccentPurple)]</focusedcolor>
+                <label>◀</label>
+                <onclick>$PARAM[LeftAction]</onclick>
+            </control>
+
+            <control type="label">
+                <left>340</left>
+                <top>0</top>
+                <width>120</width>
+                <height>56</height>
+                <font>SettingsValue</font>
+                <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                <align>center</align>
+                <aligny>center</aligny>
+                <label>$PARAM[ValueLabel]</label>
+            </control>
+
+            <control type="button">
+                <left>440</left>
+                <top>0</top>
+                <width>40</width>
+                <height>56</height>
+                <font>NavItem</font>
+                <textcolor>$INFO[Skin.String(ColorTextMuted)]</textcolor>
+                <focusedcolor>$INFO[Skin.String(ColorAccentPurple)]</focusedcolor>
+                <label>▶</label>
+                <onclick>$PARAM[RightAction]</onclick>
+            </control>
+        </control>
+    </include>
+
+    <include name="SettingTextInput">
+        <param name="ControlId" />
+        <param name="SettingId" />
+        <param name="Label" />
+        <param name="Hint" />
+        <param name="ValueLabel" />
+        <control type="group">
+            <width>480</width>
+            <height>56</height>
+
+            <control type="image">
+                <left>-2</left>
+                <top>-2</top>
+                <width>484</width>
+                <height>60</height>
+                <texture border="2">special://skin/media/hbomax/card-focus.png</texture>
+                <colordiffuse>$INFO[Skin.String(ColorFocus)]</colordiffuse>
+                <visible>Control.HasFocus($PARAM[ControlId])</visible>
+            </control>
+
+            <control type="label">
+                <left>0</left>
+                <top>0</top>
+                <width>220</width>
+                <height>56</height>
+                <font>SettingsLabel</font>
+                <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                <aligny>center</aligny>
+                <label>$PARAM[Label]</label>
+            </control>
+
+            <control type="button" id="$PARAM[ControlId]">
+                <left>244</left>
+                <top>0</top>
+                <width>236</width>
+                <height>56</height>
+                <font>SettingsValue</font>
+                <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                <focusedcolor>$INFO[Skin.String(ColorTextPrimary)]</focusedcolor>
+                <label>$PARAM[ValueLabel]</label>
+                <onclick>Skin.SetString($PARAM[SettingId])</onclick>
+            </control>
+
+            <control type="image">
+                <left>244</left>
+                <top>0</top>
+                <width>236</width>
+                <height>56</height>
+                <texture colordiffuse="$INFO[Skin.String(ColorElevated)]">white.png</texture>
+                <aspectratio>stretch</aspectratio>
+            </control>
+
+            <control type="label">
+                <left>260</left>
+                <top>0</top>
+                <width>204</width>
+                <height>56</height>
+                <font>SettingsValue</font>
+                <textcolor>$INFO[Skin.String(ColorTextMuted)]</textcolor>
+                <aligny>center</aligny>
+                <label>$PARAM[Hint]</label>
+                <visible>String.IsEmpty(Skin.String($PARAM[SettingId]))</visible>
+            </control>
+
+            <control type="label">
+                <left>260</left>
+                <top>0</top>
+                <width>204</width>
+                <height>56</height>
+                <font>SettingsValue</font>
+                <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                <aligny>center</aligny>
+                <label>$PARAM[ValueLabel]</label>
+                <visible>!String.IsEmpty(Skin.String($PARAM[SettingId]))</visible>
+            </control>
+        </control>
+    </include>
+
+    <include name="SettingCategoryItem">
+        <param name="Label" />
+        <control type="group">
+            <width>280</width>
+            <height>64</height>
+
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>280</width>
+                <height>64</height>
+                <texture colordiffuse="$INFO[Skin.String(ColorElevated)]">white.png</texture>
+                <aspectratio>stretch</aspectratio>
+                <visible>String.IsEqual(Window.Property(SkinSettingsCategory),$PARAM[Label])</visible>
+            </control>
+
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>3</width>
+                <height>64</height>
+                <texture colordiffuse="$INFO[Skin.String(ColorAccentPurple)]">white.png</texture>
+                <aspectratio>stretch</aspectratio>
+                <visible>String.IsEqual(Window.Property(SkinSettingsCategory),$PARAM[Label])</visible>
+            </control>
+
+            <control type="label">
+                <left>24</left>
+                <top>0</top>
+                <width>232</width>
+                <height>64</height>
+                <font>NavItem</font>
+                <textcolor>$INFO[Skin.String(ColorTextPrimary)]</textcolor>
+                <aligny>center</aligny>
+                <label>$PARAM[Label]</label>
+                <visible>String.IsEqual(Window.Property(SkinSettingsCategory),$PARAM[Label])</visible>
+            </control>
+
+            <control type="label">
+                <left>24</left>
+                <top>0</top>
+                <width>232</width>
+                <height>64</height>
+                <font>NavItem</font>
+                <textcolor>$INFO[Skin.String(ColorTextMuted)]</textcolor>
+                <aligny>center</aligny>
+                <label>$PARAM[Label]</label>
+                <visible>!String.IsEqual(Window.Property(SkinSettingsCategory),$PARAM[Label])</visible>
+            </control>
+        </control>
+    </include>
+</includes>
