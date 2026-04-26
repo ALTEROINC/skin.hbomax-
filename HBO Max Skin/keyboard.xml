@@ -1,8 +1,0 @@
-<keymap>
-    <global>
-        <keyboard>
-            <F5>ReloadSkin()</F5>
-            <d>Skin.ToggleSetting(DebugOverlay)</d>
-        </keyboard>
-    </global>
-</keymap>
