@@ -48,10 +48,11 @@ jobs:
             --exclude='.tmp_resvg' \
             --exclude='site' \
             . site/repo/skin.hbomax.dev/
+          # Zip to /tmp first to avoid circular reference, then move into place
           cd site/repo
-          zip -r skin.hbomax.dev/skin.hbomax.dev-${VERSION}.zip skin.hbomax.dev/ \
-            --exclude="skin.hbomax.dev/*.zip"
-          cp ../../addon.xml skin.hbomax.dev/addon.xml
+          zip -r /tmp/skin.hbomax.dev-${VERSION}.zip skin.hbomax.dev/
+          mv /tmp/skin.hbomax.dev-${VERSION}.zip skin.hbomax.dev/skin.hbomax.dev-${VERSION}.zip
+          echo "Zip size: $(du -sh skin.hbomax.dev/skin.hbomax.dev-${VERSION}.zip)"
 
       - name: Generate addons.xml and checksum
         run: python3 .github/scripts/generate_repo.py
