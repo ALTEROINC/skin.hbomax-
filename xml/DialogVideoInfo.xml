@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+  <defaultcontrol always="true">2</defaultcontrol>
+  <backgroundcolor>BackgroundBase</backgroundcolor>
+  <onload>Skin.SetString(HBM.ReturnFocus,2)</onload>
+  <onload>Skin.SetString(HBM.ActiveRow,0)</onload>
+  <onload>Skin.SetString(HBM.InDialog,1)</onload>
+  <onunload>Skin.Reset(HBM.InDialog)</onunload>
+  <onload>Skin.SetString(HBM.ShowTMDB,$INFO[ListItem.UniqueID(tmdb)])</onload>
+  <onload>Skin.SetString(HBM.CurrentSeason,1)</onload>
+  <onload>Skin.Reset(HBM.SeasonOpen)</onload>
+
+  <controls>
+
+    <!-- Dark base fill — fixed, always covers the screen -->
+    <control type="image">
+      <left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="BackgroundBase">white.png</texture>
+    </control>
+
+    <!-- Scroll wrapper: hero backdrop + content slide together when episodes focused -->
+    <control type="group">
+      <left>0</left><top>0</top><width>1920</width><height>1400</height>
+      <animation effect="slide" start="0,0" end="0,-300" time="250" tween="quadratic" easing="out" condition="Control.HasFocus(500) | Control.HasFocus(501) | Control.HasFocus(502)">Conditional</animation>
+
+      <!-- Fanart backdrop -->
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio>scale</aspectratio>
+        <fadetime>500</fadetime>
+        <texture>$INFO[ListItem.Art(fanart)]</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio>scale</aspectratio>
+        <fadetime>500</fadetime>
+        <visible>String.IsEmpty(ListItem.Art(fanart))</visible>
+        <texture>$INFO[ListItem.Art(tvshow.fanart)]</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio>scale</aspectratio>
+        <fadetime>500</fadetime>
+        <visible>String.IsEmpty(ListItem.Art(fanart)) + String.IsEmpty(ListItem.Art(tvshow.fanart))</visible>
+        <texture>$INFO[ListItem.Art(landscape)]</texture>
+      </control>
+
+      <!-- Subtle overall dim -->
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>756</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="33000000">white.png</texture>
+      </control>
+
+      <!-- Bottom fade -->
+      <control type="image">
+        <left>0</left><top>420</top><width>1920</width><height>400</height>
+        <aspectratio>stretch</aspectratio>
+        <texture>special://skin/media/overlays/row_top_fade.png</texture>
+      </control>
+
+      <!-- Solid dark floor below hero -->
+      <control type="image">
+        <left>0</left><top>756</top><width>1920</width><height>644</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="BackgroundBase">white.png</texture>
+      </control>
+
+      <!-- Content group -->
+      <control type="group">
+        <left>160</left><top>0</top><width>1760</width><height>1400</height>
+
+        <!-- Genre badge -->
+        <control type="label">
+          <left>0</left><top>390</top><width>780</width><height>24</height>
+          <label>$INFO[ListItem.Genre]</label>
+          <font>HBM_Meta_S</font>
+          <textcolor>TextHeroMeta</textcolor>
+        </control>
+
+        <!-- Clear logo -->
+        <control type="image">
+          <left>0</left><top>420</top><width>560</width><height>190</height>
+          <aspectratio align="left" aligny="center">keep</aspectratio>
+          <fadetime>400</fadetime>
+          <texture>$INFO[ListItem.Art(clearlogo)]</texture>
+        </control>
+
+        <!-- Title fallback when no clearlogo -->
+        <control type="label">
+          <left>0</left><top>420</top><width>780</width><height>190</height>
+          <label>$INFO[ListItem.Title]</label>
+          <font>HBM_Display_L</font>
+          <textcolor>TextPrimary</textcolor>
+          <aligny>center</aligny>
+          <visible>String.IsEmpty(ListItem.Art(clearlogo))</visible>
+        </control>
+
+        <!-- Meta: year · MPAA · duration -->
+        <control type="label">
+          <left>0</left><top>618</top><width>780</width><height>24</height>
+          <label>$INFO[ListItem.Year]  ·  $INFO[ListItem.MPAA]  ·  $INFO[ListItem.Duration]</label>
+          <font>HBM_Meta_S</font>
+          <textcolor>TextHeroMeta</textcolor>
+        </control>
+
+        <!-- Primary play button hit area (id=2) -->
+        <control type="button" id="2">
+          <left>0</left><top>650</top><width>300</width><height>56</height>
+          <label></label>
+          <texturenofocus>-</texturenofocus>
+          <texturefocus>-</texturefocus>
+          <onclick>Skin.SetString(HBM.PlayedFromDialog,1)</onclick>
+          <onclick condition="String.IsEqual(ListItem.DBTYPE,movie)">Skin.SetString(HBM.DialogItemType,movie)</onclick>
+          <onclick condition="!String.IsEqual(ListItem.DBTYPE,movie)">Skin.SetString(HBM.DialogItemType,tv)</onclick>
+          <onclick condition="String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(ListItem.FileNameAndPath)">PlayMedia($INFO[ListItem.FileNameAndPath])</onclick>
+          <onclick condition="String.IsEqual(ListItem.DBTYPE,movie) + String.IsEmpty(ListItem.FileNameAndPath)">PlayMedia(plugin://plugin.video.themoviedb.helper/?info=play&amp;tmdb_id=$INFO[ListItem.UniqueID(tmdb)]&amp;tmdb_type=movie)</onclick>
+          <onclick condition="!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Season) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Episode)">PlayMedia(plugin://plugin.video.themoviedb.helper/?info=play&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=$INFO[Container(510).ListItemAbsolute(0).Season]&amp;episode=$INFO[Container(510).ListItemAbsolute(0).Episode])</onclick>
+          <onclick condition="!String.IsEqual(ListItem.DBTYPE,movie) + String.IsEmpty(Container(510).ListItemAbsolute(0).Season) + !String.IsEmpty(Container(511).ListItemAbsolute(0).Season) + !String.IsEmpty(Container(511).ListItemAbsolute(0).Episode)">PlayMedia(plugin://plugin.video.themoviedb.helper/?info=play&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=$INFO[Container(511).ListItemAbsolute(0).Season]&amp;episode=$INFO[Container(511).ListItemAbsolute(0).Episode])</onclick>
+          <onclick condition="!String.IsEqual(ListItem.DBTYPE,movie) + String.IsEmpty(Container(510).ListItemAbsolute(0).Season) + String.IsEmpty(Container(511).ListItemAbsolute(0).Season)">PlayMedia(plugin://plugin.video.themoviedb.helper/?info=play&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=1&amp;episode=1)</onclick>
+          <onfocus>Skin.SetString(HBM.ReturnFocus,2)</onfocus>
+          <onleft>200</onleft>
+          <onright condition="ListItem.IsResumable | (!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Season))">6</onright>
+          <onright>4</onright>
+          <ondown>4</ondown>
+        </control>
+        <!-- Primary button background (nofocus / focus) -->
+        <control type="image">
+          <left>0</left><top>650</top><width>300</width><height>56</height>
+          <texture border="6" colordiffuse="BBFFFFFF">special://skin/media/panel_rect.png</texture>
+          <visible>!Control.HasFocus(2)</visible>
+        </control>
+        <control type="image">
+          <left>0</left><top>650</top><width>300</width><height>56</height>
+          <texture border="6" colordiffuse="DDFFFFFF">special://skin/media/panel_rect.png</texture>
+          <visible>Control.HasFocus(2)</visible>
+        </control>
+        <!-- Play icon — centered-left in 300px button -->
+        <control type="image">
+          <left>70</left><top>665</top><width>26</width><height>26</height>
+          <texture>special://skin/media/icons/play-fill.png</texture>
+        </control>
+        <!-- Label: Watch Now (movie, not started) -->
+        <control type="label">
+          <left>104</left><top>650</top><width>188</width><height>56</height>
+          <label>Watch Now</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>FF161C24</textcolor>
+          <align>left</align><aligny>center</aligny>
+          <visible>String.IsEqual(ListItem.DBTYPE,movie) + !ListItem.IsResumable</visible>
+        </control>
+        <!-- Label: Continue Watching (movie, resumable) -->
+        <control type="label">
+          <left>104</left><top>650</top><width>188</width><height>56</height>
+          <label>Continue Watching</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>FF161C24</textcolor>
+          <align>left</align><aligny>center</aligny>
+          <visible>String.IsEqual(ListItem.DBTYPE,movie) + ListItem.IsResumable</visible>
+        </control>
+        <!-- Label: Watch Ep 1 (tv show, not started) -->
+        <control type="label">
+          <left>104</left><top>650</top><width>188</width><height>56</height>
+          <label>Watch Ep 1</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>FF161C24</textcolor>
+          <align>left</align><aligny>center</aligny>
+          <visible>!String.IsEqual(ListItem.DBTYPE,movie) + String.IsEmpty(Container(510).ListItemAbsolute(0).Season) + String.IsEmpty(Container(511).ListItemAbsolute(0).Season)</visible>
+        </control>
+        <!-- Label: TMDb Helper fallback first episode -->
+        <control type="label">
+          <left>104</left><top>650</top><width>188</width><height>56</height>
+          <label>Watch S$INFO[Container(511).ListItemAbsolute(0).Season] E$INFO[Container(511).ListItemAbsolute(0).Episode]</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>FF161C24</textcolor>
+          <align>left</align><aligny>center</aligny>
+          <visible>!String.IsEqual(ListItem.DBTYPE,movie) + String.IsEmpty(Container(510).ListItemAbsolute(0).Season) + !String.IsEmpty(Container(511).ListItemAbsolute(0).Season) + !String.IsEmpty(Container(511).ListItemAbsolute(0).Episode) + Integer.IsEqual(Container(511).ListItemAbsolute(0).Property(ResumeTime),0)</visible>
+        </control>
+        <!-- Label: TMDb Helper fallback resumable episode -->
+        <control type="label">
+          <left>104</left><top>650</top><width>188</width><height>56</height>
+          <label>Continue S$INFO[Container(511).ListItemAbsolute(0).Season] E$INFO[Container(511).ListItemAbsolute(0).Episode]</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>FF161C24</textcolor>
+          <align>left</align><aligny>center</aligny>
+          <visible>!String.IsEqual(ListItem.DBTYPE,movie) + String.IsEmpty(Container(510).ListItemAbsolute(0).Season) + !String.IsEmpty(Container(511).ListItemAbsolute(0).Season) + !String.IsEmpty(Container(511).ListItemAbsolute(0).Episode) + Integer.IsGreater(Container(511).ListItemAbsolute(0).Property(ResumeTime),0)</visible>
+        </control>
+        <!-- Label: Trakt-resolved up next target -->
+        <control type="label">
+          <left>104</left><top>650</top><width>188</width><height>56</height>
+          <label>Watch S$INFO[Container(510).ListItemAbsolute(0).Season] E$INFO[Container(510).ListItemAbsolute(0).Episode]</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>FF161C24</textcolor>
+          <align>left</align><aligny>center</aligny>
+          <visible>!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Season) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Episode) + Integer.IsEqual(Container(510).ListItemAbsolute(0).Property(ResumeTime),0)</visible>
+        </control>
+        <!-- Label: Trakt-resolved resumable target -->
+        <control type="label">
+          <left>104</left><top>650</top><width>188</width><height>56</height>
+          <label>Continue S$INFO[Container(510).ListItemAbsolute(0).Season] E$INFO[Container(510).ListItemAbsolute(0).Episode]</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>FF161C24</textcolor>
+          <align>left</align><aligny>center</aligny>
+          <visible>!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Season) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Episode) + Integer.IsGreater(Container(510).ListItemAbsolute(0).Property(ResumeTime),0)</visible>
+        </control>
+
+        <!-- Restart button (id=6) — ghost, only when resumable -->
+        <control type="button" id="6">
+          <left>312</left><top>650</top><width>200</width><height>56</height>
+          <label>Restart</label>
+          <font>HBM_Nav_M</font>
+          <align>center</align><aligny>center</aligny>
+          <textcolor>FFFFFFFF</textcolor>
+          <focusedcolor>FFFFFFFF</focusedcolor>
+          <texturenofocus border="6" colordiffuse="33FFFFFF">special://skin/media/panel_rect.png</texturenofocus>
+          <texturefocus border="6" colordiffuse="55FFFFFF">special://skin/media/panel_rect.png</texturefocus>
+          <onclick>Skin.SetString(HBM.PlayedFromDialog,1)</onclick>
+          <onclick condition="String.IsEqual(ListItem.DBTYPE,movie)">Skin.SetString(HBM.DialogItemType,movie)</onclick>
+          <onclick condition="!String.IsEqual(ListItem.DBTYPE,movie)">Skin.SetString(HBM.DialogItemType,tv)</onclick>
+          <onclick condition="String.IsEqual(ListItem.DBTYPE,movie)">PlayMedia($INFO[ListItem.FileNameAndPath],noresume)</onclick>
+          <onclick condition="!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Season) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Episode)">PlayMedia(plugin://plugin.video.themoviedb.helper/?info=play&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=$INFO[Container(510).ListItemAbsolute(0).Season]&amp;episode=$INFO[Container(510).ListItemAbsolute(0).Episode],noresume)</onclick>
+          <onclick condition="!String.IsEqual(ListItem.DBTYPE,movie) + String.IsEmpty(Container(510).ListItemAbsolute(0).Season) + !String.IsEmpty(Container(511).ListItemAbsolute(0).Season) + !String.IsEmpty(Container(511).ListItemAbsolute(0).Episode)">PlayMedia(plugin://plugin.video.themoviedb.helper/?info=play&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=$INFO[Container(511).ListItemAbsolute(0).Season]&amp;episode=$INFO[Container(511).ListItemAbsolute(0).Episode],noresume)</onclick>
+          <onclick condition="!String.IsEqual(ListItem.DBTYPE,movie) + String.IsEmpty(Container(510).ListItemAbsolute(0).Season) + String.IsEmpty(Container(511).ListItemAbsolute(0).Season)">PlayMedia(plugin://plugin.video.themoviedb.helper/?info=play&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=1&amp;episode=1,noresume)</onclick>
+          <onfocus>Skin.SetString(HBM.ReturnFocus,6)</onfocus>
+          <onleft>2</onleft>
+          <onright>4</onright>
+          <ondown>4</ondown>
+          <visible>ListItem.IsResumable | (!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Season))</visible>
+        </control>
+
+        <!-- My List (id=4) — no background, icon above label -->
+        <control type="button" id="4">
+          <left>0</left><top>718</top><width>110</width><height>58</height>
+          <label></label>
+          <texturenofocus>-</texturenofocus>
+          <texturefocus>-</texturefocus>
+          <onclick condition="String.IsEqual(ListItem.DBTYPE,movie)">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_type=movie,tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)],sync_type=watchlist)</onclick>
+          <onclick condition="!String.IsEqual(ListItem.DBTYPE,movie)">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_type=tv,tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)],sync_type=watchlist)</onclick>
+          <onfocus>Skin.SetString(HBM.ReturnFocus,4)</onfocus>
+          <onup>2</onup>
+          <onleft condition="ListItem.IsResumable | (!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Season))">6</onleft>
+          <onleft>200</onleft>
+          <onright>5</onright>
+          <ondown>500</ondown>
+        </control>
+        <!-- My List icon — bright when focused, dim when not -->
+        <control type="image">
+          <left>39</left><top>720</top><width>32</width><height>32</height>
+          <texture colordiffuse="FFFFFFFF">special://skin/media/icons/plus-bold.png</texture>
+          <visible>Control.HasFocus(4)</visible>
+        </control>
+        <control type="image">
+          <left>39</left><top>720</top><width>32</width><height>32</height>
+          <texture colordiffuse="66FFFFFF">special://skin/media/icons/plus-bold.png</texture>
+          <visible>!Control.HasFocus(4)</visible>
+        </control>
+        <!-- My List label — bright when focused, dim when not -->
+        <control type="label">
+          <left>0</left><top>756</top><width>110</width><height>22</height>
+          <label>My List</label>
+          <font>HBM_Meta_S</font>
+          <textcolor>FFFFFFFF</textcolor>
+          <align>center</align>
+          <aligny>center</aligny>
+          <visible>Control.HasFocus(4)</visible>
+        </control>
+        <control type="label">
+          <left>0</left><top>756</top><width>110</width><height>22</height>
+          <label>My List</label>
+          <font>HBM_Meta_S</font>
+          <textcolor>66FFFFFF</textcolor>
+          <align>center</align>
+          <aligny>center</aligny>
+          <visible>!Control.HasFocus(4)</visible>
+        </control>
+
+        <!-- Trailer (id=5) — only shown when ListItem.Trailer is populated -->
+        <control type="button" id="5">
+          <left>120</left><top>718</top><width>110</width><height>58</height>
+          <label></label>
+          <texturenofocus>-</texturenofocus>
+          <texturefocus>-</texturefocus>
+          <onclick>PlayMedia($INFO[ListItem.Trailer])</onclick>
+          <onfocus>Skin.SetString(HBM.ReturnFocus,5)</onfocus>
+          <onup>2</onup>
+          <onleft>4</onleft>
+          <onright>200</onright>
+          <ondown>500</ondown>
+          <visible>!String.IsEmpty(ListItem.Trailer)</visible>
+        </control>
+        <!-- Trailer icon — bright when focused, dim when not -->
+        <control type="image">
+          <left>159</left><top>720</top><width>32</width><height>32</height>
+          <texture colordiffuse="FFFFFFFF">special://skin/media/icons/film-slate-fill.png</texture>
+          <visible>Control.HasFocus(5) + !String.IsEmpty(ListItem.Trailer)</visible>
+        </control>
+        <control type="image">
+          <left>159</left><top>720</top><width>32</width><height>32</height>
+          <texture colordiffuse="66FFFFFF">special://skin/media/icons/film-slate-fill.png</texture>
+          <visible>!Control.HasFocus(5) + !String.IsEmpty(ListItem.Trailer)</visible>
+        </control>
+        <!-- Trailer label — bright when focused, dim when not -->
+        <control type="label">
+          <left>120</left><top>756</top><width>110</width><height>22</height>
+          <label>Trailer</label>
+          <font>HBM_Meta_S</font>
+          <textcolor>FFFFFFFF</textcolor>
+          <align>center</align>
+          <aligny>center</aligny>
+          <visible>Control.HasFocus(5) + !String.IsEmpty(ListItem.Trailer)</visible>
+        </control>
+        <control type="label">
+          <left>120</left><top>756</top><width>110</width><height>22</height>
+          <label>Trailer</label>
+          <font>HBM_Meta_S</font>
+          <textcolor>66FFFFFF</textcolor>
+          <align>center</align>
+          <aligny>center</aligny>
+          <visible>!Control.HasFocus(5) + !String.IsEmpty(ListItem.Trailer)</visible>
+        </control>
+
+        <!-- Plot — below buttons, autoscrolls long descriptions -->
+        <control type="textbox">
+          <left>0</left><top>790</top><width>600</width><height>80</height>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <label>$INFO[ListItem.Plot]</label>
+          <autoscroll delay="3000" time="6000" repeat="8000">true</autoscroll>
+        </control>
+
+        <!-- Episodes section — TV shows only -->
+        <control type="group">
+          <left>0</left><top>890</top><width>1760</width><height>450</height>
+          <visible>!String.IsEqual(ListItem.DBTYPE,movie)</visible>
+
+          <!-- "Episodes" label -->
+          <control type="label">
+            <left>0</left><top>0</top><width>200</width><height>28</height>
+            <label>Episodes</label>
+            <font>HBM_Nav_M</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <align>left</align>
+            <aligny>center</aligny>
+          </control>
+
+          <!-- Grey divider -->
+          <control type="image">
+            <left>0</left><top>30</top><width>1600</width><height>2</height>
+            <texture colordiffuse="44FFFFFF">white.png</texture>
+          </control>
+
+          <!-- White underline under "Episodes" only -->
+          <control type="image">
+            <left>0</left><top>30</top><width>110</width><height>2</height>
+            <texture colordiffuse="FFFFFFFF">white.png</texture>
+          </control>
+
+          <!-- Season picker (id=500) — safe ID avoids Kodi's reserved dialog control IDs -->
+          <control type="button" id="500">
+            <left>0</left><top>46</top><width>200</width><height>46</height>
+            <label>Season $INFO[Skin.String(HBM.CurrentSeason)]  ▾</label>
+            <font>HBM_Nav_M</font>
+            <align>center</align>
+            <aligny>center</aligny>
+            <textcolor>FFFFFFFF</textcolor>
+            <focusedcolor>FFFFFFFF</focusedcolor>
+            <texturenofocus border="4" colordiffuse="88AAAAAA">special://skin/media/panel_rect.png</texturenofocus>
+            <texturefocus border="4" colordiffuse="BBBBBBBB">special://skin/media/panel_rect.png</texturefocus>
+            <onclick>Skin.ToggleSetting(HBM.SeasonOpen)</onclick>
+            <onfocus>Skin.Reset(HBM.SeasonOpen)</onfocus>
+            <onfocus>Skin.SetString(HBM.ReturnFocus,500)</onfocus>
+            <onup>4</onup>
+            <ondown condition="Skin.HasSetting(HBM.SeasonOpen)">502</ondown>
+            <ondown>501</ondown>
+          </control>
+
+          <!-- Horizontal episode cards (id=501) — 416×234 landscape 16:9 -->
+          <control type="panel" id="501">
+            <left>0</left><top>130</top><width>1760</width><height>390</height>
+            <orientation>horizontal</orientation>
+            <itemgap>0</itemgap>
+            <scrolltime tween="sine" easing="out">200</scrolltime>
+            <preloaditems>6</preloaditems>
+            <onclick>Skin.SetString(HBM.PlayedFromDialog,1)</onclick>
+            <onclick>Skin.SetString(HBM.DialogItemType,tv)</onclick>
+            <onclick>PlayMedia($INFO[ListItem.FileNameAndPath])</onclick>
+            <onfocus>Skin.SetString(HBM.ReturnFocus,501)</onfocus>
+            <onup>500</onup>
+            <onleft>200</onleft>
+            <onright>501</onright>
+            <ondown>2</ondown>
+            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=episodes&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=$INFO[Skin.String(HBM.CurrentSeason)]</content>
+
+            <!-- cell=440 (416 image + 24 gap baked in), height=390 -->
+            <itemlayout width="440" height="390">
+              <!-- Thumbnail -->
+              <control type="image">
+                <left>0</left><top>0</top><width>416</width><height>234</height>
+                <aspectratio>scale</aspectratio>
+                <texture colordiffuse="1A161C24">white.png</texture>
+              </control>
+              <control type="image">
+                <left>0</left><top>0</top><width>416</width><height>234</height>
+                <aspectratio>scale</aspectratio>
+                <texture>$INFO[ListItem.Art(thumb)]</texture>
+              </control>
+              <!-- Play button — bottom-left of thumbnail -->
+              <control type="image">
+                <left>8</left><top>190</top><width>36</width><height>36</height>
+                <texture>special://skin/media/circle_bg.png</texture>
+              </control>
+              <control type="image">
+                <left>17</left><top>199</top><width>18</width><height>18</height>
+                <texture>special://skin/media/icons/play-fill-white.png</texture>
+              </control>
+              <!-- E1: Pilot -->
+              <control type="label">
+                <left>0</left><top>242</top><width>416</width><height>20</height>
+                <label>E$INFO[ListItem.Episode]: $INFO[ListItem.Title]</label>
+                <font>HBM_Meta_S</font>
+                <textcolor>TextSecondary</textcolor>
+              </control>
+              <!-- Rating · Duration · Year -->
+              <control type="label">
+                <left>0</left><top>266</top><width>416</width><height>20</height>
+                <label>$INFO[ListItem.MPAA]  $INFO[ListItem.Duration]  $INFO[ListItem.Year]</label>
+                <font>HBM_Meta_S</font>
+                <textcolor>TextSecondary</textcolor>
+              </control>
+              <!-- Episode description -->
+              <control type="label">
+                <left>0</left><top>290</top><width>416</width><height>96</height>
+                <label>$INFO[ListItem.Plot]</label>
+                <font>HBM_Meta_S</font>
+                <textcolor>TextSecondary</textcolor>
+              </control>
+            </itemlayout>
+
+            <!-- Focused: white 3px border + brighter text -->
+            <focusedlayout width="440" height="390">
+              <!-- White border layer -->
+              <control type="image">
+                <left>0</left><top>0</top><width>416</width><height>234</height>
+                <texture border="6" colordiffuse="FFFFFFFF">special://skin/media/panel_rect.png</texture>
+              </control>
+              <!-- Thumbnail inset 3px -->
+              <control type="image">
+                <left>3</left><top>3</top><width>410</width><height>228</height>
+                <aspectratio>scale</aspectratio>
+                <texture colordiffuse="1A161C24">white.png</texture>
+              </control>
+              <control type="image">
+                <left>3</left><top>3</top><width>410</width><height>228</height>
+                <aspectratio>scale</aspectratio>
+                <texture>$INFO[ListItem.Art(thumb)]</texture>
+              </control>
+              <!-- Play button — bottom-left of thumbnail (offset by 3px inset) -->
+              <control type="image">
+                <left>11</left><top>193</top><width>36</width><height>36</height>
+                <texture>special://skin/media/circle_bg.png</texture>
+              </control>
+              <control type="image">
+                <left>20</left><top>202</top><width>18</width><height>18</height>
+                <texture>special://skin/media/icons/play-fill-white.png</texture>
+              </control>
+              <!-- E1: Pilot -->
+              <control type="label">
+                <left>0</left><top>242</top><width>416</width><height>20</height>
+                <label>E$INFO[ListItem.Episode]: $INFO[ListItem.Title]</label>
+                <font>HBM_Meta_S</font>
+                <textcolor>TextPrimary</textcolor>
+              </control>
+              <!-- Rating · Duration · Year -->
+              <control type="label">
+                <left>0</left><top>266</top><width>416</width><height>20</height>
+                <label>$INFO[ListItem.MPAA]  $INFO[ListItem.Duration]  $INFO[ListItem.Year]</label>
+                <font>HBM_Meta_S</font>
+                <textcolor>TextSecondary</textcolor>
+              </control>
+              <!-- Episode description -->
+              <control type="textbox">
+                <left>0</left><top>290</top><width>416</width><height>96</height>
+                <label>$INFO[ListItem.Plot]</label>
+                <font>HBM_Meta_S</font>
+                <textcolor>TextSecondary</textcolor>
+                <autoscroll delay="3000" time="6000" repeat="8000">true</autoscroll>
+              </control>
+            </focusedlayout>
+
+          </control>
+
+          <!-- Season dropdown — overlays below season button -->
+          <control type="group">
+            <left>0</left><top>92</top><width>240</width><height>244</height>
+            <visible>Skin.HasSetting(HBM.SeasonOpen)</visible>
+
+            <!-- Dark dropdown background — full black matches rail's solid backing -->
+            <control type="image">
+              <left>0</left><top>0</top><width>240</width><height>244</height>
+              <texture border="6" colordiffuse="FF000000">special://skin/media/panel_rect.png</texture>
+            </control>
+
+            <!-- Season list panel -->
+            <control type="panel" id="502">
+              <left>8</left><top>8</top><width>224</width><height>228</height>
+              <orientation>vertical</orientation>
+              <itemgap>0</itemgap>
+              <onclick>Skin.SetString(HBM.CurrentSeason,$INFO[ListItem.Season])</onclick>
+              <onclick>Skin.Reset(HBM.SeasonOpen)</onclick>
+              <onclick>SetFocus(501)</onclick>
+              <onup>500</onup>
+              <onleft>500</onleft>
+              <onright>500</onright>
+              <ondown>501</ondown>
+              <content target="videos">plugin://plugin.video.themoviedb.helper/?info=seasons&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]</content>
+
+              <itemlayout width="224" height="48">
+                <control type="label">
+                  <left>16</left><top>0</top><width>192</width><height>48</height>
+                  <label>Season $INFO[ListItem.Season]</label>
+                  <font>HBM_Nav_M</font>
+                  <textcolor>TextSecondary</textcolor>
+                  <aligny>center</aligny>
+                </control>
+              </itemlayout>
+
+              <focusedlayout width="224" height="48">
+                <control type="image">
+                  <left>4</left><top>4</top><width>216</width><height>40</height>
+                  <texture border="4" colordiffuse="33FFFFFF">special://skin/media/panel_rect.png</texture>
+                </control>
+                <control type="label">
+                  <left>16</left><top>0</top><width>192</width><height>48</height>
+                  <label>Season $INFO[ListItem.Season]</label>
+                  <font>HBM_Nav_M</font>
+                  <textcolor>TextPrimary</textcolor>
+                  <aligny>center</aligny>
+                </control>
+              </focusedlayout>
+
+            </control>
+
+          </control>
+
+        </control>
+
+      </control>
+
+      </control>
+
+      <!-- Hidden helper loaders: resolve a real playable TV target for the top action button -->
+      <control type="panel" id="510">
+        <left>-4000</left><top>-4000</top><width>1</width><height>1</height>
+        <orientation>horizontal</orientation>
+        <itemgap>0</itemgap>
+        <preloaditems>1</preloaditems>
+        <visible>!String.IsEqual(ListItem.DBTYPE,movie)</visible>
+        <content target="videos" limit="1">plugin://plugin.video.themoviedb.helper/?info=trakt_upnext&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]</content>
+        <itemlayout width="1" height="1"><control type="group" /></itemlayout>
+        <focusedlayout width="1" height="1"><control type="group" /></focusedlayout>
+      </control>
+
+      <control type="panel" id="511">
+        <left>-4000</left><top>-4000</top><width>1</width><height>1</height>
+        <orientation>horizontal</orientation>
+        <itemgap>0</itemgap>
+        <preloaditems>1</preloaditems>
+        <visible>!String.IsEqual(ListItem.DBTYPE,movie)</visible>
+        <content target="videos" limit="1">plugin://plugin.video.themoviedb.helper/?info=episodes&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=1</content>
+        <itemlayout width="1" height="1"><control type="group" /></itemlayout>
+        <focusedlayout width="1" height="1"><control type="group" /></focusedlayout>
+      </control>
+
+    <!-- Side nav rail — identical to home -->
+    <include>HBM_Home_Phase1_RailShell</include>
+    <include>HBM_Home_Phase1_RailMenu</include>
+
+  </controls>
+</window>

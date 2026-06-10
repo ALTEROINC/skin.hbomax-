@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol>9100</defaultcontrol>
+  <backgroundcolor>BackgroundBase</backgroundcolor>
+  <onload condition="String.IsEmpty(Skin.String(HBM.SettingsRailSection))">Skin.SetString(HBM.SettingsRailSection,interface)</onload>
+  <controls>
+    <include>HBM_Runtime_Background</include>
+
+    <control type="group">
+      <left>0</left><top>0</top><width>304</width><height>1080</height>
+
+      <control type="image">
+        <left>16</left><top>18</top><width>64</width><height>64</height>
+        <texture aspectratio="keep">special://skin/media/brand/hbo_white.png</texture>
+      </control>
+
+      <control type="label">
+        <left>60</left><top>118</top><width>220</width><height>24</height>
+        <label>Settings</label>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+      </control>
+
+      <control type="image">
+        <left>60</left><top>156</top><width>220</width><height>1</height>
+        <texture colordiffuse="18FFFFFF">white.png</texture>
+      </control>
+
+      <!-- Interface -->
+      <control type="group"><left>0</left><top>188</top><width>304</width><height>56</height>
+        <control type="image"><left>12</left><top>13</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>Control.HasFocus(9100)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>Interface</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><aligny>center</aligny><visible>!Control.HasFocus(9100)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>Interface</label><font>HBM_Nav_M</font><textcolor>TextNavActive</textcolor><aligny>center</aligny><visible>Control.HasFocus(9100)</visible></control>
+        <control type="button" id="9100"><left>0</left><top>0</top><width>304</width><height>56</height><label /><texturenofocus /><texturefocus /><onfocus>Skin.SetString(HBM.SettingsRailSection,interface)</onfocus><onclick>ActivateWindow(InterfaceSettings)</onclick><onup>9111</onup><ondown>9101</ondown><onleft>9100</onleft><onright>9900</onright></control>
+      </control>
+
+      <!-- Media -->
+      <control type="group"><left>0</left><top>248</top><width>304</width><height>56</height>
+        <control type="image"><left>12</left><top>13</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>Control.HasFocus(9101)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>Media</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><aligny>center</aligny><visible>!Control.HasFocus(9101)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>Media</label><font>HBM_Nav_M</font><textcolor>TextNavActive</textcolor><aligny>center</aligny><visible>Control.HasFocus(9101)</visible></control>
+        <control type="button" id="9101"><left>0</left><top>0</top><width>304</width><height>56</height><label /><texturenofocus /><texturefocus /><onfocus>Skin.SetString(HBM.SettingsRailSection,media)</onfocus><onclick>ActivateWindow(MediaSettings)</onclick><onup>9100</onup><ondown>9102</ondown><onleft>9101</onleft><onright>9901</onright></control>
+      </control>
+
+      <!-- Player -->
+      <control type="group"><left>0</left><top>308</top><width>304</width><height>56</height>
+        <control type="image"><left>12</left><top>13</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>Control.HasFocus(9102)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>Player</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><aligny>center</aligny><visible>!Control.HasFocus(9102)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>Player</label><font>HBM_Nav_M</font><textcolor>TextNavActive</textcolor><aligny>center</aligny><visible>Control.HasFocus(9102)</visible></control>
+        <control type="button" id="9102"><left>0</left><top>0</top><width>304</width><height>56</height><label /><texturenofocus /><texturefocus /><onfocus>Skin.SetString(HBM.SettingsRailSection,player)</onfocus><onclick>ActivateWindow(PlayerSettings)</onclick><onup>9101</onup><ondown>9103</ondown><onleft>9102</onleft><onright>9902</onright></control>
+      </control>
+
+      <!-- PVR -->
+      <control type="group"><left>0</left><top>368</top><width>304</width><height>56</height>
+        <control type="image"><left>12</left><top>13</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>Control.HasFocus(9103)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>PVR</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><aligny>center</aligny><visible>!Control.HasFocus(9103)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>PVR</label><font>HBM_Nav_M</font><textcolor>TextNavActive</textcolor><aligny>center</aligny><visible>Control.HasFocus(9103)</visible></control>
+        <control type="button" id="9103"><left>0</left><top>0</top><width>304</width><height>56</height><label /><texturenofocus /><texturefocus /><onfocus>Skin.SetString(HBM.SettingsRailSection,pvr)</onfocus><onclick>ActivateWindow(PVRSettings)</onclick><onup>9102</onup><ondown>9104</ondown><onleft>9103</onleft><onright>9903</onright></control>
+      </control>
+
+      <!-- Services -->
+      <control type="group"><left>0</left><top>428</top><width>304</width><height>56</height>
+        <control type="image"><left>12</left><top>13</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>Control.HasFocus(9104)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>Services</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><aligny>center</aligny><visible>!Control.HasFocus(9104)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>Services</label><font>HBM_Nav_M</font><textcolor>TextNavActive</textcolor><aligny>center</aligny><visible>Control.HasFocus(9104)</visible></control>
+        <control type="button" id="9104"><left>0</left><top>0</top><width>304</width><height>56</height><label /><texturenofocus /><texturefocus /><onfocus>Skin.SetString(HBM.SettingsRailSection,services)</onfocus><onclick>ActivateWindow(ServiceSettings)</onclick><onup>9103</onup><ondown>9105</ondown><onleft>9104</onleft><onright>9904</onright></control>
+      </control>
+
+      <!-- System -->
+      <control type="group"><left>0</left><top>488</top><width>304</width><height>56</height>
+        <control type="image"><left>12</left><top>13</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>Control.HasFocus(9105)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>System</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><aligny>center</aligny><visible>!Control.HasFocus(9105)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>System</label><font>HBM_Nav_M</font><textcolor>TextNavActive</textcolor><aligny>center</aligny><visible>Control.HasFocus(9105)</visible></control>
+        <control type="button" id="9105"><left>0</left><top>0</top><width>304</width><height>56</height><label /><texturenofocus /><texturefocus /><onfocus>Skin.SetString(HBM.SettingsRailSection,system)</onfocus><onclick>ActivateWindow(SystemSettings)</onclick><onup>9104</onup><ondown>9106</ondown><onleft>9105</onleft><onright>9905</onright></control>
+      </control>
+
+      <!-- Skin -->
+      <control type="group"><left>0</left><top>548</top><width>304</width><height>56</height>
+        <control type="image"><left>12</left><top>13</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>Control.HasFocus(9106)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>Skin</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><aligny>center</aligny><visible>!Control.HasFocus(9106)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>Skin</label><font>HBM_Nav_M</font><textcolor>TextNavActive</textcolor><aligny>center</aligny><visible>Control.HasFocus(9106)</visible></control>
+        <control type="button" id="9106"><left>0</left><top>0</top><width>304</width><height>56</height><label /><texturenofocus /><texturefocus /><onfocus>Skin.SetString(HBM.SettingsRailSection,skin)</onfocus><onclick>ActivateWindow(SkinSettings)</onclick><onup>9105</onup><ondown>9107</ondown><onleft>9106</onleft><onright>9906</onright></control>
+      </control>
+
+      <!-- Add-ons -->
+      <control type="group"><left>0</left><top>608</top><width>304</width><height>56</height>
+        <control type="image"><left>12</left><top>13</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>Control.HasFocus(9107)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>Add-ons</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><aligny>center</aligny><visible>!Control.HasFocus(9107)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>Add-ons</label><font>HBM_Nav_M</font><textcolor>TextNavActive</textcolor><aligny>center</aligny><visible>Control.HasFocus(9107)</visible></control>
+        <control type="button" id="9107"><left>0</left><top>0</top><width>304</width><height>56</height><label /><texturenofocus /><texturefocus /><onfocus>Skin.SetString(HBM.SettingsRailSection,addons)</onfocus><onclick>ActivateWindow(AddonBrowser)</onclick><onup>9106</onup><ondown>9108</ondown><onleft>9107</onleft><onright>9907</onright></control>
+      </control>
+
+      <!-- File Manager -->
+      <control type="group"><left>0</left><top>668</top><width>304</width><height>56</height>
+        <control type="image"><left>12</left><top>13</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>Control.HasFocus(9108)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>File Manager</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><aligny>center</aligny><visible>!Control.HasFocus(9108)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>File Manager</label><font>HBM_Nav_M</font><textcolor>TextNavActive</textcolor><aligny>center</aligny><visible>Control.HasFocus(9108)</visible></control>
+        <control type="button" id="9108"><left>0</left><top>0</top><width>304</width><height>56</height><label /><texturenofocus /><texturefocus /><onfocus>Skin.SetString(HBM.SettingsRailSection,filemanager)</onfocus><onclick>ActivateWindow(FileManager)</onclick><onup>9107</onup><ondown>9109</ondown><onleft>9108</onleft><onright>9908</onright></control>
+      </control>
+
+      <!-- Profiles -->
+      <control type="group"><left>0</left><top>728</top><width>304</width><height>56</height>
+        <control type="image"><left>12</left><top>13</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>Control.HasFocus(9109)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>Profiles</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><aligny>center</aligny><visible>!Control.HasFocus(9109)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>Profiles</label><font>HBM_Nav_M</font><textcolor>TextNavActive</textcolor><aligny>center</aligny><visible>Control.HasFocus(9109)</visible></control>
+        <control type="button" id="9109"><left>0</left><top>0</top><width>304</width><height>56</height><label /><texturenofocus /><texturefocus /><onfocus>Skin.SetString(HBM.SettingsRailSection,profiles)</onfocus><onclick>ActivateWindow(SettingsProfile)</onclick><onup>9108</onup><ondown>9110</ondown><onleft>9109</onleft><onright>9909</onright></control>
+      </control>
+
+      <!-- System Info -->
+      <control type="group"><left>0</left><top>788</top><width>304</width><height>56</height>
+        <control type="image"><left>12</left><top>13</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>Control.HasFocus(9110)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>System Info</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><aligny>center</aligny><visible>!Control.HasFocus(9110)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>System Info</label><font>HBM_Nav_M</font><textcolor>TextNavActive</textcolor><aligny>center</aligny><visible>Control.HasFocus(9110)</visible></control>
+        <control type="button" id="9110"><left>0</left><top>0</top><width>304</width><height>56</height><label /><texturenofocus /><texturefocus /><onfocus>Skin.SetString(HBM.SettingsRailSection,systeminfo)</onfocus><onclick>ActivateWindow(SystemInfo)</onclick><onup>9109</onup><ondown>9111</ondown><onleft>9110</onleft><onright>9910</onright></control>
+      </control>
+
+      <!-- Event Log -->
+      <control type="group"><left>0</left><top>848</top><width>304</width><height>56</height>
+        <control type="image"><left>12</left><top>13</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>Control.HasFocus(9111)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>Event Log</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><aligny>center</aligny><visible>!Control.HasFocus(9111)</visible></control>
+        <control type="label"><left>32</left><top>0</top><width>248</width><height>56</height><label>Event Log</label><font>HBM_Nav_M</font><textcolor>TextNavActive</textcolor><aligny>center</aligny><visible>Control.HasFocus(9111)</visible></control>
+        <control type="button" id="9111"><left>0</left><top>0</top><width>304</width><height>56</height><label /><texturenofocus /><texturefocus /><onfocus>Skin.SetString(HBM.SettingsRailSection,eventlog)</onfocus><onclick>ActivateWindow(EventLog)</onclick><onup>9110</onup><ondown>9100</ondown><onleft>9111</onleft><onright>9911</onright></control>
+      </control>
+    </control>
+
+    <control type="label">
+      <left>392</left><top>138</top><width>420</width><height>64</height>
+      <label>Settings</label>
+      <font>HBM_Display_M</font>
+      <textcolor>TextPrimary</textcolor>
+    </control>
+
+    <!-- Right content panel: extended to 48px from screen right edge -->
+    <control type="group">
+      <left>392</left><top>246</top><width>1480</width><height>620</height>
+
+      <control type="image">
+        <left>-6</left><top>-6</top><width>1492</width><height>632</height>
+        <texture border="24" colordiffuse="16000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1480</width><height>620</height>
+        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+      </control>
+
+      <control type="label">
+        <left>44</left><top>40</top><width>320</width><height>28</height>
+        <label>Core Category</label><font>HBM_Meta_S</font><textcolor>TextMuted</textcolor>
+        <visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),interface) | String.IsEqual(Skin.String(HBM.SettingsRailSection),media) | String.IsEqual(Skin.String(HBM.SettingsRailSection),player) | String.IsEqual(Skin.String(HBM.SettingsRailSection),pvr) | String.IsEqual(Skin.String(HBM.SettingsRailSection),services) | String.IsEqual(Skin.String(HBM.SettingsRailSection),system)</visible>
+      </control>
+      <control type="label">
+        <left>44</left><top>40</top><width>320</width><height>28</height>
+        <label>Access And Tools</label><font>HBM_Meta_S</font><textcolor>TextMuted</textcolor>
+        <visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),skin) | String.IsEqual(Skin.String(HBM.SettingsRailSection),addons) | String.IsEqual(Skin.String(HBM.SettingsRailSection),filemanager) | String.IsEqual(Skin.String(HBM.SettingsRailSection),profiles) | String.IsEqual(Skin.String(HBM.SettingsRailSection),systeminfo) | String.IsEqual(Skin.String(HBM.SettingsRailSection),eventlog)</visible>
+      </control>
+
+      <control type="label"><left>44</left><top>110</top><width>680</width><height>56</height><label>Interface Settings</label><font>HBM_Display_M</font><textcolor>TextPrimary</textcolor><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),interface)</visible></control>
+      <control type="label"><left>44</left><top>110</top><width>680</width><height>56</height><label>Media Settings</label><font>HBM_Display_M</font><textcolor>TextPrimary</textcolor><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),media)</visible></control>
+      <control type="label"><left>44</left><top>110</top><width>680</width><height>56</height><label>Player Settings</label><font>HBM_Display_M</font><textcolor>TextPrimary</textcolor><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),player)</visible></control>
+      <control type="label"><left>44</left><top>110</top><width>680</width><height>56</height><label>PVR Settings</label><font>HBM_Display_M</font><textcolor>TextPrimary</textcolor><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),pvr)</visible></control>
+      <control type="label"><left>44</left><top>110</top><width>680</width><height>56</height><label>Services Settings</label><font>HBM_Display_M</font><textcolor>TextPrimary</textcolor><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),services)</visible></control>
+      <control type="label"><left>44</left><top>110</top><width>680</width><height>56</height><label>System Settings</label><font>HBM_Display_M</font><textcolor>TextPrimary</textcolor><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),system)</visible></control>
+      <control type="label"><left>44</left><top>110</top><width>680</width><height>56</height><label>Skin Settings</label><font>HBM_Display_M</font><textcolor>TextPrimary</textcolor><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),skin)</visible></control>
+      <control type="label"><left>44</left><top>110</top><width>680</width><height>56</height><label>Add-ons</label><font>HBM_Display_M</font><textcolor>TextPrimary</textcolor><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),addons)</visible></control>
+      <control type="label"><left>44</left><top>110</top><width>680</width><height>56</height><label>File Manager</label><font>HBM_Display_M</font><textcolor>TextPrimary</textcolor><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),filemanager)</visible></control>
+      <control type="label"><left>44</left><top>110</top><width>680</width><height>56</height><label>Profiles</label><font>HBM_Display_M</font><textcolor>TextPrimary</textcolor><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),profiles)</visible></control>
+      <control type="label"><left>44</left><top>110</top><width>680</width><height>56</height><label>System Information</label><font>HBM_Display_M</font><textcolor>TextPrimary</textcolor><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),systeminfo)</visible></control>
+      <control type="label"><left>44</left><top>110</top><width>680</width><height>56</height><label>Event Log</label><font>HBM_Display_M</font><textcolor>TextPrimary</textcolor><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),eventlog)</visible></control>
+
+      <control type="textbox"><left>44</left><top>196</top><width>680</width><height>120</height><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><label>Configure Kodi's interface behavior, including appearance, language and region, screensaver behavior, master lock, and startup options.</label><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),interface)</visible></control>
+      <control type="textbox"><left>44</left><top>196</top><width>680</width><height>120</height><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><label>Manage file browsing, artwork, library behavior, sorting, and other media-facing options in Kodi.</label><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),media)</visible></control>
+      <control type="textbox"><left>44</left><top>196</top><width>680</width><height>120</height><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><label>Adjust playback controls for video, music, subtitles, discs, and language preferences.</label><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),player)</visible></control>
+      <control type="textbox"><left>44</left><top>196</top><width>680</width><height>120</height><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><label>Open live TV and guide settings for channels, recordings, playback, menus, and parental controls.</label><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),pvr)</visible></control>
+      <control type="textbox"><left>44</left><top>196</top><width>680</width><height>120</height><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><label>Manage network services like web control, UPnP, AirPlay, SMB, and remote device access.</label><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),services)</visible></control>
+      <control type="textbox"><left>44</left><top>196</top><width>680</width><height>120</height><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><label>Configure display output, audio devices, input behavior, power saving, accessibility, and logging.</label><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),system)</visible></control>
+      <control type="textbox"><left>44</left><top>196</top><width>680</width><height>120</height><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><label>Open the HBO Max skin controls for layout guides, textures, rail behavior, and other skin-specific tuning.</label><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),skin)</visible></control>
+      <control type="textbox"><left>44</left><top>196</top><width>680</width><height>120</height><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><label>Browse, install, update, and manage Kodi add-ons from the configured repositories and local sources.</label><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),addons)</visible></control>
+      <control type="textbox"><left>44</left><top>196</top><width>680</width><height>120</height><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><label>Manage file locations and media sources used by Kodi libraries and add-ons.</label><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),filemanager)</visible></control>
+      <control type="textbox"><left>44</left><top>196</top><width>680</width><height>120</height><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><label>Create and manage Kodi user profiles, startup behavior, and profile-level access restrictions.</label><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),profiles)</visible></control>
+      <control type="textbox"><left>44</left><top>196</top><width>680</width><height>120</height><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><label>Review hardware, storage, network, and build information reported by the current Kodi installation.</label><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),systeminfo)</visible></control>
+      <control type="textbox"><left>44</left><top>196</top><width>680</width><height>120</height><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><label>Inspect Kodi's recent notifications, warnings, and errors from the built-in event log.</label><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),eventlog)</visible></control>
+
+      <control type="image">
+        <left>44</left><top>356</top><width>1392</width><height>1</height>
+        <texture colordiffuse="16FFFFFF">white.png</texture>
+      </control>
+
+      <control type="label">
+        <left>44</left><top>392</top><width>260</width><height>24</height>
+        <label>Open Section</label><font>HBM_Meta_S</font><textcolor>TextMuted</textcolor>
+      </control>
+
+      <control type="button" id="9900"><left>44</left><top>438</top><width>1392</width><height>74</height><label>Open Interface Settings</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><aligny>center</aligny><textoffsetx>28</textoffsetx><texturefocus colordiffuse="14FFFFFF">white.png</texturefocus><texturenofocus /><onclick>ActivateWindow(InterfaceSettings)</onclick><onleft>9100</onleft><onright>9900</onright><onup>9900</onup><ondown>9900</ondown><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),interface)</visible></control>
+      <control type="button" id="9901"><left>44</left><top>438</top><width>1392</width><height>74</height><label>Open Media Settings</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><aligny>center</aligny><textoffsetx>28</textoffsetx><texturefocus colordiffuse="14FFFFFF">white.png</texturefocus><texturenofocus /><onclick>ActivateWindow(MediaSettings)</onclick><onleft>9101</onleft><onright>9901</onright><onup>9901</onup><ondown>9901</ondown><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),media)</visible></control>
+      <control type="button" id="9902"><left>44</left><top>438</top><width>1392</width><height>74</height><label>Open Player Settings</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><aligny>center</aligny><textoffsetx>28</textoffsetx><texturefocus colordiffuse="14FFFFFF">white.png</texturefocus><texturenofocus /><onclick>ActivateWindow(PlayerSettings)</onclick><onleft>9102</onleft><onright>9902</onright><onup>9902</onup><ondown>9902</ondown><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),player)</visible></control>
+      <control type="button" id="9903"><left>44</left><top>438</top><width>1392</width><height>74</height><label>Open PVR Settings</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><aligny>center</aligny><textoffsetx>28</textoffsetx><texturefocus colordiffuse="14FFFFFF">white.png</texturefocus><texturenofocus /><onclick>ActivateWindow(PVRSettings)</onclick><onleft>9103</onleft><onright>9903</onright><onup>9903</onup><ondown>9903</ondown><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),pvr)</visible></control>
+      <control type="button" id="9904"><left>44</left><top>438</top><width>1392</width><height>74</height><label>Open Services Settings</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><aligny>center</aligny><textoffsetx>28</textoffsetx><texturefocus colordiffuse="14FFFFFF">white.png</texturefocus><texturenofocus /><onclick>ActivateWindow(ServiceSettings)</onclick><onleft>9104</onleft><onright>9904</onright><onup>9904</onup><ondown>9904</ondown><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),services)</visible></control>
+      <control type="button" id="9905"><left>44</left><top>438</top><width>1392</width><height>74</height><label>Open System Settings</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><aligny>center</aligny><textoffsetx>28</textoffsetx><texturefocus colordiffuse="14FFFFFF">white.png</texturefocus><texturenofocus /><onclick>ActivateWindow(SystemSettings)</onclick><onleft>9105</onleft><onright>9905</onright><onup>9905</onup><ondown>9905</ondown><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),system)</visible></control>
+      <control type="button" id="9906"><left>44</left><top>438</top><width>1392</width><height>74</height><label>Open Skin Settings</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><aligny>center</aligny><textoffsetx>28</textoffsetx><texturefocus colordiffuse="14FFFFFF">white.png</texturefocus><texturenofocus /><onclick>ActivateWindow(SkinSettings)</onclick><onleft>9106</onleft><onright>9906</onright><onup>9906</onup><ondown>9906</ondown><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),skin)</visible></control>
+      <control type="button" id="9907"><left>44</left><top>438</top><width>1392</width><height>74</height><label>Open Add-ons</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><aligny>center</aligny><textoffsetx>28</textoffsetx><texturefocus colordiffuse="14FFFFFF">white.png</texturefocus><texturenofocus /><onclick>ActivateWindow(AddonBrowser)</onclick><onleft>9107</onleft><onright>9907</onright><onup>9907</onup><ondown>9907</ondown><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),addons)</visible></control>
+      <control type="button" id="9908"><left>44</left><top>438</top><width>1392</width><height>74</height><label>Open File Manager</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><aligny>center</aligny><textoffsetx>28</textoffsetx><texturefocus colordiffuse="14FFFFFF">white.png</texturefocus><texturenofocus /><onclick>ActivateWindow(FileManager)</onclick><onleft>9108</onleft><onright>9908</onright><onup>9908</onup><ondown>9908</ondown><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),filemanager)</visible></control>
+      <control type="button" id="9909"><left>44</left><top>438</top><width>1392</width><height>74</height><label>Open Profiles</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><aligny>center</aligny><textoffsetx>28</textoffsetx><texturefocus colordiffuse="14FFFFFF">white.png</texturefocus><texturenofocus /><onclick>ActivateWindow(SettingsProfile)</onclick><onleft>9109</onleft><onright>9909</onright><onup>9909</onup><ondown>9909</ondown><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),profiles)</visible></control>
+      <control type="button" id="9910"><left>44</left><top>438</top><width>1392</width><height>74</height><label>Open System Information</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><aligny>center</aligny><textoffsetx>28</textoffsetx><texturefocus colordiffuse="14FFFFFF">white.png</texturefocus><texturenofocus /><onclick>ActivateWindow(SystemInfo)</onclick><onleft>9110</onleft><onright>9910</onright><onup>9910</onup><ondown>9910</ondown><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),systeminfo)</visible></control>
+      <control type="button" id="9911"><left>44</left><top>438</top><width>1392</width><height>74</height><label>Open Event Log</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><aligny>center</aligny><textoffsetx>28</textoffsetx><texturefocus colordiffuse="14FFFFFF">white.png</texturefocus><texturenofocus /><onclick>ActivateWindow(EventLog)</onclick><onleft>9111</onleft><onright>9911</onright><onup>9911</onup><ondown>9911</ondown><visible>String.IsEqual(Skin.String(HBM.SettingsRailSection),eventlog)</visible></control>
+    </control>
+  </controls>
+</window>

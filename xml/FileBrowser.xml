@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol always="true">450</defaultcontrol>
+  <backgroundcolor>BackgroundBase</backgroundcolor>
+  <controls>
+    <include>HBM_Runtime_Background</include>
+
+    <control type="group">
+      <centerleft>50%</centerleft>
+      <centertop>50%</centertop>
+      <width>1600</width>
+      <height>860</height>
+
+      <control type="image">
+        <left>-6</left>
+        <top>-6</top>
+        <width>1612</width>
+        <height>872</height>
+        <texture border="24" colordiffuse="16000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left>
+        <top>0</top>
+        <width>1600</width>
+        <height>860</height>
+        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+      </control>
+
+      <control type="label" id="411">
+        <left>36</left>
+        <top>28</top>
+        <width>520</width>
+        <height>46</height>
+        <label>Browse Source Path</label>
+        <font>HBM_Display_M</font>
+        <textcolor>TextPrimary</textcolor>
+      </control>
+      <control type="image">
+        <left>36</left>
+        <top>86</top>
+        <width>1528</width>
+        <height>1</height>
+        <texture colordiffuse="18FFFFFF">white.png</texture>
+      </control>
+
+      <control type="fixedlist" id="450">
+        <left>36</left>
+        <top>116</top>
+        <width>1030</width>
+        <height>650</height>
+        <onleft>9000</onleft>
+        <onright>60</onright>
+        <onup>450</onup>
+        <ondown>450</ondown>
+        <pagecontrol>60</pagecontrol>
+        <movement>6</movement>
+        <itemlayout height="56" width="1030">
+          <control type="image">
+            <left>20</left>
+            <top>8</top>
+            <width>40</width>
+            <height>40</height>
+            <texture>$INFO[ListItem.Icon]</texture>
+            <aspectratio>keep</aspectratio>
+          </control>
+          <control type="label">
+            <left>82</left>
+            <top>0</top>
+            <width>900</width>
+            <height>56</height>
+            <label>$INFO[ListItem.Label]</label>
+            <font>HBM_Body_M</font>
+            <textcolor>TextSecondary</textcolor>
+            <aligny>center</aligny>
+          </control>
+        </itemlayout>
+        <focusedlayout height="56" width="1030">
+          <control type="image">
+            <left>0</left>
+            <top>0</top>
+            <width>1030</width>
+            <height>56</height>
+            <texture colordiffuse="FocusFill">white.png</texture>
+          </control>
+          <control type="image">
+            <left>20</left>
+            <top>8</top>
+            <width>40</width>
+            <height>40</height>
+            <texture>$INFO[ListItem.Icon]</texture>
+            <aspectratio>keep</aspectratio>
+          </control>
+          <control type="label">
+            <left>82</left>
+            <top>0</top>
+            <width>900</width>
+            <height>56</height>
+            <label>$INFO[ListItem.Label]</label>
+            <font>HBM_Body_M</font>
+            <textcolor>TextPrimary</textcolor>
+            <aligny>center</aligny>
+          </control>
+        </focusedlayout>
+      </control>
+
+      <control type="fixedlist" id="451">
+        <left>36</left>
+        <top>116</top>
+        <width>1030</width>
+        <height>650</height>
+        <onleft>9000</onleft>
+        <onright>60</onright>
+        <onup>451</onup>
+        <ondown>451</ondown>
+        <pagecontrol>60</pagecontrol>
+        <movement>6</movement>
+        <itemlayout height="56" width="1030">
+          <control type="image">
+            <left>20</left>
+            <top>8</top>
+            <width>40</width>
+            <height>40</height>
+            <texture>$INFO[ListItem.Icon]</texture>
+            <aspectratio>keep</aspectratio>
+          </control>
+          <control type="label">
+            <left>82</left>
+            <top>0</top>
+            <width>900</width>
+            <height>56</height>
+            <label>$INFO[ListItem.Label]</label>
+            <font>HBM_Body_M</font>
+            <textcolor>TextSecondary</textcolor>
+            <aligny>center</aligny>
+          </control>
+        </itemlayout>
+        <focusedlayout height="56" width="1030">
+          <control type="image">
+            <left>0</left>
+            <top>0</top>
+            <width>1030</width>
+            <height>56</height>
+            <texture colordiffuse="FocusFill">white.png</texture>
+          </control>
+          <control type="image">
+            <left>20</left>
+            <top>8</top>
+            <width>40</width>
+            <height>40</height>
+            <texture>$INFO[ListItem.Icon]</texture>
+            <aspectratio>keep</aspectratio>
+          </control>
+          <control type="label">
+            <left>82</left>
+            <top>0</top>
+            <width>900</width>
+            <height>56</height>
+            <label>$INFO[ListItem.Label]</label>
+            <font>HBM_Body_M</font>
+            <textcolor>TextPrimary</textcolor>
+            <aligny>center</aligny>
+          </control>
+        </focusedlayout>
+      </control>
+
+      <control type="scrollbar" id="60">
+        <left>1078</left>
+        <top>116</top>
+        <width>12</width>
+        <height>650</height>
+        <onleft>450</onleft>
+        <onright>9000</onright>
+        <orientation>vertical</orientation>
+      </control>
+
+      <control type="group">
+        <left>1118</left>
+        <top>116</top>
+        <width>446</width>
+        <height>650</height>
+        <control type="label">
+          <left>0</left>
+          <top>0</top>
+          <width>420</width>
+          <height>24</height>
+          <label>Preview</label>
+          <font>HBM_Meta_S</font>
+          <textcolor>TextMuted</textcolor>
+        </control>
+        <control type="image">
+          <left>0</left>
+          <top>40</top>
+          <width>420</width>
+          <height>1</height>
+          <texture colordiffuse="18FFFFFF">white.png</texture>
+        </control>
+        <control type="image">
+          <left>0</left>
+          <top>72</top>
+          <width>260</width>
+          <height>360</height>
+          <texture background="true">$INFO[ListItem.Icon]</texture>
+          <aspectratio aligny="top">keep</aspectratio>
+          <bordertexture colordiffuse="10000000">white.png</bordertexture>
+          <bordersize>1</bordersize>
+        </control>
+        <control type="textbox">
+          <left>0</left>
+          <top>460</top>
+          <width>420</width>
+          <height>160</height>
+          <font>HBM_Body_S</font>
+          <textcolor>TextSecondary</textcolor>
+          <label>$INFO[ListItem.Label][CR][CR]$INFO[ListItem.Plot]</label>
+        </control>
+      </control>
+
+      <control type="grouplist" id="9000">
+        <left>1118</left>
+        <top>700</top>
+        <width>446</width>
+        <height>120</height>
+        <itemgap>12</itemgap>
+        <orientation>vertical</orientation>
+        <onleft>450</onleft>
+        <onright>450</onright>
+        <onup>9000</onup>
+        <ondown>9000</ondown>
+        <control type="button" id="413">
+          <width>420</width>
+          <height>56</height>
+          <label>$LOCALIZE[186]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus />
+        </control>
+        <control type="button" id="414">
+          <width>420</width>
+          <height>56</height>
+          <label>$LOCALIZE[222]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus />
+        </control>
+        <control type="button" id="415">
+          <visible>Control.IsEnabled(415)</visible>
+          <width>420</width>
+          <height>56</height>
+          <label>$LOCALIZE[119]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus />
+        </control>
+        <control type="button" id="416">
+          <visible>Control.IsEnabled(416)</visible>
+          <width>420</width>
+          <height>56</height>
+          <label>$LOCALIZE[749]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus />
+        </control>
+      </control>
+
+      <control type="label" id="412">
+        <left>36</left>
+        <top>792</top>
+        <width>1030</width>
+        <height>28</height>
+        <haspath>true</haspath>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+      </control>
+      <control type="label">
+        <left>1118</left>
+        <top>792</top>
+        <width>446</width>
+        <height>28</height>
+        <align>right</align>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+        <label>$INFO[Container(450).CurrentPage]/$INFO[Container(450).NumPages]</label>
+      </control>
+    </control>
+  </controls>
+</window>

@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="1114">
+  <defaultcontrol always="true">101</defaultcontrol>
+  <animation effect="fade" time="250">WindowOpen</animation>
+  <animation effect="fade" time="250">WindowClose</animation>
+  <controls>
+
+    <!-- Full black backdrop -->
+    <control type="image">
+      <left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="FF000000">special://skin/media/white.png</texture>
+    </control>
+
+    <!-- ========== NAV RAIL ========== -->
+    <!-- Rail background (pure black matches BackgroundBase) -->
+    <control type="image">
+      <left>0</left><top>0</top><width>88</width><height>1080</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="BackgroundBase">special://skin/media/white.png</texture>
+    </control>
+    <!-- Right edge divider -->
+    <control type="image">
+      <left>87</left><top>0</top><width>1</width><height>1080</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="SurfaceStroke">special://skin/media/white.png</texture>
+    </control>
+    <!-- HBO logo -->
+    <control type="image">
+      <left>16</left><top>18</top><width>64</width><height>64</height>
+      <aspectratio align="center" aligny="center">keep</aspectratio>
+      <texture>special://skin/media/brand/hbo_white.png</texture>
+    </control>
+
+    <!-- Nav: Home -->
+    <control type="group">
+      <left>0</left><top>214</top><width>88</width><height>68</height>
+      <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_home.png</texture><visible>!Control.HasFocus(700)</visible></control>
+      <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavActive">special://skin/media/icons/rail_home.png</texture><visible>Control.HasFocus(700)</visible></control>
+      <control type="button" id="700"><left>0</left><top>0</top><width>88</width><height>68</height><label /><texturenofocus /><texturefocus /><onclick>Skin.SetString(HBM.HomeActivePage,home)</onclick><onclick>ActivateWindow(Home)</onclick><onleft>700</onleft><onright>101</onright><onup>706</onup><ondown>702</ondown></control>
+    </control>
+
+    <!-- Nav: TV Shows -->
+    <control type="group">
+      <left>0</left><top>282</top><width>88</width><height>68</height>
+      <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_series.png</texture><visible>!Control.HasFocus(702)</visible></control>
+      <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavActive">special://skin/media/icons/rail_series.png</texture><visible>Control.HasFocus(702)</visible></control>
+      <control type="button" id="702"><left>0</left><top>0</top><width>88</width><height>68</height><label /><texturenofocus /><texturefocus /><onclick>Skin.SetString(HBM.HomeActivePage,tvshows)</onclick><onclick>ActivateWindow(Home)</onclick><onleft>702</onleft><onright>101</onright><onup>700</onup><ondown>701</ondown></control>
+    </control>
+
+    <!-- Nav: Movies -->
+    <control type="group">
+      <left>0</left><top>350</top><width>88</width><height>68</height>
+      <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_movies.png</texture><visible>!Control.HasFocus(701)</visible></control>
+      <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavActive">special://skin/media/icons/rail_movies.png</texture><visible>Control.HasFocus(701)</visible></control>
+      <control type="button" id="701"><left>0</left><top>0</top><width>88</width><height>68</height><label /><texturenofocus /><texturefocus /><onclick>Skin.SetString(HBM.HomeActivePage,movies)</onclick><onclick>ActivateWindow(Home)</onclick><onleft>701</onleft><onright>101</onright><onup>702</onup><ondown>703</ondown></control>
+    </control>
+
+    <!-- Nav: Live TV -->
+    <control type="group">
+      <left>0</left><top>418</top><width>88</width><height>68</height>
+      <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_live_tv.png</texture><visible>!Control.HasFocus(703)</visible></control>
+      <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavActive">special://skin/media/icons/rail_live_tv.png</texture><visible>Control.HasFocus(703)</visible></control>
+      <control type="button" id="703"><left>0</left><top>0</top><width>88</width><height>68</height><label /><texturenofocus /><texturefocus /><onclick>Skin.SetString(HBM.HomeActivePage,livetv)</onclick><onclick>ActivateWindow(Home)</onclick><onleft>703</onleft><onright>101</onright><onup>701</onup><ondown>705</ondown></control>
+    </control>
+
+    <!-- Nav: My List -->
+    <control type="group">
+      <left>0</left><top>486</top><width>88</width><height>68</height>
+      <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_my_stuff.png</texture><visible>!Control.HasFocus(705)</visible></control>
+      <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavActive">special://skin/media/icons/rail_my_stuff.png</texture><visible>Control.HasFocus(705)</visible></control>
+      <control type="button" id="705"><left>0</left><top>0</top><width>88</width><height>68</height><label /><texturenofocus /><texturefocus /><onclick>Skin.SetString(HBM.HomeActivePage,mylist)</onclick><onclick>ActivateWindow(Home)</onclick><onleft>705</onleft><onright>101</onright><onup>703</onup><ondown>704</ondown></control>
+    </control>
+
+    <!-- Nav: Search (active — always AccentPrimary) -->
+    <control type="group">
+      <left>0</left><top>554</top><width>88</width><height>68</height>
+      <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="AccentPrimary">special://skin/media/icons/rail_search.png</texture></control>
+      <control type="button" id="704"><left>0</left><top>0</top><width>88</width><height>68</height><label /><texturenofocus /><texturefocus /><onleft>704</onleft><onright>101</onright><onup>705</onup><ondown>706</ondown></control>
+    </control>
+
+    <!-- Nav: Settings -->
+    <control type="group">
+      <left>0</left><top>622</top><width>88</width><height>68</height>
+      <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_settings.png</texture><visible>!Control.HasFocus(706)</visible></control>
+      <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavActive">special://skin/media/icons/rail_settings.png</texture><visible>Control.HasFocus(706)</visible></control>
+      <control type="button" id="706"><left>0</left><top>0</top><width>88</width><height>68</height><label /><texturenofocus /><texturefocus /><onclick>ActivateWindow(Settings)</onclick><onleft>706</onleft><onright>101</onright><onup>704</onup><ondown>700</ondown></control>
+    </control>
+
+    <!-- ========== KEYBOARD ========== -->
+    <control type="grouplist" id="9000">
+      <left>104</left><top>56</top><width>472</width><height>472</height>
+      <orientation>vertical</orientation>
+      <itemgap>8</itemgap>
+      <defaultcontrol>101</defaultcontrol>
+      <onleft>704</onleft>
+      <onright>51</onright>
+      <ondown>501</ondown>
+
+      <!-- Row 1: A B C D E F -->
+      <control type="grouplist" id="1001">
+        <width>472</width><height>72</height>
+        <orientation>horizontal</orientation>
+        <itemgap>8</itemgap>
+        <onleft>704</onleft>
+        <onright>51</onright>
+        <control type="button" id="101"><width>72</width><height>72</height><label>a</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]a)</onclick></control>
+        <control type="button" id="102"><width>72</width><height>72</height><label>b</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]b)</onclick></control>
+        <control type="button" id="103"><width>72</width><height>72</height><label>c</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]c)</onclick></control>
+        <control type="button" id="104"><width>72</width><height>72</height><label>d</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]d)</onclick></control>
+        <control type="button" id="105"><width>72</width><height>72</height><label>e</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]e)</onclick></control>
+        <control type="button" id="106"><width>72</width><height>72</height><label>f</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]f)</onclick></control>
+      </control>
+
+      <!-- Row 2: G H I J K L -->
+      <control type="grouplist" id="1002">
+        <width>472</width><height>72</height>
+        <orientation>horizontal</orientation>
+        <itemgap>8</itemgap>
+        <onleft>704</onleft>
+        <onright>51</onright>
+        <control type="button" id="107"><width>72</width><height>72</height><label>g</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]g)</onclick></control>
+        <control type="button" id="108"><width>72</width><height>72</height><label>h</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]h)</onclick></control>
+        <control type="button" id="109"><width>72</width><height>72</height><label>i</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]i)</onclick></control>
+        <control type="button" id="110"><width>72</width><height>72</height><label>j</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]j)</onclick></control>
+        <control type="button" id="111"><width>72</width><height>72</height><label>k</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]k)</onclick></control>
+        <control type="button" id="112"><width>72</width><height>72</height><label>l</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]l)</onclick></control>
+      </control>
+
+      <!-- Row 3: M N O P Q R -->
+      <control type="grouplist" id="1003">
+        <width>472</width><height>72</height>
+        <orientation>horizontal</orientation>
+        <itemgap>8</itemgap>
+        <onleft>704</onleft>
+        <onright>51</onright>
+        <control type="button" id="113"><width>72</width><height>72</height><label>m</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]m)</onclick></control>
+        <control type="button" id="114"><width>72</width><height>72</height><label>n</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]n)</onclick></control>
+        <control type="button" id="115"><width>72</width><height>72</height><label>o</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]o)</onclick></control>
+        <control type="button" id="116"><width>72</width><height>72</height><label>p</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]p)</onclick></control>
+        <control type="button" id="117"><width>72</width><height>72</height><label>q</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]q)</onclick></control>
+        <control type="button" id="118"><width>72</width><height>72</height><label>r</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]r)</onclick></control>
+      </control>
+
+      <!-- Row 4: S T U V W X -->
+      <control type="grouplist" id="1004">
+        <width>472</width><height>72</height>
+        <orientation>horizontal</orientation>
+        <itemgap>8</itemgap>
+        <onleft>704</onleft>
+        <onright>51</onright>
+        <control type="button" id="119"><width>72</width><height>72</height><label>s</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]s)</onclick></control>
+        <control type="button" id="120"><width>72</width><height>72</height><label>t</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]t)</onclick></control>
+        <control type="button" id="121"><width>72</width><height>72</height><label>u</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]u)</onclick></control>
+        <control type="button" id="122"><width>72</width><height>72</height><label>v</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]v)</onclick></control>
+        <control type="button" id="123"><width>72</width><height>72</height><label>w</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]w)</onclick></control>
+        <control type="button" id="124"><width>72</width><height>72</height><label>x</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]x)</onclick></control>
+      </control>
+
+      <!-- Row 5: Y Z -->
+      <control type="grouplist" id="1005">
+        <width>472</width><height>72</height>
+        <orientation>horizontal</orientation>
+        <itemgap>8</itemgap>
+        <onleft>704</onleft>
+        <onright>51</onright>
+        <control type="button" id="125"><width>72</width><height>72</height><label>y</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]y)</onclick></control>
+        <control type="button" id="126"><width>72</width><height>72</height><label>z</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]z)</onclick></control>
+      </control>
+
+      <!-- Row 6: 0–9 -->
+      <control type="grouplist" id="1006">
+        <width>472</width><height>72</height>
+        <orientation>horizontal</orientation>
+        <itemgap>4</itemgap>
+        <onleft>704</onleft>
+        <onright>51</onright>
+        <control type="button" id="128"><width>43</width><height>72</height><label>$VAR[HBM_Key_1]</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="4" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="4" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]1)</onclick></control>
+        <control type="button" id="129"><width>43</width><height>72</height><label>$VAR[HBM_Key_2]</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="4" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="4" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]2)</onclick></control>
+        <control type="button" id="130"><width>43</width><height>72</height><label>$VAR[HBM_Key_3]</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="4" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="4" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]3)</onclick></control>
+        <control type="button" id="131"><width>43</width><height>72</height><label>$VAR[HBM_Key_4]</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="4" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="4" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]4)</onclick></control>
+        <control type="button" id="132"><width>43</width><height>72</height><label>$VAR[HBM_Key_5]</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="4" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="4" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]5)</onclick></control>
+        <control type="button" id="133"><width>43</width><height>72</height><label>$VAR[HBM_Key_6]</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="4" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="4" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]6)</onclick></control>
+        <control type="button" id="134"><width>43</width><height>72</height><label>$VAR[HBM_Key_7]</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="4" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="4" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]7)</onclick></control>
+        <control type="button" id="135"><width>43</width><height>72</height><label>$VAR[HBM_Key_8]</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="4" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="4" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]8)</onclick></control>
+        <control type="button" id="136"><width>43</width><height>72</height><label>$VAR[HBM_Key_9]</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="4" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="4" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]9)</onclick></control>
+        <control type="button" id="137"><width>43</width><height>72</height><label>$VAR[HBM_Key_0]</label><align>center</align><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><focusedcolor>FFFFFFFF</focusedcolor><pulseonselect>false</pulseonselect><texturenofocus border="4" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus><texturefocus border="4" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]0)</onclick></control>
+      </control>
+
+    </control>
+
+    <!-- ========== ICON BUTTONS: Backspace | Space | Clear ========== -->
+    <!-- Backspace -->
+    <control type="group">
+      <left>104</left><top>544</top><width>152</width><height>56</height>
+      <control type="button" id="501">
+        <left>0</left><top>0</top><width>152</width><height>56</height>
+        <label></label>
+        <pulseonselect>false</pulseonselect>
+        <texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus>
+        <texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus>
+        <onleft>704</onleft><onright>502</onright><onup>9000</onup><ondown>51</ondown>
+        <onclick>RunScript(special://skin/resources/scripts/search.py,backspace)</onclick>
+      </control>
+      <control type="image">
+        <left>62</left><top>14</top><width>28</width><height>28</height>
+        <texture colordiffuse="FFF5F7FB">special://skin/media/icons/backspace-fill.png</texture>
+      </control>
+    </control>
+
+    <!-- Space -->
+    <control type="group">
+      <left>264</left><top>544</top><width>152</width><height>56</height>
+      <control type="button" id="502">
+        <left>0</left><top>0</top><width>152</width><height>56</height>
+        <label></label>
+        <pulseonselect>false</pulseonselect>
+        <texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus>
+        <texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus>
+        <onleft>501</onleft><onright>503</onright><onup>9000</onup><ondown>51</ondown>
+        <onclick>RunScript(special://skin/resources/scripts/search.py,space)</onclick>
+      </control>
+      <control type="image">
+        <left>62</left><top>14</top><width>28</width><height>28</height>
+        <texture colordiffuse="FFF5F7FB">special://skin/media/icons/space-fill.png</texture>
+      </control>
+    </control>
+
+    <!-- Clear / Trash -->
+    <control type="group">
+      <left>424</left><top>544</top><width>152</width><height>56</height>
+      <control type="button" id="503">
+        <left>0</left><top>0</top><width>152</width><height>56</height>
+        <label></label>
+        <pulseonselect>false</pulseonselect>
+        <texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus>
+        <texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus>
+        <onleft>502</onleft><onright>503</onright><onup>9000</onup><ondown>51</ondown>
+        <onclick>Skin.Reset(HBM.SearchTerm)</onclick>
+      </control>
+      <control type="image">
+        <left>62</left><top>14</top><width>28</width><height>28</height>
+        <texture colordiffuse="FFF5F7FB">special://skin/media/icons/trash-fill.png</texture>
+      </control>
+    </control>
+
+    <!-- ========== RESULTS PANEL ========== -->
+
+    <!-- Scrolling group: slides up as focus moves between categories.
+         Two additive animations: each -744px.
+         TV Shows = 0, Movies = -744, Actors = -1488 -->
+    <control type="group" id="5000">
+      <left>616</left><top>116</top><width>1280</width><height>2304</height>
+      <animation type="conditional" condition="Control.HasFocus(52) | Control.HasFocus(552) | Control.HasFocus(53) | Control.HasFocus(553)">
+        <effect type="slide" start="0,0" end="0,-744" time="400" tween="cubic" easing="inout"/>
+      </animation>
+      <animation type="conditional" condition="Control.HasFocus(53) | Control.HasFocus(553)">
+        <effect type="slide" start="0,0" end="0,-744" time="400" tween="cubic" easing="inout"/>
+      </animation>
+
+      <!-- ===== TV SHOWS ===== -->
+      <control type="label">
+        <left>24</left><top>0</top><width>1100</width><height>36</height>
+        <aligny>center</aligny>
+        <font>HBM_Title_M</font>
+        <textcolor>TextPrimary</textcolor>
+        <label>TV Shows</label>
+        <visible>!String.IsEmpty(Skin.String(HBM.SearchTerm))</visible>
+      </control>
+      <control type="button" id="551">
+        <left>1140</left><top>0</top><width>140</width><height>36</height>
+        <label>Next →</label>
+        <align>right</align>
+        <font>HBM_Body_S</font>
+        <textcolor>TextMuted</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <pulseonselect>false</pulseonselect>
+        <texturenofocus /><texturefocus />
+        <ondown>51</ondown><onleft>51</onleft><onright>551</onright>
+        <visible>!String.IsEmpty(Skin.String(HBM.SearchTerm))</visible>
+      </control>
+      <control type="panel" id="51">
+        <left>0</left><top>40</top><width>1280</width><height>660</height>
+        <onleft>9000</onleft><onup>9000</onup><ondown>52</ondown>
+        <onclick>Action(info)</onclick>
+        <scrolltime tween="cubic" easing="out">400</scrolltime>
+        <preloaditems>4</preloaditems>
+        <visible>!String.IsEmpty(Skin.String(HBM.SearchTerm))</visible>
+        <content target="videos">$VAR[HBM_SearchURL_TV]</content>
+        <itemlayout height="330" width="216">
+          <control type="image">
+            <left>0</left><top>0</top><width>200</width><height>300</height>
+            <texture fallback="DefaultVideo.png" background="true">$INFO[ListItem.Art(poster)]</texture>
+            <aspectratio>scale</aspectratio><fadetime>400</fadetime>
+          </control>
+          <control type="label">
+            <left>0</left><top>304</top><width>200</width><height>24</height>
+            <align>center</align><font>HBM_Meta_S</font>
+            <textcolor>TextSecondary</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+        </itemlayout>
+        <focusedlayout height="330" width="216">
+          <control type="image">
+            <left>0</left><top>0</top><width>200</width><height>300</height>
+            <texture fallback="DefaultVideo.png" background="true">$INFO[ListItem.Art(poster)]</texture>
+            <aspectratio>scale</aspectratio><fadetime>400</fadetime>
+          </control>
+          <control type="image"><left>0</left><top>0</top><width>200</width><height>2</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5F7FB">white.png</texture></control>
+          <control type="image"><left>0</left><top>298</top><width>200</width><height>2</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5F7FB">white.png</texture></control>
+          <control type="image"><left>0</left><top>0</top><width>2</width><height>300</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5F7FB">white.png</texture></control>
+          <control type="image"><left>198</left><top>0</top><width>2</width><height>300</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5F7FB">white.png</texture></control>
+          <control type="label">
+            <left>0</left><top>304</top><width>200</width><height>24</height>
+            <align>center</align><font>HBM_Meta_S</font>
+            <textcolor>TextPrimary</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+        </focusedlayout>
+      </control>
+
+      <!-- ===== MOVIES ===== -->
+      <control type="label">
+        <left>24</left><top>744</top><width>1100</width><height>36</height>
+        <aligny>center</aligny>
+        <font>HBM_Title_M</font>
+        <textcolor>TextPrimary</textcolor>
+        <label>Movies</label>
+        <visible>!String.IsEmpty(Skin.String(HBM.SearchTerm))</visible>
+      </control>
+      <control type="button" id="552">
+        <left>1140</left><top>744</top><width>140</width><height>36</height>
+        <label>Next →</label>
+        <align>right</align>
+        <font>HBM_Body_S</font>
+        <textcolor>TextMuted</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <pulseonselect>false</pulseonselect>
+        <texturenofocus /><texturefocus />
+        <ondown>52</ondown><onleft>52</onleft><onright>552</onright>
+        <visible>!String.IsEmpty(Skin.String(HBM.SearchTerm))</visible>
+      </control>
+      <control type="panel" id="52">
+        <left>0</left><top>784</top><width>1280</width><height>660</height>
+        <onleft>9000</onleft><onup>51</onup><ondown>53</ondown>
+        <onclick>Action(info)</onclick>
+        <scrolltime tween="cubic" easing="out">400</scrolltime>
+        <preloaditems>4</preloaditems>
+        <visible>!String.IsEmpty(Skin.String(HBM.SearchTerm))</visible>
+        <content target="videos">$VAR[HBM_SearchURL_Movie]</content>
+        <itemlayout height="330" width="216">
+          <control type="image">
+            <left>0</left><top>0</top><width>200</width><height>300</height>
+            <texture fallback="DefaultVideo.png" background="true">$INFO[ListItem.Art(poster)]</texture>
+            <aspectratio>scale</aspectratio><fadetime>400</fadetime>
+          </control>
+          <control type="label">
+            <left>0</left><top>304</top><width>200</width><height>24</height>
+            <align>center</align><font>HBM_Meta_S</font>
+            <textcolor>TextSecondary</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+        </itemlayout>
+        <focusedlayout height="330" width="216">
+          <control type="image">
+            <left>0</left><top>0</top><width>200</width><height>300</height>
+            <texture fallback="DefaultVideo.png" background="true">$INFO[ListItem.Art(poster)]</texture>
+            <aspectratio>scale</aspectratio><fadetime>400</fadetime>
+          </control>
+          <control type="image"><left>0</left><top>0</top><width>200</width><height>2</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5F7FB">white.png</texture></control>
+          <control type="image"><left>0</left><top>298</top><width>200</width><height>2</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5F7FB">white.png</texture></control>
+          <control type="image"><left>0</left><top>0</top><width>2</width><height>300</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5F7FB">white.png</texture></control>
+          <control type="image"><left>198</left><top>0</top><width>2</width><height>300</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5F7FB">white.png</texture></control>
+          <control type="label">
+            <left>0</left><top>304</top><width>200</width><height>24</height>
+            <align>center</align><font>HBM_Meta_S</font>
+            <textcolor>TextPrimary</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+        </focusedlayout>
+      </control>
+
+      <!-- ===== ACTORS ===== -->
+      <control type="label">
+        <left>24</left><top>1488</top><width>1100</width><height>36</height>
+        <aligny>center</aligny>
+        <font>HBM_Title_M</font>
+        <textcolor>TextPrimary</textcolor>
+        <label>Actors</label>
+        <visible>!String.IsEmpty(Skin.String(HBM.SearchTerm))</visible>
+      </control>
+      <control type="button" id="553">
+        <left>1140</left><top>1488</top><width>140</width><height>36</height>
+        <label>Next →</label>
+        <align>right</align>
+        <font>HBM_Body_S</font>
+        <textcolor>TextMuted</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <pulseonselect>false</pulseonselect>
+        <texturenofocus /><texturefocus />
+        <ondown>53</ondown><onleft>53</onleft><onright>553</onright>
+        <visible>!String.IsEmpty(Skin.String(HBM.SearchTerm))</visible>
+      </control>
+      <control type="panel" id="53">
+        <left>0</left><top>1528</top><width>1280</width><height>660</height>
+        <onleft>9000</onleft><onup>52</onup><ondown>53</ondown>
+        <onclick>Action(info)</onclick>
+        <scrolltime tween="cubic" easing="out">400</scrolltime>
+        <preloaditems>4</preloaditems>
+        <visible>!String.IsEmpty(Skin.String(HBM.SearchTerm))</visible>
+        <content target="videos">$VAR[HBM_SearchURL_Person]</content>
+        <itemlayout height="330" width="216">
+          <control type="image">
+            <left>0</left><top>0</top><width>200</width><height>300</height>
+            <texture fallback="DefaultActor.png" background="true">$INFO[ListItem.Art(poster)]</texture>
+            <aspectratio>scale</aspectratio><fadetime>400</fadetime>
+          </control>
+          <control type="label">
+            <left>0</left><top>304</top><width>200</width><height>24</height>
+            <align>center</align><font>HBM_Meta_S</font>
+            <textcolor>TextSecondary</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+        </itemlayout>
+        <focusedlayout height="330" width="216">
+          <control type="image">
+            <left>0</left><top>0</top><width>200</width><height>300</height>
+            <texture fallback="DefaultActor.png" background="true">$INFO[ListItem.Art(poster)]</texture>
+            <aspectratio>scale</aspectratio><fadetime>400</fadetime>
+          </control>
+          <control type="image"><left>0</left><top>0</top><width>200</width><height>2</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5F7FB">white.png</texture></control>
+          <control type="image"><left>0</left><top>298</top><width>200</width><height>2</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5F7FB">white.png</texture></control>
+          <control type="image"><left>0</left><top>0</top><width>2</width><height>300</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5F7FB">white.png</texture></control>
+          <control type="image"><left>198</left><top>0</top><width>2</width><height>300</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5F7FB">white.png</texture></control>
+          <control type="label">
+            <left>0</left><top>304</top><width>200</width><height>24</height>
+            <align>center</align><font>HBM_Meta_S</font>
+            <textcolor>TextPrimary</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+        </focusedlayout>
+      </control>
+
+    </control>
+
+    <!-- Mask: covers the heading zone (y=0–116) so scrolled content does not bleed into it -->
+    <control type="image">
+      <left>616</left><top>0</top><width>1280</width><height>116</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="FF000000">special://skin/media/white.png</texture>
+    </control>
+
+    <!-- Heading: rendered after mask so it always sits on top -->
+    <control type="label">
+      <left>640</left><top>40</top><width>1256</width><height>52</height>
+      <aligny>center</aligny>
+      <font>HBM_Display_M</font>
+      <textcolor>TextPrimary</textcolor>
+      <label>$INFO[Skin.String(HBM.SearchTerm)]</label>
+      <visible>!String.IsEmpty(Skin.String(HBM.SearchTerm))</visible>
+    </control>
+    <control type="label">
+      <left>640</left><top>40</top><width>1256</width><height>52</height>
+      <aligny>center</aligny>
+      <font>HBM_Display_M</font>
+      <textcolor>TextPrimary</textcolor>
+      <label>What are you looking for?</label>
+      <visible>String.IsEmpty(Skin.String(HBM.SearchTerm))</visible>
+    </control>
+    <control type="image">
+      <left>616</left><top>96</top><width>1280</width><height>1</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="SurfaceStroke">special://skin/media/white.png</texture>
+    </control>
+    <control type="label">
+      <left>616</left><top>300</top><width>1280</width><height>auto</height>
+      <align>center</align>
+      <font>HBM_Body_M</font>
+      <textcolor>TextMuted</textcolor>
+      <label>Start typing to search for movies and TV shows.</label>
+      <visible>String.IsEmpty(Skin.String(HBM.SearchTerm))</visible>
+    </control>
+
+  </controls>
+</window>

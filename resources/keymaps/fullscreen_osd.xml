@@ -1,0 +1,38 @@
+<keymap>
+  <FullscreenVideo>
+    <keyboard>
+      <up>ActivateWindow(VideoOSD)</up>
+      <down>ActivateWindow(VideoOSD)</down>
+      <left>ActivateWindow(VideoOSD)</left>
+      <right>ActivateWindow(VideoOSD)</right>
+      <enter>ActivateWindow(VideoOSD)</enter>
+      <return>ActivateWindow(VideoOSD)</return>
+      <space>ActivateWindow(VideoOSD)</space>
+    </keyboard>
+    <remote>
+      <up>ActivateWindow(VideoOSD)</up>
+      <down>ActivateWindow(VideoOSD)</down>
+      <left>ActivateWindow(VideoOSD)</left>
+      <right>ActivateWindow(VideoOSD)</right>
+      <select>ActivateWindow(VideoOSD)</select>
+      <play>ActivateWindow(VideoOSD)</play>
+      <pause>ActivateWindow(VideoOSD)</pause>
+    </remote>
+    <universalremote>
+      <up>ActivateWindow(VideoOSD)</up>
+      <down>ActivateWindow(VideoOSD)</down>
+      <left>ActivateWindow(VideoOSD)</left>
+      <right>ActivateWindow(VideoOSD)</right>
+      <select>ActivateWindow(VideoOSD)</select>
+      <play>ActivateWindow(VideoOSD)</play>
+      <pause>ActivateWindow(VideoOSD)</pause>
+    </universalremote>
+    <joystick name="default">
+      <up>ActivateWindow(VideoOSD)</up>
+      <down>ActivateWindow(VideoOSD)</down>
+      <left>ActivateWindow(VideoOSD)</left>
+      <right>ActivateWindow(VideoOSD)</right>
+      <a>ActivateWindow(VideoOSD)</a>
+    </joystick>
+  </FullscreenVideo>
+</keymap>

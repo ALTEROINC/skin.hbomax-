@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol>3</defaultcontrol>
+  <backgroundcolor>BackgroundBase</backgroundcolor>
+  <controls>
+    <include>HBM_Runtime_Background</include>
+
+    <control type="label">
+      <left>664</left>
+      <top>138</top>
+      <width>592</width>
+      <height>60</height>
+      <label>Settings</label>
+      <font>HBM_Display_M</font>
+      <align>center</align>
+      <textcolor>TextPrimary</textcolor>
+    </control>
+
+    <control type="group">
+      <left>0</left>
+      <top>0</top>
+      <width>368</width>
+      <height>1080</height>
+
+      <control type="image">
+        <left>16</left>
+        <top>18</top>
+        <width>64</width>
+        <height>64</height>
+        <texture aspectratio="keep">special://skin/media/brand/hbo_white.png</texture>
+      </control>
+
+      <control type="label">
+        <left>60</left>
+        <top>118</top>
+        <width>276</width>
+        <height>24</height>
+        <label>Categories</label>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+      </control>
+
+      <control type="image">
+        <left>60</left>
+        <top>156</top>
+        <width>276</width>
+        <height>1</height>
+        <texture colordiffuse="18FFFFFF">white.png</texture>
+      </control>
+
+      <control type="grouplist" id="3">
+        <description>button area</description>
+        <left>0</left>
+        <top>188</top>
+        <width>368</width>
+        <height>628</height>
+        <usecontrolcoords>true</usecontrolcoords>
+        <orientation>vertical</orientation>
+        <itemgap>0</itemgap>
+        <pagecontrol>61</pagecontrol>
+        <onleft>5</onleft>
+        <onright>5</onright>
+        <onup>20</onup>
+        <ondown>20</ondown>
+      </control>
+
+      <control type="button" id="10">
+        <description>Default Category Button</description>
+        <left>0</left>
+        <top>0</top>
+        <width>368</width>
+        <height>56</height>
+        <font>HBM_Nav_M</font>
+        <textcolor>TextNavInactive</textcolor>
+        <focusedcolor>TextNavActive</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>76</textoffsetx>
+        <texturefocus />
+        <texturenofocus />
+      </control>
+
+      <control type="radiobutton" id="20">
+        <left>0</left>
+        <top>892</top>
+        <width>368</width>
+        <height>64</height>
+        <label>Settings Level</label>
+        <font>HBM_Body_S</font>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>118</textoffsetx>
+        <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus />
+        <onclick>SettingsLevelChange</onclick>
+        <radioposx>60</radioposx>
+        <radioposy>16</radioposy>
+        <radiowidth>28</radiowidth>
+        <radioheight>28</radioheight>
+        <onleft>5</onleft>
+        <onright>5</onright>
+        <onup>3</onup>
+        <ondown>3</ondown>
+      </control>
+    </control>
+
+    <control type="group">
+      <left>424</left>
+      <top>238</top>
+      <width>1296</width>
+      <height>686</height>
+
+      <control type="image">
+        <left>-6</left>
+        <top>-6</top>
+        <width>1308</width>
+        <height>698</height>
+        <texture border="24" colordiffuse="16000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left>
+        <top>0</top>
+        <width>1296</width>
+        <height>686</height>
+        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+      </control>
+
+      <control type="label" id="2">
+        <description>breadcrumbs label</description>
+        <left>36</left>
+        <top>26</top>
+        <width>560</width>
+        <height>24</height>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+      </control>
+
+      <control type="image">
+        <left>36</left>
+        <top>66</top>
+        <width>1224</width>
+        <height>1</height>
+        <texture colordiffuse="18FFFFFF">white.png</texture>
+      </control>
+
+      <control type="grouplist" id="5">
+        <description>control area</description>
+        <left>36</left>
+        <top>84</top>
+        <width>1188</width>
+        <height>528</height>
+        <pagecontrol>60</pagecontrol>
+        <onleft>3</onleft>
+        <onright>60</onright>
+        <onup>5</onup>
+        <ondown>5</ondown>
+        <orientation>vertical</orientation>
+        <itemgap>0</itemgap>
+      </control>
+
+      <control type="button" id="7">
+        <description>Default Button</description>
+        <left>36</left>
+        <top>0</top>
+        <width>1188</width>
+        <height>56</height>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>0</textoffsetx>
+        <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus />
+      </control>
+
+      <control type="radiobutton" id="8">
+        <description>Default RadioButton</description>
+        <left>36</left>
+        <top>0</top>
+        <width>1188</width>
+        <height>56</height>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>0</textoffsetx>
+        <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus />
+      </control>
+
+      <control type="spincontrolex" id="9">
+        <description>Default SpinControlex</description>
+        <left>36</left>
+        <top>0</top>
+        <width>1188</width>
+        <height>56</height>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <aligny>center</aligny>
+        <textoffsetx>0</textoffsetx>
+        <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus />
+      </control>
+
+      <control type="sliderex" id="13">
+        <description>Default Slider</description>
+        <left>36</left>
+        <top>0</top>
+        <width>1188</width>
+        <height>56</height>
+        <texturefocus colordiffuse="14FFFFFF">white.png</texturefocus>
+        <texturenofocus />
+      </control>
+
+      <control type="image" id="11">
+        <description>separator image</description>
+        <left>36</left>
+        <top>55</top>
+        <width>1188</width>
+        <height>1</height>
+        <texture colordiffuse="16FFFFFF">white.png</texture>
+      </control>
+
+      <control type="label" id="14">
+        <description>Default Label</description>
+        <left>36</left>
+        <top>0</top>
+        <width>1188</width>
+        <height>44</height>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+        <align>left</align>
+        <aligny>center</aligny>
+      </control>
+
+      <control type="colorbutton" id="15">
+        <description>Default ColorButton</description>
+        <left>36</left>
+        <top>0</top>
+        <width>1188</width>
+        <height>56</height>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>0</textoffsetx>
+        <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus />
+      </control>
+
+      <control type="textbox" id="6">
+        <description>description area</description>
+        <left>36</left>
+        <top>612</top>
+        <width>1152</width>
+        <height>44</height>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+        <autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
+      </control>
+    </control>
+
+    <control type="group">
+      <left>1688</left>
+      <top>322</top>
+      <width>28</width>
+      <height>500</height>
+      <control type="scrollbar" id="60">
+        <left>8</left>
+        <top>0</top>
+        <width>8</width>
+        <height>500</height>
+        <orientation>vertical</orientation>
+        <texturesliderbackground />
+        <onleft>5</onleft>
+        <onright>5</onright>
+        <hitrect x="0" y="0" w="28" h="500" />
+      </control>
+    </control>
+
+    <control type="group">
+      <left>332</left>
+      <top>188</top>
+      <width>24</width>
+      <height>628</height>
+      <control type="scrollbar" id="61">
+        <left>8</left>
+        <top>0</top>
+        <width>8</width>
+        <height>628</height>
+        <orientation>vertical</orientation>
+        <texturesliderbackground />
+        <onleft>3</onleft>
+        <onright>3</onright>
+        <hitrect x="0" y="0" w="24" h="628" />
+      </control>
+    </control>
+
+    <control type="button" id="9000">
+      <left>1440</left>
+      <top>82</top>
+      <width>150</width>
+      <height>56</height>
+      <label>Hub</label>
+      <font>HBM_Body_M</font>
+      <textcolor>TextSecondary</textcolor>
+      <focusedcolor>TextNavActive</focusedcolor>
+      <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+      <texturenofocus colordiffuse="0DFFFFFF">white.png</texturenofocus>
+      <onclick>ActivateWindow(Settings)</onclick>
+      <onleft>5</onleft>
+      <onright>9001</onright>
+    </control>
+
+    <control type="button" id="9001">
+      <left>1604</left>
+      <top>82</top>
+      <width>150</width>
+      <height>56</height>
+      <label>Home</label>
+      <font>HBM_Body_M</font>
+      <textcolor>TextSecondary</textcolor>
+      <focusedcolor>TextNavActive</focusedcolor>
+      <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+      <texturenofocus colordiffuse="0DFFFFFF">white.png</texturenofocus>
+      <onclick>ActivateWindow(Home)</onclick>
+      <onleft>9000</onleft>
+      <onright>3</onright>
+    </control>
+  </controls>
+</window>

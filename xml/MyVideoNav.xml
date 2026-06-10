@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol always="true">50</defaultcontrol>
+  <backgroundcolor>BackgroundBase</backgroundcolor>
+  <views>50</views>
+  <controls>
+    <include>HBM_Runtime_Background</include>
+
+    <control type="label">
+      <left>120</left>
+      <top>86</top>
+      <width>900</width>
+      <height>54</height>
+      <label>Videos</label>
+      <font>HBM_Display_M</font>
+      <textcolor>TextPrimary</textcolor>
+    </control>
+
+    <control type="group">
+      <left>96</left>
+      <top>170</top>
+      <width>1728</width>
+      <height>814</height>
+      <control type="image">
+        <left>-6</left>
+        <top>-6</top>
+        <width>1740</width>
+        <height>826</height>
+        <texture border="24" colordiffuse="16000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left>
+        <top>0</top>
+        <width>1728</width>
+        <height>814</height>
+        <texture border="24" colordiffuse="F10F1420">special://skin/media/panel_rounded.png</texture>
+      </control>
+
+      <control type="label">
+        <left>36</left>
+        <top>26</top>
+        <width>420</width>
+        <height>24</height>
+        <label>Browse</label>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+      </control>
+      <control type="image">
+        <left>36</left>
+        <top>66</top>
+        <width>1656</width>
+        <height>1</height>
+        <texture colordiffuse="18FFFFFF">white.png</texture>
+      </control>
+
+      <control type="list" id="50">
+        <left>36</left>
+        <top>104</top>
+        <width>980</width>
+        <height>650</height>
+        <pagecontrol>60</pagecontrol>
+        <onright>9000</onright>
+        <onleft>50</onleft>
+        <itemlayout width="980" height="72">
+          <control type="image">
+            <left>16</left>
+            <top>8</top>
+            <width>84</width>
+            <height>56</height>
+            <texture fallback="DefaultVideo.png">$INFO[ListItem.Icon]</texture>
+            <aspectratio align="center" aligny="center">keep</aspectratio>
+          </control>
+          <control type="label">
+            <left>124</left>
+            <top>0</top>
+            <width>820</width>
+            <height>72</height>
+            <label>$INFO[ListItem.Label]</label>
+            <font>HBM_Body_M</font>
+            <textcolor>TextSecondary</textcolor>
+            <aligny>center</aligny>
+          </control>
+          <control type="image">
+            <left>0</left>
+            <top>71</top>
+            <width>980</width>
+            <height>1</height>
+            <texture colordiffuse="16FFFFFF">white.png</texture>
+          </control>
+        </itemlayout>
+        <focusedlayout width="980" height="72">
+          <control type="image">
+            <left>0</left>
+            <top>0</top>
+            <width>980</width>
+            <height>72</height>
+            <texture colordiffuse="FocusFill">white.png</texture>
+          </control>
+          <control type="image">
+            <left>16</left>
+            <top>8</top>
+            <width>84</width>
+            <height>56</height>
+            <texture fallback="DefaultVideo.png">$INFO[ListItem.Icon]</texture>
+            <aspectratio align="center" aligny="center">keep</aspectratio>
+          </control>
+          <control type="label">
+            <left>124</left>
+            <top>0</top>
+            <width>820</width>
+            <height>72</height>
+            <label>$INFO[ListItem.Label]</label>
+            <font>HBM_Body_M</font>
+            <textcolor>TextPrimary</textcolor>
+            <aligny>center</aligny>
+          </control>
+        </focusedlayout>
+      </control>
+
+      <control type="scrollbar" id="60">
+        <left>1028</left>
+        <top>104</top>
+        <width>12</width>
+        <height>650</height>
+        <orientation>vertical</orientation>
+        <texturesliderbackground />
+        <onleft>50</onleft>
+        <onright>9000</onright>
+      </control>
+
+      <control type="label">
+        <left>1084</left>
+        <top>104</top>
+        <width>572</width>
+        <height>24</height>
+        <label>Details</label>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+      </control>
+      <control type="image">
+        <left>1084</left>
+        <top>144</top>
+        <width>572</width>
+        <height>1</height>
+        <texture colordiffuse="18FFFFFF">white.png</texture>
+      </control>
+      <control type="image">
+        <left>1210</left>
+        <top>176</top>
+        <width>320</width>
+        <height>180</height>
+        <texture fallback="DefaultVideo.png">$INFO[ListItem.Icon]</texture>
+        <aspectratio align="center" aligny="center">keep</aspectratio>
+      </control>
+      <control type="label">
+        <left>1084</left>
+        <top>388</top>
+        <width>572</width>
+        <height>40</height>
+        <label>$INFO[ListItem.Label]</label>
+        <font>HBM_Body_M</font>
+        <textcolor>TextPrimary</textcolor>
+      </control>
+      <control type="textbox">
+        <left>1084</left>
+        <top>436</top>
+        <width>572</width>
+        <height>206</height>
+        <font>HBM_Body_S</font>
+        <textcolor>TextSecondary</textcolor>
+        <label>$INFO[ListItem.Plot]</label>
+      </control>
+
+      <control type="button" id="9000">
+        <left>1084</left>
+        <top>682</top>
+        <width>572</width>
+        <height>56</height>
+        <label>Plugin Settings</label>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus />
+        <onclick>Addon.OpenSettings($INFO[Container.PluginName])</onclick>
+        <visible>!String.IsEmpty(Container.PluginName)</visible>
+        <onleft>50</onleft>
+        <ondown>9001</ondown>
+      </control>
+      <control type="button" id="9001">
+        <left>1084</left>
+        <top>742</top>
+        <width>572</width>
+        <height>56</height>
+        <label>Home</label>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus />
+        <onclick>ActivateWindow(Home)</onclick>
+        <onleft>50</onleft>
+        <onup>9000</onup>
+      </control>
+    </control>
+  </controls>
+</window>

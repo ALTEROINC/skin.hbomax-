@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<colors>
+  <!-- Foundation -->
+  <color name="BackgroundBase">FF000000</color>
+  <color name="BackgroundHeroCanvas">FF000000</color>
+  <color name="BackgroundLowerBand">FF000000</color>
+  <color name="BackgroundElevated">FF000000</color>
+  <color name="SurfaceGlass">D90B0E13</color>
+  <color name="SurfaceStroke">26FFFFFF</color>
+
+  <!-- Overlays -->
+  <color name="OverlaySoft">7A000000</color>
+  <color name="OverlayStrong">D4000000</color>
+  <color name="OverlayHeroDim">94000000</color>
+  <color name="OverlayReadableLeft">C4000000</color>
+  <color name="OverlayBrowseFade">00050608</color>
+  <color name="OverlaySmoke">D406090D</color>
+  <color name="TextShadowNone">00000000</color>
+
+  <!-- Typography -->
+  <color name="TextPrimary">FFF5F7FB</color>
+  <color name="TextSecondary">CCEDF1F8</color>
+  <color name="TextMuted">99B7C0CE</color>
+  <color name="TextNavInactive">BFD8E0EC</color>
+  <color name="TextNavActive">FFF7FAFF</color>
+  <color name="TextHeroMeta">CFE6EBF5</color>
+  <color name="TextChipInactive">D9EFF3FA</color>
+
+  <!-- Accent and focus -->
+  <color name="AccentPrimary">FFB6CBF7</color>
+  <color name="AccentSoft">26B6CBF7</color>
+  <color name="FocusFill">18FFFFFF</color>
+  <color name="NavUnderline">FFF7FAFF</color>
+  <color name="HeroButtonPrimaryFill">FFF5F7FB</color>
+  <color name="HeroButtonPrimaryText">FF090B12</color>
+  <color name="HeroButtonSecondaryFill">1FFFFFFF</color>
+  <color name="HeroButtonSecondaryStroke">33FFFFFF</color>
+  <color name="ChipBorder">4DFFFFFF</color>
+</colors>

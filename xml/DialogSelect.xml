@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol always="true">3</defaultcontrol>
+  <controls>
+    <include>HBM_Runtime_ModalScrim</include>
+    <control type="group">
+      <centerleft>50%</centerleft>
+      <centertop>50%</centertop>
+      <width>980</width>
+      <height>736</height>
+      <control type="image">
+        <left>-6</left>
+        <top>-6</top>
+        <width>992</width>
+        <height>748</height>
+        <texture border="24" colordiffuse="16000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <width>980</width>
+        <height>736</height>
+        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+      </control>
+
+      <!-- Title -->
+      <control type="label" id="1">
+        <left>40</left>
+        <top>30</top>
+        <width>900</width>
+        <height>48</height>
+        <font>HBM_Display_M</font>
+        <textcolor>TextPrimary</textcolor>
+      </control>
+
+      <!-- Header divider -->
+      <control type="image">
+        <left>40</left>
+        <top>92</top>
+        <width>900</width>
+        <height>1</height>
+        <texture colordiffuse="20FFFFFF">white.png</texture>
+      </control>
+
+      <!-- Item list (id=3) — height trimmed to leave room for buttons below -->
+      <control type="list" id="3">
+        <left>40</left>
+        <top>110</top>
+        <width>900</width>
+        <height>460</height>
+        <pagecontrol>60</pagecontrol>
+        <onleft>60</onleft>
+        <onright>60</onright>
+        <onup>3</onup>
+        <ondown>9001</ondown>
+        <itemlayout height="64" width="900">
+          <control type="image">
+            <left>0</left>
+            <top>63</top>
+            <width>820</width>
+            <height>1</height>
+            <texture colordiffuse="16FFFFFF">white.png</texture>
+          </control>
+          <control type="label">
+            <left>18</left>
+            <width>852</width>
+            <height>64</height>
+            <font>HBM_Body_M</font>
+            <textcolor>TextSecondary</textcolor>
+            <aligny>center</aligny>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+        </itemlayout>
+        <focusedlayout height="64" width="900">
+          <control type="image">
+            <width>900</width>
+            <height>64</height>
+            <texture colordiffuse="FocusFill">white.png</texture>
+          </control>
+          <control type="image">
+            <left>0</left>
+            <top>63</top>
+            <width>900</width>
+            <height>1</height>
+            <texture colordiffuse="16FFFFFF">white.png</texture>
+          </control>
+          <control type="label">
+            <left>18</left>
+            <width>852</width>
+            <height>64</height>
+            <font>HBM_Body_M</font>
+            <textcolor>TextPrimary</textcolor>
+            <aligny>center</aligny>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+        </focusedlayout>
+      </control>
+
+      <!-- Scrollbar (id=60) -->
+      <control type="scrollbar" id="60">
+        <left>934</left>
+        <top>110</top>
+        <width>12</width>
+        <height>460</height>
+        <orientation>vertical</orientation>
+        <texturesliderbackground colordiffuse="1AFFFFFF">white.png</texturesliderbackground>
+        <textureslider colordiffuse="66FFFFFF">white.png</textureslider>
+        <onleft>3</onleft>
+        <onright>3</onright>
+        <ondown>9001</ondown>
+      </control>
+
+      <!-- Description / extra info (id=6, set by Kodi C++) -->
+      <control type="textbox" id="6">
+        <left>40</left>
+        <top>580</top>
+        <width>900</width>
+        <height>36</height>
+        <font>HBM_Body_S</font>
+        <textcolor>TextMuted</textcolor>
+      </control>
+
+      <!-- Bottom divider above buttons -->
+      <control type="image">
+        <left>40</left>
+        <top>626</top>
+        <width>900</width>
+        <height>1</height>
+        <texture colordiffuse="16FFFFFF">white.png</texture>
+      </control>
+
+      <!-- Action buttons: OK (id=5), Select All (id=8), Cancel (id=7) -->
+      <control type="grouplist" id="9001">
+        <left>0</left>
+        <top>644</top>
+        <width>980</width>
+        <height>56</height>
+        <orientation>horizontal</orientation>
+        <align>center</align>
+        <itemgap>16</itemgap>
+        <onup>3</onup>
+        <ondown>3</ondown>
+
+        <!-- id=5: OK / Confirm — primary action, label set by Kodi C++ -->
+        <control type="button" id="5">
+          <width>200</width>
+          <height>56</height>
+          <label>$LOCALIZE[186]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus border="8" colordiffuse="1AFFFFFF">white.png</texturenofocus>
+          <align>center</align><aligny>center</aligny>
+        </control>
+
+        <!-- id=8: Select All — shown by Kodi when multi-select is active -->
+        <control type="button" id="8">
+          <width>200</width>
+          <height>56</height>
+          <label>$LOCALIZE[35261]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
+          <align>center</align><aligny>center</aligny>
+        </control>
+
+        <!-- id=7: Cancel -->
+        <control type="button" id="7">
+          <width>200</width>
+          <height>56</height>
+          <label>$LOCALIZE[222]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
+          <align>center</align><aligny>center</aligny>
+        </control>
+
+      </control>
+
+    </control>
+  </controls>
+</window>

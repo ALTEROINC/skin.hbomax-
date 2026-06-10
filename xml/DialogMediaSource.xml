@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol>10</defaultcontrol>
+  <controls>
+
+    <!-- Backdrop dim -->
+    <control type="image">
+      <left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <texture colordiffuse="CC000000">white.png</texture>
+    </control>
+
+    <!-- Dialog panel: 1100x740, centered -->
+    <control type="group">
+      <left>410</left><top>170</top><width>1100</width><height>740</height>
+
+      <!-- Panel background -->
+      <control type="image">
+        <left>-6</left><top>-6</top><width>1112</width><height>752</height>
+        <texture border="24" colordiffuse="16000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1100</width><height>740</height>
+        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+      </control>
+
+      <!-- Title -->
+      <control type="label" id="2">
+        <left>32</left><top>0</top><width>1036</width><height>72</height>
+        <font>HBM_Display_M</font>
+        <textcolor>TextPrimary</textcolor>
+        <aligny>center</aligny>
+        <label>$LOCALIZE[13406]</label>
+      </control>
+
+      <!-- Top divider -->
+      <control type="image">
+        <left>0</left><top>72</top><width>1100</width><height>1</height>
+        <texture colordiffuse="16FFFFFF">white.png</texture>
+      </control>
+
+      <!-- "Path" section label -->
+      <control type="label">
+        <left>32</left><top>92</top><width>600</width><height>28</height>
+        <label>$LOCALIZE[1021]</label>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+        <aligny>center</aligny>
+      </control>
+
+      <!-- Path entry list (id=10) -->
+      <control type="list" id="10">
+        <left>32</left><top>132</top><width>788</width><height>240</height>
+        <pagecontrol>60</pagecontrol>
+        <onleft>9000</onleft>
+        <onright>60</onright>
+        <ondown>12</ondown>
+        <onup>9001</onup>
+        <itemlayout width="788" height="56">
+          <control type="label">
+            <left>16</left><width>756</width><height>56</height>
+            <font>HBM_Body_M</font><textcolor>TextSecondary</textcolor>
+            <aligny>center</aligny><label>$INFO[ListItem.Label]</label>
+          </control>
+          <control type="image">
+            <left>0</left><top>55</top><width>788</width><height>1</height>
+            <texture colordiffuse="16FFFFFF">white.png</texture>
+          </control>
+        </itemlayout>
+        <focusedlayout width="788" height="56">
+          <control type="image">
+            <width>788</width><height>56</height>
+            <texture colordiffuse="FocusFill">white.png</texture>
+          </control>
+          <control type="label">
+            <left>16</left><width>756</width><height>56</height>
+            <font>HBM_Body_M</font><textcolor>TextPrimary</textcolor>
+            <aligny>center</aligny><label>$INFO[ListItem.Label]</label>
+          </control>
+        </focusedlayout>
+      </control>
+
+      <!-- Scrollbar (id=60) -->
+      <control type="scrollbar" id="60">
+        <left>832</left><top>132</top><width>8</width><height>240</height>
+        <orientation>vertical</orientation>
+        <texturesliderbackground colordiffuse="1AFFFFFF">white.png</texturesliderbackground>
+        <textureslider colordiffuse="66FFFFFF">white.png</textureslider>
+        <onleft>10</onleft><onright>9000</onright>
+      </control>
+
+      <!-- Side action buttons (id=8=Browse, id=11=Browse label, id=13=Remove, id=14=Set share) -->
+      <control type="grouplist" id="9000">
+        <left>852</left><top>132</top><width>216</width><height>300</height>
+        <itemgap>8</itemgap><orientation>vertical</orientation>
+        <onleft>10</onleft><onright>10</onright>
+        <ondown>12</ondown>
+
+        <!-- id=8: Browse button (Kodi internally focuses this) -->
+        <control type="button" id="8">
+          <width>216</width><height>56</height>
+          <label>$LOCALIZE[1024]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
+          <align>center</align><aligny>center</aligny>
+        </control>
+        <!-- id=11: Add path / type URL -->
+        <control type="button" id="11">
+          <width>216</width><height>56</height>
+          <label>$LOCALIZE[1024]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
+          <align>center</align><aligny>center</aligny>
+        </control>
+        <!-- id=13: Remove -->
+        <control type="button" id="13">
+          <width>216</width><height>56</height>
+          <label>$LOCALIZE[15019]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
+          <align>center</align><aligny>center</aligny>
+        </control>
+        <!-- id=14: Set share type -->
+        <control type="button" id="14">
+          <width>216</width><height>56</height>
+          <label>$LOCALIZE[1210]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
+          <align>center</align><aligny>center</aligny>
+        </control>
+      </control>
+
+      <!-- Horizontal divider between paths and name -->
+      <control type="image">
+        <left>32</left><top>390</top><width>1036</width><height>1</height>
+        <texture colordiffuse="16FFFFFF">white.png</texture>
+      </control>
+
+      <!-- "Source name" label -->
+      <control type="label">
+        <left>32</left><top>406</top><width>600</width><height>28</height>
+        <label>$LOCALIZE[1022]</label>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+        <aligny>center</aligny>
+      </control>
+
+      <!-- Source name edit (id=12) -->
+      <control type="edit" id="12">
+        <left>32</left><top>446</top><width>1036</width><height>60</height>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <texturefocus border="8" colordiffuse="22FFFFFF">white.png</texturefocus>
+        <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
+        <align>left</align><aligny>center</aligny>
+        <textoffsetx>16</textoffsetx>
+        <onup>10</onup>
+        <ondown>9001</ondown>
+      </control>
+
+      <!-- Bottom divider -->
+      <control type="image">
+        <left>0</left><top>630</top><width>1100</width><height>1</height>
+        <texture colordiffuse="16FFFFFF">white.png</texture>
+      </control>
+
+      <!-- OK / Cancel buttons (id=18=OK, id=19=Cancel) -->
+      <control type="grouplist" id="9001">
+        <left>0</left><top>648</top><width>1100</width><height>72</height>
+        <itemgap>16</itemgap><orientation>horizontal</orientation>
+        <align>center</align>
+        <onup>12</onup><ondown>10</ondown>
+
+        <control type="button" id="18">
+          <width>200</width><height>56</height>
+          <label>$LOCALIZE[186]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
+          <align>center</align><aligny>center</aligny>
+        </control>
+        <control type="button" id="19">
+          <width>200</width><height>56</height>
+          <label>$LOCALIZE[222]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus border="8" colordiffuse="0AFFFFFF">white.png</texturenofocus>
+          <align>center</align><aligny>center</aligny>
+        </control>
+      </control>
+
+    </control>
+  </controls>
+</window>

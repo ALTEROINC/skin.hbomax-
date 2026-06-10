@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+  <!-- Base text defaults -->
+  <default type="label">
+    <font>HBM_Body_M</font>
+    <textcolor>TextPrimary</textcolor>
+    <shadowcolor>TextShadowNone</shadowcolor>
+    <aligny>center</aligny>
+  </default>
+
+  <!-- Keep image rendering explicit and neutral by default -->
+  <default type="image">
+    <aspectratio>stretch</aspectratio>
+  </default>
+
+  <!-- Prevent ad hoc list spacing from spreading through the skin -->
+  <default type="grouplist">
+    <itemgap>0</itemgap>
+  </default>
+</includes>

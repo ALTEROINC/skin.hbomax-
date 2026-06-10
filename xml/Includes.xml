@@ -1,0 +1,1614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+  <include file="Variables.xml"/>
+  <include file="Custom_Animations.xml"/>
+  <!-- Runtime-safe plain dark backdrop for non-home fallback windows -->
+  <include name="HBM_Runtime_Background">
+    <control type="image">
+      <left>0</left>
+      <top>0</top>
+      <width>1920</width>
+      <height>1080</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="BackgroundBase">white.png</texture>
+    </control>
+    <control type="image">
+      <left>0</left>
+      <top>0</top>
+      <width>1920</width>
+      <height>1080</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="22000000">white.png</texture>
+    </control>
+    <!-- DEBUG: current window name — remove when done -->
+    <control type="label">
+      <left>16</left><top>1044</top><width>800</width><height>28</height>
+      <label>$INFO[System.CurrentWindow]  |  $INFO[System.CurrentControl]</label>
+      <font>HBM_Meta_S</font>
+      <textcolor>AAFFFFFF</textcolor>
+    </control>
+  </include>
+
+  <!-- Simple readable content slab for runtime safety windows -->
+  <include name="HBM_Runtime_ContentPanel">
+    <control type="image">
+      <left>96</left>
+      <top>170</top>
+      <width>1728</width>
+      <height>814</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="CC111522">white.png</texture>
+    </control>
+    <control type="image">
+      <left>96</left>
+      <top>170</top>
+      <width>1728</width>
+      <height>1</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="SurfaceStroke">white.png</texture>
+    </control>
+  </include>
+
+  <include name="HBM_Runtime_ModalScrim">
+    <control type="image">
+      <left>0</left>
+      <top>0</top>
+      <width>1920</width>
+      <height>1080</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="99000000">white.png</texture>
+    </control>
+  </include>
+
+  <include name="HBM_Debug_LayoutGuides">
+    <control type="group">
+      <visible>Skin.HasSetting(hbm_debug_layout_guides)</visible>
+      <control type="image">
+        <left>88</left>
+        <top>0</top>
+        <width>1</width>
+        <height>1080</height>
+        <texture colordiffuse="44FFFFFF">white.png</texture>
+      </control>
+      <control type="image">
+        <left>304</left>
+        <top>0</top>
+        <width>1</width>
+        <height>1080</height>
+        <texture colordiffuse="33B6CBF7">white.png</texture>
+      </control>
+      <control type="image">
+        <left>340</left>
+        <top>0</top>
+        <width>1</width>
+        <height>1080</height>
+        <texture colordiffuse="33FFFFFF">white.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left>
+        <top>560</top>
+        <width>1920</width>
+        <height>1</height>
+        <texture colordiffuse="22FFFFFF">white.png</texture>
+      </control>
+    </control>
+  </include>
+
+  <!-- Hero container: from icon rail edge (x=88) to right edge, top of screen to 70% height.
+       Visibility driven by the active hub's hero config from the homepage slot editor. -->
+  <include name="HBM_Home_HeroShell">
+    <control type="group">
+      <left>$VAR[HBM_Hero_X]</left>
+      <top>$VAR[HBM_Hero_Anchor_Y]</top>
+      <width>$VAR[HBM_Hero_Anchor_Width]</width>
+      <height>$VAR[HBM_Hero_Anchor_Height]</height>
+      <visible>[String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEqual(Skin.String(hbm_homecfg_home_hero_visible),Hidden)] | [String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + !String.IsEqual(Skin.String(hbm_homecfg_tvshows_hero_visible),Hidden)] | [String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + !String.IsEqual(Skin.String(hbm_homecfg_movies_hero_visible),Hidden)] | [String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + !String.IsEqual(Skin.String(hbm_homecfg_livetv_hero_visible),Hidden)] | [String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + !String.IsEqual(Skin.String(hbm_homecfg_mylist_hero_visible),Hidden)]</visible>
+
+      <!-- Single always-mounted hero source. Autoscroll rotates items;
+           the hero presentation layer reads directly from Container(620).ListItem. -->
+      <!-- Per-hub hero carousel panels (620–624). Fade out when rows are focused. -->
+      <control type="group">
+        <animation effect="fade" start="100" end="0" reversible="false" time="200" tween="sine" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+        <animation effect="fade" start="0" end="100" reversible="false" time="200" tween="sine" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+        <control type="panel" id="620">
+          <left>808</left><top>970</top><width>216</width><height>20</height>
+          <orientation>horizontal</orientation><itemgap>0</itemgap>
+          <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),home)</visible>
+          <autoscroll time="7000" delay="2000" repeat="7000">true</autoscroll>
+          <ondown>625</ondown>
+          <content target="videos" limit="6">$INFO[Skin.String(hbm_homecfg_home_hero_widget)]</content>
+          <itemlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="55FFFFFF">special://skin/media/icons/dot-thin.png</texture></control></itemlayout>
+          <focusedlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture></control></focusedlayout>
+        </control>
+        <control type="panel" id="621">
+          <left>808</left><top>970</top><width>216</width><height>20</height>
+          <orientation>horizontal</orientation><itemgap>0</itemgap>
+          <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)</visible>
+          <autoscroll time="7000" delay="2000" repeat="7000">true</autoscroll>
+          <ondown>625</ondown>
+          <content target="videos" limit="6">$INFO[Skin.String(hbm_homecfg_tvshows_hero_widget)]</content>
+          <itemlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="55FFFFFF">special://skin/media/icons/dot-thin.png</texture></control></itemlayout>
+          <focusedlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture></control></focusedlayout>
+        </control>
+        <control type="panel" id="622">
+          <left>808</left><top>970</top><width>216</width><height>20</height>
+          <orientation>horizontal</orientation><itemgap>0</itemgap>
+          <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),movies)</visible>
+          <autoscroll time="7000" delay="2000" repeat="7000">true</autoscroll>
+          <ondown>625</ondown>
+          <content target="videos" limit="6">$INFO[Skin.String(hbm_homecfg_movies_hero_widget)]</content>
+          <itemlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="55FFFFFF">special://skin/media/icons/dot-thin.png</texture></control></itemlayout>
+          <focusedlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture></control></focusedlayout>
+        </control>
+        <control type="panel" id="623">
+          <left>808</left><top>970</top><width>216</width><height>20</height>
+          <orientation>horizontal</orientation><itemgap>0</itemgap>
+          <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)</visible>
+          <autoscroll time="7000" delay="2000" repeat="7000">true</autoscroll>
+          <ondown>625</ondown>
+          <content target="videos" limit="6">$INFO[Skin.String(hbm_homecfg_livetv_hero_widget)]</content>
+          <itemlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="55FFFFFF">special://skin/media/icons/dot-thin.png</texture></control></itemlayout>
+          <focusedlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture></control></focusedlayout>
+        </control>
+        <control type="panel" id="624">
+          <left>808</left><top>970</top><width>216</width><height>20</height>
+          <orientation>horizontal</orientation><itemgap>0</itemgap>
+          <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)</visible>
+          <autoscroll time="7000" delay="2000" repeat="7000">true</autoscroll>
+          <ondown>625</ondown>
+          <content target="videos" limit="6">$INFO[Skin.String(hbm_homecfg_mylist_hero_widget)]</content>
+          <itemlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="55FFFFFF">special://skin/media/icons/dot-thin.png</texture></control></itemlayout>
+          <focusedlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture></control></focusedlayout>
+        </control>
+      </control>
+
+      <control type="image">
+        <left>-88</left>
+        <top>0</top>
+        <width>1920</width>
+        <height>$VAR[HBM_Hero_Anchor_Height]</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="44000000">white.png</texture>
+        <animation effect="fade" start="100" end="0" reversible="false" time="250" tween="sine" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+        <animation effect="fade" start="0" end="100" reversible="false" time="250" tween="sine" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+      </control>
+
+      <control type="image">
+        <left>0</left>
+        <top>0</top>
+        <width>$VAR[HBM_Hero_Anchor_Width]</width>
+        <height>220</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="B8000000">white.png</texture>
+      </control>
+
+      <control type="group">
+        <left>160</left>
+        <top>0</top>
+        <width>680</width>
+        <height>756</height>
+        <visible>String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
+
+        <!-- Hub / active page label -->
+        <control type="label">
+          <left>0</left><top>272</top><width>320</width><height>24</height>
+          <label>$VAR[HBM_Hero_ActiveLabel]</label>
+          <font>HBM_Meta_S</font>
+          <textcolor>TextHeroMeta</textcolor>
+        </control>
+
+        <!-- Clear logo — global ListItem so it updates on both hero autoscroll and row focus -->
+        <control type="image">
+          <left>0</left><top>304</top><width>480</width><height>160</height>
+          <aspectratio align="left" aligny="center">keep</aspectratio>
+          <fadetime>400</fadetime>
+          <texture>$VAR[HBM_Hero_Logo]</texture>
+        </control>
+
+        <!-- Description / plot -->
+        <control type="textbox">
+          <left>0</left><top>468</top><width>540</width><height>96</height>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
+          <label>$VAR[HBM_Hero_Plot]</label>
+        </control>
+
+        <!-- Play button -->
+        <control type="button" id="625">
+          <left>0</left><top>626</top><width>210</width><height>46</height>
+          <label>Play</label>
+          <font>HBM_Nav_M</font>
+          <align>center</align><aligny>center</aligny>
+          <pulseonselect>false</pulseonselect>
+          <textcolor>FFFFFFFF</textcolor>
+          <focusedcolor>FF161C24</focusedcolor>
+          <texturenofocus />
+          <texturefocus border="6" colordiffuse="FFFFFFFF">special://skin/media/panel_rect.png</texturefocus>
+          <onclick condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home)">PlayMedia($INFO[Container(620).ListItem.FileNameAndPath])</onclick>
+          <onclick condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)">PlayMedia($INFO[Container(621).ListItem.FileNameAndPath])</onclick>
+          <onclick condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies)">PlayMedia($INFO[Container(622).ListItem.FileNameAndPath])</onclick>
+          <onclick condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)">PlayMedia($INFO[Container(623).ListItem.FileNameAndPath])</onclick>
+          <onclick condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)">PlayMedia($INFO[Container(624).ListItem.FileNameAndPath])</onclick>
+          <onfocus>Skin.SetString(HBM.ReturnFocus,625)</onfocus>
+          <onfocus>Skin.SetString(HBM.ActiveRow,0)</onfocus>
+          <onup>626</onup>
+          <ondown>701</ondown>
+          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home)">Container(620).GoPrevious</onleft>
+          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)">Container(621).GoPrevious</onleft>
+          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies)">Container(622).GoPrevious</onleft>
+          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)">Container(623).GoPrevious</onleft>
+          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)">Container(624).GoPrevious</onleft>
+          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home)">Container(620).GoNext</onright>
+          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)">Container(621).GoNext</onright>
+          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies)">Container(622).GoNext</onright>
+          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)">Container(623).GoNext</onright>
+          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)">Container(624).GoNext</onright>
+        </control>
+
+        <!-- More Info button -->
+        <control type="button" id="626">
+          <left>0</left><top>572</top><width>210</width><height>46</height>
+          <label>More Info</label>
+          <font>HBM_Nav_M</font>
+          <align>center</align><aligny>center</aligny>
+          <pulseonselect>false</pulseonselect>
+          <textcolor>FFFFFFFF</textcolor>
+          <focusedcolor>FF161C24</focusedcolor>
+          <texturenofocus />
+          <texturefocus border="6" colordiffuse="FFFFFFFF">special://skin/media/panel_rect.png</texturefocus>
+          <onclick condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home)">SetFocus(620)</onclick>
+          <onclick condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)">SetFocus(621)</onclick>
+          <onclick condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies)">SetFocus(622)</onclick>
+          <onclick condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)">SetFocus(623)</onclick>
+          <onclick condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)">SetFocus(624)</onclick>
+          <onclick>Action(info)</onclick>
+          <onfocus>Skin.SetString(HBM.ReturnFocus,626)</onfocus>
+          <onfocus>Skin.SetString(HBM.ActiveRow,0)</onfocus>
+          <onup>200</onup>
+          <ondown>625</ondown>
+          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home)">Container(620).GoPrevious</onleft>
+          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)">Container(621).GoPrevious</onleft>
+          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies)">Container(622).GoPrevious</onleft>
+          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)">Container(623).GoPrevious</onleft>
+          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)">Container(624).GoPrevious</onleft>
+          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home)">Container(620).GoNext</onright>
+          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)">Container(621).GoNext</onright>
+          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies)">Container(622).GoNext</onright>
+          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)">Container(623).GoNext</onright>
+          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)">Container(624).GoNext</onright>
+        </control>
+
+      </control>
+
+      <!-- Row-focus metadata: clearlogo + plot for focused row item.
+           Visible only when a row is active. Positioned above row thumbnails (~y524). -->
+      <control type="group">
+        <left>160</left>
+        <top>0</top>
+        <width>680</width>
+        <height>520</height>
+        <visible>!String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
+        <animation effect="fade" start="0" end="100" time="220" tween="quadratic" easing="out">Visible</animation>
+        <animation effect="fade" start="100" end="0" time="180" tween="sine">Hidden</animation>
+
+        <!-- Clearlogo of focused item -->
+        <control type="image">
+          <left>0</left><top>240</top><width>440</width><height>140</height>
+          <aspectratio align="left" aligny="center">keep</aspectratio>
+          <fadetime>300</fadetime>
+          <texture>$VAR[HBM_Hero_Logo]</texture>
+        </control>
+
+        <!-- Plot / description -->
+        <control type="textbox">
+          <left>0</left><top>388</top><width>540</width><height>80</height>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <label>$VAR[HBM_Hero_Plot]</label>
+        </control>
+
+      </control>
+
+    </control>
+  </include>
+
+  <!-- Root visual shell for the home window -->
+  <include name="HBM_Home_BackgroundStack">
+    <control type="group">
+      <!-- Dark base fill -->
+      <control type="image">
+        <left>0</left>
+        <top>0</top>
+        <width>1920</width>
+        <height>1080</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="BackgroundBase">white.png</texture>
+      </control>
+
+      <!-- Solid floor behind all rows (base fill already handles black, this ensures
+           full opacity below the hero area regardless of backdrop rendering order) -->
+      <control type="image">
+        <left>0</left>
+        <top>756</top>
+        <width>1920</width>
+        <height>324</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="BackgroundBase">white.png</texture>
+      </control>
+    </control>
+  </include>
+
+  <include name="HBM_Home_BrowsePreview">
+    <control type="group">
+      <left>$VAR[HBM_Browse_X]</left>
+      <top>$VAR[HBM_Browse_Viewport_Y]</top>
+      <width>$VAR[HBM_Browse_Viewport_Width]</width>
+      <height>$VAR[HBM_Browse_Viewport_Height]</height>
+      <control type="label">
+        <left>0</left>
+        <top>0</top>
+        <width>360</width>
+        <height>24</height>
+        <label>Hub Row</label>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+      </control>
+      <control type="image">
+        <left>0</left>
+        <top>34</top>
+        <width>$VAR[HBM_Browse_Viewport_Width]</width>
+        <height>1</height>
+        <texture colordiffuse="12FFFFFF">white.png</texture>
+      </control>
+      <control type="group">
+        <left>0</left>
+        <top>62</top>
+        <width>$VAR[HBM_Browse_Viewport_Width]</width>
+        <height>320</height>
+        <control type="image">
+          <left>0</left>
+          <top>0</top>
+          <width>188</width>
+          <height>282</height>
+          <texture colordiffuse="10161C24">white.png</texture>
+        </control>
+        <control type="image">
+          <left>214</left>
+          <top>0</top>
+          <width>188</width>
+          <height>282</height>
+          <texture colordiffuse="10161C24">white.png</texture>
+        </control>
+        <control type="image">
+          <left>428</left>
+          <top>0</top>
+          <width>188</width>
+          <height>282</height>
+          <texture colordiffuse="10161C24">white.png</texture>
+        </control>
+        <control type="image">
+          <left>642</left>
+          <top>0</top>
+          <width>188</width>
+          <height>282</height>
+          <texture colordiffuse="10161C24">white.png</texture>
+        </control>
+        <control type="image">
+          <left>856</left>
+          <top>0</top>
+          <width>188</width>
+          <height>282</height>
+          <texture colordiffuse="10161C24">white.png</texture>
+        </control>
+      </control>
+    </control>
+  </include>
+
+  <!-- Left side rail background layers -->
+  <include name="HBM_Home_SideRailShell">
+    <control type="group">
+      <left>0</left>
+      <top>0</top>
+      <width>88</width>
+      <height>1080</height>
+
+      <control type="image">
+        <left>0</left>
+        <top>0</top>
+        <width>88</width>
+        <height>1080</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="BackgroundBase">white.png</texture>
+      </control>
+
+      <control type="group">
+        <left>16</left>
+        <top>18</top>
+        <width>64</width>
+        <height>64</height>
+        <control type="image">
+          <left>0</left>
+          <top>0</top>
+          <width>64</width>
+          <height>64</height>
+          <aspectratio align="center" aligny="center">keep</aspectratio>
+          <texture>special://skin/media/brand/hbo_white.png</texture>
+        </control>
+      </control>
+    </control>
+  </include>
+
+  <!-- Focusable left rail menu -->
+  <include name="HBM_Home_SideRailMenu">
+    <control type="group">
+      <left>0</left>
+      <top>0</top>
+      <width>304</width>
+      <height>1080</height>
+
+      <control type="group">
+        <left>0</left>
+        <top>250</top>
+        <width>304</width>
+        <height>68</height>
+        <control type="image">
+          <left>76</left>
+          <top>19</top>
+          <width>2</width>
+          <height>30</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="AccentPrimary">white.png</texture>
+          <visible>Control.HasFocus(200)</visible>
+          <include>HBM_Anim_RailIndicator</include>
+        </control>
+        <control type="image">
+          <left>30</left>
+          <top>20</top>
+          <width>28</width>
+          <height>28</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_search.png</texture>
+          <visible>!Control.HasFocus(200)</visible>
+        </control>
+        <control type="image">
+          <left>30</left>
+          <top>20</top>
+          <width>28</width>
+          <height>28</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="TextNavActive">special://skin/media/icons/rail_search.png</texture>
+          <visible>Control.HasFocus(200)</visible>
+        </control>
+        <control type="label">
+          <left>104</left>
+          <top>0</top>
+          <width>176</width>
+          <height>68</height>
+          <label>Search</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextNavActive</textcolor>
+          <aligny>center</aligny>
+          <visible>Control.HasFocus(200)</visible>
+          <include>HBM_Anim_RailLabelReveal</include>
+        </control>
+        <control type="label">
+          <left>104</left>
+          <top>0</top>
+          <width>176</width>
+          <height>68</height>
+          <label>Search</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextNavInactive</textcolor>
+          <aligny>center</aligny>
+          <visible>false</visible>
+          <include>HBM_Anim_RailLabelReveal</include>
+        </control>
+        <control type="button" id="200">
+          <left>0</left>
+          <top>0</top>
+          <width>304</width>
+          <height>68</height>
+          <label />
+          <texturenofocus />
+          <texturefocus />
+          <onup>206</onup>
+          <ondown>201</ondown>
+          <onleft>200</onleft>
+          <onright>200</onright>
+        </control>
+      </control>
+
+      <control type="group">
+        <left>0</left>
+        <top>326</top>
+        <width>304</width>
+        <height>68</height>
+        <control type="image">
+          <left>76</left>
+          <top>19</top>
+          <width>2</width>
+          <height>30</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="AccentPrimary">white.png</texture>
+          <visible>Control.HasFocus(201)</visible>
+          <include>HBM_Anim_RailIndicator</include>
+        </control>
+        <control type="image">
+          <left>30</left>
+          <top>20</top>
+          <width>28</width>
+          <height>28</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_home.png</texture>
+          <visible>!Control.HasFocus(201)</visible>
+        </control>
+        <control type="image">
+          <left>30</left>
+          <top>20</top>
+          <width>28</width>
+          <height>28</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="TextNavActive">special://skin/media/icons/rail_home.png</texture>
+          <visible>Control.HasFocus(201)</visible>
+        </control>
+        <control type="label">
+          <left>104</left>
+          <top>0</top>
+          <width>176</width>
+          <height>68</height>
+          <label>Home</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextNavActive</textcolor>
+          <aligny>center</aligny>
+          <visible>Control.HasFocus(201)</visible>
+          <include>HBM_Anim_RailLabelReveal</include>
+        </control>
+        <control type="label">
+          <left>104</left>
+          <top>0</top>
+          <width>176</width>
+          <height>68</height>
+          <label>Home</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextNavInactive</textcolor>
+          <aligny>center</aligny>
+          <visible>false</visible>
+          <include>HBM_Anim_RailLabelReveal</include>
+        </control>
+        <control type="button" id="201">
+          <left>0</left>
+          <top>0</top>
+          <width>304</width>
+          <height>68</height>
+          <label />
+          <texturenofocus />
+          <texturefocus />
+          <onup>200</onup>
+          <ondown>202</ondown>
+          <onleft>201</onleft>
+          <onright>201</onright>
+        </control>
+      </control>
+
+      <control type="group">
+        <left>0</left>
+        <top>402</top>
+        <width>304</width>
+        <height>68</height>
+        <control type="image">
+          <left>76</left>
+          <top>19</top>
+          <width>2</width>
+          <height>30</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="AccentPrimary">white.png</texture>
+          <visible>Control.HasFocus(202)</visible>
+          <include>HBM_Anim_RailIndicator</include>
+        </control>
+        <control type="image">
+          <left>30</left>
+          <top>20</top>
+          <width>28</width>
+          <height>28</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_series.png</texture>
+          <visible>!Control.HasFocus(202)</visible>
+        </control>
+        <control type="image">
+          <left>30</left>
+          <top>20</top>
+          <width>28</width>
+          <height>28</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="TextNavActive">special://skin/media/icons/rail_series.png</texture>
+          <visible>Control.HasFocus(202)</visible>
+        </control>
+        <control type="label">
+          <left>104</left>
+          <top>0</top>
+          <width>176</width>
+          <height>68</height>
+          <label>Series</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextNavActive</textcolor>
+          <aligny>center</aligny>
+          <visible>Control.HasFocus(202)</visible>
+          <include>HBM_Anim_RailLabelReveal</include>
+        </control>
+        <control type="label">
+          <left>104</left>
+          <top>0</top>
+          <width>176</width>
+          <height>68</height>
+          <label>Series</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextNavInactive</textcolor>
+          <aligny>center</aligny>
+          <visible>false</visible>
+          <include>HBM_Anim_RailLabelReveal</include>
+        </control>
+        <control type="button" id="202">
+          <left>0</left>
+          <top>0</top>
+          <width>304</width>
+          <height>68</height>
+          <label />
+          <texturenofocus />
+          <texturefocus />
+          <onup>201</onup>
+          <ondown>203</ondown>
+          <onleft>202</onleft>
+          <onright>202</onright>
+        </control>
+      </control>
+
+      <control type="group">
+        <left>0</left>
+        <top>478</top>
+        <width>304</width>
+        <height>68</height>
+        <control type="image">
+          <left>76</left>
+          <top>19</top>
+          <width>2</width>
+          <height>30</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="AccentPrimary">white.png</texture>
+          <visible>Control.HasFocus(203)</visible>
+          <include>HBM_Anim_RailIndicator</include>
+        </control>
+        <control type="image">
+          <left>30</left>
+          <top>20</top>
+          <width>28</width>
+          <height>28</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_movies.png</texture>
+          <visible>!Control.HasFocus(203)</visible>
+        </control>
+        <control type="image">
+          <left>30</left>
+          <top>20</top>
+          <width>28</width>
+          <height>28</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="TextNavActive">special://skin/media/icons/rail_movies.png</texture>
+          <visible>Control.HasFocus(203)</visible>
+        </control>
+        <control type="label">
+          <left>104</left>
+          <top>0</top>
+          <width>176</width>
+          <height>68</height>
+          <label>Movies</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextNavActive</textcolor>
+          <aligny>center</aligny>
+          <visible>Control.HasFocus(203)</visible>
+          <include>HBM_Anim_RailLabelReveal</include>
+        </control>
+        <control type="label">
+          <left>104</left>
+          <top>0</top>
+          <width>176</width>
+          <height>68</height>
+          <label>Movies</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextNavInactive</textcolor>
+          <aligny>center</aligny>
+          <visible>false</visible>
+          <include>HBM_Anim_RailLabelReveal</include>
+        </control>
+        <control type="button" id="203">
+          <left>0</left>
+          <top>0</top>
+          <width>304</width>
+          <height>68</height>
+          <label />
+          <texturenofocus />
+          <texturefocus />
+          <onup>202</onup>
+          <ondown>204</ondown>
+          <onleft>203</onleft>
+          <onright>203</onright>
+        </control>
+      </control>
+
+      <control type="group">
+        <left>0</left>
+        <top>554</top>
+        <width>304</width>
+        <height>68</height>
+        <control type="image">
+          <left>76</left>
+          <top>19</top>
+          <width>2</width>
+          <height>30</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="AccentPrimary">white.png</texture>
+          <visible>Control.HasFocus(204)</visible>
+          <include>HBM_Anim_RailIndicator</include>
+        </control>
+        <control type="image">
+          <left>30</left>
+          <top>20</top>
+          <width>28</width>
+          <height>28</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_live_tv.png</texture>
+          <visible>!Control.HasFocus(204)</visible>
+        </control>
+        <control type="image">
+          <left>30</left>
+          <top>20</top>
+          <width>28</width>
+          <height>28</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="TextNavActive">special://skin/media/icons/rail_live_tv.png</texture>
+          <visible>Control.HasFocus(204)</visible>
+        </control>
+        <control type="label">
+          <left>104</left>
+          <top>0</top>
+          <width>176</width>
+          <height>68</height>
+          <label>Live TV</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextNavActive</textcolor>
+          <aligny>center</aligny>
+          <visible>Control.HasFocus(204)</visible>
+          <include>HBM_Anim_RailLabelReveal</include>
+        </control>
+        <control type="label">
+          <left>104</left>
+          <top>0</top>
+          <width>176</width>
+          <height>68</height>
+          <label>Live TV</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextNavInactive</textcolor>
+          <aligny>center</aligny>
+          <visible>false</visible>
+          <include>HBM_Anim_RailLabelReveal</include>
+        </control>
+        <control type="button" id="204">
+          <left>0</left>
+          <top>0</top>
+          <width>304</width>
+          <height>68</height>
+          <label />
+          <texturenofocus />
+          <texturefocus />
+          <onup>203</onup>
+          <ondown>205</ondown>
+          <onleft>204</onleft>
+          <onright>204</onright>
+        </control>
+      </control>
+
+      <control type="group">
+        <left>0</left>
+        <top>630</top>
+        <width>304</width>
+        <height>68</height>
+        <control type="image">
+          <left>76</left>
+          <top>19</top>
+          <width>2</width>
+          <height>30</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="AccentPrimary">white.png</texture>
+          <visible>Control.HasFocus(205)</visible>
+          <include>HBM_Anim_RailIndicator</include>
+        </control>
+        <control type="image">
+          <left>30</left>
+          <top>20</top>
+          <width>28</width>
+          <height>28</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_my_stuff.png</texture>
+          <visible>!Control.HasFocus(205)</visible>
+        </control>
+        <control type="image">
+          <left>30</left>
+          <top>20</top>
+          <width>28</width>
+          <height>28</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="TextNavActive">special://skin/media/icons/rail_my_stuff.png</texture>
+          <visible>Control.HasFocus(205)</visible>
+        </control>
+        <control type="label">
+          <left>104</left>
+          <top>0</top>
+          <width>176</width>
+          <height>68</height>
+          <label>My Stuff</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextNavActive</textcolor>
+          <aligny>center</aligny>
+          <visible>Control.HasFocus(205)</visible>
+          <include>HBM_Anim_RailLabelReveal</include>
+        </control>
+        <control type="label">
+          <left>104</left>
+          <top>0</top>
+          <width>176</width>
+          <height>68</height>
+          <label>My Stuff</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextNavInactive</textcolor>
+          <aligny>center</aligny>
+          <visible>false</visible>
+          <include>HBM_Anim_RailLabelReveal</include>
+        </control>
+        <control type="button" id="205">
+          <left>0</left>
+          <top>0</top>
+          <width>304</width>
+          <height>68</height>
+          <label />
+          <texturenofocus />
+          <texturefocus />
+          <onup>204</onup>
+          <ondown>206</ondown>
+          <onleft>205</onleft>
+          <onright>205</onright>
+        </control>
+      </control>
+
+      <control type="group">
+        <left>0</left>
+        <top>706</top>
+        <width>304</width>
+        <height>68</height>
+        <control type="image">
+          <left>76</left>
+          <top>19</top>
+          <width>2</width>
+          <height>30</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="AccentPrimary">white.png</texture>
+          <visible>Control.HasFocus(206)</visible>
+          <include>HBM_Anim_RailIndicator</include>
+        </control>
+        <control type="image">
+          <left>30</left>
+          <top>20</top>
+          <width>28</width>
+          <height>28</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_settings.png</texture>
+          <visible>!Control.HasFocus(206)</visible>
+        </control>
+        <control type="image">
+          <left>30</left>
+          <top>20</top>
+          <width>28</width>
+          <height>28</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="TextNavActive">special://skin/media/icons/rail_settings.png</texture>
+          <visible>Control.HasFocus(206)</visible>
+        </control>
+        <control type="label">
+          <left>104</left>
+          <top>0</top>
+          <width>176</width>
+          <height>68</height>
+          <label>Settings</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextNavActive</textcolor>
+          <aligny>center</aligny>
+          <visible>Control.HasFocus(206)</visible>
+          <include>HBM_Anim_RailLabelReveal</include>
+        </control>
+        <control type="label">
+          <left>104</left>
+          <top>0</top>
+          <width>176</width>
+          <height>68</height>
+          <label>Settings</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextNavInactive</textcolor>
+          <aligny>center</aligny>
+          <visible>false</visible>
+          <include>HBM_Anim_RailLabelReveal</include>
+        </control>
+        <control type="button" id="206">
+          <left>0</left>
+          <top>0</top>
+          <width>304</width>
+          <height>68</height>
+          <label />
+          <texturenofocus />
+          <texturefocus />
+          <onup>205</onup>
+          <ondown>200</ondown>
+          <onleft>206</onleft>
+          <onright>206</onright>
+          <onclick>ActivateWindow(Settings)</onclick>
+        </control>
+      </control>
+    </control>
+  </include>
+
+  <!-- Focus targets for main content handoff -->
+  <include name="HBM_Home_HeroAnchors">
+    <control type="group">
+      <visible>false</visible>
+    </control>
+  </include>
+
+  <include name="HBM_Home_BrowseAnchors">
+    <control type="group">
+      <left>$VAR[HBM_Browse_X]</left>
+      <top>$VAR[HBM_Browse_Viewport_Y]</top>
+      <width>$VAR[HBM_Browse_Viewport_Width]</width>
+      <height>$VAR[HBM_Browse_Viewport_Height]</height>
+    </control>
+  </include>
+
+  <!-- Phase 1 home foundation: persistent rail spine with simple expand-on-focus shell -->
+  <include name="HBM_Home_Phase1_RailShell">
+    <control type="group">
+      <left>0</left>
+      <top>0</top>
+      <width>304</width>
+      <height>1080</height>
+
+      <!-- Collapsed background removed — screens provide their own left smoke gradient -->
+
+      <!-- Full-screen dim: subtle scrim over content when rail is open -->
+      <control type="image">
+        <left>0</left>
+        <top>0</top>
+        <width>1920</width>
+        <height>1080</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="99000000">white.png</texture>
+        <visible>ControlGroup(299).HasFocus</visible>
+        <include>HBM_Anim_RailExpand</include>
+      </control>
+
+      <!-- Expanded: single smooth full-page gradient, no seams -->
+      <control type="image">
+        <left>0</left>
+        <top>0</top>
+        <width>1920</width>
+        <height>1080</height>
+        <aspectratio>stretch</aspectratio>
+        <texture>special://skin/media/overlays/full_page_gradient.png</texture>
+        <visible>ControlGroup(299).HasFocus</visible>
+        <include>HBM_Anim_RailExpand</include>
+      </control>
+
+      <control type="group">
+        <left>16</left>
+        <top>18</top>
+        <width>64</width>
+        <height>64</height>
+        <control type="image">
+          <left>0</left>
+          <top>0</top>
+          <width>64</width>
+          <height>64</height>
+          <aspectratio align="center" aligny="center">keep</aspectratio>
+          <texture>special://skin/media/brand/hbo_white.png</texture>
+        </control>
+      </control>
+    </control>
+  </include>
+
+  <!-- Reusable foundation page surface for all Phase 1 home hubs -->
+  <include name="HBM_Home_Phase1_PageSurface">
+    <control type="image">
+      <left>320</left>
+      <top>80</top>
+      <width>1504</width>
+      <height>920</height>
+      <texture border="24" colordiffuse="12000000">special://skin/media/panel_rounded.png</texture>
+    </control>
+    <control type="image">
+      <left>320</left>
+      <top>80</top>
+      <width>1504</width>
+      <height>920</height>
+      <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+    </control>
+    <control type="image">
+      <left>356</left>
+      <top>224</top>
+      <width>1432</width>
+      <height>1</height>
+      <texture colordiffuse="18FFFFFF">white.png</texture>
+    </control>
+  </include>
+
+  <!-- Reusable empty future-row region shell for Phase 1 only -->
+  <include name="HBM_Home_Phase1_FutureLane">
+    <control type="image">
+      <left>0</left>
+      <top>0</top>
+      <width>1416</width>
+      <height>84</height>
+      <texture colordiffuse="05000000">white.png</texture>
+    </control>
+    <control type="image">
+      <left>0</left>
+      <top>83</top>
+      <width>1416</width>
+      <height>1</height>
+      <texture colordiffuse="12FFFFFF">white.png</texture>
+    </control>
+  </include>
+
+  <!-- Phase 1 reusable hub page with only clean future-row insertion regions -->
+  <include name="HBM_Home_Phase1_PageManager">
+    <control type="group">
+      <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),home)</visible>
+      <control type="button" id="9300"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,home)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.home,9300)</onfocus><onup>9302</onup><ondown>9301</ondown><onleft>200</onleft><onright>9300</onright><visible>false</visible></control>
+      <control type="button" id="9301"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,home)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.home,9301)</onfocus><onup>9300</onup><ondown>9302</ondown><onleft>200</onleft><onright>9301</onright><visible>false</visible></control>
+      <control type="button" id="9302"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,home)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.home,9302)</onfocus><onup>9301</onup><ondown>9300</ondown><onleft>200</onleft><onright>9302</onright><visible>false</visible></control>
+    </control>
+
+    <control type="group">
+      <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),movies)</visible>
+      <control type="button" id="9310"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,movies)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.movies,9310)</onfocus><onup>9312</onup><ondown>9311</ondown><onleft>201</onleft><onright>9310</onright><visible>false</visible></control>
+      <control type="button" id="9311"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,movies)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.movies,9311)</onfocus><onup>9310</onup><ondown>9312</ondown><onleft>201</onleft><onright>9311</onright><visible>false</visible></control>
+      <control type="button" id="9312"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,movies)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.movies,9312)</onfocus><onup>9311</onup><ondown>9310</ondown><onleft>201</onleft><onright>9312</onright><visible>false</visible></control>
+    </control>
+
+    <control type="group">
+      <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)</visible>
+      <control type="button" id="9320"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,tvshows)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.tvshows,9320)</onfocus><onup>9322</onup><ondown>9321</ondown><onleft>202</onleft><onright>9320</onright><visible>false</visible></control>
+      <control type="button" id="9321"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,tvshows)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.tvshows,9321)</onfocus><onup>9320</onup><ondown>9322</ondown><onleft>202</onleft><onright>9321</onright><visible>false</visible></control>
+      <control type="button" id="9322"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,tvshows)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.tvshows,9322)</onfocus><onup>9321</onup><ondown>9320</ondown><onleft>202</onleft><onright>9322</onright><visible>false</visible></control>
+    </control>
+
+    <control type="group">
+      <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)</visible>
+      <control type="button" id="9330"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,livetv)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.livetv,9330)</onfocus><onup>9332</onup><ondown>9331</ondown><onleft>203</onleft><onright>9330</onright><visible>false</visible></control>
+      <control type="button" id="9331"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,livetv)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.livetv,9331)</onfocus><onup>9330</onup><ondown>9332</ondown><onleft>203</onleft><onright>9331</onright><visible>false</visible></control>
+      <control type="button" id="9332"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,livetv)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.livetv,9332)</onfocus><onup>9331</onup><ondown>9330</ondown><onleft>203</onleft><onright>9332</onright><visible>false</visible></control>
+    </control>
+
+    <control type="group">
+      <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),search)</visible>
+      <control type="button" id="9340"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,search)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.search,9340)</onfocus><onup>9342</onup><ondown>9341</ondown><onleft>204</onleft><onright>9340</onright><visible>false</visible></control>
+      <control type="button" id="9341"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,search)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.search,9341)</onfocus><onup>9340</onup><ondown>9342</ondown><onleft>204</onleft><onright>9341</onright><visible>false</visible></control>
+      <control type="button" id="9342"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,search)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.search,9342)</onfocus><onup>9341</onup><ondown>9340</ondown><onleft>204</onleft><onright>9342</onright><visible>false</visible></control>
+    </control>
+
+    <control type="group">
+      <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)</visible>
+      <control type="button" id="9350"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,mylist)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.mylist,9350)</onfocus><onup>9352</onup><ondown>9351</ondown><onleft>205</onleft><onright>9350</onright><visible>false</visible></control>
+      <control type="button" id="9351"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,mylist)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.mylist,9351)</onfocus><onup>9350</onup><ondown>9352</ondown><onleft>205</onleft><onright>9351</onright><visible>false</visible></control>
+      <control type="button" id="9352"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onfocus>Skin.SetString(HBM.HomeActivePage,mylist)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.mylist,9352)</onfocus><onup>9351</onup><ondown>9350</ondown><onleft>205</onleft><onright>9352</onright><visible>false</visible></control>
+    </control>
+
+    <control type="group">
+      <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),settings)</visible>
+      <control type="button" id="9360"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onclick>ActivateWindow(Settings)</onclick><onfocus>Skin.SetString(HBM.HomeActivePage,settings)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.settings,9360)</onfocus><onup>9360</onup><ondown>9361</ondown><onleft>206</onleft><onright>9360</onright><visible>false</visible></control>
+      <control type="button" id="9361"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><texturefocus /><texturenofocus /><onclick>ActivateWindow(SkinSettings)</onclick><onfocus>Skin.SetString(HBM.HomeActivePage,settings)</onfocus><onfocus>Skin.SetString(HBM.HomeLastFocus.settings,9361)</onfocus><onup>9360</onup><ondown>9361</ondown><onleft>206</onleft><onright>9361</onright><visible>false</visible></control>
+    </control>
+  </include>
+
+  <!-- Phase 1 hub focus routers restore each page to its last focused future-row region -->
+  <include name="HBM_Home_Phase1_PageRouters">
+    <control type="button" id="8200"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><visible>false</visible><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.home),9301)">SetFocus(9301)</onfocus><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.home),9302)">SetFocus(9302)</onfocus><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.home),9300) | IsEmpty(Skin.String(HBM.HomeLastFocus.home))">SetFocus(9300)</onfocus></control>
+    <control type="button" id="8201"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><visible>false</visible><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.movies),9311)">SetFocus(9311)</onfocus><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.movies),9312)">SetFocus(9312)</onfocus><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.movies),9310) | IsEmpty(Skin.String(HBM.HomeLastFocus.movies))">SetFocus(9310)</onfocus></control>
+    <control type="button" id="8202"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><visible>false</visible><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.tvshows),9321)">SetFocus(9321)</onfocus><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.tvshows),9322)">SetFocus(9322)</onfocus><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.tvshows),9320) | IsEmpty(Skin.String(HBM.HomeLastFocus.tvshows))">SetFocus(9320)</onfocus></control>
+    <control type="button" id="8203"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><visible>false</visible><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.livetv),9331)">SetFocus(9331)</onfocus><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.livetv),9332)">SetFocus(9332)</onfocus><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.livetv),9330) | IsEmpty(Skin.String(HBM.HomeLastFocus.livetv))">SetFocus(9330)</onfocus></control>
+    <control type="button" id="8204"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><visible>false</visible><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.search),9341)">SetFocus(9341)</onfocus><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.search),9342)">SetFocus(9342)</onfocus><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.search),9340) | IsEmpty(Skin.String(HBM.HomeLastFocus.search))">SetFocus(9340)</onfocus></control>
+    <control type="button" id="8205"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><visible>false</visible><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.mylist),9351)">SetFocus(9351)</onfocus><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.mylist),9352)">SetFocus(9352)</onfocus><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.mylist),9350) | IsEmpty(Skin.String(HBM.HomeLastFocus.mylist))">SetFocus(9350)</onfocus></control>
+    <control type="button" id="8206"><left>-200</left><top>-200</top><width>1</width><height>1</height><label /><visible>false</visible><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.settings),9361)">SetFocus(9361)</onfocus><onfocus condition="String.IsEqual(Skin.String(HBM.HomeLastFocus.settings),9360) | IsEmpty(Skin.String(HBM.HomeLastFocus.settings))">SetFocus(9360)</onfocus></control>
+  </include>
+
+  <!-- Phase 1 persistent home rail with per-page routing and no configuration concepts on-screen -->
+  <include name="HBM_Home_Phase1_RailMenu">
+    <control type="group" id="299">
+      <left>0</left>
+      <top>0</top>
+      <width>304</width>
+      <height>1080</height>
+
+      <control type="group">
+        <left>0</left><top>214</top><width>304</width><height>68</height>
+        <control type="image"><left>76</left><top>19</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>String.IsEqual(Skin.String(HBM.HomeActivePage),home) | Control.HasFocus(200)</visible><include>HBM_Anim_RailIndicator</include></control>
+        <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_home.png</texture><visible>!String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !Control.HasFocus(200)</visible></control>
+        <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavActive">special://skin/media/icons/rail_home.png</texture><visible>String.IsEqual(Skin.String(HBM.HomeActivePage),home) | Control.HasFocus(200)</visible></control>
+        <control type="label"><left>88</left><top>0</top><width>152</width><height>68</height><label>Home</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><align>center</align><aligny>center</aligny><visible>ControlGroup(299).HasFocus</visible><include>HBM_Anim_RailLabelReveal</include></control>
+        <control type="image"><left>64</left><top>-10</top><width>200</width><height>88</height><aspectratio>stretch</aspectratio><texture>special://skin/media/overlays/label_glow.png</texture><visible>Control.HasFocus(200)</visible></control>
+        <control type="label"><left>88</left><top>0</top><width>152</width><height>68</height><label>Home</label><font>HBM_Nav_M</font><textcolor>FFFFFFFF</textcolor><align>center</align><aligny>center</aligny><visible>Control.HasFocus(200)</visible></control>
+        <control type="button" id="200"><left>0</left><top>0</top><width>304</width><height>68</height><label /><texturenofocus /><texturefocus /><onclick>Skin.SetString(HBM.HomeActivePage,home)</onclick><onclick>Skin.SetString(HBM.ReturnFocus,625)</onclick><onclick condition="String.IsEqual(Skin.String(HBM.InDialog),1)">Action(Back)</onclick><onup>206</onup><ondown>202</ondown><onleft>200</onleft><onright>Control.SetFocus($INFO[Skin.String(HBM.ReturnFocus)])</onright></control>
+      </control>
+
+      <control type="group">
+        <left>0</left><top>282</top><width>304</width><height>68</height>
+        <visible>!Skin.HasSetting(hbm_rail_hide_tvshows)</visible>
+        <control type="image"><left>76</left><top>19</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) | Control.HasFocus(202)</visible><include>HBM_Anim_RailIndicator</include></control>
+        <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_series.png</texture><visible>!String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + !Control.HasFocus(202)</visible></control>
+        <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavActive">special://skin/media/icons/rail_series.png</texture><visible>String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) | Control.HasFocus(202)</visible></control>
+        <control type="label"><left>88</left><top>0</top><width>152</width><height>68</height><label>TV Shows</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><align>center</align><aligny>center</aligny><visible>ControlGroup(299).HasFocus</visible><include>HBM_Anim_RailLabelReveal</include></control>
+        <control type="image"><left>64</left><top>-10</top><width>200</width><height>88</height><aspectratio>stretch</aspectratio><texture>special://skin/media/overlays/label_glow.png</texture><visible>Control.HasFocus(202)</visible></control>
+        <control type="label"><left>88</left><top>0</top><width>152</width><height>68</height><label>TV Shows</label><font>HBM_Nav_M</font><textcolor>FFFFFFFF</textcolor><align>center</align><aligny>center</aligny><visible>Control.HasFocus(202)</visible></control>
+        <control type="button" id="202"><left>0</left><top>0</top><width>304</width><height>68</height><label /><texturenofocus /><texturefocus /><onclick>Skin.SetString(HBM.HomeActivePage,tvshows)</onclick><onclick>Skin.SetString(HBM.ReturnFocus,625)</onclick><onclick condition="String.IsEqual(Skin.String(HBM.InDialog),1)">Action(Back)</onclick><onup>200</onup><ondown>201</ondown><onleft>202</onleft><onright>Control.SetFocus($INFO[Skin.String(HBM.ReturnFocus)])</onright></control>
+      </control>
+
+      <control type="group">
+        <left>0</left><top>350</top><width>304</width><height>68</height>
+        <visible>!Skin.HasSetting(hbm_rail_hide_movies)</visible>
+        <control type="image"><left>76</left><top>19</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>String.IsEqual(Skin.String(HBM.HomeActivePage),movies) | Control.HasFocus(201)</visible><include>HBM_Anim_RailIndicator</include></control>
+        <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_movies.png</texture><visible>!String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + !Control.HasFocus(201)</visible></control>
+        <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavActive">special://skin/media/icons/rail_movies.png</texture><visible>String.IsEqual(Skin.String(HBM.HomeActivePage),movies) | Control.HasFocus(201)</visible></control>
+        <control type="label"><left>88</left><top>0</top><width>152</width><height>68</height><label>Movies</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><align>center</align><aligny>center</aligny><visible>ControlGroup(299).HasFocus</visible><include>HBM_Anim_RailLabelReveal</include></control>
+        <control type="image"><left>64</left><top>-10</top><width>200</width><height>88</height><aspectratio>stretch</aspectratio><texture>special://skin/media/overlays/label_glow.png</texture><visible>Control.HasFocus(201)</visible></control>
+        <control type="label"><left>88</left><top>0</top><width>152</width><height>68</height><label>Movies</label><font>HBM_Nav_M</font><textcolor>FFFFFFFF</textcolor><align>center</align><aligny>center</aligny><visible>Control.HasFocus(201)</visible></control>
+        <control type="button" id="201"><left>0</left><top>0</top><width>304</width><height>68</height><label /><texturenofocus /><texturefocus /><onclick>Skin.SetString(HBM.HomeActivePage,movies)</onclick><onclick>Skin.SetString(HBM.ReturnFocus,625)</onclick><onclick condition="String.IsEqual(Skin.String(HBM.InDialog),1)">Action(Back)</onclick><onup>202</onup><ondown>203</ondown><onleft>201</onleft><onright>Control.SetFocus($INFO[Skin.String(HBM.ReturnFocus)])</onright></control>
+      </control>
+
+      <control type="group">
+        <left>0</left><top>418</top><width>304</width><height>68</height>
+        <visible>!Skin.HasSetting(hbm_rail_hide_livetv)</visible>
+        <control type="image"><left>76</left><top>19</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) | Control.HasFocus(203)</visible><include>HBM_Anim_RailIndicator</include></control>
+        <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_live_tv.png</texture><visible>!String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + !Control.HasFocus(203)</visible></control>
+        <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavActive">special://skin/media/icons/rail_live_tv.png</texture><visible>String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) | Control.HasFocus(203)</visible></control>
+        <control type="label"><left>88</left><top>0</top><width>152</width><height>68</height><label>Live TV</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><align>center</align><aligny>center</aligny><visible>ControlGroup(299).HasFocus</visible><include>HBM_Anim_RailLabelReveal</include></control>
+        <control type="image"><left>64</left><top>-10</top><width>200</width><height>88</height><aspectratio>stretch</aspectratio><texture>special://skin/media/overlays/label_glow.png</texture><visible>Control.HasFocus(203)</visible></control>
+        <control type="label"><left>88</left><top>0</top><width>152</width><height>68</height><label>Live TV</label><font>HBM_Nav_M</font><textcolor>FFFFFFFF</textcolor><align>center</align><aligny>center</aligny><visible>Control.HasFocus(203)</visible></control>
+        <control type="button" id="203"><left>0</left><top>0</top><width>304</width><height>68</height><label /><texturenofocus /><texturefocus /><onclick>Skin.SetString(HBM.HomeActivePage,livetv)</onclick><onclick>Skin.SetString(HBM.ReturnFocus,701)</onclick><onclick condition="String.IsEqual(Skin.String(HBM.InDialog),1)">Action(Back)</onclick><onup>201</onup><ondown>205</ondown><onleft>203</onleft><onright>Control.SetFocus($INFO[Skin.String(HBM.ReturnFocus)])</onright></control>
+      </control>
+
+      <control type="group">
+        <left>0</left><top>486</top><width>304</width><height>68</height>
+        <visible>!Skin.HasSetting(hbm_rail_hide_mylist)</visible>
+        <control type="image"><left>76</left><top>19</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) | Control.HasFocus(205)</visible><include>HBM_Anim_RailIndicator</include></control>
+        <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_my_stuff.png</texture><visible>!String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + !Control.HasFocus(205)</visible></control>
+        <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavActive">special://skin/media/icons/rail_my_stuff.png</texture><visible>String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) | Control.HasFocus(205)</visible></control>
+        <control type="label"><left>88</left><top>0</top><width>152</width><height>68</height><label>My List</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><align>center</align><aligny>center</aligny><visible>ControlGroup(299).HasFocus</visible><include>HBM_Anim_RailLabelReveal</include></control>
+        <control type="image"><left>64</left><top>-10</top><width>200</width><height>88</height><aspectratio>stretch</aspectratio><texture>special://skin/media/overlays/label_glow.png</texture><visible>Control.HasFocus(205)</visible></control>
+        <control type="label"><left>88</left><top>0</top><width>152</width><height>68</height><label>My List</label><font>HBM_Nav_M</font><textcolor>FFFFFFFF</textcolor><align>center</align><aligny>center</aligny><visible>Control.HasFocus(205)</visible></control>
+        <control type="button" id="205"><left>0</left><top>0</top><width>304</width><height>68</height><label /><texturenofocus /><texturefocus /><onclick>Skin.SetString(HBM.HomeActivePage,mylist)</onclick><onclick>Skin.SetString(HBM.ReturnFocus,625)</onclick><onclick condition="String.IsEqual(Skin.String(HBM.InDialog),1)">Action(Back)</onclick><onup>203</onup><ondown>204</ondown><onleft>205</onleft><onright>Control.SetFocus($INFO[Skin.String(HBM.ReturnFocus)])</onright></control>
+      </control>
+
+      <control type="group">
+        <left>0</left><top>554</top><width>304</width><height>68</height>
+        <visible>!Skin.HasSetting(hbm_rail_hide_search)</visible>
+        <control type="image"><left>76</left><top>19</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>String.IsEqual(Skin.String(HBM.HomeActivePage),search) | Control.HasFocus(204)</visible><include>HBM_Anim_RailIndicator</include></control>
+        <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_search.png</texture><visible>!String.IsEqual(Skin.String(HBM.HomeActivePage),search) + !Control.HasFocus(204)</visible></control>
+        <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavActive">special://skin/media/icons/rail_search.png</texture><visible>String.IsEqual(Skin.String(HBM.HomeActivePage),search) | Control.HasFocus(204)</visible></control>
+        <control type="label"><left>88</left><top>0</top><width>152</width><height>68</height><label>Search</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><align>center</align><aligny>center</aligny><visible>ControlGroup(299).HasFocus</visible><include>HBM_Anim_RailLabelReveal</include></control>
+        <control type="image"><left>64</left><top>-10</top><width>200</width><height>88</height><aspectratio>stretch</aspectratio><texture>special://skin/media/overlays/label_glow.png</texture><visible>Control.HasFocus(204)</visible></control>
+        <control type="label"><left>88</left><top>0</top><width>152</width><height>68</height><label>Search</label><font>HBM_Nav_M</font><textcolor>FFFFFFFF</textcolor><align>center</align><aligny>center</aligny><visible>Control.HasFocus(204)</visible></control>
+<control type="button" id="204"><left>0</left><top>0</top><width>304</width><height>68</height><label /><texturenofocus /><texturefocus /><onclick>ActivateWindow(1114)</onclick><onup>205</onup><ondown>206</ondown><onleft>204</onleft><onright>Control.SetFocus($INFO[Skin.String(HBM.ReturnFocus)])</onright></control>
+      </control>
+
+      <control type="group">
+        <left>0</left><top>622</top><width>304</width><height>68</height>
+        <control type="image"><left>76</left><top>19</top><width>2</width><height>30</height><texture colordiffuse="AccentPrimary">white.png</texture><visible>String.IsEqual(Skin.String(HBM.HomeActivePage),settings) | Control.HasFocus(206)</visible><include>HBM_Anim_RailIndicator</include></control>
+        <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavInactive">special://skin/media/icons/rail_settings.png</texture><visible>!String.IsEqual(Skin.String(HBM.HomeActivePage),settings) + !Control.HasFocus(206)</visible></control>
+        <control type="image"><left>30</left><top>20</top><width>28</width><height>28</height><texture colordiffuse="TextNavActive">special://skin/media/icons/rail_settings.png</texture><visible>String.IsEqual(Skin.String(HBM.HomeActivePage),settings) | Control.HasFocus(206)</visible></control>
+        <control type="label"><left>88</left><top>0</top><width>152</width><height>68</height><label>Settings</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><align>center</align><aligny>center</aligny><visible>ControlGroup(299).HasFocus</visible><include>HBM_Anim_RailLabelReveal</include></control>
+        <control type="image"><left>64</left><top>-10</top><width>200</width><height>88</height><aspectratio>stretch</aspectratio><texture>special://skin/media/overlays/label_glow.png</texture><visible>Control.HasFocus(206)</visible></control>
+        <control type="label"><left>88</left><top>0</top><width>152</width><height>68</height><label>Settings</label><font>HBM_Nav_M</font><textcolor>FFFFFFFF</textcolor><align>center</align><aligny>center</aligny><visible>Control.HasFocus(206)</visible></control>
+        <control type="button" id="206"><left>0</left><top>0</top><width>304</width><height>68</height><label /><texturenofocus /><texturefocus /><onup>205</onup><ondown>200</ondown><onleft>206</onleft><onright>Control.SetFocus($INFO[Skin.String(HBM.ReturnFocus)])</onright><onclick condition="String.IsEqual(Skin.String(HBM.InDialog),1)">Action(Back)</onclick><onclick>ActivateWindow(Settings)</onclick></control>
+      </control>
+    </control>
+  </include>
+
+  <!-- Keyboard dialog support for Skin.SetString editing -->
+  <include name="KeyboardButton">
+    <width>120</width>
+    <height>120</height>
+    <textoffsety>27</textoffsety>
+    <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+    <texturenofocus />
+    <align>center</align>
+    <aligny>top</aligny>
+    <font>HBM_Display_M</font>
+    <textcolor>TextPrimary</textcolor>
+    <focusedcolor>TextPrimary</focusedcolor>
+  </include>
+
+  <include name="DefaultDialogButton">
+    <param name="width">300</param>
+    <param name="height">100</param>
+    <param name="wrapmultiline">false</param>
+    <param name="font">HBM_Body_M</param>
+    <param name="onclick"></param>
+    <param name="visible">true</param>
+    <param name="enable">true</param>
+    <definition>
+      <control type="button" id="$PARAM[id]">
+        <width>$PARAM[width]</width>
+        <height>$PARAM[height]</height>
+        <label>$PARAM[label]</label>
+        <font>$PARAM[font]</font>
+        <textoffsetx>20</textoffsetx>
+        <onclick>$PARAM[onclick]</onclick>
+        <wrapmultiline>$PARAM[wrapmultiline]</wrapmultiline>
+        <align>center</align>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <texturefocus border="24" colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus border="24" colordiffuse="08FFFFFF">white.png</texturenofocus>
+        <visible>$PARAM[visible]</visible>
+        <enable>$PARAM[enable]</enable>
+      </control>
+    </definition>
+  </include>
+
+  <include name="Animation_FocusTextureFade">
+    <animation effect="fade" start="0" end="100" time="200" tween="sine">Focus</animation>
+    <animation effect="fade" start="100" end="0" time="0">UnFocus</animation>
+  </include>
+
+  <include name="Animation_DialogPopupVisible">
+    <animation type="Visible" reversible="false">
+      <effect type="zoom" start="94" end="100" center="50%,50%" time="180" tween="sine" easing="out" />
+      <effect type="fade" start="0" end="100" time="180" tween="sine" easing="out" />
+    </animation>
+    <animation type="Hidden" reversible="false">
+      <effect type="zoom" start="100" end="96" center="50%,50%" time="140" tween="sine" easing="in" />
+      <effect type="fade" start="100" end="0" time="140" tween="sine" easing="in" />
+    </animation>
+  </include>
+
+  <include name="Keyboard_Slide_Up">
+    <animation type="WindowOpen">
+      <effect type="fade" start="0" end="100" time="220" tween="sine" easing="out" />
+      <effect type="slide" start="0,1080" end="0,0" time="260" tween="cubic" easing="out" />
+    </animation>
+    <animation type="WindowClose">
+      <effect type="fade" start="100" end="0" time="180" tween="sine" easing="in" />
+      <effect type="slide" start="0,0" end="0,1080" time="220" tween="cubic" easing="in" />
+    </animation>
+  </include>
+
+  <!-- TV guide: vertical scrolling channel list with icon, program title, EPG progress.
+       Uses <list> control (designed for vertical scrolling, unlike panel).
+       ID 701 is always present so navigation works even when no widget is configured.
+       panel_y=790 with slide=-90 puts guide at window y=700 (~5 rows × 76px visible). -->
+  <include name="HBM_Row_Guide">
+    <param name="id">701</param>
+    <param name="panel_y">790</param>
+    <param name="widget_key">hbm_homecfg_livetv_row01_widget</param>
+    <param name="nav_up">625</param>
+    <definition>
+
+      <control type="group">
+
+        <!-- "No widget" hint — visible only when nothing is configured -->
+        <control type="label">
+          <left>0</left><top>$PARAM[panel_y]</top><width>1832</width><height>380</height>
+          <visible>String.IsEmpty(Skin.String($PARAM[widget_key]))</visible>
+          <label>Set a Live TV channel widget in Skin Settings → Live TV to populate the guide.</label>
+          <font>HBM_Body_S</font>
+          <textcolor>TextMuted</textcolor>
+          <align>center</align>
+          <aligny>center</aligny>
+        </control>
+
+        <!-- Guide list — always present (ID 701 always reachable), loads content when widget is set -->
+        <control type="list" id="$PARAM[id]">
+          <left>0</left><top>$PARAM[panel_y]</top><width>1832</width><height>380</height>
+          <scrolltime tween="cubic" easing="out">250</scrolltime>
+          <preloaditems>4</preloaditems>
+          <onclick>PlayMedia($INFO[ListItem.FileNameAndPath])</onclick>
+          <onup>Control.SetFocus($PARAM[nav_up])</onup>
+          <onleft>200</onleft>
+          <onright>$PARAM[id]</onright>
+          <onfocus>Skin.SetString(HBM.PreviousRow,$INFO[Skin.String(HBM.ActiveRow)])</onfocus>
+          <onfocus>Skin.SetString(HBM.ActiveRow,$PARAM[id])</onfocus>
+          <onfocus>Skin.SetString(HBM.ReturnFocus,$PARAM[id])</onfocus>
+          <content target="videos" limit="100">$INFO[Skin.String($PARAM[widget_key])]</content>
+
+          <!-- Normal (unfocused) channel row -->
+          <itemlayout width="1832" height="76">
+            <control type="image"><left>0</left><top>0</top><width>1832</width><height>75</height><aspectratio>stretch</aspectratio><texture colordiffuse="0D000000">white.png</texture></control>
+            <!-- Channel icon: try icon (PVR) then thumb -->
+            <control type="image"><left>12</left><top>8</top><width>60</width><height>60</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon)]</texture></control>
+            <control type="image"><left>12</left><top>8</top><width>60</width><height>60</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+            <!-- Channel number -->
+            <control type="label"><left>84</left><top>14</top><width>164</width><height>22</height><label>$INFO[ListItem.ChannelNumber]</label><font>HBM_Meta_S</font><textcolor>TextMuted</textcolor></control>
+            <!-- Channel name -->
+            <control type="label"><left>84</left><top>40</top><width>164</width><height>22</height><label>$INFO[ListItem.ChannelName]</label><font>HBM_Meta_S</font><textcolor>TextSecondary</textcolor><scroll>false</scroll></control>
+            <!-- Vertical divider -->
+            <control type="image"><left>256</left><top>12</top><width>1</width><height>52</height><aspectratio>stretch</aspectratio><texture colordiffuse="26FFFFFF">white.png</texture></control>
+            <!-- Program title -->
+            <control type="label"><left>272</left><top>12</top><width>960</width><height>28</height><label>$INFO[ListItem.Title]</label><font>HBM_Body_M</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
+            <!-- Time range -->
+            <control type="label"><left>272</left><top>44</top><width>960</width><height>20</height><label>$INFO[ListItem.StartTime] – $INFO[ListItem.EndTime]</label><font>HBM_Meta_S</font><textcolor>TextMuted</textcolor></control>
+            <!-- Progress track -->
+            <control type="image"><left>1250</left><top>51</top><width>540</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="15FFFFFF">white.png</texture></control>
+            <!-- Progress fill -->
+            <control type="progress">
+              <left>1250</left><top>51</top><width>540</width><height>3</height>
+              <info>ListItem.Progress</info>
+              <texturebg colordiffuse="00000000">white.png</texturebg>
+              <textureleft colordiffuse="00000000">white.png</textureleft>
+              <texturemid colordiffuse="66FFFFFF">white.png</texturemid>
+              <textureright colordiffuse="00000000">white.png</textureright>
+              <textureoverlay colordiffuse="00000000">white.png</textureoverlay>
+            </control>
+            <!-- Row separator -->
+            <control type="image"><left>0</left><top>75</top><width>1832</width><height>1</height><aspectratio>stretch</aspectratio><texture colordiffuse="0DFFFFFF">white.png</texture></control>
+          </itemlayout>
+
+          <!-- Focused channel row -->
+          <focusedlayout width="1832" height="76">
+            <control type="image"><left>0</left><top>0</top><width>1832</width><height>75</height><aspectratio>stretch</aspectratio><texture colordiffuse="1EFFFFFF">white.png</texture></control>
+            <!-- Left accent bar -->
+            <control type="image"><left>0</left><top>0</top><width>3</width><height>76</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture></control>
+            <!-- Channel icon -->
+            <control type="image"><left>16</left><top>8</top><width>60</width><height>60</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon)]</texture></control>
+            <control type="image"><left>16</left><top>8</top><width>60</width><height>60</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+            <!-- Channel number -->
+            <control type="label"><left>88</left><top>14</top><width>164</width><height>22</height><label>$INFO[ListItem.ChannelNumber]</label><font>HBM_Meta_S</font><textcolor>TextSecondary</textcolor></control>
+            <!-- Channel name -->
+            <control type="label"><left>88</left><top>40</top><width>164</width><height>22</height><label>$INFO[ListItem.ChannelName]</label><font>HBM_Meta_S</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
+            <!-- Vertical divider -->
+            <control type="image"><left>260</left><top>12</top><width>1</width><height>52</height><aspectratio>stretch</aspectratio><texture colordiffuse="4DFFFFFF">white.png</texture></control>
+            <!-- Program title -->
+            <control type="label"><left>276</left><top>12</top><width>960</width><height>28</height><label>$INFO[ListItem.Title]</label><font>HBM_Nav_M</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
+            <!-- Time range -->
+            <control type="label"><left>276</left><top>44</top><width>960</width><height>20</height><label>$INFO[ListItem.StartTime] – $INFO[ListItem.EndTime]</label><font>HBM_Meta_S</font><textcolor>TextSecondary</textcolor></control>
+            <!-- Progress track -->
+            <control type="image"><left>1254</left><top>51</top><width>536</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="26FFFFFF">white.png</texture></control>
+            <!-- Progress fill (AccentPrimary blue) -->
+            <control type="progress">
+              <left>1254</left><top>51</top><width>536</width><height>3</height>
+              <info>ListItem.Progress</info>
+              <texturebg colordiffuse="00000000">white.png</texturebg>
+              <textureleft colordiffuse="00000000">white.png</textureleft>
+              <texturemid colordiffuse="FFB6CBF7">white.png</texturemid>
+              <textureright colordiffuse="00000000">white.png</textureright>
+              <textureoverlay colordiffuse="00000000">white.png</textureoverlay>
+            </control>
+            <!-- Row separator -->
+            <control type="image"><left>0</left><top>75</top><width>1832</width><height>1</height><aspectratio>stretch</aspectratio><texture colordiffuse="26FFFFFF">white.png</texture></control>
+          </focusedlayout>
+
+        </control>
+      </control><!-- end guide group -->
+
+    </definition>
+  </include>
+
+  <!-- Parameterized content row: Poster / Landscape / Square style support.
+       Params: id, label_y, panel_y, label_key, widget_key, visible_key, style_key, nav_up, nav_down.
+       Used inside the scroll wrapper in Home.xml. label_y/panel_y are absolute screen coords.
+       Card sizes: Poster 290×435, Landscape 410×230, Square 290×290.
+       Gap baked into itemlayout cell width (card+24) since panel itemgap is ignored by Kodi. -->
+  <include name="HBM_Row_Landscape">
+    <param name="id">701</param>
+    <param name="label_y">790</param>
+    <param name="panel_y">822</param>
+    <param name="label_key">hbm_homecfg_home_row01_label</param>
+    <param name="widget_key">hbm_homecfg_home_row01_widget</param>
+    <param name="visible_key">hbm_homecfg_home_row01_visible</param>
+    <param name="style_key">hbm_homecfg_home_row01_style</param>
+    <param name="nav_up">200</param>
+    <param name="nav_down">702</param>
+    <definition>
+
+      <control type="group">
+        <visible>String.IsEqual(Skin.String($PARAM[visible_key]),Visible)</visible>
+
+        <control type="label">
+          <left>0</left><top>$PARAM[label_y]</top><width>800</width><height>32</height>
+          <label>$INFO[Skin.String($PARAM[label_key])]</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>FFFFFFFF</textcolor>
+        </control>
+
+        <!-- Placeholder: shown when no widget configured -->
+        <control type="panel">
+          <left>0</left><top>$PARAM[panel_y]</top><width>1832</width><height>435</height>
+          <orientation>horizontal</orientation>
+          <visible>String.IsEmpty(Skin.String($PARAM[widget_key]))</visible>
+          <content>
+            <item><label>1</label></item><item><label>2</label></item>
+            <item><label>3</label></item><item><label>4</label></item>
+            <item><label>5</label></item><item><label>6</label></item>
+            <item><label>7</label></item><item><label>8</label></item>
+          </content>
+          <!-- Poster: card 290×435, cell 314×435 (24px gap on right) -->
+          <itemlayout width="314" height="435" condition="!String.IsEqual(Skin.String($PARAM[style_key]),Landscape)+!String.IsEqual(Skin.String($PARAM[style_key]),Square)">
+            <control type="image"><left>0</left><top>0</top><width>290</width><height>435</height><aspectratio>stretch</aspectratio><texture colordiffuse="33161C24">white.png</texture></control>
+          </itemlayout>
+          <!-- Landscape: card 700×394 (16:9), cell 724×435 -->
+          <itemlayout width="724" height="435" condition="String.IsEqual(Skin.String($PARAM[style_key]),Landscape)">
+            <control type="image"><left>0</left><top>0</top><width>700</width><height>394</height><aspectratio>stretch</aspectratio><texture colordiffuse="33161C24">white.png</texture></control>
+          </itemlayout>
+          <!-- Square: card 290×290, cell 314×435, centered vertically (top=72) -->
+          <itemlayout width="314" height="435" condition="String.IsEqual(Skin.String($PARAM[style_key]),Square)">
+            <control type="image"><left>0</left><top>72</top><width>290</width><height>290</height><aspectratio>stretch</aspectratio><texture colordiffuse="33161C24">white.png</texture></control>
+          </itemlayout>
+          <focusedlayout width="314" height="435">
+            <control type="image"><left>0</left><top>0</top><width>290</width><height>435</height><aspectratio>stretch</aspectratio><texture colordiffuse="33161C24">white.png</texture></control>
+          </focusedlayout>
+        </control>
+
+        <!-- Live panel: dynamic widget content -->
+        <control type="panel" id="$PARAM[id]">
+          <left>0</left><top>$PARAM[panel_y]</top><width>1832</width><height>435</height>
+          <orientation>horizontal</orientation>
+          <scrolltime tween="cubic" easing="out">300</scrolltime>
+          <preloaditems>2</preloaditems>
+          <onclick>Action(info)</onclick>
+          <onup>Control.SetFocus($PARAM[nav_up],$INFO[Container($PARAM[id]).Position])</onup>
+          <ondown>Control.SetFocus($PARAM[nav_down],$INFO[Container($PARAM[id]).Position])</ondown>
+          <onleft>200</onleft>
+          <onright>$PARAM[id]</onright>
+          <onfocus>Skin.SetString(HBM.PreviousRow,$INFO[Skin.String(HBM.ActiveRow)])</onfocus>
+          <onfocus>Skin.SetString(HBM.ActiveRow,$PARAM[id])</onfocus>
+          <onfocus>Skin.SetString(HBM.ReturnFocus,$PARAM[id])</onfocus>
+          <visible>!String.IsEmpty(Skin.String($PARAM[widget_key]))</visible>
+          <content target="videos" limit="25">$INFO[Skin.String($PARAM[widget_key])]</content>
+
+          <!-- Poster: card 290×435, cell 314×435 -->
+          <itemlayout width="314" height="435" condition="!String.IsEqual(Skin.String($PARAM[style_key]),Landscape)+!String.IsEqual(Skin.String($PARAM[style_key]),Square)">
+            <control type="image"><left>0</left><top>0</top><width>290</width><height>435</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+            <control type="image"><left>0</left><top>0</top><width>290</width><height>435</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
+            <control type="image"><left>0</left><top>0</top><width>290</width><height>435</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+          </itemlayout>
+          <!-- Landscape: card 700×394 (16:9), cell 724×435 -->
+          <itemlayout width="724" height="435" condition="String.IsEqual(Skin.String($PARAM[style_key]),Landscape)">
+            <control type="image"><left>0</left><top>0</top><width>700</width><height>394</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+            <control type="image"><left>0</left><top>0</top><width>700</width><height>394</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(landscape)]</texture></control>
+            <control type="image"><left>0</left><top>0</top><width>700</width><height>394</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(fanart)]</texture></control>
+            <control type="image"><left>0</left><top>0</top><width>700</width><height>394</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+          </itemlayout>
+          <!-- Square: card 290×290, cell 314×435, centered vertically (top=72) -->
+          <itemlayout width="314" height="435" condition="String.IsEqual(Skin.String($PARAM[style_key]),Square)">
+            <control type="image"><left>0</left><top>72</top><width>290</width><height>290</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+            <control type="image"><left>0</left><top>72</top><width>290</width><height>290</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+            <control type="image"><left>0</left><top>72</top><width>290</width><height>290</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
+          </itemlayout>
+
+          <!-- Poster focused: white border via full-size white rect, art inset 2px -->
+          <focusedlayout width="314" height="435" condition="!String.IsEqual(Skin.String($PARAM[style_key]),Landscape)+!String.IsEqual(Skin.String($PARAM[style_key]),Square)">
+            <control type="image"><left>0</left><top>0</top><width>290</width><height>435</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture></control>
+            <control type="image"><left>2</left><top>2</top><width>286</width><height>431</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+            <control type="image"><left>2</left><top>2</top><width>286</width><height>431</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
+            <control type="image"><left>2</left><top>2</top><width>286</width><height>431</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+          </focusedlayout>
+          <!-- Landscape focused -->
+          <focusedlayout width="724" height="435" condition="String.IsEqual(Skin.String($PARAM[style_key]),Landscape)">
+            <control type="image"><left>0</left><top>0</top><width>700</width><height>394</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture></control>
+            <control type="image"><left>2</left><top>2</top><width>696</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+            <control type="image"><left>2</left><top>2</top><width>696</width><height>390</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(landscape)]</texture></control>
+            <control type="image"><left>2</left><top>2</top><width>696</width><height>390</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(fanart)]</texture></control>
+            <control type="image"><left>2</left><top>2</top><width>696</width><height>390</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+          </focusedlayout>
+          <!-- Square focused -->
+          <focusedlayout width="314" height="435" condition="String.IsEqual(Skin.String($PARAM[style_key]),Square)">
+            <control type="image"><left>0</left><top>72</top><width>290</width><height>290</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture></control>
+            <control type="image"><left>2</left><top>74</top><width>286</width><height>286</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+            <control type="image"><left>2</left><top>74</top><width>286</width><height>286</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+            <control type="image"><left>2</left><top>74</top><width>286</width><height>286</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
+          </focusedlayout>
+
+        </control>
+
+      </control><!-- end row group -->
+
+    </definition>
+  </include>
+
+  <include name="HiddenObject">
+    <left>-200</left>
+    <top>-200</top>
+    <width>1</width>
+    <height>1</height>
+  </include>
+
+  <include name="Animation_BottomSlide">
+    <animation effect="slide" start="0,200" end="0,0" time="300" tween="cubic" easing="out">WindowOpen</animation>
+    <animation effect="slide" start="0,0" end="0,200" time="200" tween="cubic" easing="in">WindowClose</animation>
+    <animation effect="slide" start="0,200" end="0,0" time="300" tween="cubic" easing="out">Visible</animation>
+    <animation effect="slide" start="0,0" end="0,200" time="200" tween="cubic" easing="in">Hidden</animation>
+  </include>
+
+  <include name="OpenClose_Left">
+    <animation effect="slide" start="-500,0" end="0,0" time="300" tween="cubic" easing="out">WindowOpen</animation>
+    <animation effect="slide" start="0,0" end="-500,0" time="200" tween="cubic" easing="in">WindowClose</animation>
+    <animation effect="slide" start="-500,0" end="0,0" time="300" tween="cubic" easing="out">Visible</animation>
+    <animation effect="slide" start="0,0" end="-500,0" time="200" tween="cubic" easing="in">Hidden</animation>
+  </include>
+
+  <include name="MediaFlag">
+    <param name="texture" value="" />
+    <param name="visible" value="true" />
+    <definition>
+      <control type="group">
+        <width>80</width>
+        <height>40</height>
+        <visible>$PARAM[visible]</visible>
+        <control type="image">
+          <width>80</width>
+          <height>40</height>
+          <aspectratio>keep</aspectratio>
+          <texture>$PARAM[texture]</texture>
+        </control>
+      </control>
+    </definition>
+  </include>
+
+  <include name="PVRChannelNumberInput">
+    <control type="group">
+      <visible>!String.IsEmpty(PVR.ChannelNumberInput)</visible>
+      <right>80</right>
+      <top>80</top>
+      <width>220</width>
+      <height>120</height>
+      <control type="image">
+        <width>220</width>
+        <height>120</height>
+        <texture border="24" colordiffuse="E6161C24">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="label">
+        <width>220</width>
+        <height>120</height>
+        <align>center</align>
+        <aligny>center</aligny>
+        <label>$INFO[PVR.ChannelNumberInput]</label>
+        <font>HBM_Display_L</font>
+        <textcolor>TextPrimary</textcolor>
+      </control>
+    </control>
+  </include>
+
+  <include name="PVRProgress">
+    <param name="ts_bar_top" value="" />
+    <param name="epg_bar_top" value="" />
+    <param name="ts_bar_height" value="0" />
+    <param name="epg_bar_height" value="0" />
+    <definition>
+      <control type="progress">
+        <left>0</left>
+        <top>$PARAM[ts_bar_top]</top>
+        <width>100%</width>
+        <height>$PARAM[ts_bar_height]</height>
+        <info>PVR.TimeShiftProgressDuration</info>
+        <texturebg border="3" colordiffuse="40FFFFFF">special://skin/media/white.png</texturebg>
+        <midtexture colordiffuse="80FFFFFF">special://skin/media/white.png</midtexture>
+        <visible>!String.IsEmpty($PARAM[ts_bar_top])</visible>
+      </control>
+      <control type="progress">
+        <left>0</left>
+        <top>$PARAM[epg_bar_top]</top>
+        <width>100%</width>
+        <height>$PARAM[epg_bar_height]</height>
+        <info>PVR.EpgEventProgress</info>
+        <texturebg border="3" colordiffuse="40FFFFFF">special://skin/media/white.png</texturebg>
+        <midtexture colordiffuse="AccentPrimary">special://skin/media/white.png</midtexture>
+        <visible>!String.IsEmpty($PARAM[epg_bar_top])</visible>
+      </control>
+    </definition>
+  </include>
+
+</includes>

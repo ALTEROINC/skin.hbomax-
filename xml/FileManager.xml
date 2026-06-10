@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="10003">
+  <defaultcontrol always="true">20</defaultcontrol>
+  <backgroundcolor>BackgroundBase</backgroundcolor>
+  <controls>
+    <include>HBM_Runtime_Background</include>
+
+    <control type="label">
+      <left>664</left><top>138</top><width>592</width><height>60</height>
+      <label>File Manager</label>
+      <font>HBM_Display_M</font>
+      <align>center</align>
+      <textcolor>TextPrimary</textcolor>
+    </control>
+
+    <!-- Sidebar nav -->
+    <control type="group">
+      <left>0</left><top>0</top><width>368</width><height>1080</height>
+      <control type="image">
+        <left>16</left><top>18</top><width>64</width><height>64</height>
+        <texture aspectratio="keep">special://skin/media/brand/hbo_white.png</texture>
+      </control>
+      <control type="label">
+        <left>60</left><top>118</top><width>276</width><height>24</height>
+        <label>Panes</label><font>HBM_Meta_S</font><textcolor>TextMuted</textcolor>
+      </control>
+      <control type="image">
+        <left>60</left><top>156</top><width>276</width><height>1</height>
+        <texture colordiffuse="18FFFFFF">white.png</texture>
+      </control>
+      <control type="button" id="9300">
+        <left>0</left><top>188</top><width>368</width><height>56</height>
+        <label>Left Pane</label><font>HBM_Nav_M</font>
+        <textcolor>TextNavInactive</textcolor><focusedcolor>TextNavActive</focusedcolor>
+        <aligny>center</aligny><textoffsetx>76</textoffsetx>
+        <texturefocus colordiffuse="00FFFFFF">white.png</texturefocus>
+        <texturenofocus />
+        <onup>9301</onup><ondown>9301</ondown><onright>20</onright>
+      </control>
+      <control type="button" id="9301">
+        <left>0</left><top>248</top><width>368</width><height>56</height>
+        <label>Right Pane</label><font>HBM_Nav_M</font>
+        <textcolor>TextNavInactive</textcolor><focusedcolor>TextNavActive</focusedcolor>
+        <aligny>center</aligny><textoffsetx>76</textoffsetx>
+        <texturefocus colordiffuse="00FFFFFF">white.png</texturefocus>
+        <texturenofocus />
+        <onup>9300</onup><ondown>9300</ondown><onright>21</onright>
+      </control>
+    </control>
+
+    <!-- Main panel -->
+    <control type="group">
+      <left>424</left><top>238</top><width>1456</width><height>686</height>
+
+      <!-- Panel shadow + background -->
+      <control type="image">
+        <left>-6</left><top>-6</top><width>1468</width><height>698</height>
+        <texture border="24" colordiffuse="16000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1456</width><height>686</height>
+        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+      </control>
+
+      <!-- Path breadcrumbs -->
+      <control type="label" id="101">
+        <left>36</left><top>26</top><width>636</width><height>24</height>
+        <font>HBM_Meta_S</font><textcolor>TextMuted</textcolor>
+        <haspath>true</haspath>
+      </control>
+      <control type="label" id="102">
+        <left>784</left><top>26</top><width>636</width><height>24</height>
+        <font>HBM_Meta_S</font><textcolor>TextMuted</textcolor>
+        <haspath>true</haspath><align>right</align>
+      </control>
+
+      <!-- Header divider -->
+      <control type="image">
+        <left>36</left><top>66</top><width>1384</width><height>1</height>
+        <texture colordiffuse="18FFFFFF">white.png</texture>
+      </control>
+
+      <!-- Center pane divider -->
+      <control type="image">
+        <left>722</left><top>66</top><width>1</width><height>580</height>
+        <texture colordiffuse="18FFFFFF">white.png</texture>
+      </control>
+
+      <!-- Left pane list -->
+      <control type="list" id="20">
+        <left>36</left><top>104</top><width>660</width><height>540</height>
+        <pagecontrol>60</pagecontrol>
+        <onleft>9300</onleft><onright>21</onright><onup>20</onup><ondown>20</ondown>
+        <itemlayout width="660" height="56">
+          <control type="label">
+            <left>16</left><width>628</width><height>56</height>
+            <font>HBM_Body_M</font><textcolor>TextSecondary</textcolor>
+            <aligny>center</aligny><label>$INFO[ListItem.Label]</label>
+          </control>
+          <control type="image">
+            <left>0</left><top>55</top><width>660</width><height>1</height>
+            <texture colordiffuse="16FFFFFF">white.png</texture>
+          </control>
+        </itemlayout>
+        <focusedlayout width="660" height="56">
+          <control type="image">
+            <width>660</width><height>56</height>
+            <texture colordiffuse="FocusFill">white.png</texture>
+          </control>
+          <control type="label">
+            <left>16</left><width>628</width><height>56</height>
+            <font>HBM_Body_M</font><textcolor>TextPrimary</textcolor>
+            <aligny>center</aligny><label>$INFO[ListItem.Label]</label>
+          </control>
+        </focusedlayout>
+      </control>
+
+      <!-- Left pane scrollbar -->
+      <control type="scrollbar" id="60">
+        <left>704</left><top>104</top><width>8</width><height>540</height>
+        <orientation>vertical</orientation>
+        <texturesliderbackground colordiffuse="1AFFFFFF">white.png</texturesliderbackground>
+        <textureslider colordiffuse="66FFFFFF">white.png</textureslider>
+        <onleft>20</onleft><onright>21</onright>
+      </control>
+
+      <!-- Right pane list -->
+      <control type="list" id="21">
+        <left>740</left><top>104</top><width>660</width><height>540</height>
+        <pagecontrol>61</pagecontrol>
+        <onleft>20</onleft><onright>61</onright><onup>21</onup><ondown>21</ondown>
+        <itemlayout width="660" height="56">
+          <control type="label">
+            <left>16</left><width>628</width><height>56</height>
+            <font>HBM_Body_M</font><textcolor>TextSecondary</textcolor>
+            <aligny>center</aligny><label>$INFO[ListItem.Label]</label>
+          </control>
+          <control type="image">
+            <left>0</left><top>55</top><width>660</width><height>1</height>
+            <texture colordiffuse="16FFFFFF">white.png</texture>
+          </control>
+        </itemlayout>
+        <focusedlayout width="660" height="56">
+          <control type="image">
+            <width>660</width><height>56</height>
+            <texture colordiffuse="FocusFill">white.png</texture>
+          </control>
+          <control type="label">
+            <left>16</left><width>628</width><height>56</height>
+            <font>HBM_Body_M</font><textcolor>TextPrimary</textcolor>
+            <aligny>center</aligny><label>$INFO[ListItem.Label]</label>
+          </control>
+        </focusedlayout>
+      </control>
+
+      <!-- Right pane scrollbar -->
+      <control type="scrollbar" id="61">
+        <left>1408</left><top>104</top><width>8</width><height>540</height>
+        <orientation>vertical</orientation>
+        <texturesliderbackground colordiffuse="1AFFFFFF">white.png</texturesliderbackground>
+        <textureslider colordiffuse="66FFFFFF">white.png</textureslider>
+        <onleft>21</onleft><onright>21</onright>
+      </control>
+
+    </control>
+  </controls>
+</window>

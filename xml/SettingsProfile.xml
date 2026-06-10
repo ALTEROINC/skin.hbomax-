@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol always="true">4</defaultcontrol>
+  <backgroundcolor>BackgroundBase</backgroundcolor>
+  <onload condition="String.IsEmpty(Skin.String(HBM.ProfileSection))">Skin.SetString(HBM.ProfileSection,settings)</onload>
+  <controls>
+    <include>HBM_Runtime_Background</include>
+
+    <control type="label">
+      <left>664</left>
+      <top>138</top>
+      <width>592</width>
+      <height>60</height>
+      <label>Profiles</label>
+      <font>HBM_Display_M</font>
+      <align>center</align>
+      <textcolor>TextPrimary</textcolor>
+    </control>
+
+    <control type="group">
+      <left>0</left>
+      <top>0</top>
+      <width>368</width>
+      <height>1080</height>
+
+      <control type="image">
+        <left>16</left>
+        <top>18</top>
+        <width>64</width>
+        <height>64</height>
+        <texture aspectratio="keep">special://skin/media/brand/hbo_white.png</texture>
+      </control>
+
+      <control type="label">
+        <left>60</left>
+        <top>118</top>
+        <width>276</width>
+        <height>24</height>
+        <label>Categories</label>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+      </control>
+
+      <control type="image">
+        <left>60</left>
+        <top>156</top>
+        <width>276</width>
+        <height>1</height>
+        <texture colordiffuse="18FFFFFF">white.png</texture>
+      </control>
+
+      <control type="group">
+        <left>0</left>
+        <top>188</top>
+        <width>368</width>
+        <height>56</height>
+        <control type="button" id="9000">
+          <left>0</left>
+          <top>0</top>
+          <width>368</width>
+          <height>56</height>
+          <label>Profile Settings</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextNavInactive</textcolor>
+          <focusedcolor>TextNavActive</focusedcolor>
+          <aligny>center</aligny>
+          <textoffsetx>76</textoffsetx>
+          <texturenofocus />
+          <texturefocus />
+          <onfocus>Skin.SetString(HBM.ProfileSection,settings)</onfocus>
+          <onright>4</onright>
+          <onup>9002</onup>
+          <ondown>9002</ondown>
+        </control>
+      </control>
+
+      <control type="group">
+        <left>0</left>
+        <top>248</top>
+        <width>368</width>
+        <height>56</height>
+        <control type="button" id="9002">
+          <left>0</left>
+          <top>0</top>
+          <width>368</width>
+          <height>56</height>
+          <label>Profiles</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextNavInactive</textcolor>
+          <focusedcolor>TextNavActive</focusedcolor>
+          <aligny>center</aligny>
+          <textoffsetx>76</textoffsetx>
+          <texturenofocus />
+          <texturefocus />
+          <onfocus>Skin.SetString(HBM.ProfileSection,profiles)</onfocus>
+          <onup>9000</onup>
+          <ondown>9000</ondown>
+          <onright>2</onright>
+        </control>
+      </control>
+    </control>
+
+    <control type="group">
+      <left>424</left>
+      <top>238</top>
+      <width>1296</width>
+      <height>686</height>
+      <control type="image">
+        <left>-6</left>
+        <top>-6</top>
+        <width>1308</width>
+        <height>698</height>
+        <texture border="24" colordiffuse="16000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left>
+        <top>0</top>
+        <width>1296</width>
+        <height>686</height>
+        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+      </control>
+
+      <control type="label">
+        <left>36</left>
+        <top>26</top>
+        <width>420</width>
+        <height>24</height>
+        <label>Profiles</label>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+      </control>
+
+      <control type="image">
+        <left>36</left>
+        <top>66</top>
+        <width>1224</width>
+        <height>1</height>
+        <texture colordiffuse="18FFFFFF">white.png</texture>
+      </control>
+
+      <control type="grouplist" id="9001">
+        <left>36</left>
+        <top>104</top>
+        <width>1188</width>
+        <height>508</height>
+        <orientation>vertical</orientation>
+        <itemgap>0</itemgap>
+        <visible>String.IsEqual(Skin.String(HBM.ProfileSection),settings)</visible>
+        <onleft>9000</onleft>
+        <onup>9001</onup>
+        <ondown>9001</ondown>
+
+        <control type="label">
+          <width>1188</width>
+          <height>28</height>
+          <label>Profile Settings</label>
+          <font>HBM_Meta_S</font>
+          <textcolor>TextMuted</textcolor>
+        </control>
+        <control type="image">
+          <width>1188</width>
+          <height>1</height>
+          <texture colordiffuse="16FFFFFF">white.png</texture>
+        </control>
+        <control type="radiobutton" id="4">
+          <width>1188</width>
+          <height>56</height>
+          <label>Login Screen</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus />
+          <onfocus>Skin.SetString(HBM.ProfileSection,settings)</onfocus>
+          <onleft>9000</onleft>
+        </control>
+        <control type="image">
+          <width>1188</width>
+          <height>1</height>
+          <texture colordiffuse="16FFFFFF">white.png</texture>
+        </control>
+        <control type="button" id="5">
+          <width>1188</width>
+          <height>56</height>
+          <label>Auto Login Profile</label>
+          <label2>$INFO[System.ProfileAutoLogin]</label2>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus />
+          <onfocus>Skin.SetString(HBM.ProfileSection,settings)</onfocus>
+          <onleft>9000</onleft>
+        </control>
+      </control>
+
+      <control type="panel" id="2">
+        <left>36</left>
+        <top>104</top>
+        <width>1188</width>
+        <height>540</height>
+        <visible>String.IsEqual(Skin.String(HBM.ProfileSection),profiles)</visible>
+        <onleft>9002</onleft>
+        <onup>2</onup>
+        <ondown>2</ondown>
+        <pagecontrol>9060</pagecontrol>
+        <itemlayout width="280" height="340">
+          <control type="image">
+            <left>30</left>
+            <top>20</top>
+            <width>220</width>
+            <height>220</height>
+            <aspectratio align="center" aligny="center">keep</aspectratio>
+            <texture fallback="DefaultUser.png">$INFO[ListItem.Icon]</texture>
+          </control>
+          <control type="label">
+            <left>20</left>
+            <top>252</top>
+            <width>240</width>
+            <height>36</height>
+            <align>center</align>
+            <font>HBM_Body_M</font>
+            <textcolor>TextPrimary</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+          <control type="label">
+            <left>20</left>
+            <top>294</top>
+            <width>240</width>
+            <height>28</height>
+            <align>center</align>
+            <font>HBM_Body_S</font>
+            <textcolor>TextMuted</textcolor>
+            <label>$INFO[ListItem.Label2]</label>
+          </control>
+        </itemlayout>
+        <focusedlayout width="280" height="340">
+          <control type="image">
+            <width>280</width>
+            <height>340</height>
+            <texture colordiffuse="FocusFill">white.png</texture>
+          </control>
+          <control type="image">
+            <left>30</left>
+            <top>20</top>
+            <width>220</width>
+            <height>220</height>
+            <aspectratio align="center" aligny="center">keep</aspectratio>
+            <texture fallback="DefaultUser.png">$INFO[ListItem.Icon]</texture>
+          </control>
+          <control type="label">
+            <left>20</left>
+            <top>252</top>
+            <width>240</width>
+            <height>36</height>
+            <align>center</align>
+            <font>HBM_Body_M</font>
+            <textcolor>TextPrimary</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+          <control type="label">
+            <left>20</left>
+            <top>294</top>
+            <width>240</width>
+            <height>28</height>
+            <align>center</align>
+            <font>HBM_Body_S</font>
+            <textcolor>TextMuted</textcolor>
+            <label>$INFO[ListItem.Label2]</label>
+          </control>
+        </focusedlayout>
+      </control>
+
+      <control type="scrollbar" id="9060">
+        <left>1240</left>
+        <top>104</top>
+        <width>12</width>
+        <height>540</height>
+        <orientation>vertical</orientation>
+        <texturesliderbackground />
+      </control>
+    </control>
+  </controls>
+</window>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol>5</defaultcontrol>
+  <controls>
+    <include>HBM_Runtime_ModalScrim</include>
+
+    <control type="group">
+      <centerleft>50%</centerleft>
+      <centertop>50%</centertop>
+      <width>1520</width>
+      <height>870</height>
+
+      <control type="image">
+        <left>-6</left>
+        <top>-6</top>
+        <width>1532</width>
+        <height>882</height>
+        <texture border="24" colordiffuse="16000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <width>1520</width>
+        <height>870</height>
+        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+      </control>
+
+      <control type="label" id="2">
+        <left>36</left>
+        <top>28</top>
+        <width>1164</width>
+        <height>52</height>
+        <font>HBM_Display_M</font>
+        <textcolor>TextPrimary</textcolor>
+      </control>
+
+      <control type="image">
+        <left>36</left>
+        <top>94</top>
+        <width>1152</width>
+        <height>1</height>
+        <texture colordiffuse="20FFFFFF">white.png</texture>
+      </control>
+
+      <control type="image">
+        <left>1210</left>
+        <top>94</top>
+        <width>1</width>
+        <height>736</height>
+        <texture colordiffuse="16FFFFFF">white.png</texture>
+      </control>
+
+      <control type="grouplist" id="5">
+        <description>control area</description>
+        <left>32</left>
+        <top>114</top>
+        <width>1156</width>
+        <height>716</height>
+        <pagecontrol>60</pagecontrol>
+        <onleft>9000</onleft>
+        <onright>60</onright>
+        <onup>5</onup>
+        <ondown>5</ondown>
+        <orientation>vertical</orientation>
+        <itemgap>0</itemgap>
+      </control>
+
+      <control type="button" id="7">
+        <description>Default Button</description>
+        <left>0</left>
+        <top>0</top>
+        <width>1156</width>
+        <height>72</height>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>24</textoffsetx>
+        <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus colordiffuse="0AFFFFFF">white.png</texturenofocus>
+      </control>
+
+      <control type="radiobutton" id="8">
+        <description>Default RadioButton</description>
+        <left>0</left>
+        <top>0</top>
+        <width>1156</width>
+        <height>72</height>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>24</textoffsetx>
+        <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus colordiffuse="0AFFFFFF">white.png</texturenofocus>
+      </control>
+
+      <control type="spincontrolex" id="9">
+        <description>Default SpinControlex</description>
+        <left>0</left>
+        <top>0</top>
+        <width>1156</width>
+        <height>72</height>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>24</textoffsetx>
+        <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus colordiffuse="0AFFFFFF">white.png</texturenofocus>
+      </control>
+
+      <control type="image" id="11">
+        <description>separator image</description>
+        <left>24</left>
+        <top>71</top>
+        <width>1108</width>
+        <height>1</height>
+        <texture colordiffuse="16FFFFFF">white.png</texture>
+      </control>
+
+      <control type="edit" id="12">
+        <description>Default Edit</description>
+        <left>0</left>
+        <top>0</top>
+        <width>1156</width>
+        <height>72</height>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>24</textoffsetx>
+        <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus colordiffuse="0AFFFFFF">white.png</texturenofocus>
+      </control>
+
+      <control type="sliderex" id="13">
+        <description>Default Slider</description>
+        <left>0</left>
+        <top>0</top>
+        <width>1156</width>
+        <height>72</height>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>24</textoffsetx>
+        <textwidth>900</textwidth>
+        <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus />
+      </control>
+
+      <control type="label" id="14">
+        <description>Default Label</description>
+        <left>24</left>
+        <top>0</top>
+        <width>1108</width>
+        <height>42</height>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+        <align>left</align>
+        <aligny>center</aligny>
+      </control>
+
+      <control type="colorbutton" id="15">
+        <description>Default ColorButton</description>
+        <left>0</left>
+        <top>0</top>
+        <width>1156</width>
+        <height>72</height>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>24</textoffsetx>
+        <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus colordiffuse="0AFFFFFF">white.png</texturenofocus>
+      </control>
+
+      <control type="grouplist" id="9000">
+        <left>1232</left>
+        <top>114</top>
+        <width>252</width>
+        <height>716</height>
+        <orientation>vertical</orientation>
+        <itemgap>12</itemgap>
+        <onleft>5</onleft>
+        <onright>5</onright>
+
+        <control type="button" id="28">
+          <width>252</width>
+          <height>64</height>
+          <label>$LOCALIZE[186]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus border="8" colordiffuse="1AFFFFFF">white.png</texturenofocus>
+          <align>center</align><aligny>center</aligny>
+        </control>
+        <control type="button" id="29">
+          <width>252</width>
+          <height>64</height>
+          <label>$LOCALIZE[222]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
+          <align>center</align><aligny>center</aligny>
+        </control>
+        <control type="button" id="30">
+          <width>252</width>
+          <height>64</height>
+          <label>$LOCALIZE[409]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus border="8" colordiffuse="0EFFFFFF">white.png</texturenofocus>
+          <align>center</align><aligny>center</aligny>
+        </control>
+      </control>
+
+      <control type="scrollbar" id="60">
+        <left>1190</left>
+        <top>114</top>
+        <width>12</width>
+        <height>716</height>
+        <orientation>vertical</orientation>
+        <texturesliderbackground />
+        <onleft>5</onleft>
+        <onright>9000</onright>
+      </control>
+    </control>
+  </controls>
+</window>

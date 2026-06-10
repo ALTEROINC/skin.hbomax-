@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+  <variable name="HBM_Key_1"><value>1</value></variable>
+  <variable name="HBM_Key_2"><value>2</value></variable>
+  <variable name="HBM_Key_3"><value>3</value></variable>
+  <variable name="HBM_Key_4"><value>4</value></variable>
+  <variable name="HBM_Key_5"><value>5</value></variable>
+  <variable name="HBM_Key_6"><value>6</value></variable>
+  <variable name="HBM_Key_7"><value>7</value></variable>
+  <variable name="HBM_Key_8"><value>8</value></variable>
+  <variable name="HBM_Key_9"><value>9</value></variable>
+  <variable name="HBM_Key_0"><value>0</value></variable>
+
+  <variable name="HBM_SearchURL_TV">
+    <value condition="!String.IsEmpty(Skin.String(HBM.SearchTerm))">plugin://plugin.video.themoviedb.helper/?info=search&amp;tmdb_type=tv&amp;query=$INFO[Skin.String(HBM.SearchTerm)]</value>
+  </variable>
+  <variable name="HBM_SearchURL_Movie">
+    <value condition="!String.IsEmpty(Skin.String(HBM.SearchTerm))">plugin://plugin.video.themoviedb.helper/?info=search&amp;tmdb_type=movie&amp;query=$INFO[Skin.String(HBM.SearchTerm)]</value>
+  </variable>
+  <variable name="HBM_SearchURL_Person">
+    <value condition="!String.IsEmpty(Skin.String(HBM.SearchTerm))">plugin://plugin.video.themoviedb.helper/?info=search&amp;tmdb_type=person&amp;query=$INFO[Skin.String(HBM.SearchTerm)]</value>
+  </variable>
+
+  <variable name="AutoCompletionContentVar">
+    <value condition="System.AddonIsEnabled(plugin.program.autocompletion) + !System.HasHiddenInput">plugin://plugin.program.autocompletion?info=autocomplete&amp;&amp;id=$INFO[Control.GetLabel(312).index(1)]&amp;&amp;limit=9</value>
+  </variable>
+
+  <variable name="HBM_HeroAutoscrollLabel">
+    <value condition="String.IsEqual(Skin.String(hbm_hero_autoscroll),off)">Off</value>
+    <value condition="String.IsEqual(Skin.String(hbm_hero_autoscroll),idle)">When Idle</value>
+    <value>Always</value>
+  </variable>
+
+  <!-- Global spacing system -->
+  <variable name="HBM_Safe_Left">
+    <value>96</value>
+  </variable>
+  <variable name="HBM_Safe_Right">
+    <value>96</value>
+  </variable>
+  <variable name="HBM_Safe_Top">
+    <value>56</value>
+  </variable>
+  <variable name="HBM_Safe_Bottom">
+    <value>54</value>
+  </variable>
+  <variable name="HBM_Nav_Height">
+    <value>76</value>
+  </variable>
+  <variable name="HBM_Row_Gap">
+    <value>36</value>
+  </variable>
+
+  <!-- Side rail layout constants -->
+  <variable name="HBM_Rail_Collapsed_Width">
+    <value>88</value>
+  </variable>
+  <variable name="HBM_Rail_Expanded_Width">
+    <value>304</value>
+  </variable>
+  <variable name="HBM_Rail_Item_Height">
+    <value>68</value>
+  </variable>
+  <variable name="HBM_Rail_Item_Gap">
+    <value>8</value>
+  </variable>
+
+  <!-- Main content layout constants -->
+  <variable name="HBM_MainContent_X">
+    <value>320</value>
+  </variable>
+  <variable name="HBM_MainContent_Y">
+    <value>80</value>
+  </variable>
+  <variable name="HBM_MainContent_Width">
+    <value>1500</value>
+  </variable>
+  <variable name="HBM_MainContent_Height">
+    <value>920</value>
+  </variable>
+
+  <variable name="HBM_Hero_X">
+    <value>88</value>
+  </variable>
+  <variable name="HBM_Hero_Anchor_Y">
+    <value>0</value>
+  </variable>
+  <variable name="HBM_Hero_Anchor_Width">
+    <value>1832</value>
+  </variable>
+  <variable name="HBM_Hero_Anchor_Height">
+    <value>756</value>
+  </variable>
+
+  <variable name="HBM_Hero_ActiveLabel">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)">TV Shows</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies)">Movies</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)">Live TV</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)">My List</value>
+    <value>Home</value>
+  </variable>
+
+  <variable name="HBM_Hero_Backdrop">
+    <!-- Row browsing: global ListItem tracks the focused poster -->
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Art(tvshow.fanart))">$INFO[ListItem.Art(tvshow.fanart)]</value>
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Art(landscape))">$INFO[ListItem.Art(landscape)]</value>
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Art(keyart))">$INFO[ListItem.Art(keyart)]</value>
+    <!-- PVR/live TV channel icon as last-resort backdrop -->
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Art(icon))">$INFO[ListItem.Art(icon)]</value>
+    <!-- Hero zone: use per-page carousel container so Play/More Info buttons don't blank it -->
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEmpty(Container(620).ListItem.Art(fanart))">$INFO[Container(620).ListItem.Art(fanart)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEmpty(Container(620).ListItem.Art(tvshow.fanart))">$INFO[Container(620).ListItem.Art(tvshow.fanart)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEmpty(Container(620).ListItem.Art(landscape))">$INFO[Container(620).ListItem.Art(landscape)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEmpty(Container(620).ListItem.Art(keyart))">$INFO[Container(620).ListItem.Art(keyart)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + !String.IsEmpty(Container(621).ListItem.Art(fanart))">$INFO[Container(621).ListItem.Art(fanart)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + !String.IsEmpty(Container(621).ListItem.Art(tvshow.fanart))">$INFO[Container(621).ListItem.Art(tvshow.fanart)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + !String.IsEmpty(Container(621).ListItem.Art(landscape))">$INFO[Container(621).ListItem.Art(landscape)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + !String.IsEmpty(Container(621).ListItem.Art(keyart))">$INFO[Container(621).ListItem.Art(keyart)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + !String.IsEmpty(Container(622).ListItem.Art(fanart))">$INFO[Container(622).ListItem.Art(fanart)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + !String.IsEmpty(Container(622).ListItem.Art(tvshow.fanart))">$INFO[Container(622).ListItem.Art(tvshow.fanart)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + !String.IsEmpty(Container(622).ListItem.Art(landscape))">$INFO[Container(622).ListItem.Art(landscape)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + !String.IsEmpty(Container(622).ListItem.Art(keyart))">$INFO[Container(622).ListItem.Art(keyart)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + !String.IsEmpty(Container(623).ListItem.Art(fanart))">$INFO[Container(623).ListItem.Art(fanart)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + !String.IsEmpty(Container(623).ListItem.Art(tvshow.fanart))">$INFO[Container(623).ListItem.Art(tvshow.fanart)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + !String.IsEmpty(Container(623).ListItem.Art(landscape))">$INFO[Container(623).ListItem.Art(landscape)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + !String.IsEmpty(Container(623).ListItem.Art(keyart))">$INFO[Container(623).ListItem.Art(keyart)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + !String.IsEmpty(Container(624).ListItem.Art(fanart))">$INFO[Container(624).ListItem.Art(fanart)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + !String.IsEmpty(Container(624).ListItem.Art(tvshow.fanart))">$INFO[Container(624).ListItem.Art(tvshow.fanart)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + !String.IsEmpty(Container(624).ListItem.Art(landscape))">$INFO[Container(624).ListItem.Art(landscape)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + !String.IsEmpty(Container(624).ListItem.Art(keyart))">$INFO[Container(624).ListItem.Art(keyart)]</value>
+  </variable>
+
+  <variable name="HBM_Hero_Logo">
+    <!-- Row browsing -->
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Property(base_clearlogo))">$INFO[ListItem.Property(base_clearlogo)]</value>
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Art(tvshow.clearlogo))">$INFO[ListItem.Art(tvshow.clearlogo)]</value>
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Art(clearlogo))">$INFO[ListItem.Art(clearlogo)]</value>
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Art(logo))">$INFO[ListItem.Art(logo)]</value>
+    <!-- PVR channel icon as logo fallback (live TV guide) -->
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Art(icon))">$INFO[ListItem.Art(icon)]</value>
+    <!-- Hero zone -->
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEmpty(Container(620).ListItem.Property(base_clearlogo))">$INFO[Container(620).ListItem.Property(base_clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEmpty(Container(620).ListItem.Art(tvshow.clearlogo))">$INFO[Container(620).ListItem.Art(tvshow.clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEmpty(Container(620).ListItem.Art(clearlogo))">$INFO[Container(620).ListItem.Art(clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEmpty(Container(620).ListItem.Art(logo))">$INFO[Container(620).ListItem.Art(logo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + !String.IsEmpty(Container(621).ListItem.Property(base_clearlogo))">$INFO[Container(621).ListItem.Property(base_clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + !String.IsEmpty(Container(621).ListItem.Art(tvshow.clearlogo))">$INFO[Container(621).ListItem.Art(tvshow.clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + !String.IsEmpty(Container(621).ListItem.Art(clearlogo))">$INFO[Container(621).ListItem.Art(clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + !String.IsEmpty(Container(621).ListItem.Art(logo))">$INFO[Container(621).ListItem.Art(logo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + !String.IsEmpty(Container(622).ListItem.Property(base_clearlogo))">$INFO[Container(622).ListItem.Property(base_clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + !String.IsEmpty(Container(622).ListItem.Art(tvshow.clearlogo))">$INFO[Container(622).ListItem.Art(tvshow.clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + !String.IsEmpty(Container(622).ListItem.Art(clearlogo))">$INFO[Container(622).ListItem.Art(clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + !String.IsEmpty(Container(622).ListItem.Art(logo))">$INFO[Container(622).ListItem.Art(logo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + !String.IsEmpty(Container(623).ListItem.Property(base_clearlogo))">$INFO[Container(623).ListItem.Property(base_clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + !String.IsEmpty(Container(623).ListItem.Art(tvshow.clearlogo))">$INFO[Container(623).ListItem.Art(tvshow.clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + !String.IsEmpty(Container(623).ListItem.Art(clearlogo))">$INFO[Container(623).ListItem.Art(clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + !String.IsEmpty(Container(623).ListItem.Art(logo))">$INFO[Container(623).ListItem.Art(logo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + !String.IsEmpty(Container(624).ListItem.Property(base_clearlogo))">$INFO[Container(624).ListItem.Property(base_clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + !String.IsEmpty(Container(624).ListItem.Art(tvshow.clearlogo))">$INFO[Container(624).ListItem.Art(tvshow.clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + !String.IsEmpty(Container(624).ListItem.Art(clearlogo))">$INFO[Container(624).ListItem.Art(clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + !String.IsEmpty(Container(624).ListItem.Art(logo))">$INFO[Container(624).ListItem.Art(logo)]</value>
+  </variable>
+
+  <variable name="HBM_Hero_Title">
+    <!-- Row browsing -->
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.TVShowTitle)">$INFO[ListItem.TVShowTitle]</value>
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Label)">$INFO[ListItem.Label]</value>
+    <!-- Hero zone -->
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEmpty(Container(620).ListItem.TVShowTitle)">$INFO[Container(620).ListItem.TVShowTitle]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEmpty(Container(620).ListItem.Title)">$INFO[Container(620).ListItem.Title]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEmpty(Container(620).ListItem.Label)">$INFO[Container(620).ListItem.Label]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + !String.IsEmpty(Container(621).ListItem.TVShowTitle)">$INFO[Container(621).ListItem.TVShowTitle]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + !String.IsEmpty(Container(621).ListItem.Title)">$INFO[Container(621).ListItem.Title]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + !String.IsEmpty(Container(621).ListItem.Label)">$INFO[Container(621).ListItem.Label]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + !String.IsEmpty(Container(622).ListItem.TVShowTitle)">$INFO[Container(622).ListItem.TVShowTitle]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + !String.IsEmpty(Container(622).ListItem.Title)">$INFO[Container(622).ListItem.Title]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + !String.IsEmpty(Container(622).ListItem.Label)">$INFO[Container(622).ListItem.Label]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + !String.IsEmpty(Container(623).ListItem.TVShowTitle)">$INFO[Container(623).ListItem.TVShowTitle]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + !String.IsEmpty(Container(623).ListItem.Title)">$INFO[Container(623).ListItem.Title]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + !String.IsEmpty(Container(623).ListItem.Label)">$INFO[Container(623).ListItem.Label]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + !String.IsEmpty(Container(624).ListItem.TVShowTitle)">$INFO[Container(624).ListItem.TVShowTitle]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + !String.IsEmpty(Container(624).ListItem.Title)">$INFO[Container(624).ListItem.Title]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + !String.IsEmpty(Container(624).ListItem.Label)">$INFO[Container(624).ListItem.Label]</value>
+    <value>$VAR[HBM_Hero_ActiveLabel]</value>
+  </variable>
+
+  <variable name="HBM_Hero_Plot">
+    <!-- Row browsing -->
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Plot)">$INFO[ListItem.Plot]</value>
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Property(Plot))">$INFO[ListItem.Property(Plot)]</value>
+    <!-- Hero zone -->
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEmpty(Container(620).ListItem.Plot)">$INFO[Container(620).ListItem.Plot]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEmpty(Container(620).ListItem.Property(Plot))">$INFO[Container(620).ListItem.Property(Plot)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + !String.IsEmpty(Container(621).ListItem.Plot)">$INFO[Container(621).ListItem.Plot]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + !String.IsEmpty(Container(621).ListItem.Property(Plot))">$INFO[Container(621).ListItem.Property(Plot)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + !String.IsEmpty(Container(622).ListItem.Plot)">$INFO[Container(622).ListItem.Plot]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + !String.IsEmpty(Container(622).ListItem.Property(Plot))">$INFO[Container(622).ListItem.Property(Plot)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + !String.IsEmpty(Container(623).ListItem.Plot)">$INFO[Container(623).ListItem.Plot]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + !String.IsEmpty(Container(623).ListItem.Property(Plot))">$INFO[Container(623).ListItem.Property(Plot)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + !String.IsEmpty(Container(624).ListItem.Plot)">$INFO[Container(624).ListItem.Plot]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + !String.IsEmpty(Container(624).ListItem.Property(Plot))">$INFO[Container(624).ListItem.Property(Plot)]</value>
+  </variable>
+
+  <variable name="HBM_Hero_HasContent">
+    <value condition="!IsEmpty($VAR[HBM_Hero_Backdrop]) | !IsEmpty($VAR[HBM_Hero_Title])">true</value>
+  </variable>
+
+  <variable name="HBM_Row_Logo">
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),701) + !String.IsEmpty(Container(701).ListItem.Property(base_clearlogo))">$INFO[Container(701).ListItem.Property(base_clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),701) + !String.IsEmpty(Container(701).ListItem.Art(tvshow.clearlogo))">$INFO[Container(701).ListItem.Art(tvshow.clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),701) + !String.IsEmpty(Container(701).ListItem.Art(clearlogo))">$INFO[Container(701).ListItem.Art(clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),701) + !String.IsEmpty(Container(701).ListItem.Art(logo))">$INFO[Container(701).ListItem.Art(logo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),702) + !String.IsEmpty(Container(702).ListItem.Property(base_clearlogo))">$INFO[Container(702).ListItem.Property(base_clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),702) + !String.IsEmpty(Container(702).ListItem.Art(tvshow.clearlogo))">$INFO[Container(702).ListItem.Art(tvshow.clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),702) + !String.IsEmpty(Container(702).ListItem.Art(clearlogo))">$INFO[Container(702).ListItem.Art(clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),702) + !String.IsEmpty(Container(702).ListItem.Art(logo))">$INFO[Container(702).ListItem.Art(logo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),703) + !String.IsEmpty(Container(703).ListItem.Property(base_clearlogo))">$INFO[Container(703).ListItem.Property(base_clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),703) + !String.IsEmpty(Container(703).ListItem.Art(tvshow.clearlogo))">$INFO[Container(703).ListItem.Art(tvshow.clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),703) + !String.IsEmpty(Container(703).ListItem.Art(clearlogo))">$INFO[Container(703).ListItem.Art(clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),703) + !String.IsEmpty(Container(703).ListItem.Art(logo))">$INFO[Container(703).ListItem.Art(logo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),704) + !String.IsEmpty(Container(704).ListItem.Property(base_clearlogo))">$INFO[Container(704).ListItem.Property(base_clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),704) + !String.IsEmpty(Container(704).ListItem.Art(tvshow.clearlogo))">$INFO[Container(704).ListItem.Art(tvshow.clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),704) + !String.IsEmpty(Container(704).ListItem.Art(clearlogo))">$INFO[Container(704).ListItem.Art(clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),704) + !String.IsEmpty(Container(704).ListItem.Art(logo))">$INFO[Container(704).ListItem.Art(logo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),705) + !String.IsEmpty(Container(705).ListItem.Property(base_clearlogo))">$INFO[Container(705).ListItem.Property(base_clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),705) + !String.IsEmpty(Container(705).ListItem.Art(tvshow.clearlogo))">$INFO[Container(705).ListItem.Art(tvshow.clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),705) + !String.IsEmpty(Container(705).ListItem.Art(clearlogo))">$INFO[Container(705).ListItem.Art(clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),705) + !String.IsEmpty(Container(705).ListItem.Art(logo))">$INFO[Container(705).ListItem.Art(logo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),706) + !String.IsEmpty(Container(706).ListItem.Property(base_clearlogo))">$INFO[Container(706).ListItem.Property(base_clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),706) + !String.IsEmpty(Container(706).ListItem.Art(tvshow.clearlogo))">$INFO[Container(706).ListItem.Art(tvshow.clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),706) + !String.IsEmpty(Container(706).ListItem.Art(clearlogo))">$INFO[Container(706).ListItem.Art(clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),706) + !String.IsEmpty(Container(706).ListItem.Art(logo))">$INFO[Container(706).ListItem.Art(logo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),707) + !String.IsEmpty(Container(707).ListItem.Property(base_clearlogo))">$INFO[Container(707).ListItem.Property(base_clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),707) + !String.IsEmpty(Container(707).ListItem.Art(tvshow.clearlogo))">$INFO[Container(707).ListItem.Art(tvshow.clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),707) + !String.IsEmpty(Container(707).ListItem.Art(clearlogo))">$INFO[Container(707).ListItem.Art(clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),707) + !String.IsEmpty(Container(707).ListItem.Art(logo))">$INFO[Container(707).ListItem.Art(logo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),708) + !String.IsEmpty(Container(708).ListItem.Property(base_clearlogo))">$INFO[Container(708).ListItem.Property(base_clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),708) + !String.IsEmpty(Container(708).ListItem.Art(tvshow.clearlogo))">$INFO[Container(708).ListItem.Art(tvshow.clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),708) + !String.IsEmpty(Container(708).ListItem.Art(clearlogo))">$INFO[Container(708).ListItem.Art(clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),708) + !String.IsEmpty(Container(708).ListItem.Art(logo))">$INFO[Container(708).ListItem.Art(logo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),709) + !String.IsEmpty(Container(709).ListItem.Property(base_clearlogo))">$INFO[Container(709).ListItem.Property(base_clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),709) + !String.IsEmpty(Container(709).ListItem.Art(tvshow.clearlogo))">$INFO[Container(709).ListItem.Art(tvshow.clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),709) + !String.IsEmpty(Container(709).ListItem.Art(clearlogo))">$INFO[Container(709).ListItem.Art(clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),709) + !String.IsEmpty(Container(709).ListItem.Art(logo))">$INFO[Container(709).ListItem.Art(logo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),710) + !String.IsEmpty(Container(710).ListItem.Property(base_clearlogo))">$INFO[Container(710).ListItem.Property(base_clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),710) + !String.IsEmpty(Container(710).ListItem.Art(tvshow.clearlogo))">$INFO[Container(710).ListItem.Art(tvshow.clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),710) + !String.IsEmpty(Container(710).ListItem.Art(clearlogo))">$INFO[Container(710).ListItem.Art(clearlogo)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),710) + !String.IsEmpty(Container(710).ListItem.Art(logo))">$INFO[Container(710).ListItem.Art(logo)]</value>
+  </variable>
+
+  <variable name="HBM_Row_Title">
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),701) + !String.IsEmpty(Container(701).ListItem.TVShowTitle)">$INFO[Container(701).ListItem.TVShowTitle]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),701) + !String.IsEmpty(Container(701).ListItem.Title)">$INFO[Container(701).ListItem.Title]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),701) + !String.IsEmpty(Container(701).ListItem.Label)">$INFO[Container(701).ListItem.Label]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),702) + !String.IsEmpty(Container(702).ListItem.TVShowTitle)">$INFO[Container(702).ListItem.TVShowTitle]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),702) + !String.IsEmpty(Container(702).ListItem.Title)">$INFO[Container(702).ListItem.Title]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),702) + !String.IsEmpty(Container(702).ListItem.Label)">$INFO[Container(702).ListItem.Label]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),703) + !String.IsEmpty(Container(703).ListItem.TVShowTitle)">$INFO[Container(703).ListItem.TVShowTitle]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),703) + !String.IsEmpty(Container(703).ListItem.Title)">$INFO[Container(703).ListItem.Title]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),703) + !String.IsEmpty(Container(703).ListItem.Label)">$INFO[Container(703).ListItem.Label]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),704) + !String.IsEmpty(Container(704).ListItem.TVShowTitle)">$INFO[Container(704).ListItem.TVShowTitle]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),704) + !String.IsEmpty(Container(704).ListItem.Title)">$INFO[Container(704).ListItem.Title]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),704) + !String.IsEmpty(Container(704).ListItem.Label)">$INFO[Container(704).ListItem.Label]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),705) + !String.IsEmpty(Container(705).ListItem.TVShowTitle)">$INFO[Container(705).ListItem.TVShowTitle]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),705) + !String.IsEmpty(Container(705).ListItem.Title)">$INFO[Container(705).ListItem.Title]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),705) + !String.IsEmpty(Container(705).ListItem.Label)">$INFO[Container(705).ListItem.Label]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),706) + !String.IsEmpty(Container(706).ListItem.TVShowTitle)">$INFO[Container(706).ListItem.TVShowTitle]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),706) + !String.IsEmpty(Container(706).ListItem.Title)">$INFO[Container(706).ListItem.Title]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),706) + !String.IsEmpty(Container(706).ListItem.Label)">$INFO[Container(706).ListItem.Label]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),707) + !String.IsEmpty(Container(707).ListItem.TVShowTitle)">$INFO[Container(707).ListItem.TVShowTitle]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),707) + !String.IsEmpty(Container(707).ListItem.Title)">$INFO[Container(707).ListItem.Title]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),707) + !String.IsEmpty(Container(707).ListItem.Label)">$INFO[Container(707).ListItem.Label]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),708) + !String.IsEmpty(Container(708).ListItem.TVShowTitle)">$INFO[Container(708).ListItem.TVShowTitle]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),708) + !String.IsEmpty(Container(708).ListItem.Title)">$INFO[Container(708).ListItem.Title]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),708) + !String.IsEmpty(Container(708).ListItem.Label)">$INFO[Container(708).ListItem.Label]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),709) + !String.IsEmpty(Container(709).ListItem.TVShowTitle)">$INFO[Container(709).ListItem.TVShowTitle]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),709) + !String.IsEmpty(Container(709).ListItem.Title)">$INFO[Container(709).ListItem.Title]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),709) + !String.IsEmpty(Container(709).ListItem.Label)">$INFO[Container(709).ListItem.Label]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),710) + !String.IsEmpty(Container(710).ListItem.TVShowTitle)">$INFO[Container(710).ListItem.TVShowTitle]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),710) + !String.IsEmpty(Container(710).ListItem.Title)">$INFO[Container(710).ListItem.Title]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),710) + !String.IsEmpty(Container(710).ListItem.Label)">$INFO[Container(710).ListItem.Label]</value>
+  </variable>
+
+  <variable name="HBM_Row_Plot">
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),701) + !String.IsEmpty(Container(701).ListItem.Plot)">$INFO[Container(701).ListItem.Plot]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),701) + !String.IsEmpty(Container(701).ListItem.Property(Plot))">$INFO[Container(701).ListItem.Property(Plot)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),702) + !String.IsEmpty(Container(702).ListItem.Plot)">$INFO[Container(702).ListItem.Plot]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),702) + !String.IsEmpty(Container(702).ListItem.Property(Plot))">$INFO[Container(702).ListItem.Property(Plot)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),703) + !String.IsEmpty(Container(703).ListItem.Plot)">$INFO[Container(703).ListItem.Plot]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),703) + !String.IsEmpty(Container(703).ListItem.Property(Plot))">$INFO[Container(703).ListItem.Property(Plot)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),704) + !String.IsEmpty(Container(704).ListItem.Plot)">$INFO[Container(704).ListItem.Plot]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),704) + !String.IsEmpty(Container(704).ListItem.Property(Plot))">$INFO[Container(704).ListItem.Property(Plot)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),705) + !String.IsEmpty(Container(705).ListItem.Plot)">$INFO[Container(705).ListItem.Plot]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),705) + !String.IsEmpty(Container(705).ListItem.Property(Plot))">$INFO[Container(705).ListItem.Property(Plot)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),706) + !String.IsEmpty(Container(706).ListItem.Plot)">$INFO[Container(706).ListItem.Plot]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),706) + !String.IsEmpty(Container(706).ListItem.Property(Plot))">$INFO[Container(706).ListItem.Property(Plot)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),707) + !String.IsEmpty(Container(707).ListItem.Plot)">$INFO[Container(707).ListItem.Plot]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),707) + !String.IsEmpty(Container(707).ListItem.Property(Plot))">$INFO[Container(707).ListItem.Property(Plot)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),708) + !String.IsEmpty(Container(708).ListItem.Plot)">$INFO[Container(708).ListItem.Plot]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),708) + !String.IsEmpty(Container(708).ListItem.Property(Plot))">$INFO[Container(708).ListItem.Property(Plot)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),709) + !String.IsEmpty(Container(709).ListItem.Plot)">$INFO[Container(709).ListItem.Plot]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),709) + !String.IsEmpty(Container(709).ListItem.Property(Plot))">$INFO[Container(709).ListItem.Property(Plot)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),710) + !String.IsEmpty(Container(710).ListItem.Plot)">$INFO[Container(710).ListItem.Plot]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.ActiveRow),710) + !String.IsEmpty(Container(710).ListItem.Property(Plot))">$INFO[Container(710).ListItem.Property(Plot)]</value>
+  </variable>
+
+  <variable name="HBM_Row_HasContent">
+    <value condition="!IsEmpty($VAR[HBM_Hero_Backdrop]) | !IsEmpty($VAR[HBM_Row_Title])">true</value>
+  </variable>
+
+  <variable name="HBM_Row_SectionLabel">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(HBM.ActiveRow),701)">$INFO[Skin.String(hbm_homecfg_home_row01_label)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(HBM.ActiveRow),702)">$INFO[Skin.String(hbm_homecfg_home_row02_label)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(HBM.ActiveRow),703)">$INFO[Skin.String(hbm_homecfg_home_row03_label)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(HBM.ActiveRow),704)">$INFO[Skin.String(hbm_homecfg_home_row04_label)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(HBM.ActiveRow),705)">$INFO[Skin.String(hbm_homecfg_home_row05_label)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(HBM.ActiveRow),706)">$INFO[Skin.String(hbm_homecfg_home_row06_label)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(HBM.ActiveRow),707)">$INFO[Skin.String(hbm_homecfg_home_row07_label)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(HBM.ActiveRow),708)">$INFO[Skin.String(hbm_homecfg_home_row08_label)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(HBM.ActiveRow),709)">$INFO[Skin.String(hbm_homecfg_home_row09_label)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(HBM.ActiveRow),710)">$INFO[Skin.String(hbm_homecfg_home_row10_label)]</value>
+  </variable>
+
+  <variable name="HBM_Browse_X">
+    <value>340</value>
+  </variable>
+  <variable name="HBM_Browse_Viewport_Y">
+    <value>560</value>
+  </variable>
+  <variable name="HBM_Browse_Viewport_Width">
+    <value>1480</value>
+  </variable>
+  <variable name="HBM_Browse_Viewport_Height">
+    <value>430</value>
+  </variable>
+
+  <!-- Overlay tuning -->
+  <variable name="HBM_Backdrop_Opacity">
+    <value>100</value>
+  </variable>
+  <variable name="HBM_Dim_Opacity">
+    <value>78</value>
+  </variable>
+  <variable name="HBM_Left_Gradient_Opacity">
+    <value>100</value>
+  </variable>
+  <variable name="HBM_Lower_Fade_Opacity">
+    <value>42</value>
+  </variable>
+  <variable name="HBM_Header_Smoke_Opacity">
+    <value>56</value>
+  </variable>
+  <variable name="HBM_Hero_Button_Fill_Opacity">
+    <value>100</value>
+  </variable>
+
+  <!-- Texture paths -->
+  <variable name="HBM_Texture_Background">
+    <value condition="Skin.HasSetting(hbm_disable_background_texture)"></value>
+    <value>special://skin/media/overlays/background_texture.png</value>
+  </variable>
+  <variable name="HBM_Texture_HeaderSmoke">
+    <value>special://skin/media/overlays/header_smoke.png</value>
+  </variable>
+  <variable name="HBM_Texture_LeftGradient">
+    <value>special://skin/media/overlays/left_readability_gradient.png</value>
+  </variable>
+  <variable name="HBM_Texture_LowerFade">
+    <value>special://skin/media/overlays/lower_browse_fade.png</value>
+  </variable>
+  <variable name="HBM_Texture_RailCollapsedBase">
+    <value>special://skin/media/overlays/rail_spine_base.png</value>
+  </variable>
+  <variable name="HBM_Texture_RailExpandedSmoke">
+    <value>special://skin/media/overlays/rail_expanded_smoke.png</value>
+  </variable>
+  <variable name="HBM_Texture_RailEdgeFade">
+    <value>special://skin/media/overlays/rail_edge_gradient.png</value>
+  </variable>
+  <variable name="HBM_Texture_RailContentDim">
+    <value condition="Skin.HasSetting(hbm_disable_rail_content_dim)"></value>
+    <value>special://skin/media/overlays/rail_content_dim.png</value>
+  </variable>
+  <variable name="HBM_Texture_RailNoise">
+    <value>special://skin/media/overlays/rail_noise_overlay.png</value>
+  </variable>
+
+  <variable name="HBM_AnimationIntensityLabel">
+    <value condition="String.IsEqual(Skin.String(hbm_animation_intensity),reduced)">Reduced</value>
+    <value condition="String.IsEqual(Skin.String(hbm_animation_intensity),high)">High</value>
+    <value>Normal</value>
+  </variable>
+
+  <variable name="HBM_RailBehaviorLabel">
+    <value condition="String.IsEqual(Skin.String(hbm_rail_behavior),always_expanded)">Always Expanded</value>
+    <value>Expand On Focus</value>
+  </variable>
+
+</includes>

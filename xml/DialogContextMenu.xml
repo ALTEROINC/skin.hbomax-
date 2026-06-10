@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol>996</defaultcontrol>
+  <controls>
+
+    <!-- Dismiss tap -->
+    <control type="button">
+      <left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <texturefocus /><texturenofocus />
+      <onclick>Action(Close)</onclick>
+    </control>
+
+    <!-- Menu panel -->
+    <control type="group">
+      <!-- Default: sits right of hero text, vertically centred in upper half -->
+      <left>840</left>
+      <centertop>38%</centertop>
+      <width>260</width>
+      <height>480</height>
+
+      <!-- Slide down toward row area when a content row was focused -->
+      <animation effect="slide" start="0,0"   end="0,220" time="0"
+        condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+      <animation effect="slide" start="0,220" end="0,0"   time="0"
+        condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+
+      <!-- Soft outer glow/shadow -->
+      <control type="image">
+        <left>-10</left><top>-10</top><width>280</width><height>500</height>
+        <texture border="24" colordiffuse="40000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+
+      <!-- Nav-rail black panel -->
+      <control type="image">
+        <left>0</left><top>0</top><width>260</width><height>480</height>
+        <texture border="20" colordiffuse="F2000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+
+      <!-- Rail smoke texture for depth — same overlay as nav rail -->
+      <control type="image">
+        <left>0</left><top>0</top><width>260</width><height>480</height>
+        <aspectratio>stretch</aspectratio>
+        <texture border="20" colordiffuse="80FFFFFF">special://skin/media/overlays/rail_expanded_smoke.png</texture>
+      </control>
+
+      <!-- Hairline top separator -->
+      <control type="image">
+        <left>16</left><top>0</top><width>228</width><height>1</height>
+        <texture colordiffuse="18FFFFFF">white.png</texture>
+      </control>
+
+      <control type="grouplist" id="996">
+        <left>0</left><top>0</top>
+        <width>260</width>
+        <height max="480">auto</height>
+        <usecontrolcoords>true</usecontrolcoords>
+      </control>
+    </control>
+
+    <!-- Item template — compact, nav-rail label style -->
+    <control type="button" id="1000">
+      <left>0</left><top>0</top>
+      <width>260</width><height>52</height>
+      <font>HBM_Body_M</font>
+      <textcolor>99FFFFFF</textcolor>
+      <focusedcolor>FFFFFFFF</focusedcolor>
+      <align>left</align>
+      <aligny>center</aligny>
+      <textoffsetx>18</textoffsetx>
+      <texturefocus colordiffuse="16FFFFFF">white.png</texturefocus>
+      <texturenofocus />
+    </control>
+
+  </controls>
+</window>

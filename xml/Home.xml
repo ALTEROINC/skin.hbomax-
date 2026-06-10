@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol>200</defaultcontrol>
+  <backgroundcolor>BackgroundBase</backgroundcolor>
+  <onload condition="String.IsEmpty(Skin.String(HBM.HomeActivePage))">Skin.SetString(HBM.HomeActivePage,home)</onload>
+  <onload condition="String.IsEmpty(Skin.String(hbm_homecfg_home_hero_visible))">Skin.SetString(hbm_homecfg_home_hero_visible,Visible)</onload>
+  <onload condition="String.IsEmpty(Skin.String(hbm_homecfg_tvshows_hero_visible))">Skin.SetString(hbm_homecfg_tvshows_hero_visible,Visible)</onload>
+  <onload condition="String.IsEmpty(Skin.String(hbm_homecfg_movies_hero_visible))">Skin.SetString(hbm_homecfg_movies_hero_visible,Visible)</onload>
+  <onload condition="String.IsEmpty(Skin.String(hbm_homecfg_livetv_hero_visible))">Skin.SetString(hbm_homecfg_livetv_hero_visible,Visible)</onload>
+  <onload condition="String.IsEmpty(Skin.String(hbm_homecfg_mylist_hero_visible))">Skin.SetString(hbm_homecfg_mylist_hero_visible,Visible)</onload>
+  <onload>Skin.SetString(HBM.ActiveRow,0)</onload>
+  <onload>Skin.SetString(HBM.ReturnFocus,625)</onload>
+  <onload>AlarmClock(HBMHero620,Container.Next(620),00:00:07,silent,loop)</onload>
+  <onload>AlarmClock(HBMHero621,Container.Next(621),00:00:07,silent,loop)</onload>
+  <onload>AlarmClock(HBMHero622,Container.Next(622),00:00:07,silent,loop)</onload>
+  <onload>AlarmClock(HBMHero623,Container.Next(623),00:00:07,silent,loop)</onload>
+  <onload>AlarmClock(HBMHero624,Container.Next(624),00:00:07,silent,loop)</onload>
+  <onunload>CancelAlarm(HBMHero620,silent)</onunload>
+  <onunload>CancelAlarm(HBMHero621,silent)</onunload>
+  <onunload>CancelAlarm(HBMHero622,silent)</onunload>
+  <onunload>CancelAlarm(HBMHero623,silent)</onunload>
+  <onunload>CancelAlarm(HBMHero624,silent)</onunload>
+
+  <controls>
+    <include>HBM_Home_BackgroundStack</include>
+
+    <!-- Home hero-focus backdrop: full-screen fanart sits behind rows and eases away
+         as the hub transitions into row focus. -->
+    <control type="group">
+      <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),home)</visible>
+      <animation effect="fade" start="100" end="0" reversible="false" time="220" tween="sine" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+      <animation effect="fade" start="0" end="100" reversible="false" time="220" tween="sine" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="BackgroundBase">white.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio align="center" aligny="center">scale</aspectratio><fadetime>500</fadetime>
+        <texture>$VAR[HBM_Hero_Backdrop]</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="99FFFFFF">special://skin/media/overlays/left_readability_gradient.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="0A000000">white.png</texture>
+      </control>
+      <!-- Bottom-heavy fade keeps the image feeling full-screen while the rows still
+           blend into a darker base as focus transitions downward. -->
+      <control type="image">
+        <left>0</left><top>676</top><width>1920</width><height>404</height>
+        <aspectratio>stretch</aspectratio>
+        <texture>special://skin/media/overlays/lower_browse_fade.png</texture>
+      </control>
+    </control>
+
+    <!-- Solid dark floor — starts at row label position so no gap behind rows -->
+    <control type="image">
+      <left>0</left><top>680</top><width>1920</width><height>5000</height>
+      <visible>!String.IsEqual(Skin.String(HBM.HomeActivePage),home) | !String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
+      <animation effect="fade" start="0" end="100" time="220" tween="sine">Visible</animation>
+      <animation effect="fade" start="100" end="0" time="180" tween="sine">Hidden</animation>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="BackgroundBase">white.png</texture>
+    </control>
+    <!-- Bottom fade — behind rows (z below scroll wrapper), fades hero image into dark floor -->
+    <control type="image">
+      <left>0</left><top>980</top><width>1920</width><height>100</height>
+      <visible>!String.IsEqual(Skin.String(HBM.HomeActivePage),home) | !String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
+      <animation effect="fade" start="0" end="100" time="220" tween="sine">Visible</animation>
+      <animation effect="fade" start="100" end="0" time="180" tween="sine">Hidden</animation>
+      <aspectratio>stretch</aspectratio>
+      <texture>special://skin/media/overlays/row_top_fade.png</texture>
+    </control>
+
+    <!-- ═══ SCROLL WRAPPER: rows disappear behind hero backdrop above ═══ -->
+    <control type="group">
+      <!-- Slide targets (each 491px apart, matching natural row spacing):
+           row 701=-90, 702=-581, 703=-1072, 704=-1563, 705=-2054,
+           706=-2545, 707=-3036, 708=-3527, 709=-4018, 710=-4509
+           At -90, row 701 label lands at y=700 (20px below shrunken hero bottom at 680).
+           At -581, row 701 panel bottom lands at y=676, fully behind the hero. -->
+      <!-- Row 701 -->
+      <animation effect="slide" start="0,0"     end="0,-90"   reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),701)+!String.IsEqual(Skin.String(HBM.PreviousRow),702)">Conditional</animation>
+      <animation effect="slide" start="0,-581"  end="0,-90"   reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),701)+String.IsEqual(Skin.String(HBM.PreviousRow),702)">Conditional</animation>
+      <!-- Row 702 -->
+      <animation effect="slide" start="0,-90"   end="0,-581"  reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),702)+!String.IsEqual(Skin.String(HBM.PreviousRow),703)">Conditional</animation>
+      <animation effect="slide" start="0,-1072" end="0,-581"  reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),702)+String.IsEqual(Skin.String(HBM.PreviousRow),703)">Conditional</animation>
+      <!-- Row 703 -->
+      <animation effect="slide" start="0,-581"  end="0,-1072" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),703)+!String.IsEqual(Skin.String(HBM.PreviousRow),704)">Conditional</animation>
+      <animation effect="slide" start="0,-1563" end="0,-1072" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),703)+String.IsEqual(Skin.String(HBM.PreviousRow),704)">Conditional</animation>
+      <!-- Row 704 -->
+      <animation effect="slide" start="0,-1072" end="0,-1563" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),704)+!String.IsEqual(Skin.String(HBM.PreviousRow),705)">Conditional</animation>
+      <animation effect="slide" start="0,-2054" end="0,-1563" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),704)+String.IsEqual(Skin.String(HBM.PreviousRow),705)">Conditional</animation>
+      <!-- Row 705 -->
+      <animation effect="slide" start="0,-1563" end="0,-2054" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),705)+!String.IsEqual(Skin.String(HBM.PreviousRow),706)">Conditional</animation>
+      <animation effect="slide" start="0,-2545" end="0,-2054" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),705)+String.IsEqual(Skin.String(HBM.PreviousRow),706)">Conditional</animation>
+      <!-- Row 706 -->
+      <animation effect="slide" start="0,-2054" end="0,-2545" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),706)+!String.IsEqual(Skin.String(HBM.PreviousRow),707)">Conditional</animation>
+      <animation effect="slide" start="0,-3036" end="0,-2545" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),706)+String.IsEqual(Skin.String(HBM.PreviousRow),707)">Conditional</animation>
+      <!-- Row 707 -->
+      <animation effect="slide" start="0,-2545" end="0,-3036" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),707)+!String.IsEqual(Skin.String(HBM.PreviousRow),708)">Conditional</animation>
+      <animation effect="slide" start="0,-3527" end="0,-3036" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),707)+String.IsEqual(Skin.String(HBM.PreviousRow),708)">Conditional</animation>
+      <!-- Row 708 -->
+      <animation effect="slide" start="0,-3036" end="0,-3527" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),708)+!String.IsEqual(Skin.String(HBM.PreviousRow),709)">Conditional</animation>
+      <animation effect="slide" start="0,-4018" end="0,-3527" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),708)+String.IsEqual(Skin.String(HBM.PreviousRow),709)">Conditional</animation>
+      <!-- Row 709 -->
+      <animation effect="slide" start="0,-3527" end="0,-4018" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),709)+!String.IsEqual(Skin.String(HBM.PreviousRow),710)">Conditional</animation>
+      <animation effect="slide" start="0,-4509" end="0,-4018" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),709)+String.IsEqual(Skin.String(HBM.PreviousRow),710)">Conditional</animation>
+      <!-- Row 710: only reachable from row 709 -->
+      <animation effect="slide" start="0,-4018" end="0,-4509" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),710)">Conditional</animation>
+      <!-- Return to hero/nav -->
+      <animation effect="slide" start="0,-90"   end="0,0" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)+String.IsEqual(Skin.String(HBM.PreviousRow),701)">Conditional</animation>
+      <animation effect="slide" start="0,-581"  end="0,0" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)+String.IsEqual(Skin.String(HBM.PreviousRow),702)">Conditional</animation>
+      <animation effect="slide" start="0,-1072" end="0,0" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)+String.IsEqual(Skin.String(HBM.PreviousRow),703)">Conditional</animation>
+      <animation effect="slide" start="0,-1563" end="0,0" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)+String.IsEqual(Skin.String(HBM.PreviousRow),704)">Conditional</animation>
+      <animation effect="slide" start="0,-2054" end="0,0" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)+String.IsEqual(Skin.String(HBM.PreviousRow),705)">Conditional</animation>
+      <animation effect="slide" start="0,-2545" end="0,0" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)+String.IsEqual(Skin.String(HBM.PreviousRow),706)">Conditional</animation>
+      <animation effect="slide" start="0,-3036" end="0,0" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)+String.IsEqual(Skin.String(HBM.PreviousRow),707)">Conditional</animation>
+      <animation effect="slide" start="0,-3527" end="0,0" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)+String.IsEqual(Skin.String(HBM.PreviousRow),708)">Conditional</animation>
+      <animation effect="slide" start="0,-4018" end="0,0" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)+String.IsEqual(Skin.String(HBM.PreviousRow),709)">Conditional</animation>
+      <animation effect="slide" start="0,-4509" end="0,0" reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)+String.IsEqual(Skin.String(HBM.PreviousRow),710)">Conditional</animation>
+
+      <!-- ═══ HOME ═══ -->
+      <control type="group">
+        <left>88</left>
+        <top>200</top>
+        <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),home)</visible>
+        <!-- Hero: label at 200+790=990 (22px below backdrop y=968), panel at 1012 (68px visible).
+             Row focus shifts the stack up to the row-details cutoff, so focused rows land at y=572
+             and earlier rows disappear underneath the row-focus hero treatment. -->
+        <animation effect="slide" start="0,0"    end="0,-360" reversible="false" time="300" tween="cubic" easing="out" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+        <animation effect="slide" start="0,-360" end="0,0"    reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+        <include content="HBM_Row_Landscape">
+          <param name="id">701</param>
+          <param name="label_y">790</param><param name="panel_y">822</param>
+          <param name="label_key">hbm_homecfg_home_row01_label</param>
+          <param name="widget_key">hbm_homecfg_home_row01_widget</param>
+          <param name="visible_key">hbm_homecfg_home_row01_visible</param>
+          <param name="style_key">hbm_homecfg_home_row01_style</param>
+          <param name="nav_up">625</param><param name="nav_down">702</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">702</param>
+          <param name="label_y">1281</param><param name="panel_y">1313</param>
+          <param name="label_key">hbm_homecfg_home_row02_label</param>
+          <param name="widget_key">hbm_homecfg_home_row02_widget</param>
+          <param name="visible_key">hbm_homecfg_home_row02_visible</param>
+          <param name="style_key">hbm_homecfg_home_row02_style</param>
+          <param name="nav_up">701</param><param name="nav_down">703</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">703</param>
+          <param name="label_y">1772</param><param name="panel_y">1804</param>
+          <param name="label_key">hbm_homecfg_home_row03_label</param>
+          <param name="widget_key">hbm_homecfg_home_row03_widget</param>
+          <param name="visible_key">hbm_homecfg_home_row03_visible</param>
+          <param name="style_key">hbm_homecfg_home_row03_style</param>
+          <param name="nav_up">702</param><param name="nav_down">704</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">704</param>
+          <param name="label_y">2263</param><param name="panel_y">2295</param>
+          <param name="label_key">hbm_homecfg_home_row04_label</param>
+          <param name="widget_key">hbm_homecfg_home_row04_widget</param>
+          <param name="visible_key">hbm_homecfg_home_row04_visible</param>
+          <param name="style_key">hbm_homecfg_home_row04_style</param>
+          <param name="nav_up">703</param><param name="nav_down">705</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">705</param>
+          <param name="label_y">2754</param><param name="panel_y">2786</param>
+          <param name="label_key">hbm_homecfg_home_row05_label</param>
+          <param name="widget_key">hbm_homecfg_home_row05_widget</param>
+          <param name="visible_key">hbm_homecfg_home_row05_visible</param>
+          <param name="style_key">hbm_homecfg_home_row05_style</param>
+          <param name="nav_up">704</param><param name="nav_down">706</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">706</param>
+          <param name="label_y">3245</param><param name="panel_y">3277</param>
+          <param name="label_key">hbm_homecfg_home_row06_label</param>
+          <param name="widget_key">hbm_homecfg_home_row06_widget</param>
+          <param name="visible_key">hbm_homecfg_home_row06_visible</param>
+          <param name="style_key">hbm_homecfg_home_row06_style</param>
+          <param name="nav_up">705</param><param name="nav_down">707</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">707</param>
+          <param name="label_y">3736</param><param name="panel_y">3768</param>
+          <param name="label_key">hbm_homecfg_home_row07_label</param>
+          <param name="widget_key">hbm_homecfg_home_row07_widget</param>
+          <param name="visible_key">hbm_homecfg_home_row07_visible</param>
+          <param name="style_key">hbm_homecfg_home_row07_style</param>
+          <param name="nav_up">706</param><param name="nav_down">708</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">708</param>
+          <param name="label_y">4227</param><param name="panel_y">4259</param>
+          <param name="label_key">hbm_homecfg_home_row08_label</param>
+          <param name="widget_key">hbm_homecfg_home_row08_widget</param>
+          <param name="visible_key">hbm_homecfg_home_row08_visible</param>
+          <param name="style_key">hbm_homecfg_home_row08_style</param>
+          <param name="nav_up">707</param><param name="nav_down">709</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">709</param>
+          <param name="label_y">4718</param><param name="panel_y">4750</param>
+          <param name="label_key">hbm_homecfg_home_row09_label</param>
+          <param name="widget_key">hbm_homecfg_home_row09_widget</param>
+          <param name="visible_key">hbm_homecfg_home_row09_visible</param>
+          <param name="style_key">hbm_homecfg_home_row09_style</param>
+          <param name="nav_up">708</param><param name="nav_down">710</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">710</param>
+          <param name="label_y">5209</param><param name="panel_y">5241</param>
+          <param name="label_key">hbm_homecfg_home_row10_label</param>
+          <param name="widget_key">hbm_homecfg_home_row10_widget</param>
+          <param name="visible_key">hbm_homecfg_home_row10_visible</param>
+          <param name="style_key">hbm_homecfg_home_row10_style</param>
+          <param name="nav_up">709</param><param name="nav_down">710</param>
+        </include>
+      </control>
+
+      <!-- ═══ TV SHOWS ═══ -->
+      <control type="group">
+        <left>88</left>
+        <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)</visible>
+        <include content="HBM_Row_Landscape">
+          <param name="id">701</param>
+          <param name="label_y">790</param><param name="panel_y">822</param>
+          <param name="label_key">hbm_homecfg_tvshows_row01_label</param>
+          <param name="widget_key">hbm_homecfg_tvshows_row01_widget</param>
+          <param name="visible_key">hbm_homecfg_tvshows_row01_visible</param>
+          <param name="style_key">hbm_homecfg_tvshows_row01_style</param>
+          <param name="nav_up">625</param><param name="nav_down">702</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">702</param>
+          <param name="label_y">1281</param><param name="panel_y">1313</param>
+          <param name="label_key">hbm_homecfg_tvshows_row02_label</param>
+          <param name="widget_key">hbm_homecfg_tvshows_row02_widget</param>
+          <param name="visible_key">hbm_homecfg_tvshows_row02_visible</param>
+          <param name="style_key">hbm_homecfg_tvshows_row02_style</param>
+          <param name="nav_up">701</param><param name="nav_down">703</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">703</param>
+          <param name="label_y">1772</param><param name="panel_y">1804</param>
+          <param name="label_key">hbm_homecfg_tvshows_row03_label</param>
+          <param name="widget_key">hbm_homecfg_tvshows_row03_widget</param>
+          <param name="visible_key">hbm_homecfg_tvshows_row03_visible</param>
+          <param name="style_key">hbm_homecfg_tvshows_row03_style</param>
+          <param name="nav_up">702</param><param name="nav_down">704</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">704</param>
+          <param name="label_y">2263</param><param name="panel_y">2295</param>
+          <param name="label_key">hbm_homecfg_tvshows_row04_label</param>
+          <param name="widget_key">hbm_homecfg_tvshows_row04_widget</param>
+          <param name="visible_key">hbm_homecfg_tvshows_row04_visible</param>
+          <param name="style_key">hbm_homecfg_tvshows_row04_style</param>
+          <param name="nav_up">703</param><param name="nav_down">705</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">705</param>
+          <param name="label_y">2754</param><param name="panel_y">2786</param>
+          <param name="label_key">hbm_homecfg_tvshows_row05_label</param>
+          <param name="widget_key">hbm_homecfg_tvshows_row05_widget</param>
+          <param name="visible_key">hbm_homecfg_tvshows_row05_visible</param>
+          <param name="style_key">hbm_homecfg_tvshows_row05_style</param>
+          <param name="nav_up">704</param><param name="nav_down">706</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">706</param>
+          <param name="label_y">3245</param><param name="panel_y">3277</param>
+          <param name="label_key">hbm_homecfg_tvshows_row06_label</param>
+          <param name="widget_key">hbm_homecfg_tvshows_row06_widget</param>
+          <param name="visible_key">hbm_homecfg_tvshows_row06_visible</param>
+          <param name="style_key">hbm_homecfg_tvshows_row06_style</param>
+          <param name="nav_up">705</param><param name="nav_down">707</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">707</param>
+          <param name="label_y">3736</param><param name="panel_y">3768</param>
+          <param name="label_key">hbm_homecfg_tvshows_row07_label</param>
+          <param name="widget_key">hbm_homecfg_tvshows_row07_widget</param>
+          <param name="visible_key">hbm_homecfg_tvshows_row07_visible</param>
+          <param name="style_key">hbm_homecfg_tvshows_row07_style</param>
+          <param name="nav_up">706</param><param name="nav_down">708</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">708</param>
+          <param name="label_y">4227</param><param name="panel_y">4259</param>
+          <param name="label_key">hbm_homecfg_tvshows_row08_label</param>
+          <param name="widget_key">hbm_homecfg_tvshows_row08_widget</param>
+          <param name="visible_key">hbm_homecfg_tvshows_row08_visible</param>
+          <param name="style_key">hbm_homecfg_tvshows_row08_style</param>
+          <param name="nav_up">707</param><param name="nav_down">709</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">709</param>
+          <param name="label_y">4718</param><param name="panel_y">4750</param>
+          <param name="label_key">hbm_homecfg_tvshows_row09_label</param>
+          <param name="widget_key">hbm_homecfg_tvshows_row09_widget</param>
+          <param name="visible_key">hbm_homecfg_tvshows_row09_visible</param>
+          <param name="style_key">hbm_homecfg_tvshows_row09_style</param>
+          <param name="nav_up">708</param><param name="nav_down">710</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">710</param>
+          <param name="label_y">5209</param><param name="panel_y">5241</param>
+          <param name="label_key">hbm_homecfg_tvshows_row10_label</param>
+          <param name="widget_key">hbm_homecfg_tvshows_row10_widget</param>
+          <param name="visible_key">hbm_homecfg_tvshows_row10_visible</param>
+          <param name="style_key">hbm_homecfg_tvshows_row10_style</param>
+          <param name="nav_up">709</param><param name="nav_down">710</param>
+        </include>
+      </control>
+
+      <!-- ═══ MOVIES ═══ -->
+      <control type="group">
+        <left>88</left>
+        <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),movies)</visible>
+        <include content="HBM_Row_Landscape">
+          <param name="id">701</param>
+          <param name="label_y">790</param><param name="panel_y">822</param>
+          <param name="label_key">hbm_homecfg_movies_row01_label</param>
+          <param name="widget_key">hbm_homecfg_movies_row01_widget</param>
+          <param name="visible_key">hbm_homecfg_movies_row01_visible</param>
+          <param name="style_key">hbm_homecfg_movies_row01_style</param>
+          <param name="nav_up">625</param><param name="nav_down">702</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">702</param>
+          <param name="label_y">1281</param><param name="panel_y">1313</param>
+          <param name="label_key">hbm_homecfg_movies_row02_label</param>
+          <param name="widget_key">hbm_homecfg_movies_row02_widget</param>
+          <param name="visible_key">hbm_homecfg_movies_row02_visible</param>
+          <param name="style_key">hbm_homecfg_movies_row02_style</param>
+          <param name="nav_up">701</param><param name="nav_down">703</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">703</param>
+          <param name="label_y">1772</param><param name="panel_y">1804</param>
+          <param name="label_key">hbm_homecfg_movies_row03_label</param>
+          <param name="widget_key">hbm_homecfg_movies_row03_widget</param>
+          <param name="visible_key">hbm_homecfg_movies_row03_visible</param>
+          <param name="style_key">hbm_homecfg_movies_row03_style</param>
+          <param name="nav_up">702</param><param name="nav_down">704</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">704</param>
+          <param name="label_y">2263</param><param name="panel_y">2295</param>
+          <param name="label_key">hbm_homecfg_movies_row04_label</param>
+          <param name="widget_key">hbm_homecfg_movies_row04_widget</param>
+          <param name="visible_key">hbm_homecfg_movies_row04_visible</param>
+          <param name="style_key">hbm_homecfg_movies_row04_style</param>
+          <param name="nav_up">703</param><param name="nav_down">705</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">705</param>
+          <param name="label_y">2754</param><param name="panel_y">2786</param>
+          <param name="label_key">hbm_homecfg_movies_row05_label</param>
+          <param name="widget_key">hbm_homecfg_movies_row05_widget</param>
+          <param name="visible_key">hbm_homecfg_movies_row05_visible</param>
+          <param name="style_key">hbm_homecfg_movies_row05_style</param>
+          <param name="nav_up">704</param><param name="nav_down">706</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">706</param>
+          <param name="label_y">3245</param><param name="panel_y">3277</param>
+          <param name="label_key">hbm_homecfg_movies_row06_label</param>
+          <param name="widget_key">hbm_homecfg_movies_row06_widget</param>
+          <param name="visible_key">hbm_homecfg_movies_row06_visible</param>
+          <param name="style_key">hbm_homecfg_movies_row06_style</param>
+          <param name="nav_up">705</param><param name="nav_down">707</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">707</param>
+          <param name="label_y">3736</param><param name="panel_y">3768</param>
+          <param name="label_key">hbm_homecfg_movies_row07_label</param>
+          <param name="widget_key">hbm_homecfg_movies_row07_widget</param>
+          <param name="visible_key">hbm_homecfg_movies_row07_visible</param>
+          <param name="style_key">hbm_homecfg_movies_row07_style</param>
+          <param name="nav_up">706</param><param name="nav_down">708</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">708</param>
+          <param name="label_y">4227</param><param name="panel_y">4259</param>
+          <param name="label_key">hbm_homecfg_movies_row08_label</param>
+          <param name="widget_key">hbm_homecfg_movies_row08_widget</param>
+          <param name="visible_key">hbm_homecfg_movies_row08_visible</param>
+          <param name="style_key">hbm_homecfg_movies_row08_style</param>
+          <param name="nav_up">707</param><param name="nav_down">709</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">709</param>
+          <param name="label_y">4718</param><param name="panel_y">4750</param>
+          <param name="label_key">hbm_homecfg_movies_row09_label</param>
+          <param name="widget_key">hbm_homecfg_movies_row09_widget</param>
+          <param name="visible_key">hbm_homecfg_movies_row09_visible</param>
+          <param name="style_key">hbm_homecfg_movies_row09_style</param>
+          <param name="nav_up">708</param><param name="nav_down">710</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">710</param>
+          <param name="label_y">5209</param><param name="panel_y">5241</param>
+          <param name="label_key">hbm_homecfg_movies_row10_label</param>
+          <param name="widget_key">hbm_homecfg_movies_row10_widget</param>
+          <param name="visible_key">hbm_homecfg_movies_row10_visible</param>
+          <param name="style_key">hbm_homecfg_movies_row10_style</param>
+          <param name="nav_up">709</param><param name="nav_down">710</param>
+        </include>
+      </control>
+
+      <!-- ═══ MY LIST ═══ -->
+      <control type="group">
+        <left>88</left>
+        <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)</visible>
+        <include content="HBM_Row_Landscape">
+          <param name="id">701</param>
+          <param name="label_y">790</param><param name="panel_y">822</param>
+          <param name="label_key">hbm_homecfg_mylist_row01_label</param>
+          <param name="widget_key">hbm_homecfg_mylist_row01_widget</param>
+          <param name="visible_key">hbm_homecfg_mylist_row01_visible</param>
+          <param name="style_key">hbm_homecfg_mylist_row01_style</param>
+          <param name="nav_up">625</param><param name="nav_down">702</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">702</param>
+          <param name="label_y">1281</param><param name="panel_y">1313</param>
+          <param name="label_key">hbm_homecfg_mylist_row02_label</param>
+          <param name="widget_key">hbm_homecfg_mylist_row02_widget</param>
+          <param name="visible_key">hbm_homecfg_mylist_row02_visible</param>
+          <param name="style_key">hbm_homecfg_mylist_row02_style</param>
+          <param name="nav_up">701</param><param name="nav_down">703</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">703</param>
+          <param name="label_y">1772</param><param name="panel_y">1804</param>
+          <param name="label_key">hbm_homecfg_mylist_row03_label</param>
+          <param name="widget_key">hbm_homecfg_mylist_row03_widget</param>
+          <param name="visible_key">hbm_homecfg_mylist_row03_visible</param>
+          <param name="style_key">hbm_homecfg_mylist_row03_style</param>
+          <param name="nav_up">702</param><param name="nav_down">704</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">704</param>
+          <param name="label_y">2263</param><param name="panel_y">2295</param>
+          <param name="label_key">hbm_homecfg_mylist_row04_label</param>
+          <param name="widget_key">hbm_homecfg_mylist_row04_widget</param>
+          <param name="visible_key">hbm_homecfg_mylist_row04_visible</param>
+          <param name="style_key">hbm_homecfg_mylist_row04_style</param>
+          <param name="nav_up">703</param><param name="nav_down">705</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">705</param>
+          <param name="label_y">2754</param><param name="panel_y">2786</param>
+          <param name="label_key">hbm_homecfg_mylist_row05_label</param>
+          <param name="widget_key">hbm_homecfg_mylist_row05_widget</param>
+          <param name="visible_key">hbm_homecfg_mylist_row05_visible</param>
+          <param name="style_key">hbm_homecfg_mylist_row05_style</param>
+          <param name="nav_up">704</param><param name="nav_down">706</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">706</param>
+          <param name="label_y">3245</param><param name="panel_y">3277</param>
+          <param name="label_key">hbm_homecfg_mylist_row06_label</param>
+          <param name="widget_key">hbm_homecfg_mylist_row06_widget</param>
+          <param name="visible_key">hbm_homecfg_mylist_row06_visible</param>
+          <param name="style_key">hbm_homecfg_mylist_row06_style</param>
+          <param name="nav_up">705</param><param name="nav_down">707</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">707</param>
+          <param name="label_y">3736</param><param name="panel_y">3768</param>
+          <param name="label_key">hbm_homecfg_mylist_row07_label</param>
+          <param name="widget_key">hbm_homecfg_mylist_row07_widget</param>
+          <param name="visible_key">hbm_homecfg_mylist_row07_visible</param>
+          <param name="style_key">hbm_homecfg_mylist_row07_style</param>
+          <param name="nav_up">706</param><param name="nav_down">708</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">708</param>
+          <param name="label_y">4227</param><param name="panel_y">4259</param>
+          <param name="label_key">hbm_homecfg_mylist_row08_label</param>
+          <param name="widget_key">hbm_homecfg_mylist_row08_widget</param>
+          <param name="visible_key">hbm_homecfg_mylist_row08_visible</param>
+          <param name="style_key">hbm_homecfg_mylist_row08_style</param>
+          <param name="nav_up">707</param><param name="nav_down">709</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">709</param>
+          <param name="label_y">4718</param><param name="panel_y">4750</param>
+          <param name="label_key">hbm_homecfg_mylist_row09_label</param>
+          <param name="widget_key">hbm_homecfg_mylist_row09_widget</param>
+          <param name="visible_key">hbm_homecfg_mylist_row09_visible</param>
+          <param name="style_key">hbm_homecfg_mylist_row09_style</param>
+          <param name="nav_up">708</param><param name="nav_down">710</param>
+        </include>
+        <include content="HBM_Row_Landscape">
+          <param name="id">710</param>
+          <param name="label_y">5209</param><param name="panel_y">5241</param>
+          <param name="label_key">hbm_homecfg_mylist_row10_label</param>
+          <param name="widget_key">hbm_homecfg_mylist_row10_widget</param>
+          <param name="visible_key">hbm_homecfg_mylist_row10_visible</param>
+          <param name="style_key">hbm_homecfg_mylist_row10_style</param>
+          <param name="nav_up">709</param><param name="nav_down">710</param>
+        </include>
+      </control>
+
+    </control><!-- end scroll wrapper -->
+
+    <!-- Home row-focus hero surface: same art as hero focus, but above the rows so the
+         scrolled rows disappear into it at the same line where the details area ends. -->
+    <control type="group">
+      <top>-100</top>
+      <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
+      <animation effect="fade" start="0" end="100" reversible="false" time="220" tween="sine" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+      <animation effect="fade" start="100" end="0" reversible="false" time="180" tween="sine" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>702</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="BackgroundBase">white.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>702</height>
+        <aspectratio align="center" aligny="top">scale</aspectratio><fadetime>500</fadetime>
+        <texture>$VAR[HBM_Hero_Backdrop]</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>702</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="06000000">white.png</texture>
+      </control>
+      <!-- Soft seam at the row cutoff: straddles the actual hero/row handoff so there is
+           no visible hard line where the row section begins. -->
+      <control type="image">
+        <left>0</left><top>672</top><width>1920</width><height>30</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="55FFFFFF">special://skin/media/overlays/row_top_fade.png</texture>
+      </control>
+    </control>
+
+    <control type="label">
+      <left>88</left><top>540</top><width>800</width><height>32</height>
+      <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
+      <animation effect="fade" start="0" end="100" reversible="false" time="220" tween="sine" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+      <animation effect="fade" start="100" end="0" reversible="false" time="180" tween="sine" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+      <label>$VAR[HBM_Row_SectionLabel]</label>
+      <font>HBM_Nav_M</font>
+      <textcolor>FFFFFFFF</textcolor>
+    </control>
+
+    <!-- Hero backdrop group — rendered AFTER scroll wrapper so rows disappear behind it.
+         Slides up slightly when rows are active, making the hero appear to shrink.
+         Non-home hubs only — home gets its own taller group below. -->
+    <control type="group">
+      <visible>!String.IsEqual(Skin.String(HBM.HomeActivePage),home)</visible>
+      <!-- Shrink: slide up 80px when any row is active -->
+      <animation effect="slide" start="0,0"   end="0,-80" reversible="false" time="350" tween="cubic" easing="out" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+      <animation effect="slide" start="0,-80" end="0,0"   reversible="false" time="350" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+
+      <!-- Solid base — always opaque so rows never show through when fanart is missing -->
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>760</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="BackgroundBase">white.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>760</height>
+        <aspectratio align="center" aligny="top">scale</aspectratio><fadetime>500</fadetime>
+        <texture>$VAR[HBM_Hero_Backdrop]</texture>
+      </control>
+      <!-- Left readability smoke — dark-to-transparent gradient over text area -->
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>760</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="99FFFFFF">special://skin/media/overlays/left_readability_gradient.png</texture>
+      </control>
+      <!-- Subtle dark tint -->
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>760</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="06000000">white.png</texture>
+      </control>
+      <!-- Fade at hero bottom -->
+      <control type="image">
+        <left>0</left><top>560</top><width>1920</width><height>230</height>
+        <aspectratio>stretch</aspectratio>
+        <texture>special://skin/media/overlays/row_top_fade.png</texture>
+      </control>
+    </control>
+
+    <!-- Row-focus details layer — separate from hero so hero behavior stays unchanged -->
+    <control type="group">
+      <left>248</left><top>0</top><width>680</width><height>756</height>
+      <visible>!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + $VAR[HBM_Row_HasContent]</visible>
+      <animation effect="fade" start="0" end="100" reversible="false" time="220" tween="sine" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+      <animation effect="fade" start="100" end="0" reversible="false" time="180" tween="sine" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+
+      <control type="label">
+        <left>0</left><top>228</top><width>320</width><height>24</height>
+        <label>$VAR[HBM_Hero_ActiveLabel]</label>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextHeroMeta</textcolor>
+      </control>
+
+      <control type="image">
+        <left>0</left><top>264</top><width>480</width><height>160</height>
+        <visible>!IsEmpty($VAR[HBM_Row_Logo])</visible>
+        <aspectratio align="left" aligny="center">keep</aspectratio>
+        <fadetime>350</fadetime>
+        <texture>$VAR[HBM_Row_Logo]</texture>
+      </control>
+
+      <control type="label">
+        <left>0</left><top>282</top><width>620</width><height>64</height>
+        <visible>IsEmpty($VAR[HBM_Row_Logo])</visible>
+        <label>$VAR[HBM_Row_Title]</label>
+        <font>HBM_Title_M</font>
+        <textcolor>TextPrimary</textcolor>
+        <scroll>true</scroll>
+      </control>
+
+      <control type="textbox">
+        <left>0</left><top>452</top><width>540</width><height>120</height>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
+        <label>$VAR[HBM_Row_Plot]</label>
+      </control>
+    </control>
+
+    <!-- Hero shell — fixed overlay, renders on top of rows -->
+    <include>HBM_Home_HeroShell</include>
+
+    <!-- ═══ LIVE TV FULL-SCREEN GUIDE ═══ -->
+    <control type="group">
+      <left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)</visible>
+
+      <!-- Dark backdrop covering hero and scroll content -->
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="E6000000">white.png</texture>
+      </control>
+
+      <!-- Header: title + live clock -->
+      <control type="label">
+        <left>88</left><top>24</top><width>900</width><height>44</height>
+        <label>Live TV</label>
+        <font>HBM_Display_M</font>
+        <textcolor>TextPrimary</textcolor>
+      </control>
+      <control type="label">
+        <left>88</left><top>72</top><width>900</width><height>28</height>
+        <label>$INFO[System.Date] · $INFO[System.Time]</label>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+      </control>
+
+      <!-- Header divider -->
+      <control type="image">
+        <left>88</left><top>110</top><width>1784</width><height>1</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="1AFFFFFF">white.png</texture>
+      </control>
+
+      <!-- ── CHANNEL LIST ── -->
+      <control type="list" id="701">
+        <left>88</left><top>122</top><width>1212</width><height>944</height>
+        <scrolltime tween="cubic" easing="out">250</scrolltime>
+        <preloaditems>5</preloaditems>
+        <onclick>PlayMedia($INFO[ListItem.FileNameAndPath])</onclick>
+        <onup>625</onup>
+        <onleft>200</onleft>
+        <onright>730</onright>
+        <onfocus>Skin.SetString(HBM.PreviousRow,$INFO[Skin.String(HBM.ActiveRow)])</onfocus>
+        <onfocus>Skin.SetString(HBM.ActiveRow,701)</onfocus>
+        <onfocus>Skin.SetString(HBM.ReturnFocus,701)</onfocus>
+        <content target="videos" limit="200">$INFO[Skin.String(hbm_homecfg_livetv_row01_widget)]</content>
+
+        <!-- Unfocused row (78px) -->
+        <itemlayout width="1212" height="78">
+          <control type="image"><left>0</left><top>0</top><width>1212</width><height>77</height><aspectratio>stretch</aspectratio><texture colordiffuse="0D000000">white.png</texture></control>
+          <control type="image"><left>12</left><top>9</top><width>60</width><height>60</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon)]</texture></control>
+          <control type="image"><left>12</left><top>9</top><width>60</width><height>60</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+          <control type="label"><left>84</left><top>14</top><width>156</width><height>22</height><label>$INFO[ListItem.ChannelNumber]</label><font>HBM_Meta_S</font><textcolor>TextMuted</textcolor></control>
+          <control type="label"><left>84</left><top>42</top><width>156</width><height>22</height><label>$INFO[ListItem.ChannelName]</label><font>HBM_Meta_S</font><textcolor>TextSecondary</textcolor><scroll>false</scroll></control>
+          <control type="image"><left>252</left><top>12</top><width>1</width><height>54</height><aspectratio>stretch</aspectratio><texture colordiffuse="20FFFFFF">white.png</texture></control>
+          <control type="label"><left>268</left><top>10</top><width>832</width><height>28</height><label>$INFO[ListItem.Title]</label><font>HBM_Body_M</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
+          <control type="label"><left>268</left><top>46</top><width>600</width><height>20</height><label>$INFO[ListItem.StartTime] – $INFO[ListItem.EndTime]</label><font>HBM_Meta_S</font><textcolor>TextMuted</textcolor></control>
+          <control type="image"><left>1116</left><top>53</top><width>88</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="15FFFFFF">white.png</texture></control>
+          <control type="progress"><left>1116</left><top>53</top><width>88</width><height>3</height><info>ListItem.Progress</info><texturebg colordiffuse="00000000">white.png</texturebg><textureleft colordiffuse="00000000">white.png</textureleft><texturemid colordiffuse="66FFFFFF">white.png</texturemid><textureright colordiffuse="00000000">white.png</textureright><textureoverlay colordiffuse="00000000">white.png</textureoverlay></control>
+          <control type="image"><left>0</left><top>77</top><width>1212</width><height>1</height><aspectratio>stretch</aspectratio><texture colordiffuse="0DFFFFFF">white.png</texture></control>
+        </itemlayout>
+
+        <!-- Focused row (78px) -->
+        <focusedlayout width="1212" height="78">
+          <control type="image"><left>0</left><top>0</top><width>1212</width><height>77</height><aspectratio>stretch</aspectratio><texture colordiffuse="1EFFFFFF">white.png</texture></control>
+          <control type="image"><left>0</left><top>0</top><width>3</width><height>78</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture></control>
+          <control type="image"><left>16</left><top>9</top><width>60</width><height>60</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon)]</texture></control>
+          <control type="image"><left>16</left><top>9</top><width>60</width><height>60</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+          <control type="label"><left>88</left><top>14</top><width>156</width><height>22</height><label>$INFO[ListItem.ChannelNumber]</label><font>HBM_Meta_S</font><textcolor>TextSecondary</textcolor></control>
+          <control type="label"><left>88</left><top>42</top><width>156</width><height>22</height><label>$INFO[ListItem.ChannelName]</label><font>HBM_Meta_S</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
+          <control type="image"><left>256</left><top>12</top><width>1</width><height>54</height><aspectratio>stretch</aspectratio><texture colordiffuse="40FFFFFF">white.png</texture></control>
+          <control type="label"><left>272</left><top>10</top><width>832</width><height>28</height><label>$INFO[ListItem.Title]</label><font>HBM_Nav_M</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
+          <control type="label"><left>272</left><top>46</top><width>600</width><height>20</height><label>$INFO[ListItem.StartTime] – $INFO[ListItem.EndTime]</label><font>HBM_Meta_S</font><textcolor>TextSecondary</textcolor></control>
+          <control type="image"><left>1120</left><top>53</top><width>84</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="26FFFFFF">white.png</texture></control>
+          <control type="progress"><left>1120</left><top>53</top><width>84</width><height>3</height><info>ListItem.Progress</info><texturebg colordiffuse="00000000">white.png</texturebg><textureleft colordiffuse="00000000">white.png</textureleft><texturemid colordiffuse="FFB6CBF7">white.png</texturemid><textureright colordiffuse="00000000">white.png</textureright><textureoverlay colordiffuse="00000000">white.png</textureoverlay></control>
+          <control type="image"><left>0</left><top>77</top><width>1212</width><height>1</height><aspectratio>stretch</aspectratio><texture colordiffuse="26FFFFFF">white.png</texture></control>
+        </focusedlayout>
+
+      </control><!-- end channel list -->
+
+      <!-- Vertical divider between list and info panel -->
+      <control type="image">
+        <left>1316</left><top>122</top><width>1</width><height>944</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="1AFFFFFF">white.png</texture>
+      </control>
+
+      <!-- ── INFO PANEL (right side) ── -->
+      <control type="group">
+        <left>1332</left><top>122</top><width>540</width><height>944</height>
+
+        <!-- Channel logo (large) -->
+        <control type="image">
+          <left>0</left><top>0</top><width>100</width><height>100</height>
+          <aspectratio>keep</aspectratio>
+          <texture>$INFO[Container(701).ListItem.Art(icon)]</texture>
+        </control>
+        <control type="image">
+          <left>0</left><top>0</top><width>100</width><height>100</height>
+          <aspectratio>keep</aspectratio>
+          <texture>$INFO[Container(701).ListItem.Art(thumb)]</texture>
+        </control>
+
+        <!-- Channel number -->
+        <control type="label">
+          <left>116</left><top>14</top><width>424</width><height>24</height>
+          <label>$INFO[Container(701).ListItem.ChannelNumber]</label>
+          <font>HBM_Meta_S</font>
+          <textcolor>TextMuted</textcolor>
+        </control>
+
+        <!-- Channel name -->
+        <control type="label">
+          <left>116</left><top>42</top><width>424</width><height>32</height>
+          <label>$INFO[Container(701).ListItem.ChannelName]</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>TextPrimary</textcolor>
+          <scroll>true</scroll>
+        </control>
+
+        <!-- Thin separator -->
+        <control type="image">
+          <left>0</left><top>112</top><width>540</width><height>1</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="1AFFFFFF">white.png</texture>
+        </control>
+
+        <!-- NOW · time range -->
+        <control type="label">
+          <left>0</left><top>124</top><width>60</width><height>24</height>
+          <label>NOW</label>
+          <font>HBM_Meta_S</font>
+          <textcolor>AccentPrimary</textcolor>
+        </control>
+        <control type="label">
+          <left>72</left><top>124</top><width>468</width><height>24</height>
+          <label>$INFO[Container(701).ListItem.StartTime] – $INFO[Container(701).ListItem.EndTime]</label>
+          <font>HBM_Meta_S</font>
+          <textcolor>TextMuted</textcolor>
+        </control>
+
+        <!-- Program title -->
+        <control type="label">
+          <left>0</left><top>156</top><width>540</width><height>40</height>
+          <label>$INFO[Container(701).ListItem.Title]</label>
+          <font>HBM_Title_M</font>
+          <textcolor>TextPrimary</textcolor>
+          <scroll>true</scroll>
+        </control>
+
+        <!-- EPG progress track -->
+        <control type="image">
+          <left>0</left><top>206</top><width>540</width><height>3</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="26FFFFFF">white.png</texture>
+        </control>
+        <!-- EPG progress fill (accent blue) -->
+        <control type="progress">
+          <left>0</left><top>206</top><width>540</width><height>3</height>
+          <info>Container(701).ListItem.Progress</info>
+          <texturebg colordiffuse="00000000">white.png</texturebg>
+          <textureleft colordiffuse="00000000">white.png</textureleft>
+          <texturemid colordiffuse="FFB6CBF7">white.png</texturemid>
+          <textureright colordiffuse="00000000">white.png</textureright>
+          <textureoverlay colordiffuse="00000000">white.png</textureoverlay>
+        </control>
+
+        <!-- Plot / synopsis -->
+        <control type="textbox">
+          <left>0</left><top>222</top><width>540</width><height>180</height>
+          <label>$INFO[Container(701).ListItem.Plot]</label>
+          <font>HBM_Body_S</font>
+          <textcolor>TextSecondary</textcolor>
+          <scroll>false</scroll>
+        </control>
+
+        <!-- Separator before action buttons -->
+        <control type="image">
+          <left>0</left><top>414</top><width>540</width><height>1</height>
+          <aspectratio>stretch</aspectratio>
+          <texture colordiffuse="1AFFFFFF">white.png</texture>
+        </control>
+
+        <!-- Play button -->
+        <control type="button" id="730">
+          <left>0</left><top>430</top><width>220</width><height>52</height>
+          <label>Play</label>
+          <font>HBM_Nav_M</font>
+          <align>center</align><aligny>center</aligny>
+          <textcolor>FF161C24</textcolor>
+          <focusedcolor>FF161C24</focusedcolor>
+          <texturenofocus border="6" colordiffuse="FFFFFFFF">special://skin/media/panel_rect.png</texturenofocus>
+          <texturefocus border="6" colordiffuse="CCF0F0F0">special://skin/media/panel_rect.png</texturefocus>
+          <onclick>PlayMedia($INFO[Container(701).ListItem.FileNameAndPath])</onclick>
+          <onleft>701</onleft>
+          <onup>200</onup>
+          <ondown>730</ondown>
+          <onright>730</onright>
+        </control>
+
+      </control><!-- end info panel -->
+
+    </control><!-- end livetv full-screen guide -->
+
+    <include>HBM_Debug_LayoutGuides</include>
+    <include>HBM_Home_Phase1_RailShell</include>
+    <include>HBM_Home_Phase1_RailMenu</include>
+  </controls>
+</window>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+  <!-- Soft entry motion for overlays and labels -->
+  <include name="HBM_Anim_FadeInSoft">
+    <animation effect="fade" start="0" end="100" time="110" tween="quadratic" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),reduced)">Visible</animation>
+    <animation effect="fade" start="0" end="100" time="220" tween="quadratic" easing="out" condition="String.IsEmpty(Skin.String(hbm_animation_intensity)) | String.IsEqual(Skin.String(hbm_animation_intensity),normal)">Visible</animation>
+    <animation effect="fade" start="0" end="100" time="320" tween="quadratic" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),high)">Visible</animation>
+  </include>
+
+  <!-- Restrained focus lift to avoid the exaggerated Kodi look -->
+  <include name="HBM_Anim_FocusScaleSubtle">
+    <animation effect="zoom" start="100" end="101" center="auto" time="90" tween="sine" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),reduced)">Focus</animation>
+    <animation effect="zoom" start="101" end="100" center="auto" time="80" tween="sine" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),reduced)">Unfocus</animation>
+    <animation effect="zoom" start="100" end="103" center="auto" time="140" tween="sine" easing="out" condition="String.IsEmpty(Skin.String(hbm_animation_intensity)) | String.IsEqual(Skin.String(hbm_animation_intensity),normal)">Focus</animation>
+    <animation effect="zoom" start="103" end="100" center="auto" time="120" tween="sine" easing="out" condition="String.IsEmpty(Skin.String(hbm_animation_intensity)) | String.IsEqual(Skin.String(hbm_animation_intensity),normal)">Unfocus</animation>
+    <animation effect="zoom" start="100" end="104" center="auto" time="180" tween="sine" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),high)">Focus</animation>
+    <animation effect="zoom" start="104" end="100" center="auto" time="150" tween="sine" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),high)">Unfocus</animation>
+  </include>
+
+  <!-- Soft active-state motion for header navigation -->
+  <include name="HBM_Anim_NavUnderline">
+    <animation effect="fade" start="0" end="100" time="80" tween="sine" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),reduced)">Visible</animation>
+    <animation effect="fade" start="0" end="100" time="140" tween="sine" easing="out" condition="String.IsEmpty(Skin.String(hbm_animation_intensity)) | String.IsEqual(Skin.String(hbm_animation_intensity),normal)">Visible</animation>
+    <animation effect="fade" start="0" end="100" time="220" tween="sine" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),high)">Visible</animation>
+  </include>
+
+  <!-- Side rail panel expansion stays subtle and anchored -->
+  <include name="HBM_Anim_RailExpand">
+    <animation effect="fade" start="0" end="100" time="110" tween="quadratic" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),reduced)">Visible</animation>
+    <animation effect="fade" start="100" end="0" time="90" tween="quadratic" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),reduced)">Hidden</animation>
+    <animation effect="slide" start="-4,0" end="0,0" time="110" tween="quadratic" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),reduced)">Visible</animation>
+    <animation effect="fade" start="0" end="100" time="220" tween="quadratic" easing="out" condition="String.IsEmpty(Skin.String(hbm_animation_intensity)) | String.IsEqual(Skin.String(hbm_animation_intensity),normal)">Visible</animation>
+    <animation effect="fade" start="100" end="0" time="140" tween="quadratic" easing="out" condition="String.IsEmpty(Skin.String(hbm_animation_intensity)) | String.IsEqual(Skin.String(hbm_animation_intensity),normal)">Hidden</animation>
+    <animation effect="slide" start="-10,0" end="0,0" time="220" tween="quadratic" easing="out" condition="String.IsEmpty(Skin.String(hbm_animation_intensity)) | String.IsEqual(Skin.String(hbm_animation_intensity),normal)">Visible</animation>
+    <animation effect="fade" start="0" end="100" time="320" tween="quadratic" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),high)">Visible</animation>
+    <animation effect="fade" start="100" end="0" time="220" tween="quadratic" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),high)">Hidden</animation>
+    <animation effect="slide" start="-14,0" end="0,0" time="320" tween="quadratic" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),high)">Visible</animation>
+  </include>
+
+  <!-- Rail labels appear only when the rail is opened/focused -->
+  <include name="HBM_Anim_RailLabelReveal">
+    <animation effect="fade" start="0" end="100" time="100" tween="quadratic" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),reduced)">Visible</animation>
+    <animation effect="fade" start="100" end="0" time="80" tween="quadratic" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),reduced)">Hidden</animation>
+    <animation effect="slide" start="-4,0" end="0,0" time="100" tween="quadratic" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),reduced)">Visible</animation>
+    <animation effect="fade" start="0" end="100" time="190" tween="quadratic" easing="out" condition="String.IsEmpty(Skin.String(hbm_animation_intensity)) | String.IsEqual(Skin.String(hbm_animation_intensity),normal)">Visible</animation>
+    <animation effect="fade" start="100" end="0" time="110" tween="quadratic" easing="out" condition="String.IsEmpty(Skin.String(hbm_animation_intensity)) | String.IsEqual(Skin.String(hbm_animation_intensity),normal)">Hidden</animation>
+    <animation effect="slide" start="-8,0" end="0,0" time="190" tween="quadratic" easing="out" condition="String.IsEmpty(Skin.String(hbm_animation_intensity)) | String.IsEqual(Skin.String(hbm_animation_intensity),normal)">Visible</animation>
+    <animation effect="fade" start="0" end="100" time="280" tween="quadratic" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),high)">Visible</animation>
+    <animation effect="fade" start="100" end="0" time="160" tween="quadratic" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),high)">Hidden</animation>
+    <animation effect="slide" start="-12,0" end="0,0" time="280" tween="quadratic" easing="out" condition="String.IsEqual(Skin.String(hbm_animation_intensity),high)">Visible</animation>
+  </include>
+
+  <!-- Thin active indicator for the focused rail item -->
+  <include name="HBM_Anim_RailIndicator">
+    <animation effect="fade" start="0" end="100" time="120" tween="sine" easing="out">Visible</animation>
+  </include>
+</includes>

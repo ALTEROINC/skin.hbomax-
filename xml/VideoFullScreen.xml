@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="12005">
+  <defaultcontrol always="true">0</defaultcontrol>
+  <onaction>ActivateWindow(VideoOSD)</onaction>
+  <onunload condition="String.IsEqual(Skin.String(HBM.PlayedFromDialog),1)">RunScript(plugin.video.themoviedb.helper,open_info,tmdb_type=$INFO[Skin.String(HBM.DialogItemType)],tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)])</onunload>
+  <onunload condition="String.IsEqual(Skin.String(HBM.PlayedFromDialog),1)">Skin.SetString(HBM.PlayedFromDialog,0)</onunload>
+  <controls>
+  </controls>
+</window>

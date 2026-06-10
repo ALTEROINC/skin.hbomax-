@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="1113">
+  <defaultcontrol>9800</defaultcontrol>
+  <backgroundcolor>BackgroundBase</backgroundcolor>
+  <onload condition="String.IsEmpty(Skin.String(HBM.HomeConfigSourceSection))">Skin.SetString(HBM.HomeConfigSourceSection,video)</onload>
+  <controls>
+    <include>HBM_Runtime_Background</include>
+    <control type="label">
+      <left>568</left>
+      <top>138</top>
+      <width>784</width>
+      <height>60</height>
+      <label>Choose Widget Source</label>
+      <font>HBM_Display_M</font>
+      <align>center</align>
+      <textcolor>TextPrimary</textcolor>
+    </control>
+
+    <control type="group">
+      <left>96</left>
+      <top>238</top>
+      <width>368</width>
+      <height>686</height>
+      <control type="image">
+        <left>-6</left>
+        <top>-6</top>
+        <width>380</width>
+        <height>698</height>
+        <texture border="24" colordiffuse="16000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left>
+        <top>0</top>
+        <width>368</width>
+        <height>686</height>
+        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="label">
+        <left>36</left>
+        <top>26</top>
+        <width>280</width>
+        <height>24</height>
+        <label>Source Type</label>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+      </control>
+      <control type="image">
+        <left>36</left>
+        <top>66</top>
+        <width>296</width>
+        <height>1</height>
+        <texture colordiffuse="18FFFFFF">white.png</texture>
+      </control>
+      <control type="button" id="9800">
+        <left>0</left>
+        <top>104</top>
+        <width>368</width>
+        <height>56</height>
+        <label>Video Add-ons</label>
+        <font>HBM_Nav_M</font>
+        <textcolor>TextNavInactive</textcolor>
+        <focusedcolor>TextNavActive</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>76</textoffsetx>
+        <texturefocus colordiffuse="00FFFFFF">white.png</texturefocus>
+        <texturenofocus />
+        <onfocus>Skin.SetString(HBM.HomeConfigSourceSection,video)</onfocus>
+        <onup>9806</onup>
+        <ondown>9801</ondown>
+        <onright>9810</onright>
+      </control>
+      <control type="button" id="9801">
+        <left>0</left>
+        <top>160</top>
+        <width>368</width>
+        <height>56</height>
+        <label>Program Add-ons</label>
+        <font>HBM_Nav_M</font>
+        <textcolor>TextNavInactive</textcolor>
+        <focusedcolor>TextNavActive</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>76</textoffsetx>
+        <texturefocus colordiffuse="00FFFFFF">white.png</texturefocus>
+        <texturenofocus />
+        <onfocus>Skin.SetString(HBM.HomeConfigSourceSection,programs)</onfocus>
+        <onup>9800</onup>
+        <ondown>9802</ondown>
+        <onright>9810</onright>
+      </control>
+      <control type="button" id="9802">
+        <left>0</left>
+        <top>216</top>
+        <width>368</width>
+        <height>56</height>
+        <label>Picture Add-ons</label>
+        <font>HBM_Nav_M</font>
+        <textcolor>TextNavInactive</textcolor>
+        <focusedcolor>TextNavActive</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>76</textoffsetx>
+        <texturefocus colordiffuse="00FFFFFF">white.png</texturefocus>
+        <texturenofocus />
+        <onfocus>Skin.SetString(HBM.HomeConfigSourceSection,pictures)</onfocus>
+        <onup>9801</onup>
+        <ondown>9803</ondown>
+        <onright>9810</onright>
+      </control>
+      <control type="button" id="9803">
+        <left>0</left>
+        <top>272</top>
+        <width>368</width>
+        <height>56</height>
+        <label>Installed Add-ons</label>
+        <font>HBM_Nav_M</font>
+        <textcolor>TextNavInactive</textcolor>
+        <focusedcolor>TextNavActive</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>76</textoffsetx>
+        <texturefocus colordiffuse="00FFFFFF">white.png</texturefocus>
+        <texturenofocus />
+        <onfocus>Skin.SetString(HBM.HomeConfigSourceSection,installed)</onfocus>
+        <onup>9802</onup>
+        <ondown>9804</ondown>
+        <onright>9810</onright>
+      </control>
+      <control type="button" id="9804">
+        <left>0</left>
+        <top>328</top>
+        <width>368</width>
+        <height>56</height>
+        <label>All Add-ons</label>
+        <font>HBM_Nav_M</font>
+        <textcolor>TextNavInactive</textcolor>
+        <focusedcolor>TextNavActive</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>76</textoffsetx>
+        <texturefocus colordiffuse="00FFFFFF">white.png</texturefocus>
+        <texturenofocus />
+        <onfocus>Skin.SetString(HBM.HomeConfigSourceSection,all)</onfocus>
+        <onup>9803</onup>
+        <ondown>9805</ondown>
+        <onright>9810</onright>
+      </control>
+      <control type="button" id="9807">
+        <left>0</left>
+        <top>384</top>
+        <width>368</width>
+        <height>56</height>
+        <label>Live TV / PVR</label>
+        <font>HBM_Nav_M</font>
+        <textcolor>TextNavInactive</textcolor>
+        <focusedcolor>TextNavActive</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>76</textoffsetx>
+        <texturefocus colordiffuse="00FFFFFF">white.png</texturefocus>
+        <texturenofocus />
+        <onfocus>Skin.SetString(HBM.HomeConfigSourceSection,pvr)</onfocus>
+        <onup>9804</onup>
+        <ondown>9805</ondown>
+        <onright>9810</onright>
+      </control>
+      <control type="button" id="9805">
+        <left>0</left>
+        <top>440</top>
+        <width>368</width>
+        <height>56</height>
+        <label>Clear Widget Path</label>
+        <font>HBM_Nav_M</font>
+        <textcolor>TextNavInactive</textcolor>
+        <focusedcolor>TextNavActive</focusedcolor>
+        <aligny>center</aligny>
+        <textoffsetx>76</textoffsetx>
+        <texturefocus colordiffuse="00FFFFFF">white.png</texturefocus>
+        <texturenofocus />
+        <onclick>Skin.Reset($INFO[Skin.String(HBM.HomeConfigWidgetKey)])</onclick>
+        <onclick>ActivateWindow(1112)</onclick>
+        <onup>9807</onup>
+        <ondown>9806</ondown>
+        <onright>9811</onright>
+      </control>
+      <control type="button" id="9806">
+        <left>0</left>
+        <top>620</top>
+        <width>368</width>
+        <height>56</height>
+        <label>Back To Slot Editor</label>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus />
+        <onclick>ActivateWindow(1112)</onclick>
+        <onup>9805</onup>
+        <ondown>9800</ondown>
+        <onright>9810</onright>
+      </control>
+    </control>
+
+    <control type="group">
+      <left>500</left>
+      <top>238</top>
+      <width>1324</width>
+      <height>686</height>
+      <control type="image">
+        <left>-6</left>
+        <top>-6</top>
+        <width>1336</width>
+        <height>698</height>
+        <texture border="24" colordiffuse="16000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left>
+        <top>0</top>
+        <width>1324</width>
+        <height>686</height>
+        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="label">
+        <left>36</left>
+        <top>26</top>
+        <width>420</width>
+        <height>24</height>
+        <label>Browse Add-on Paths</label>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+      </control>
+      <control type="image">
+        <left>36</left>
+        <top>66</top>
+        <width>1252</width>
+        <height>1</height>
+        <texture colordiffuse="18FFFFFF">white.png</texture>
+      </control>
+      <control type="textbox">
+        <left>36</left>
+        <top>112</top>
+        <width>1188</width>
+        <height>130</height>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <label>Choose a source type on the left, then open Kodi's native path browser. You can drill down through addon folders and save a deep path, not just the addon root.</label>
+      </control>
+      <control type="button" id="9810">
+        <left>36</left>
+        <top>292</top>
+        <width>1188</width>
+        <height>56</height>
+        <label>Browse Selected Source</label>
+        <label2>$INFO[Skin.String(HBM.HomeConfigSourceSection)]</label2>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus />
+        <onclick condition="String.IsEqual(Skin.String(HBM.HomeConfigSourceSection),video)">Skin.SetPath($INFO[Skin.String(HBM.HomeConfigWidgetKey)],addons://sources/video/)</onclick>
+        <onclick condition="String.IsEqual(Skin.String(HBM.HomeConfigSourceSection),programs)">Skin.SetPath($INFO[Skin.String(HBM.HomeConfigWidgetKey)],addons://sources/executable/)</onclick>
+        <onclick condition="String.IsEqual(Skin.String(HBM.HomeConfigSourceSection),pictures)">Skin.SetPath($INFO[Skin.String(HBM.HomeConfigWidgetKey)],addons://sources/image/)</onclick>
+        <onclick condition="String.IsEqual(Skin.String(HBM.HomeConfigSourceSection),installed)">Skin.SetPath($INFO[Skin.String(HBM.HomeConfigWidgetKey)],addons://user/)</onclick>
+        <onclick condition="String.IsEqual(Skin.String(HBM.HomeConfigSourceSection),all)">Skin.SetPath($INFO[Skin.String(HBM.HomeConfigWidgetKey)],addons://all/)</onclick>
+        <onclick condition="String.IsEqual(Skin.String(HBM.HomeConfigSourceSection),pvr)">Skin.SetPath($INFO[Skin.String(HBM.HomeConfigWidgetKey)],pvr://channels/)</onclick>
+        <onleft>9800</onleft>
+        <ondown>9811</ondown>
+      </control>
+      <control type="button" id="9811">
+        <left>36</left>
+        <top>348</top>
+        <width>1188</width>
+        <height>56</height>
+        <label>Back To Slot Editor</label>
+        <font>HBM_Body_M</font>
+        <textcolor>TextSecondary</textcolor>
+        <focusedcolor>TextPrimary</focusedcolor>
+        <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+        <texturenofocus />
+        <onclick>ActivateWindow(1112)</onclick>
+        <onleft>9805</onleft>
+        <onup>9810</onup>
+      </control>
+    </control>
+  </controls>
+</window>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol>9300</defaultcontrol>
+  <backgroundcolor>BackgroundBase</backgroundcolor>
+  <onload condition="String.IsEmpty(Skin.String(HBM.SkinSettingsSection))">Skin.SetString(HBM.SkinSettingsSection,development)</onload>
+  <onload>RunScript(special://skin/resources/scripts/iptv_info.py)</onload>
+  <controls>
+    <include>HBM_Runtime_Background</include>
+
+    <control type="label">
+      <left>664</left>
+      <top>138</top>
+      <width>592</width>
+      <height>60</height>
+      <label>Skin Settings</label>
+      <font>HBM_Display_M</font>
+      <align>center</align>
+      <textcolor>TextPrimary</textcolor>
+    </control>
+
+    <!-- Sidebar -->
+    <control type="group">
+      <left>0</left><top>0</top><width>368</width><height>1080</height>
+      <control type="image"><left>16</left><top>18</top><width>64</width><height>64</height><texture aspectratio="keep">special://skin/media/brand/hbo_white.png</texture></control>
+      <control type="label"><left>60</left><top>118</top><width>276</width><height>24</height><label>Categories</label><font>HBM_Meta_S</font><textcolor>TextMuted</textcolor></control>
+      <control type="image"><left>60</left><top>156</top><width>276</width><height>1</height><texture colordiffuse="18FFFFFF">white.png</texture></control>
+      <control type="button" id="9300"><left>0</left><top>188</top><width>368</width><height>56</height><label>Development</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><focusedcolor>TextNavActive</focusedcolor><aligny>center</aligny><textoffsetx>76</textoffsetx><texturefocus colordiffuse="00FFFFFF">white.png</texturefocus><texturenofocus /><onfocus>Skin.SetString(HBM.SkinSettingsSection,development)</onfocus><onup>9304</onup><ondown>9301</ondown><onright>9201</onright></control>
+      <control type="button" id="9301"><left>0</left><top>248</top><width>368</width><height>56</height><label>Appearance</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><focusedcolor>TextNavActive</focusedcolor><aligny>center</aligny><textoffsetx>76</textoffsetx><texturefocus colordiffuse="00FFFFFF">white.png</texturefocus><texturenofocus /><onfocus>Skin.SetString(HBM.SkinSettingsSection,visuals)</onfocus><onup>9300</onup><ondown>9302</ondown><onright>9202</onright></control>
+      <control type="button" id="9302"><left>0</left><top>308</top><width>368</width><height>56</height><label>Rail</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><focusedcolor>TextNavActive</focusedcolor><aligny>center</aligny><textoffsetx>76</textoffsetx><texturefocus colordiffuse="00FFFFFF">white.png</texturefocus><texturenofocus /><onfocus>Skin.SetString(HBM.SkinSettingsSection,navigation)</onfocus><onup>9301</onup><ondown>9303</ondown><onright>9205</onright></control>
+      <control type="button" id="9303"><left>0</left><top>368</top><width>368</width><height>56</height><label>Homepage</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><focusedcolor>TextNavActive</focusedcolor><aligny>center</aligny><textoffsetx>76</textoffsetx><texturefocus colordiffuse="00FFFFFF">white.png</texturefocus><texturenofocus /><onfocus>Skin.SetString(HBM.SkinSettingsSection,homepage)</onfocus><onup>9302</onup><ondown>9305</ondown><onright>9211</onright></control>
+      <control type="button" id="9305"><left>0</left><top>428</top><width>368</width><height>56</height><label>Services</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><focusedcolor>TextNavActive</focusedcolor><aligny>center</aligny><textoffsetx>76</textoffsetx><texturefocus colordiffuse="00FFFFFF">white.png</texturefocus><texturenofocus /><onfocus>Skin.SetString(HBM.SkinSettingsSection,services)</onfocus><onup>9303</onup><ondown>9306</ondown><onright>9218</onright></control>
+      <control type="button" id="9306"><left>0</left><top>488</top><width>368</width><height>56</height><label>Live TV</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><focusedcolor>TextNavActive</focusedcolor><aligny>center</aligny><textoffsetx>76</textoffsetx><texturefocus colordiffuse="00FFFFFF">white.png</texturefocus><texturenofocus /><onfocus>Skin.SetString(HBM.SkinSettingsSection,livetv)</onfocus><onup>9305</onup><ondown>9304</ondown><onright>9226</onright></control>
+      <control type="button" id="9304"><left>0</left><top>548</top><width>368</width><height>56</height><label>Reset</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><focusedcolor>TextNavActive</focusedcolor><aligny>center</aligny><textoffsetx>76</textoffsetx><texturefocus colordiffuse="00FFFFFF">white.png</texturefocus><texturenofocus /><onfocus>Skin.SetString(HBM.SkinSettingsSection,reset)</onfocus><onup>9306</onup><ondown>9300</ondown><onright>9210</onright></control>
+    </control>
+
+    <!-- Right panel -->
+    <control type="group">
+      <left>424</left><top>238</top><width>1296</width><height>686</height>
+      <control type="image"><left>-6</left><top>-6</top><width>1308</width><height>698</height><texture border="24" colordiffuse="16000000">special://skin/media/panel_rounded.png</texture></control>
+      <control type="image"><left>0</left><top>0</top><width>1296</width><height>686</height><texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture></control>
+      <control type="label"><left>36</left><top>26</top><width>420</width><height>24</height><label>HBO Max Skin</label><font>HBM_Meta_S</font><textcolor>TextMuted</textcolor></control>
+      <control type="image"><left>36</left><top>66</top><width>1224</width><height>1</height><texture colordiffuse="18FFFFFF">white.png</texture></control>
+
+      <!-- Development -->
+      <control type="grouplist" id="9400">
+        <visible>String.IsEqual(Skin.String(HBM.SkinSettingsSection),development)</visible>
+        <left>36</left><top>104</top><width>1188</width><height>520</height><orientation>vertical</orientation><itemgap>1</itemgap><wraplist>true</wraplist>
+        <control type="radiobutton" id="9201"><width>1188</width><height>56</height><label>Debug Layout Guides</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>Skin.ToggleSetting(hbm_debug_layout_guides)</onclick><selected>Skin.HasSetting(hbm_debug_layout_guides)</selected><onfocus>Skin.SetString(HBM.SkinSettingsSection,development)</onfocus><onleft>9300</onleft></control>
+      </control>
+
+      <!-- Appearance -->
+      <control type="grouplist" id="9401">
+        <visible>String.IsEqual(Skin.String(HBM.SkinSettingsSection),visuals)</visible>
+        <left>36</left><top>104</top><width>1188</width><height>520</height><orientation>vertical</orientation><itemgap>1</itemgap><wraplist>true</wraplist>
+        <control type="radiobutton" id="9202"><width>1188</width><height>56</height><label>Background Texture</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>Skin.ToggleSetting(hbm_disable_background_texture)</onclick><selected>!Skin.HasSetting(hbm_disable_background_texture)</selected><onfocus>Skin.SetString(HBM.SkinSettingsSection,visuals)</onfocus><onleft>9301</onleft></control>
+        <control type="radiobutton" id="9203"><width>1188</width><height>56</height><label>Rail Content Dim</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>Skin.ToggleSetting(hbm_disable_rail_content_dim)</onclick><selected>!Skin.HasSetting(hbm_disable_rail_content_dim)</selected><onfocus>Skin.SetString(HBM.SkinSettingsSection,visuals)</onfocus><onleft>9301</onleft></control>
+        <control type="button" id="9204"><width>1188</width><height>56</height><label>Animation Intensity</label><label2>$VAR[HBM_AnimationIntensityLabel]</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick condition="String.IsEqual(Skin.String(hbm_animation_intensity),high)">Skin.SetString(hbm_animation_intensity,reduced)</onclick><onclick condition="String.IsEqual(Skin.String(hbm_animation_intensity),reduced)">Skin.SetString(hbm_animation_intensity,normal)</onclick><onclick condition="String.IsEmpty(Skin.String(hbm_animation_intensity)) | String.IsEqual(Skin.String(hbm_animation_intensity),normal)">Skin.SetString(hbm_animation_intensity,high)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,visuals)</onfocus><onleft>9301</onleft></control>
+      </control>
+
+      <!-- Rail -->
+      <control type="grouplist" id="9402">
+        <visible>String.IsEqual(Skin.String(HBM.SkinSettingsSection),navigation)</visible>
+        <left>36</left><top>104</top><width>1188</width><height>520</height><orientation>vertical</orientation><itemgap>1</itemgap><wraplist>true</wraplist>
+        <control type="button" id="9205"><width>1188</width><height>56</height><label>Side Rail Behavior</label><label2>$VAR[HBM_RailBehaviorLabel]</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick condition="String.IsEqual(Skin.String(hbm_rail_behavior),always_expanded)">Skin.SetString(hbm_rail_behavior,focus_expand)</onclick><onclick condition="String.IsEmpty(Skin.String(hbm_rail_behavior)) | String.IsEqual(Skin.String(hbm_rail_behavior),focus_expand)">Skin.SetString(hbm_rail_behavior,always_expanded)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,navigation)</onfocus><onleft>9302</onleft></control>
+      </control>
+
+      <!-- Homepage -->
+      <control type="grouplist" id="9403">
+        <visible>String.IsEqual(Skin.String(HBM.SkinSettingsSection),homepage)</visible>
+        <left>36</left><top>104</top><width>1188</width><height>520</height><orientation>vertical</orientation><itemgap>1</itemgap><wraplist>true</wraplist>
+        <control type="button" id="9217"><width>1188</width><height>56</height><label>Hero Carousel Auto Scroll</label><label2>$VAR[HBM_HeroAutoscrollLabel]</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick condition="String.IsEmpty(Skin.String(hbm_hero_autoscroll)) | String.IsEqual(Skin.String(hbm_hero_autoscroll),always)">Skin.SetString(hbm_hero_autoscroll,idle)</onclick><onclick condition="String.IsEqual(Skin.String(hbm_hero_autoscroll),idle)">Skin.SetString(hbm_hero_autoscroll,off)</onclick><onclick condition="String.IsEqual(Skin.String(hbm_hero_autoscroll),off)">Skin.SetString(hbm_hero_autoscroll,always)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,homepage)</onfocus><onleft>9303</onleft></control>
+        <control type="radiobutton" id="9211"><width>1188</width><height>56</height><label>Show TV Shows in Rail</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>Skin.ToggleSetting(hbm_rail_hide_tvshows)</onclick><selected>!Skin.HasSetting(hbm_rail_hide_tvshows)</selected><onfocus>Skin.SetString(HBM.SkinSettingsSection,homepage)</onfocus><onleft>9303</onleft></control>
+        <control type="radiobutton" id="9212"><width>1188</width><height>56</height><label>Show Movies in Rail</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>Skin.ToggleSetting(hbm_rail_hide_movies)</onclick><selected>!Skin.HasSetting(hbm_rail_hide_movies)</selected><onfocus>Skin.SetString(HBM.SkinSettingsSection,homepage)</onfocus><onleft>9303</onleft></control>
+        <control type="radiobutton" id="9213"><width>1188</width><height>56</height><label>Show Live TV in Rail</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>Skin.ToggleSetting(hbm_rail_hide_livetv)</onclick><selected>!Skin.HasSetting(hbm_rail_hide_livetv)</selected><onfocus>Skin.SetString(HBM.SkinSettingsSection,homepage)</onfocus><onleft>9303</onleft></control>
+        <control type="radiobutton" id="9214"><width>1188</width><height>56</height><label>Show My List in Rail</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>Skin.ToggleSetting(hbm_rail_hide_mylist)</onclick><selected>!Skin.HasSetting(hbm_rail_hide_mylist)</selected><onfocus>Skin.SetString(HBM.SkinSettingsSection,homepage)</onfocus><onleft>9303</onleft></control>
+        <control type="radiobutton" id="9215"><width>1188</width><height>56</height><label>Show Search in Rail</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>Skin.ToggleSetting(hbm_rail_hide_search)</onclick><selected>!Skin.HasSetting(hbm_rail_hide_search)</selected><onfocus>Skin.SetString(HBM.SkinSettingsSection,homepage)</onfocus><onleft>9303</onleft></control>
+        <control type="button" id="9216"><width>1188</width><height>56</height><label>Configure Hub Layouts</label><label2>Open the slot editor for each hub section</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>ActivateWindow(1111)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,homepage)</onfocus><onleft>9303</onleft></control>
+      </control>
+
+      <!-- Services -->
+      <control type="grouplist" id="9405">
+        <visible>String.IsEqual(Skin.String(HBM.SkinSettingsSection),services)</visible>
+        <left>36</left><top>104</top><width>1188</width><height>520</height><orientation>vertical</orientation><itemgap>1</itemgap><wraplist>true</wraplist>
+        <control type="button" id="9218"><width>1188</width><height>56</height><label>TMDB Helper</label><label2>$INFO[System.AddonVersion(plugin.video.themoviedb.helper)]</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">Addon.OpenSettings(plugin.video.themoviedb.helper)</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">InstallAddon(plugin.video.themoviedb.helper)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,services)</onfocus><onleft>9305</onleft></control>
+        <control type="button" id="9219"><width>1188</width><height>56</height><label>Refresh Item Artwork</label><label2>Re-fetch artwork for the currently focused item</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>RunScript(plugin.video.themoviedb.helper,refresh_details)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,services)</onfocus><onleft>9305</onleft></control>
+        <control type="button" id="9220"><width>1188</width><height>56</height><label>Authenticate Trakt</label><label2>Link your Trakt account for watch history and ratings</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>RunScript(plugin.video.themoviedb.helper,authenticate_trakt)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,services)</onfocus><onleft>9305</onleft></control>
+        <control type="button" id="9221"><width>1188</width><height>56</height><label>Revoke Trakt</label><label2>Disconnect and remove your linked Trakt account</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>RunScript(plugin.video.themoviedb.helper,revoke_trakt)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,services)</onfocus><onleft>9305</onleft></control>
+        <control type="button" id="9222"><width>1188</width><height>56</height><label>Configure Players</label><label2>Set up which plugin handles playback for each content type</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>RunScript(plugin.video.themoviedb.helper,configure_players)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,services)</onfocus><onleft>9305</onleft></control>
+        <control type="button" id="9223"><width>1188</width><height>56</height><label>Update Players from URL</label><label2>Download the latest player config from a remote source</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>RunScript(plugin.video.themoviedb.helper,update_players)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,services)</onfocus><onleft>9305</onleft></control>
+        <control type="button" id="9224"><width>1188</width><height>56</height><label>Default Movie Player</label><label2>Choose which player plugin launches when you play a movie</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>RunScript(plugin.video.themoviedb.helper,set_defaultplayer=movie)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,services)</onfocus><onleft>9305</onleft></control>
+        <control type="button" id="9225"><width>1188</width><height>56</height><label>Refresh All Artwork</label><label2>Re-download artwork for every item in your library</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>RunScript(special://skin/resources/scripts/artwork_refresh.py)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,services)</onfocus><onleft>9305</onleft></control>
+      </control>
+
+      <!-- Live TV -->
+      <control type="grouplist" id="9406">
+        <visible>String.IsEqual(Skin.String(HBM.SkinSettingsSection),livetv)</visible>
+        <left>36</left><top>104</top><width>1152</width><height>520</height><orientation>vertical</orientation><itemgap>1</itemgap><wraplist>true</wraplist>
+        <pagecontrol>9506</pagecontrol>
+
+        <!-- Add-on management -->
+        <control type="button" id="9226"><width>1152</width><height>56</height><label>IPTV Simple Client</label><label2>$INFO[System.AddonVersion(pvr.iptvsimple)] · Manage add-on settings</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick condition="System.HasAddon(pvr.iptvsimple)">Addon.OpenSettings(pvr.iptvsimple)</onclick><onclick condition="!System.HasAddon(pvr.iptvsimple)">InstallAddon(pvr.iptvsimple)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,livetv)</onfocus><onleft>9306</onleft></control>
+        <control type="button" id="9227"><width>1152</width><height>56</height><label>Inputstream Adaptive</label><label2>$INFO[System.AddonVersion(inputstream.adaptive)] · HLS/DASH/Smooth streaming engine</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick condition="System.HasAddon(inputstream.adaptive)">Addon.OpenSettings(inputstream.adaptive)</onclick><onclick condition="!System.HasAddon(inputstream.adaptive)">InstallAddon(inputstream.adaptive)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,livetv)</onfocus><onleft>9306</onleft></control>
+
+        <!-- Refresh button -->
+        <control type="button" id="9250"><width>1152</width><height>56</height><label>Refresh Playlist Info</label><label2>Re-read all IPTV Simple instance files to update the list below</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>RunScript(special://skin/resources/scripts/iptv_info.py)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,livetv)</onfocus><onleft>9306</onleft></control>
+
+        <!-- Instance 0 -->
+        <control type="button" id="9260"><width>1152</width><height>56</height><label>$INFO[Window(home).Property(HBM.IPTV.0.Name)]</label><label2>$INFO[Window(home).Property(HBM.IPTV.0.SourceType)] · $INFO[Window(home).Property(HBM.IPTV.0.URL)]</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><visible>!String.IsEmpty(Window(home).Property(HBM.IPTV.0.Name))</visible><onclick>Addon.OpenSettings(pvr.iptvsimple)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,livetv)</onfocus><onleft>9306</onleft></control>
+
+        <!-- Instance 1 -->
+        <control type="button" id="9261"><width>1152</width><height>56</height><label>$INFO[Window(home).Property(HBM.IPTV.1.Name)]</label><label2>$INFO[Window(home).Property(HBM.IPTV.1.SourceType)] · $INFO[Window(home).Property(HBM.IPTV.1.URL)]</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><visible>!String.IsEmpty(Window(home).Property(HBM.IPTV.1.Name))</visible><onclick>Addon.OpenSettings(pvr.iptvsimple)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,livetv)</onfocus><onleft>9306</onleft></control>
+
+        <!-- Instance 2 -->
+        <control type="button" id="9262"><width>1152</width><height>56</height><label>$INFO[Window(home).Property(HBM.IPTV.2.Name)]</label><label2>$INFO[Window(home).Property(HBM.IPTV.2.SourceType)] · $INFO[Window(home).Property(HBM.IPTV.2.URL)]</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><visible>!String.IsEmpty(Window(home).Property(HBM.IPTV.2.Name))</visible><onclick>Addon.OpenSettings(pvr.iptvsimple)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,livetv)</onfocus><onleft>9306</onleft></control>
+
+        <!-- Instance 3 -->
+        <control type="button" id="9263"><width>1152</width><height>56</height><label>$INFO[Window(home).Property(HBM.IPTV.3.Name)]</label><label2>$INFO[Window(home).Property(HBM.IPTV.3.SourceType)] · $INFO[Window(home).Property(HBM.IPTV.3.URL)]</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><visible>!String.IsEmpty(Window(home).Property(HBM.IPTV.3.Name))</visible><onclick>Addon.OpenSettings(pvr.iptvsimple)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,livetv)</onfocus><onleft>9306</onleft></control>
+
+        <!-- Instance 4 -->
+        <control type="button" id="9264"><width>1152</width><height>56</height><label>$INFO[Window(home).Property(HBM.IPTV.4.Name)]</label><label2>$INFO[Window(home).Property(HBM.IPTV.4.SourceType)] · $INFO[Window(home).Property(HBM.IPTV.4.URL)]</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><visible>!String.IsEmpty(Window(home).Property(HBM.IPTV.4.Name))</visible><onclick>Addon.OpenSettings(pvr.iptvsimple)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,livetv)</onfocus><onleft>9306</onleft></control>
+
+        <!-- Instance 5 -->
+        <control type="button" id="9265"><width>1152</width><height>56</height><label>$INFO[Window(home).Property(HBM.IPTV.5.Name)]</label><label2>$INFO[Window(home).Property(HBM.IPTV.5.SourceType)] · $INFO[Window(home).Property(HBM.IPTV.5.URL)]</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><visible>!String.IsEmpty(Window(home).Property(HBM.IPTV.5.Name))</visible><onclick>Addon.OpenSettings(pvr.iptvsimple)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,livetv)</onfocus><onleft>9306</onleft></control>
+      </control>
+
+      <!-- Live TV scrollbar -->
+      <control type="scrollbar" id="9506">
+        <visible>String.IsEqual(Skin.String(HBM.SkinSettingsSection),livetv)</visible>
+        <left>1200</left><top>104</top><width>8</width><height>520</height>
+        <orientation>vertical</orientation>
+        <texturesliderbackground colordiffuse="1AFFFFFF">white.png</texturesliderbackground>
+        <textureslider colordiffuse="66FFFFFF">white.png</textureslider>
+        <onleft>9406</onleft>
+        <onright>9306</onright>
+        <onup>9506</onup>
+        <ondown>9506</ondown>
+      </control>
+
+      <!-- Reset -->
+      <control type="grouplist" id="9404">
+        <visible>String.IsEqual(Skin.String(HBM.SkinSettingsSection),reset)</visible>
+        <left>36</left><top>104</top><width>1188</width><height>520</height><orientation>vertical</orientation><itemgap>1</itemgap>
+        <control type="button" id="9210"><width>1188</width><height>56</height><label>Reset HBO Max Skin Settings</label><label2>Restore all skin settings to their factory defaults</label2><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor><texturefocus colordiffuse="FocusFill">white.png</texturefocus><texturenofocus /><onclick>Skin.Reset(hbm_debug_layout_guides)</onclick><onclick>Skin.Reset(hbm_disable_background_texture)</onclick><onclick>Skin.Reset(hbm_disable_rail_content_dim)</onclick><onclick>Skin.Reset(hbm_animation_intensity)</onclick><onclick>Skin.Reset(hbm_rail_behavior)</onclick><onclick>Skin.Reset(hbm_rail_hide_tvshows)</onclick><onclick>Skin.Reset(hbm_rail_hide_movies)</onclick><onclick>Skin.Reset(hbm_rail_hide_livetv)</onclick><onclick>Skin.Reset(hbm_rail_hide_mylist)</onclick><onclick>Skin.Reset(hbm_rail_hide_search)</onclick><onclick>Skin.Reset(hbm_hero_autoscroll)</onclick><onfocus>Skin.SetString(HBM.SkinSettingsSection,reset)</onfocus><onleft>9304</onleft></control>
+      </control>
+
+    </control>
+  </controls>
+</window>

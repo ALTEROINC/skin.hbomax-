@@ -1,0 +1,8 @@
+build/
+tmp/
+backup/
+.tmp_generalsans/
+.tmp_resvg/
+.claude/
+.DS_Store
+**/.DS_Store

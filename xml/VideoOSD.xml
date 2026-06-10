@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol always="true">602</defaultcontrol>
+  <onload>SetFocus(602)</onload>
+  <onload condition="Player.Forwarding | Player.Rewinding">PlayerControl(Play)</onload>
+  <onunload>Skin.SetString(HBM.OSDEpisodesOpen,0)</onunload>
+  <onunload>Skin.SetString(HBM.OSDEpisodesTab,)</onunload>
+  <animation effect="fade" start="0" end="100" time="200" type="WindowOpen"/>
+  <animation effect="fade" start="100" end="0" time="200" type="WindowClose"/>
+  <controls>
+
+    <!-- Background dismiss button — all D-pad directions redirect to play button -->
+    <control type="button">
+      <left>0</left><top>0</top><width>1920</width><bottom>200</bottom>
+      <texturefocus /><texturenofocus />
+      <label/><font/>
+      <onclick>Action(Close)</onclick>
+      <onup>602</onup><ondown>602</ondown><onleft>602</onleft><onright>602</onright>
+    </control>
+
+    <!-- Top smoke gradient -->
+    <control type="image">
+      <left>0</left><top>0</top><width>1920</width><height>160</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="CC000000">special://skin/media/overlays/header_smoke.png</texture>
+    </control>
+    <control type="image">
+      <left>0</left><top>0</top><width>1920</width><height>160</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="40FFFFFF">special://skin/media/overlays/rail_expanded_smoke.png</texture>
+    </control>
+
+    <!-- Bottom gradient -->
+    <control type="image">
+      <left>0</left><top>760</top><width>1920</width><height>320</height>
+      <texture>special://skin/media/overlays/lower_browse_fade.png</texture>
+    </control>
+
+    <!-- Back / stop button -->
+    <control type="button" id="600">
+      <left>40</left><top>28</top><width>44</width><height>44</height>
+      <texturefocus colordiffuse="FFFFFFFF">special://skin/media/icons/player_back.png</texturefocus>
+      <texturenofocus colordiffuse="AAFFFFFF">special://skin/media/icons/player_back.png</texturenofocus>
+      <label/><font/>
+      <onclick>Action(Stop)</onclick>
+      <onup>602</onup>
+      <ondown>200</ondown>
+      <onleft>607</onleft>
+      <onright>605</onright>
+    </control>
+
+    <!-- Rating badge -->
+    <control type="group">
+      <left>112</left><top>32</top>
+      <visible>!String.IsEmpty(VideoPlayer.mpaa)</visible>
+      <control type="image">
+        <left>0</left><top>0</top><width>80</width><height>28</height>
+        <texture colordiffuse="33FFFFFF">special://skin/media/panel_rect.png</texture>
+      </control>
+      <control type="label">
+        <left>0</left><top>0</top><width>80</width><height>28</height>
+        <font>HBM_Meta_S</font>
+        <textcolor>FFFFFFFF</textcolor>
+        <align>center</align><aligny>center</aligny>
+        <label>$INFO[VideoPlayer.mpaa]</label>
+      </control>
+    </control>
+
+    <!-- TV show title -->
+    <control type="label">
+      <left>48</left><top>876</top><width>1400</width><height>48</height>
+      <font>HBM_Title_M</font>
+      <textcolor>FFFFFFFF</textcolor>
+      <label>$INFO[VideoPlayer.TVShowTitle]</label>
+      <visible>VideoPlayer.Content(episodes)</visible>
+    </control>
+
+    <!-- Movie title -->
+    <control type="label">
+      <left>48</left><top>876</top><width>1400</width><height>48</height>
+      <font>HBM_Title_M</font>
+      <textcolor>FFFFFFFF</textcolor>
+      <label>$INFO[VideoPlayer.Title]</label>
+      <visible>!VideoPlayer.Content(episodes)</visible>
+    </control>
+
+    <!-- S/E/Title (TV, paused) -->
+    <control type="label">
+      <left>48</left><top>924</top><width>1400</width><height>36</height>
+      <font>HBM_Body_M</font>
+      <textcolor>CCFFFFff</textcolor>
+      <label>S$INFO[VideoPlayer.Season] E$INFO[VideoPlayer.Episode]  $INFO[VideoPlayer.Title]</label>
+      <visible>VideoPlayer.Content(episodes) + Player.Paused</visible>
+    </control>
+
+    <!-- Year (Movie, paused) -->
+    <control type="label">
+      <left>48</left><top>924</top><width>400</width><height>36</height>
+      <font>HBM_Body_M</font>
+      <textcolor>CCFFFFff</textcolor>
+      <label>$INFO[VideoPlayer.Year]</label>
+      <visible>!VideoPlayer.Content(episodes) + Player.Paused</visible>
+    </control>
+
+    <!-- Time remaining -->
+    <control type="label">
+      <left>1480</left><top>924</top><width>400</width><height>36</height>
+      <font>HBM_Body_M</font>
+      <textcolor>CCFFFFff</textcolor>
+      <align>right</align>
+      <label>-$INFO[Player.TimeRemaining]</label>
+    </control>
+
+    <!-- Seekbar — gray base with white played progress -->
+    <control type="progress">
+      <left>48</left><top>968</top><width>1824</width><height>6</height>
+      <info>Player.Progress</info>
+      <texturebg colordiffuse="4DFFFFFF">white.png</texturebg>
+      <midtexture colordiffuse="FFFFFFFF">white.png</midtexture>
+    </control>
+
+    <!-- Seekbar focus capture — 1x1 off-screen so no focus indicator is visible.
+         SmallStepBack/Forward = 1-step seek; hold triggers Rewind/Forward for smooth scrub. -->
+    <control type="button" id="87">
+      <left>-3000</left><top>-3000</top><width>1</width><height>1</height>
+      <texturefocus /><texturenofocus />
+      <label/><font/>
+      <onup>600</onup>
+      <ondown>608</ondown>
+      <onleft>Action(SmallStepBack)</onleft>
+      <onright>Action(SmallStepForward)</onright>
+      <onclick condition="Player.Forwarding | Player.Rewinding">PlayerControl(Play)</onclick>
+    </control>
+
+
+    <!-- Transport controls — grouplist wraps to itself on left/right boundary -->
+    <control type="grouplist" id="200">
+      <left>820</left><top>992</top><width>400</width><height>56</height>
+      <orientation>horizontal</orientation>
+      <itemgap>12</itemgap>
+      <onup>87</onup>
+      <ondown>608</ondown>
+      <onleft>609</onleft>
+      <onright>605</onright>
+
+
+      <!-- Skip back 10s -->
+      <control type="button" id="603">
+        <width>44</width><height>44</height>
+        <label/><font/>
+        <texturefocus colordiffuse="FFFFFFFF">special://skin/media/icons/player_skip_back.png</texturefocus>
+        <texturenofocus colordiffuse="AAFFFFFF">special://skin/media/icons/player_skip_back.png</texturenofocus>
+        <onclick>PlayerControl(SmallSkipBackward)</onclick>
+      </control>
+
+      <!-- Play / Pause -->
+      <control type="togglebutton" id="602">
+        <width>44</width><height>56</height>
+        <label/><font/>
+        <texturefocus colordiffuse="FFFFFFFF">special://skin/media/icons/player_pause.png</texturefocus>
+        <texturenofocus colordiffuse="AAFFFFFF">special://skin/media/icons/player_pause.png</texturenofocus>
+        <alttexturefocus colordiffuse="FFFFFFFF">special://skin/media/icons/player_play.png</alttexturefocus>
+        <alttexturenofocus colordiffuse="AAFFFFFF">special://skin/media/icons/player_play.png</alttexturenofocus>
+        <usealttexture>Player.Paused | Player.Forwarding | Player.Rewinding</usealttexture>
+        <onclick>PlayerControl(Play)</onclick>
+      </control>
+
+      <!-- Skip forward 10s -->
+      <control type="button" id="604">
+        <width>44</width><height>44</height>
+        <label/><font/>
+        <texturefocus colordiffuse="FFFFFFFF">special://skin/media/icons/player_skip_fwd.png</texturefocus>
+        <texturenofocus colordiffuse="AAFFFFFF">special://skin/media/icons/player_skip_fwd.png</texturenofocus>
+        <onclick>PlayerControl(SmallSkipForward)</onclick>
+      </control>
+
+    </control>
+
+    <!-- Episodes button — toggles the episode tray -->
+    <control type="button" id="608">
+      <left>48</left><top>996</top><width>160</width><height>44</height>
+      <texturefocus colordiffuse="14FFFFFF">white.png</texturefocus>
+      <texturenofocus />
+      <font>HBM_Body_M</font>
+      <textcolor>AAFFFFFF</textcolor>
+      <focusedcolor>FFFFFFFF</focusedcolor>
+      <label>Episodes</label>
+      <onclick>Skin.SetString(HBM.OSDEpisodesOpen,1)</onclick>
+      <onclick>Skin.SetString(HBM.OSDEpisodesTab,episodes)</onclick>
+      <onclick>SetFocus(800)</onclick>
+      <onup>200</onup>
+      <ondown>800</ondown>
+      <onleft>607</onleft>
+      <onright>609</onright>
+    </control>
+
+    <!-- You May Also Like button -->
+    <control type="button" id="609">
+      <left>224</left><top>996</top><width>220</width><height>44</height>
+      <texturefocus colordiffuse="14FFFFFF">white.png</texturefocus>
+      <texturenofocus />
+      <font>HBM_Body_M</font>
+      <textcolor>AAFFFFFF</textcolor>
+      <focusedcolor>FFFFFFFF</focusedcolor>
+      <label>You May Also Like</label>
+      <onclick>Skin.SetString(HBM.OSDEpisodesOpen,1)</onclick>
+      <onclick>Skin.SetString(HBM.OSDEpisodesTab,ymal)</onclick>
+      <onclick>SetFocus(810)</onclick>
+      <onup>200</onup>
+      <ondown>810</ondown>
+      <onleft>608</onleft>
+      <onright>200</onright>
+    </control>
+
+    <!-- Volume button -->
+    <control type="button" id="605">
+      <left>1728</left><top>996</top><width>44</width><height>44</height>
+      <texturefocus colordiffuse="FFFFFFFF">special://skin/media/icons/player_volume.png</texturefocus>
+      <texturenofocus colordiffuse="AAFFFFFF">special://skin/media/icons/player_volume.png</texturenofocus>
+      <label/><font/>
+      <onclick>ActivateWindow(OSDaudioSettings)</onclick>
+      <onup>200</onup>
+      <onleft>200</onleft>
+      <onright>606</onright>
+    </control>
+
+    <!-- Subtitles button -->
+    <control type="button" id="606">
+      <left>1784</left><top>996</top><width>44</width><height>44</height>
+      <texturefocus colordiffuse="FFFFFFFF">special://skin/media/icons/player_subtitles.png</texturefocus>
+      <texturenofocus colordiffuse="AAFFFFFF">special://skin/media/icons/player_subtitles.png</texturenofocus>
+      <label/><font/>
+      <onclick>ActivateWindow(osdsubtitlesettings)</onclick>
+      <onup>200</onup>
+      <onleft>605</onleft>
+      <onright>607</onright>
+    </control>
+
+    <!-- Fullscreen button -->
+    <control type="button" id="607">
+      <left>1840</left><top>996</top><width>44</width><height>44</height>
+      <texturefocus colordiffuse="FFFFFFFF">special://skin/media/icons/player_fullscreen.png</texturefocus>
+      <texturenofocus colordiffuse="AAFFFFFF">special://skin/media/icons/player_fullscreen.png</texturenofocus>
+      <label/><font/>
+      <onclick>Action(FullScreen)</onclick>
+      <onup>200</onup>
+      <onleft>606</onleft>
+      <onright>608</onright>
+    </control>
+
+    <!-- ═══ EPISODES TRAY ═══ -->
+    <control type="group">
+      <visible>String.IsEqual(Skin.String(HBM.OSDEpisodesOpen),1)</visible>
+      <animation effect="slide" start="0,500" end="0,0" time="350" tween="cubic" easing="out">Visible</animation>
+      <animation effect="slide" start="0,0" end="0,500" time="250" tween="cubic" easing="in">Hidden</animation>
+
+      <!-- Solid dark base — same treatment as side rail, no feathering -->
+      <control type="image">
+        <left>0</left><top>560</top><width>1920</width><height>520</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="E0000000">white.png</texture>
+      </control>
+      <!-- Smoke noise overlay -->
+      <control type="image">
+        <left>0</left><top>560</top><width>1920</width><height>520</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="40FFFFFF">special://skin/media/overlays/rail_expanded_smoke.png</texture>
+      </control>
+
+      <!-- ─── Tab row ─── -->
+
+      <!-- "Episodes" pill tab (id=801) -->
+      <control type="group">
+        <left>48</left><top>600</top>
+        <!-- Base button — handles all nav/focus/click -->
+        <control type="button" id="801">
+          <left>0</left><top>0</top><width>148</width><height>40</height>
+          <texturefocus border="20" colordiffuse="22FFFFFF">special://skin/media/panel_rounded.png</texturefocus>
+          <texturenofocus />
+          <font>HBM_Body_M</font>
+          <textcolor>AAFFFFFF</textcolor>
+          <focusedcolor>FFFFFFFF</focusedcolor>
+          <align>center</align><aligny>center</aligny>
+          <label>Episodes</label>
+          <onclick>Skin.SetString(HBM.OSDEpisodesTab,episodes)</onclick>
+          <onclick>SetFocus(800)</onclick>
+          <onup>87</onup>
+          <onleft>803</onleft>
+          <onright>802</onright>
+          <ondown>800</ondown>
+        </control>
+        <!-- Active pill overlay — white bg + dark label, shown when selected and not focused -->
+        <control type="image">
+          <left>0</left><top>0</top><width>148</width><height>40</height>
+          <texture border="20" colordiffuse="FFFFFFFF">special://skin/media/panel_rounded.png</texture>
+          <visible>String.IsEqual(Skin.String(HBM.OSDEpisodesTab),episodes) + !Control.HasFocus(801)</visible>
+        </control>
+        <control type="label">
+          <left>0</left><top>0</top><width>148</width><height>40</height>
+          <font>HBM_Body_M</font>
+          <textcolor>FF101010</textcolor>
+          <align>center</align><aligny>center</aligny>
+          <label>Episodes</label>
+          <visible>String.IsEqual(Skin.String(HBM.OSDEpisodesTab),episodes) + !Control.HasFocus(801)</visible>
+        </control>
+      </control>
+
+      <!-- "You May Also Like" pill tab (id=802) -->
+      <control type="group">
+        <left>212</left><top>600</top>
+        <control type="button" id="802">
+          <left>0</left><top>0</top><width>224</width><height>40</height>
+          <texturefocus border="20" colordiffuse="22FFFFFF">special://skin/media/panel_rounded.png</texturefocus>
+          <texturenofocus />
+          <font>HBM_Body_M</font>
+          <textcolor>AAFFFFFF</textcolor>
+          <focusedcolor>FFFFFFFF</focusedcolor>
+          <align>center</align><aligny>center</aligny>
+          <label>You May Also Like</label>
+          <onclick>Skin.SetString(HBM.OSDEpisodesTab,ymal)</onclick>
+          <onclick>SetFocus(810)</onclick>
+          <onup>87</onup>
+          <onleft>801</onleft>
+          <onright>803</onright>
+          <ondown>810</ondown>
+        </control>
+        <control type="image">
+          <left>0</left><top>0</top><width>224</width><height>40</height>
+          <texture border="20" colordiffuse="FFFFFFFF">special://skin/media/panel_rounded.png</texture>
+          <visible>String.IsEqual(Skin.String(HBM.OSDEpisodesTab),ymal) + !Control.HasFocus(802)</visible>
+        </control>
+        <control type="label">
+          <left>0</left><top>0</top><width>224</width><height>40</height>
+          <font>HBM_Body_M</font>
+          <textcolor>FF101010</textcolor>
+          <align>center</align><aligny>center</aligny>
+          <label>You May Also Like</label>
+          <visible>String.IsEqual(Skin.String(HBM.OSDEpisodesTab),ymal) + !Control.HasFocus(802)</visible>
+        </control>
+      </control>
+
+      <!-- X close button (id=803) -->
+      <control type="button" id="803">
+        <left>1848</left><top>600</top><width>44</width><height>40</height>
+        <texturefocus border="20" colordiffuse="22FFFFFF">special://skin/media/panel_rounded.png</texturefocus>
+        <texturenofocus />
+        <font>HBM_Body_M</font>
+        <textcolor>AAFFFFFF</textcolor>
+        <focusedcolor>FFFFFFFF</focusedcolor>
+        <align>center</align><aligny>center</aligny>
+        <label>×</label>
+        <onclick>Skin.SetString(HBM.OSDEpisodesOpen,0)</onclick>
+        <onclick>Skin.SetString(HBM.OSDEpisodesTab,)</onclick>
+        <onclick>SetFocus(608)</onclick>
+        <onup>87</onup>
+        <onleft>802</onleft>
+        <onright>801</onright>
+        <ondown>800</ondown>
+      </control>
+
+      <!-- ─── Episodes panel (id=800) ─── -->
+      <control type="panel" id="800">
+        <left>48</left><top>660</top><width>1824</width><height>390</height>
+        <orientation>horizontal</orientation>
+        <scrolltime tween="cubic" easing="out">300</scrolltime>
+        <preloaditems>2</preloaditems>
+        <onclick>Action(Info)</onclick>
+        <onup>801</onup>
+        <onleft>800</onleft>
+        <onright>800</onright>
+        <visible>String.IsEqual(Skin.String(HBM.OSDEpisodesTab),episodes)</visible>
+        <content target="videos" limit="30">plugin://plugin.video.themoviedb.helper/?info=episodes&amp;tmdb_type=tv&amp;tmdb_id=$INFO[VideoPlayer.UniqueID(tmdb)]&amp;season=$INFO[VideoPlayer.Season]</content>
+
+        <!-- Unfocused card: thumbnail + text below -->
+        <itemlayout width="436" height="390">
+          <!-- Thumbnail placeholder bg -->
+          <control type="image">
+            <left>0</left><top>0</top><width>420</width><height>236</height>
+            <aspectratio>stretch</aspectratio>
+            <texture colordiffuse="33161C24">white.png</texture>
+          </control>
+          <!-- Landscape art -->
+          <control type="image">
+            <left>0</left><top>0</top><width>420</width><height>236</height>
+            <aspectratio>scale</aspectratio>
+            <texture>$INFO[ListItem.Art(landscape)]</texture>
+          </control>
+          <control type="image">
+            <left>0</left><top>0</top><width>420</width><height>236</height>
+            <aspectratio>scale</aspectratio>
+            <texture>$INFO[ListItem.Art(thumb)]</texture>
+          </control>
+          <!-- Episode number + title -->
+          <control type="label">
+            <left>0</left><top>244</top><width>420</width><height>32</height>
+            <font>HBM_Body_M</font>
+            <textcolor>DDFFFFFF</textcolor>
+            <label>E$INFO[ListItem.Episode] · $INFO[ListItem.Title]</label>
+            <scroll>false</scroll>
+          </control>
+          <!-- Metadata: rating · duration · year -->
+          <control type="label">
+            <left>0</left><top>278</top><width>420</width><height>28</height>
+            <font>HBM_Meta_S</font>
+            <textcolor>80FFFFFF</textcolor>
+            <label>$INFO[ListItem.mpaa] · $INFO[ListItem.Duration(m)] min · $INFO[ListItem.Year]</label>
+          </control>
+          <!-- Description (2 lines) -->
+          <control type="label">
+            <left>0</left><top>308</top><width>420</width><height>52</height>
+            <font>HBM_Meta_S</font>
+            <textcolor>66FFFFFF</textcolor>
+            <label>$INFO[ListItem.Plot]</label>
+            <scroll>false</scroll>
+            <wrapmultiline>true</wrapmultiline>
+          </control>
+        </itemlayout>
+
+        <!-- Focused card: white border + full-brightness text -->
+        <focusedlayout width="436" height="390">
+          <!-- White 2px border frame -->
+          <control type="image">
+            <left>0</left><top>0</top><width>420</width><height>236</height>
+            <aspectratio>stretch</aspectratio>
+            <texture colordiffuse="FFFFFFFF">white.png</texture>
+          </control>
+          <!-- Art inset 2px -->
+          <control type="image">
+            <left>2</left><top>2</top><width>416</width><height>232</height>
+            <aspectratio>stretch</aspectratio>
+            <texture colordiffuse="33161C24">white.png</texture>
+          </control>
+          <control type="image">
+            <left>2</left><top>2</top><width>416</width><height>232</height>
+            <aspectratio>scale</aspectratio>
+            <texture>$INFO[ListItem.Art(landscape)]</texture>
+          </control>
+          <control type="image">
+            <left>2</left><top>2</top><width>416</width><height>232</height>
+            <aspectratio>scale</aspectratio>
+            <texture>$INFO[ListItem.Art(thumb)]</texture>
+          </control>
+          <control type="label">
+            <left>0</left><top>244</top><width>420</width><height>32</height>
+            <font>HBM_Body_M</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <label>E$INFO[ListItem.Episode] · $INFO[ListItem.Title]</label>
+            <scroll>false</scroll>
+          </control>
+          <control type="label">
+            <left>0</left><top>278</top><width>420</width><height>28</height>
+            <font>HBM_Meta_S</font>
+            <textcolor>99FFFFFF</textcolor>
+            <label>$INFO[ListItem.mpaa] · $INFO[ListItem.Duration(m)] min · $INFO[ListItem.Year]</label>
+          </control>
+          <control type="label">
+            <left>0</left><top>308</top><width>420</width><height>52</height>
+            <font>HBM_Meta_S</font>
+            <textcolor>80FFFFFF</textcolor>
+            <label>$INFO[ListItem.Plot]</label>
+            <scroll>false</scroll>
+            <wrapmultiline>true</wrapmultiline>
+          </control>
+        </focusedlayout>
+      </control>
+
+      <!-- ─── You May Also Like panel (id=810) ─── -->
+      <control type="panel" id="810">
+        <left>48</left><top>660</top><width>1824</width><height>390</height>
+        <orientation>horizontal</orientation>
+        <scrolltime tween="cubic" easing="out">300</scrolltime>
+        <preloaditems>2</preloaditems>
+        <onclick>Action(Info)</onclick>
+        <onup>802</onup>
+        <onleft>810</onleft>
+        <onright>810</onright>
+        <visible>String.IsEqual(Skin.String(HBM.OSDEpisodesTab),ymal)</visible>
+        <content target="videos" limit="30">plugin://plugin.video.themoviedb.helper/?info=similar&amp;tmdb_type=movie&amp;tmdb_id=$INFO[VideoPlayer.UniqueID(tmdb)]</content>
+
+        <itemlayout width="436" height="390">
+          <control type="image">
+            <left>0</left><top>0</top><width>420</width><height>236</height>
+            <aspectratio>stretch</aspectratio>
+            <texture colordiffuse="33161C24">white.png</texture>
+          </control>
+          <control type="image">
+            <left>0</left><top>0</top><width>420</width><height>236</height>
+            <aspectratio>scale</aspectratio>
+            <texture>$INFO[ListItem.Art(landscape)]</texture>
+          </control>
+          <control type="image">
+            <left>0</left><top>0</top><width>420</width><height>236</height>
+            <aspectratio>scale</aspectratio>
+            <texture>$INFO[ListItem.Art(thumb)]</texture>
+          </control>
+          <control type="label">
+            <left>0</left><top>244</top><width>420</width><height>32</height>
+            <font>HBM_Body_M</font>
+            <textcolor>DDFFFFFF</textcolor>
+            <label>$INFO[ListItem.Title]</label>
+            <scroll>false</scroll>
+          </control>
+          <control type="label">
+            <left>0</left><top>278</top><width>420</width><height>28</height>
+            <font>HBM_Meta_S</font>
+            <textcolor>80FFFFFF</textcolor>
+            <label>$INFO[ListItem.mpaa] · $INFO[ListItem.Duration(m)] min · $INFO[ListItem.Year]</label>
+          </control>
+          <control type="label">
+            <left>0</left><top>308</top><width>420</width><height>52</height>
+            <font>HBM_Meta_S</font>
+            <textcolor>66FFFFFF</textcolor>
+            <label>$INFO[ListItem.Plot]</label>
+            <scroll>false</scroll>
+            <wrapmultiline>true</wrapmultiline>
+          </control>
+        </itemlayout>
+
+        <focusedlayout width="436" height="390">
+          <control type="image">
+            <left>0</left><top>0</top><width>420</width><height>236</height>
+            <aspectratio>stretch</aspectratio>
+            <texture colordiffuse="FFFFFFFF">white.png</texture>
+          </control>
+          <control type="image">
+            <left>2</left><top>2</top><width>416</width><height>232</height>
+            <aspectratio>stretch</aspectratio>
+            <texture colordiffuse="33161C24">white.png</texture>
+          </control>
+          <control type="image">
+            <left>2</left><top>2</top><width>416</width><height>232</height>
+            <aspectratio>scale</aspectratio>
+            <texture>$INFO[ListItem.Art(landscape)]</texture>
+          </control>
+          <control type="image">
+            <left>2</left><top>2</top><width>416</width><height>232</height>
+            <aspectratio>scale</aspectratio>
+            <texture>$INFO[ListItem.Art(thumb)]</texture>
+          </control>
+          <control type="label">
+            <left>0</left><top>244</top><width>420</width><height>32</height>
+            <font>HBM_Body_M</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <label>$INFO[ListItem.Title]</label>
+            <scroll>false</scroll>
+          </control>
+          <control type="label">
+            <left>0</left><top>278</top><width>420</width><height>28</height>
+            <font>HBM_Meta_S</font>
+            <textcolor>99FFFFFF</textcolor>
+            <label>$INFO[ListItem.mpaa] · $INFO[ListItem.Duration(m)] min · $INFO[ListItem.Year]</label>
+          </control>
+          <control type="label">
+            <left>0</left><top>308</top><width>420</width><height>52</height>
+            <font>HBM_Meta_S</font>
+            <textcolor>80FFFFFF</textcolor>
+            <label>$INFO[ListItem.Plot]</label>
+            <scroll>false</scroll>
+            <wrapmultiline>true</wrapmultiline>
+          </control>
+        </focusedlayout>
+      </control>
+
+    </control><!-- end episodes tray -->
+
+  </controls>
+</window>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol>9000</defaultcontrol>
+  <backgroundcolor>BackgroundBase</backgroundcolor>
+  <controls>
+    <include>HBM_Runtime_Background</include>
+    <include>HBM_Runtime_ContentPanel</include>
+    <control type="label">
+      <left>120</left>
+      <top>86</top>
+      <width>900</width>
+      <height>54</height>
+      <label>Music</label>
+      <font>HBM_Display_M</font>
+      <textcolor>TextPrimary</textcolor>
+    </control>
+    <control type="textbox">
+      <left>160</left>
+      <top>240</top>
+      <width>900</width>
+      <height>100</height>
+      <font>HBM_Body_M</font>
+      <textcolor>TextSecondary</textcolor>
+      <label>Runtime-safe navigation scaffold for music browsing. Full content views are intentionally deferred.</label>
+    </control>
+    <control type="button" id="9000">
+      <left>160</left>
+      <top>400</top>
+      <width>260</width>
+      <height>72</height>
+      <label>Return Home</label>
+      <font>HBM_Nav_M</font>
+      <textcolor>TextPrimary</textcolor>
+      <focusedcolor>TextPrimary</focusedcolor>
+      <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
+      <texturenofocus />
+      <onclick>ActivateWindow(Home)</onclick>
+    </control>
+  </controls>
+</window>

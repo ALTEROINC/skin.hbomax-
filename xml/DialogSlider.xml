@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol>11</defaultcontrol>
+  <controls>
+    <include>HBM_Runtime_ModalScrim</include>
+
+    <control type="group">
+      <centerleft>50%</centerleft>
+      <centertop>50%</centertop>
+      <width>920</width>
+      <height>220</height>
+
+      <control type="image">
+        <left>-6</left>
+        <top>-6</top>
+        <width>932</width>
+        <height>232</height>
+        <texture border="24" colordiffuse="16000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <width>920</width>
+        <height>220</height>
+        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+      </control>
+
+      <control type="label" id="10">
+        <left>40</left>
+        <top>26</top>
+        <width>620</width>
+        <height>28</height>
+        <aligny>center</aligny>
+        <font>HBM_Display_M</font>
+        <textcolor>TextPrimary</textcolor>
+      </control>
+
+      <control type="label" id="12">
+        <left>676</left>
+        <top>26</top>
+        <width>204</width>
+        <height>28</height>
+        <align>right</align>
+        <aligny>center</aligny>
+        <font>HBM_Body_S</font>
+        <textcolor>TextSecondary</textcolor>
+      </control>
+
+      <control type="image">
+        <left>40</left>
+        <top>72</top>
+        <width>840</width>
+        <height>1</height>
+        <texture colordiffuse="20FFFFFF">white.png</texture>
+      </control>
+
+      <control type="slider" id="11">
+        <left>60</left>
+        <top>116</top>
+        <width>800</width>
+        <height>36</height>
+        <onup>11</onup>
+        <ondown>11</ondown>
+        <onleft>11</onleft>
+        <onright>11</onright>
+        <texturesliderbar colordiffuse="22FFFFFF">white.png</texturesliderbar>
+        <textureslidernib colordiffuse="TextSecondary">white.png</textureslidernib>
+        <textureslidernibfocus colordiffuse="AccentPrimary">white.png</textureslidernibfocus>
+      </control>
+
+      <control type="textbox">
+        <left>40</left>
+        <top>168</top>
+        <width>840</width>
+        <height>30</height>
+        <font>HBM_Body_S</font>
+        <textcolor>TextMuted</textcolor>
+        <label>Use left and right to adjust the value, then back out when you're done.</label>
+      </control>
+    </control>
+  </controls>
+</window>
