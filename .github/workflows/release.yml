@@ -6,12 +6,18 @@ on:
       - main
   workflow_dispatch:
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,7 +30,7 @@ jobs:
 
       - name: Build Kodi zip
         run: |
-          mkdir -p dist/skin.hbomax.dev
+          mkdir -p site/repo/skin.hbomax.dev
           rsync -a \
             --exclude='.git' \
             --exclude='.github' \
@@ -35,37 +41,35 @@ jobs:
             --exclude='.DS_Store' \
             --exclude='.tmp_generalsans' \
             --exclude='.tmp_resvg' \
-            --exclude='dist' \
-            . dist/skin.hbomax.dev/
-          cd dist
-          zip -r skin.hbomax.dev-${{ steps.version.outputs.version }}.zip skin.hbomax.dev/
+            --exclude='site' \
+            . site/repo/skin.hbomax.dev/
+          cd site/repo
+          zip -r skin.hbomax.dev/skin.hbomax.dev-${{ steps.version.outputs.version }}.zip skin.hbomax.dev/ \
+            --exclude="skin.hbomax.dev/*.zip"
+          cp ../../addon.xml skin.hbomax.dev/addon.xml
 
-      - name: Build repository structure
+      - name: Generate addons.xml and checksum
         run: |
-          mkdir -p repo/skin.hbomax.dev
-
-          # Zip and addon.xml go inside the addon folder
-          cp dist/skin.hbomax.dev-${{ steps.version.outputs.version }}.zip repo/skin.hbomax.dev/
-          cp addon.xml repo/skin.hbomax.dev/addon.xml
-
-          # Generate addons.xml
-          python3 - <<'PYEOF'
-          import re
+          python3 - <<PYEOF
+          import hashlib, re
 
           with open('addon.xml', 'r') as f:
-              content = f.read()
+              addon_content = f.read().strip()
 
-          addons_xml = '<?xml version="1.0" encoding="UTF-8"?>\n<addons>\n' + content.strip() + '\n</addons>\n'
+          addons_xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<addons>\n' + addon_content + '\n</addons>\n'
 
-          with open('repo/addons.xml', 'w') as f:
+          with open('site/addons.xml', 'w') as f:
               f.write(addons_xml)
+
+          md5 = hashlib.md5(addons_xml.encode('utf-8')).hexdigest()
+          with open('site/addons.xml.md5', 'w') as f:
+              f.write(md5)
           PYEOF
 
-          # Generate addons.xml.md5
-          md5sum repo/addons.xml | cut -d' ' -f1 > repo/addons.xml.md5
-
-          # Simple index page
-          cat > repo/index.html <<'HTML'
+      - name: Create index and .nojekyll
+        run: |
+          touch site/.nojekyll
+          cat > site/index.html <<'HTML'
           <!DOCTYPE html>
           <html lang="en">
           <head>
@@ -74,22 +78,31 @@ jobs:
             <style>
               body { font-family: sans-serif; max-width: 600px; margin: 60px auto; padding: 0 20px; background: #0d1117; color: #e6edf3; }
               h1 { color: #fff; }
-              code { background: #161b22; padding: 12px 16px; display: block; border-radius: 6px; margin: 12px 0; color: #79c0ff; }
+              code { background: #161b22; padding: 12px 16px; display: block; border-radius: 6px; margin: 12px 0; color: #79c0ff; word-break: break-all; }
               p { color: #8b949e; }
             </style>
           </head>
           <body>
             <h1>skin.hbomax.dev</h1>
-            <p>Add this URL as a file source in Kodi, then install from the repository:</p>
+            <p>Add this URL as a file source in Kodi:</p>
             <code>https://alteroinc.github.io/skin.hbomax-/</code>
-            <p>Kodi → Settings → File Manager → Add Source → paste the URL above → install from zip → install addon from repository.</p>
+            <p>Then: Add-ons → Install from zip file → select the source above → install the zip.</p>
           </body>
           </html>
           HTML
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./repo
-          force_orphan: true
+          path: ./site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
