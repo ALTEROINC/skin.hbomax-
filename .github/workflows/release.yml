@@ -27,9 +27,11 @@ jobs:
         run: |
           VERSION=$(grep -oP 'version="\K[^"]+' addon.xml | head -1)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Detected version: $VERSION"
 
       - name: Build Kodi zip
         run: |
+          VERSION=${{ steps.version.outputs.version }}
           mkdir -p site/repo/skin.hbomax.dev
           rsync -a \
             --exclude='.git' \
@@ -44,52 +46,20 @@ jobs:
             --exclude='site' \
             . site/repo/skin.hbomax.dev/
           cd site/repo
-          zip -r skin.hbomax.dev/skin.hbomax.dev-${{ steps.version.outputs.version }}.zip skin.hbomax.dev/ \
+          zip -r skin.hbomax.dev/skin.hbomax.dev-${VERSION}.zip skin.hbomax.dev/ \
             --exclude="skin.hbomax.dev/*.zip"
           cp ../../addon.xml skin.hbomax.dev/addon.xml
+          echo "Built skin.hbomax.dev-${VERSION}.zip"
 
       - name: Generate addons.xml and checksum
-        run: |
-          python3 - <<PYEOF
-          import hashlib, re
+        run: python3 .github/scripts/generate_repo.py
 
-          with open('addon.xml', 'r') as f:
-              addon_content = f.read().strip()
-
-          addons_xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<addons>\n' + addon_content + '\n</addons>\n'
-
-          with open('site/addons.xml', 'w') as f:
-              f.write(addons_xml)
-
-          md5 = hashlib.md5(addons_xml.encode('utf-8')).hexdigest()
-          with open('site/addons.xml.md5', 'w') as f:
-              f.write(md5)
-          PYEOF
-
-      - name: Create index and .nojekyll
+      - name: Assemble site
         run: |
           touch site/.nojekyll
-          cat > site/index.html <<'HTML'
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-            <meta charset="UTF-8">
-            <title>HBO Max Kodi Skin</title>
-            <style>
-              body { font-family: sans-serif; max-width: 600px; margin: 60px auto; padding: 0 20px; background: #0d1117; color: #e6edf3; }
-              h1 { color: #fff; }
-              code { background: #161b22; padding: 12px 16px; display: block; border-radius: 6px; margin: 12px 0; color: #79c0ff; word-break: break-all; }
-              p { color: #8b949e; }
-            </style>
-          </head>
-          <body>
-            <h1>skin.hbomax.dev</h1>
-            <p>Add this URL as a file source in Kodi:</p>
-            <code>https://alteroinc.github.io/skin.hbomax-/</code>
-            <p>Then: Add-ons → Install from zip file → select the source above → install the zip.</p>
-          </body>
-          </html>
-          HTML
+          cp .github/scripts/index.html site/index.html
+          echo "Site contents:"
+          find site -type f
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
