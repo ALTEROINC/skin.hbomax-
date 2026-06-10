@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addons>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="skin.hbomax.dev" name="HBO Max Skin Dev" version="0.0.5" provider-name="Michael Hernandez">
+  <requires>
+    <import addon="xbmc.gui" version="5.17.0" />
+  </requires>
+
+  <extension point="xbmc.gui.skin" debugging="false">
+    <res width="1920" height="1080" aspect="16:9" default="true" folder="xml" />
+  </extension>
+
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Private premium streaming-style Kodi skin.</summary>
+    <description lang="en_GB">Original Kodi skin architecture built from scratch for a cinematic, streaming-first experience.</description>
+    <platform>all</platform>
+    <license>All rights reserved</license>
+  </extension>
+</addon>
+</addons>
