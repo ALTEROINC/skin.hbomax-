@@ -35,7 +35,7 @@ jobs:
       - name: Build Kodi zip
         run: |
           VERSION=${{ steps.version.outputs.version }}
-          mkdir -p site/repo/skin.hbomax.dev
+          mkdir -p staging/skin.hbomax.dev
           rsync -a \
             --exclude='.git' \
             --exclude='.github' \
@@ -46,23 +46,22 @@ jobs:
             --exclude='.DS_Store' \
             --exclude='.tmp_generalsans' \
             --exclude='.tmp_resvg' \
+            --exclude='staging' \
             --exclude='site' \
-            . site/repo/skin.hbomax.dev/
-          # Zip to /tmp first to avoid circular reference, then move into place
-          cd site/repo
-          zip -r /tmp/skin.hbomax.dev-${VERSION}.zip skin.hbomax.dev/
-          mv /tmp/skin.hbomax.dev-${VERSION}.zip skin.hbomax.dev/skin.hbomax.dev-${VERSION}.zip
-          echo "Zip size: $(du -sh skin.hbomax.dev/skin.hbomax.dev-${VERSION}.zip)"
+            . staging/skin.hbomax.dev/
+          mkdir -p site
+          cd staging
+          zip -r ../site/skin.hbomax.dev-${VERSION}.zip skin.hbomax.dev/
+          echo "Zip size: $(du -sh ../site/skin.hbomax.dev-${VERSION}.zip)"
 
-      - name: Generate addons.xml and checksum
+      - name: Generate addons.xml, checksum, and index
         run: python3 .github/scripts/generate_repo.py
 
-      - name: Assemble site
-        run: |
-          touch site/.nojekyll
-          cp .github/scripts/index.html site/index.html
-          echo "--- Site contents ---"
-          find site -type f | sort
+      - name: Add .nojekyll
+        run: touch site/.nojekyll
+
+      - name: Show site contents
+        run: find site -type f | sort
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
