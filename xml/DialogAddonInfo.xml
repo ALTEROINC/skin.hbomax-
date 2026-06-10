@@ -82,59 +82,48 @@
       </control>
 
       <!--
-        Button column (id=9000).
-        All action controls are radiobutton type — matching Kodi's C++ expectations
-        for CGUIDialogAddonInfo (same as skin.estuary InfoDialogButton/InfoDialogToggleButton).
-        Kodi's C++ shows/hides and labels these via control ID at dialog open time.
-        Radio textures are hidden (0 alpha) since we use text labels only.
+        Button column — Kodi's CGUIDialogAddonInfo shows/hides and labels
+        these controls by ID at dialog open time.
+        Action-only controls use button type; state toggles (7, 13) use
+        radiobutton so Kodi's SetSelected() calls work correctly.
       -->
       <control type="grouplist" id="9000">
         <left>1344</left><top>172</top>
         <width>304</width><height>720</height>
-        <itemgap>4</itemgap>
+        <itemgap>6</itemgap>
         <orientation>vertical</orientation>
         <onleft>9000</onleft>
         <onright>9000</onright>
         <onup>9000</onup>
         <ondown>9000</ondown>
 
-        <!-- id=12: Install / Open — primary action, Kodi sets label -->
-        <control type="radiobutton" id="12">
-          <width>304</width><height>64</height>
+        <!-- id=12: Open / Install — primary action -->
+        <control type="button" id="12">
+          <width>304</width><height>60</height>
           <label>$LOCALIZE[518]</label>
           <font>HBM_Body_M</font>
           <textcolor>TextSecondary</textcolor>
           <focusedcolor>TextPrimary</focusedcolor>
           <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
-          <texturenofocus border="8" colordiffuse="1AFFFFFF">white.png</texturenofocus>
-          <textureradioonfocus colordiffuse="00000000">white.png</textureradioonfocus>
-          <textureradioonnofocus colordiffuse="00000000">white.png</textureradioonnofocus>
-          <textureradioofffocus colordiffuse="00000000">white.png</textureradioofffocus>
-          <textureradiooffnofocus colordiffuse="00000000">white.png</textureradiooffnofocus>
-          <radiowidth>0</radiowidth><radioheight>0</radioheight>
+          <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
           <align>center</align><aligny>center</aligny>
         </control>
 
-        <!-- id=9: Configure / Settings — Kodi shows when addon has settings -->
-        <control type="radiobutton" id="9">
-          <width>304</width><height>64</height>
+        <!-- id=9: Configure — Kodi shows when addon has settings -->
+        <control type="button" id="9">
+          <width>304</width><height>60</height>
           <label>$LOCALIZE[24020]</label>
           <font>HBM_Body_M</font>
           <textcolor>TextSecondary</textcolor>
           <focusedcolor>TextPrimary</focusedcolor>
           <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
           <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
-          <textureradioonfocus colordiffuse="00000000">white.png</textureradioonfocus>
-          <textureradioonnofocus colordiffuse="00000000">white.png</textureradioonnofocus>
-          <textureradioofffocus colordiffuse="00000000">white.png</textureradioofffocus>
-          <textureradiooffnofocus colordiffuse="00000000">white.png</textureradiooffnofocus>
-          <radiowidth>0</radiowidth><radioheight>0</radioheight>
           <align>center</align><aligny>center</aligny>
         </control>
 
-        <!-- id=13: Auto-update toggle — only shown when Kodi enables it -->
+        <!-- id=13: Auto-update toggle — Kodi sets selected state -->
         <control type="radiobutton" id="13">
-          <width>304</width><height>64</height>
+          <width>304</width><height>60</height>
           <label>$LOCALIZE[24022]</label>
           <font>HBM_Body_M</font>
           <textcolor>TextSecondary</textcolor>
@@ -146,94 +135,76 @@
           <textureradioofffocus colordiffuse="40FFFFFF">white.png</textureradioofffocus>
           <textureradiooffnofocus colordiffuse="22FFFFFF">white.png</textureradiooffnofocus>
           <radiowidth>20</radiowidth><radioheight>20</radioheight>
-          <radioposx>270</radioposx><radioposy>22</radioposy>
+          <radioposx>270</radioposx><radioposy>20</radioposy>
           <align>left</align><aligny>center</aligny>
           <textoffsetx>16</textoffsetx>
           <visible>Control.IsEnabled(13)</visible>
         </control>
 
-        <!-- id=10: Information / changelog — Kodi shows when addon has news -->
-        <control type="radiobutton" id="10">
-          <width>304</width><height>64</height>
-          <label>$LOCALIZE[39024]</label>
-          <font>HBM_Body_M</font>
-          <textcolor>TextSecondary</textcolor>
-          <focusedcolor>TextPrimary</focusedcolor>
-          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
-          <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
-          <textureradioonfocus colordiffuse="00000000">white.png</textureradioonfocus>
-          <textureradioonnofocus colordiffuse="00000000">white.png</textureradioonnofocus>
-          <textureradioofffocus colordiffuse="00000000">white.png</textureradioofffocus>
-          <textureradiooffnofocus colordiffuse="00000000">white.png</textureradiooffnofocus>
-          <radiowidth>0</radiowidth><radioheight>0</radioheight>
-          <align>center</align><aligny>center</aligny>
-        </control>
-
-        <!-- id=7: Enable / Disable toggle — Kodi sets label and selected state -->
-        <control type="radiobutton" id="7">
-          <width>304</width><height>64</height>
-          <label>$LOCALIZE[19112]</label>
-          <font>HBM_Body_M</font>
-          <textcolor>TextSecondary</textcolor>
-          <focusedcolor>TextPrimary</focusedcolor>
-          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
-          <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
-          <textureradioonfocus colordiffuse="00000000">white.png</textureradioonfocus>
-          <textureradioonnofocus colordiffuse="00000000">white.png</textureradioonnofocus>
-          <textureradioofffocus colordiffuse="00000000">white.png</textureradioofffocus>
-          <textureradiooffnofocus colordiffuse="00000000">white.png</textureradiooffnofocus>
-          <radiowidth>0</radiowidth><radioheight>0</radioheight>
-          <align>center</align><aligny>center</aligny>
-        </control>
-
-        <!-- id=8: Versions — Kodi sets label dynamically -->
-        <control type="radiobutton" id="8">
-          <width>304</width><height>64</height>
-          <label>$LOCALIZE[24138]</label>
-          <font>HBM_Body_M</font>
-          <textcolor>TextSecondary</textcolor>
-          <focusedcolor>TextPrimary</focusedcolor>
-          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
-          <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
-          <textureradioonfocus colordiffuse="00000000">white.png</textureradioonfocus>
-          <textureradioonnofocus colordiffuse="00000000">white.png</textureradioonnofocus>
-          <textureradioofffocus colordiffuse="00000000">white.png</textureradioofffocus>
-          <textureradiooffnofocus colordiffuse="00000000">white.png</textureradiooffnofocus>
-          <radiowidth>0</radiowidth><radioheight>0</radioheight>
-          <align>center</align><aligny>center</aligny>
-        </control>
-
         <!-- id=14: Dependencies -->
-        <control type="radiobutton" id="14">
-          <width>304</width><height>64</height>
+        <control type="button" id="14">
+          <width>304</width><height>60</height>
           <label>$LOCALIZE[24069]</label>
           <font>HBM_Body_M</font>
           <textcolor>TextSecondary</textcolor>
           <focusedcolor>TextPrimary</focusedcolor>
           <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
           <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
-          <textureradioonfocus colordiffuse="00000000">white.png</textureradioonfocus>
-          <textureradioonnofocus colordiffuse="00000000">white.png</textureradioonnofocus>
-          <textureradioofffocus colordiffuse="00000000">white.png</textureradioofffocus>
-          <textureradiooffnofocus colordiffuse="00000000">white.png</textureradiooffnofocus>
-          <radiowidth>0</radiowidth><radioheight>0</radioheight>
           <align>center</align><aligny>center</aligny>
         </control>
 
-        <!-- id=6: Install / Uninstall toggle — Kodi sets label and selected state -->
-        <control type="radiobutton" id="6">
-          <width>304</width><height>64</height>
+        <!-- id=7: Enable / Disable toggle — Kodi sets label and selected state -->
+        <control type="radiobutton" id="7">
+          <width>304</width><height>60</height>
+          <label>$LOCALIZE[19112]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
+          <textureradioonfocus colordiffuse="AccentPrimary">white.png</textureradioonfocus>
+          <textureradioonnofocus colordiffuse="99B6CBF7">white.png</textureradioonnofocus>
+          <textureradioofffocus colordiffuse="40FFFFFF">white.png</textureradioofffocus>
+          <textureradiooffnofocus colordiffuse="22FFFFFF">white.png</textureradiooffnofocus>
+          <radiowidth>20</radiowidth><radioheight>20</radioheight>
+          <radioposx>270</radioposx><radioposy>20</radioposy>
+          <align>left</align><aligny>center</aligny>
+          <textoffsetx>16</textoffsetx>
+        </control>
+
+        <!-- id=10: Changelog / Information -->
+        <control type="button" id="10">
+          <width>304</width><height>60</height>
+          <label>$LOCALIZE[39024]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
+          <align>center</align><aligny>center</aligny>
+        </control>
+
+        <!-- id=8: Versions -->
+        <control type="button" id="8">
+          <width>304</width><height>60</height>
+          <label>$LOCALIZE[24138]</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+          <focusedcolor>TextPrimary</focusedcolor>
+          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
+          <align>center</align><aligny>center</aligny>
+        </control>
+
+        <!-- id=6: Install / Uninstall -->
+        <control type="button" id="6">
+          <width>304</width><height>60</height>
           <label>$LOCALIZE[518]</label>
           <font>HBM_Body_M</font>
           <textcolor>TextSecondary</textcolor>
           <focusedcolor>TextPrimary</focusedcolor>
           <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
           <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
-          <textureradioonfocus colordiffuse="00000000">white.png</textureradioonfocus>
-          <textureradioonnofocus colordiffuse="00000000">white.png</textureradioonnofocus>
-          <textureradioofffocus colordiffuse="00000000">white.png</textureradioofffocus>
-          <textureradiooffnofocus colordiffuse="00000000">white.png</textureradiooffnofocus>
-          <radiowidth>0</radiowidth><radioheight>0</radioheight>
           <align>center</align><aligny>center</aligny>
         </control>
 

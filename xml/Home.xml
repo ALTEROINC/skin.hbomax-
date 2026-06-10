@@ -59,10 +59,80 @@
       </control>
     </control>
 
+    <!-- TV Shows hero-focus backdrop: full-screen fanart sits behind rows and eases away
+         as the hub transitions into row focus. -->
+    <control type="group">
+      <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)</visible>
+      <animation effect="fade" start="100" end="0" reversible="false" time="220" tween="sine" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+      <animation effect="fade" start="0" end="100" reversible="false" time="220" tween="sine" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="BackgroundBase">white.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio align="center" aligny="center">scale</aspectratio><fadetime>500</fadetime>
+        <texture>$VAR[HBM_Hero_Backdrop]</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="99FFFFFF">special://skin/media/overlays/left_readability_gradient.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="0A000000">white.png</texture>
+      </control>
+      <!-- Bottom-heavy fade keeps the image feeling full-screen while the rows still
+           blend into a darker base as focus transitions downward. -->
+      <control type="image">
+        <left>0</left><top>676</top><width>1920</width><height>404</height>
+        <aspectratio>stretch</aspectratio>
+        <texture>special://skin/media/overlays/lower_browse_fade.png</texture>
+      </control>
+    </control>
+
+    <!-- Movies hero-focus backdrop: full-screen fanart sits behind rows and eases away
+         as the hub transitions into row focus. -->
+    <control type="group">
+      <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),movies)</visible>
+      <animation effect="fade" start="100" end="0" reversible="false" time="220" tween="sine" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+      <animation effect="fade" start="0" end="100" reversible="false" time="220" tween="sine" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="BackgroundBase">white.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio align="center" aligny="center">scale</aspectratio><fadetime>500</fadetime>
+        <texture>$VAR[HBM_Hero_Backdrop]</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="99FFFFFF">special://skin/media/overlays/left_readability_gradient.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="0A000000">white.png</texture>
+      </control>
+      <!-- Bottom-heavy fade keeps the image feeling full-screen while the rows still
+           blend into a darker base as focus transitions downward. -->
+      <control type="image">
+        <left>0</left><top>676</top><width>1920</width><height>404</height>
+        <aspectratio>stretch</aspectratio>
+        <texture>special://skin/media/overlays/lower_browse_fade.png</texture>
+      </control>
+    </control>
+
     <!-- Solid dark floor — starts at row label position so no gap behind rows -->
     <control type="image">
       <left>0</left><top>680</top><width>1920</width><height>5000</height>
-      <visible>!String.IsEqual(Skin.String(HBM.HomeActivePage),home) | !String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
+      <visible>[String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)] | [String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)] | [!String.IsEqual(Skin.String(HBM.ActiveRow),0)]</visible>
       <animation effect="fade" start="0" end="100" time="220" tween="sine">Visible</animation>
       <animation effect="fade" start="100" end="0" time="180" tween="sine">Hidden</animation>
       <aspectratio>stretch</aspectratio>
@@ -71,7 +141,7 @@
     <!-- Bottom fade — behind rows (z below scroll wrapper), fades hero image into dark floor -->
     <control type="image">
       <left>0</left><top>980</top><width>1920</width><height>100</height>
-      <visible>!String.IsEqual(Skin.String(HBM.HomeActivePage),home) | !String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
+      <visible>[String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)] | [String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)] | [!String.IsEqual(Skin.String(HBM.ActiveRow),0)]</visible>
       <animation effect="fade" start="0" end="100" time="220" tween="sine">Visible</animation>
       <animation effect="fade" start="100" end="0" time="180" tween="sine">Hidden</animation>
       <aspectratio>stretch</aspectratio>
@@ -138,7 +208,7 @@
         <animation effect="slide" start="0,-360" end="0,0"    reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
         <include content="HBM_Row_Landscape">
           <param name="id">701</param>
-          <param name="label_y">790</param><param name="panel_y">822</param>
+          <param name="label_y">790</param><param name="panel_y">858</param>
           <param name="label_key">hbm_homecfg_home_row01_label</param>
           <param name="widget_key">hbm_homecfg_home_row01_widget</param>
           <param name="visible_key">hbm_homecfg_home_row01_visible</param>
@@ -147,7 +217,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">702</param>
-          <param name="label_y">1281</param><param name="panel_y">1313</param>
+          <param name="label_y">1281</param><param name="panel_y">1349</param>
           <param name="label_key">hbm_homecfg_home_row02_label</param>
           <param name="widget_key">hbm_homecfg_home_row02_widget</param>
           <param name="visible_key">hbm_homecfg_home_row02_visible</param>
@@ -156,7 +226,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">703</param>
-          <param name="label_y">1772</param><param name="panel_y">1804</param>
+          <param name="label_y">1772</param><param name="panel_y">1840</param>
           <param name="label_key">hbm_homecfg_home_row03_label</param>
           <param name="widget_key">hbm_homecfg_home_row03_widget</param>
           <param name="visible_key">hbm_homecfg_home_row03_visible</param>
@@ -165,7 +235,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">704</param>
-          <param name="label_y">2263</param><param name="panel_y">2295</param>
+          <param name="label_y">2263</param><param name="panel_y">2331</param>
           <param name="label_key">hbm_homecfg_home_row04_label</param>
           <param name="widget_key">hbm_homecfg_home_row04_widget</param>
           <param name="visible_key">hbm_homecfg_home_row04_visible</param>
@@ -174,7 +244,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">705</param>
-          <param name="label_y">2754</param><param name="panel_y">2786</param>
+          <param name="label_y">2754</param><param name="panel_y">2822</param>
           <param name="label_key">hbm_homecfg_home_row05_label</param>
           <param name="widget_key">hbm_homecfg_home_row05_widget</param>
           <param name="visible_key">hbm_homecfg_home_row05_visible</param>
@@ -183,7 +253,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">706</param>
-          <param name="label_y">3245</param><param name="panel_y">3277</param>
+          <param name="label_y">3245</param><param name="panel_y">3313</param>
           <param name="label_key">hbm_homecfg_home_row06_label</param>
           <param name="widget_key">hbm_homecfg_home_row06_widget</param>
           <param name="visible_key">hbm_homecfg_home_row06_visible</param>
@@ -192,7 +262,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">707</param>
-          <param name="label_y">3736</param><param name="panel_y">3768</param>
+          <param name="label_y">3736</param><param name="panel_y">3804</param>
           <param name="label_key">hbm_homecfg_home_row07_label</param>
           <param name="widget_key">hbm_homecfg_home_row07_widget</param>
           <param name="visible_key">hbm_homecfg_home_row07_visible</param>
@@ -201,7 +271,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">708</param>
-          <param name="label_y">4227</param><param name="panel_y">4259</param>
+          <param name="label_y">4227</param><param name="panel_y">4295</param>
           <param name="label_key">hbm_homecfg_home_row08_label</param>
           <param name="widget_key">hbm_homecfg_home_row08_widget</param>
           <param name="visible_key">hbm_homecfg_home_row08_visible</param>
@@ -210,7 +280,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">709</param>
-          <param name="label_y">4718</param><param name="panel_y">4750</param>
+          <param name="label_y">4718</param><param name="panel_y">4786</param>
           <param name="label_key">hbm_homecfg_home_row09_label</param>
           <param name="widget_key">hbm_homecfg_home_row09_widget</param>
           <param name="visible_key">hbm_homecfg_home_row09_visible</param>
@@ -219,7 +289,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">710</param>
-          <param name="label_y">5209</param><param name="panel_y">5241</param>
+          <param name="label_y">5209</param><param name="panel_y">5277</param>
           <param name="label_key">hbm_homecfg_home_row10_label</param>
           <param name="widget_key">hbm_homecfg_home_row10_widget</param>
           <param name="visible_key">hbm_homecfg_home_row10_visible</param>
@@ -231,10 +301,13 @@
       <!-- ═══ TV SHOWS ═══ -->
       <control type="group">
         <left>88</left>
+        <top>200</top>
         <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)</visible>
+        <animation effect="slide" start="0,0"    end="0,-360" reversible="false" time="300" tween="cubic" easing="out" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+        <animation effect="slide" start="0,-360" end="0,0"    reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
         <include content="HBM_Row_Landscape">
           <param name="id">701</param>
-          <param name="label_y">790</param><param name="panel_y">822</param>
+          <param name="label_y">790</param><param name="panel_y">858</param>
           <param name="label_key">hbm_homecfg_tvshows_row01_label</param>
           <param name="widget_key">hbm_homecfg_tvshows_row01_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row01_visible</param>
@@ -243,7 +316,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">702</param>
-          <param name="label_y">1281</param><param name="panel_y">1313</param>
+          <param name="label_y">1281</param><param name="panel_y">1349</param>
           <param name="label_key">hbm_homecfg_tvshows_row02_label</param>
           <param name="widget_key">hbm_homecfg_tvshows_row02_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row02_visible</param>
@@ -252,7 +325,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">703</param>
-          <param name="label_y">1772</param><param name="panel_y">1804</param>
+          <param name="label_y">1772</param><param name="panel_y">1840</param>
           <param name="label_key">hbm_homecfg_tvshows_row03_label</param>
           <param name="widget_key">hbm_homecfg_tvshows_row03_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row03_visible</param>
@@ -261,7 +334,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">704</param>
-          <param name="label_y">2263</param><param name="panel_y">2295</param>
+          <param name="label_y">2263</param><param name="panel_y">2331</param>
           <param name="label_key">hbm_homecfg_tvshows_row04_label</param>
           <param name="widget_key">hbm_homecfg_tvshows_row04_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row04_visible</param>
@@ -270,7 +343,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">705</param>
-          <param name="label_y">2754</param><param name="panel_y">2786</param>
+          <param name="label_y">2754</param><param name="panel_y">2822</param>
           <param name="label_key">hbm_homecfg_tvshows_row05_label</param>
           <param name="widget_key">hbm_homecfg_tvshows_row05_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row05_visible</param>
@@ -279,7 +352,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">706</param>
-          <param name="label_y">3245</param><param name="panel_y">3277</param>
+          <param name="label_y">3245</param><param name="panel_y">3313</param>
           <param name="label_key">hbm_homecfg_tvshows_row06_label</param>
           <param name="widget_key">hbm_homecfg_tvshows_row06_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row06_visible</param>
@@ -288,7 +361,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">707</param>
-          <param name="label_y">3736</param><param name="panel_y">3768</param>
+          <param name="label_y">3736</param><param name="panel_y">3804</param>
           <param name="label_key">hbm_homecfg_tvshows_row07_label</param>
           <param name="widget_key">hbm_homecfg_tvshows_row07_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row07_visible</param>
@@ -297,7 +370,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">708</param>
-          <param name="label_y">4227</param><param name="panel_y">4259</param>
+          <param name="label_y">4227</param><param name="panel_y">4295</param>
           <param name="label_key">hbm_homecfg_tvshows_row08_label</param>
           <param name="widget_key">hbm_homecfg_tvshows_row08_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row08_visible</param>
@@ -306,7 +379,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">709</param>
-          <param name="label_y">4718</param><param name="panel_y">4750</param>
+          <param name="label_y">4718</param><param name="panel_y">4786</param>
           <param name="label_key">hbm_homecfg_tvshows_row09_label</param>
           <param name="widget_key">hbm_homecfg_tvshows_row09_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row09_visible</param>
@@ -315,7 +388,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">710</param>
-          <param name="label_y">5209</param><param name="panel_y">5241</param>
+          <param name="label_y">5209</param><param name="panel_y">5277</param>
           <param name="label_key">hbm_homecfg_tvshows_row10_label</param>
           <param name="widget_key">hbm_homecfg_tvshows_row10_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row10_visible</param>
@@ -327,10 +400,13 @@
       <!-- ═══ MOVIES ═══ -->
       <control type="group">
         <left>88</left>
+        <top>200</top>
         <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),movies)</visible>
+        <animation effect="slide" start="0,0"    end="0,-360" reversible="false" time="300" tween="cubic" easing="out" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
+        <animation effect="slide" start="0,-360" end="0,0"    reversible="false" time="300" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
         <include content="HBM_Row_Landscape">
           <param name="id">701</param>
-          <param name="label_y">790</param><param name="panel_y">822</param>
+          <param name="label_y">790</param><param name="panel_y">858</param>
           <param name="label_key">hbm_homecfg_movies_row01_label</param>
           <param name="widget_key">hbm_homecfg_movies_row01_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row01_visible</param>
@@ -339,7 +415,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">702</param>
-          <param name="label_y">1281</param><param name="panel_y">1313</param>
+          <param name="label_y">1281</param><param name="panel_y">1349</param>
           <param name="label_key">hbm_homecfg_movies_row02_label</param>
           <param name="widget_key">hbm_homecfg_movies_row02_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row02_visible</param>
@@ -348,7 +424,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">703</param>
-          <param name="label_y">1772</param><param name="panel_y">1804</param>
+          <param name="label_y">1772</param><param name="panel_y">1840</param>
           <param name="label_key">hbm_homecfg_movies_row03_label</param>
           <param name="widget_key">hbm_homecfg_movies_row03_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row03_visible</param>
@@ -357,7 +433,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">704</param>
-          <param name="label_y">2263</param><param name="panel_y">2295</param>
+          <param name="label_y">2263</param><param name="panel_y">2331</param>
           <param name="label_key">hbm_homecfg_movies_row04_label</param>
           <param name="widget_key">hbm_homecfg_movies_row04_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row04_visible</param>
@@ -366,7 +442,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">705</param>
-          <param name="label_y">2754</param><param name="panel_y">2786</param>
+          <param name="label_y">2754</param><param name="panel_y">2822</param>
           <param name="label_key">hbm_homecfg_movies_row05_label</param>
           <param name="widget_key">hbm_homecfg_movies_row05_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row05_visible</param>
@@ -375,7 +451,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">706</param>
-          <param name="label_y">3245</param><param name="panel_y">3277</param>
+          <param name="label_y">3245</param><param name="panel_y">3313</param>
           <param name="label_key">hbm_homecfg_movies_row06_label</param>
           <param name="widget_key">hbm_homecfg_movies_row06_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row06_visible</param>
@@ -384,7 +460,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">707</param>
-          <param name="label_y">3736</param><param name="panel_y">3768</param>
+          <param name="label_y">3736</param><param name="panel_y">3804</param>
           <param name="label_key">hbm_homecfg_movies_row07_label</param>
           <param name="widget_key">hbm_homecfg_movies_row07_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row07_visible</param>
@@ -393,7 +469,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">708</param>
-          <param name="label_y">4227</param><param name="panel_y">4259</param>
+          <param name="label_y">4227</param><param name="panel_y">4295</param>
           <param name="label_key">hbm_homecfg_movies_row08_label</param>
           <param name="widget_key">hbm_homecfg_movies_row08_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row08_visible</param>
@@ -402,7 +478,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">709</param>
-          <param name="label_y">4718</param><param name="panel_y">4750</param>
+          <param name="label_y">4718</param><param name="panel_y">4786</param>
           <param name="label_key">hbm_homecfg_movies_row09_label</param>
           <param name="widget_key">hbm_homecfg_movies_row09_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row09_visible</param>
@@ -411,7 +487,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">710</param>
-          <param name="label_y">5209</param><param name="panel_y">5241</param>
+          <param name="label_y">5209</param><param name="panel_y">5277</param>
           <param name="label_key">hbm_homecfg_movies_row10_label</param>
           <param name="widget_key">hbm_homecfg_movies_row10_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row10_visible</param>
@@ -435,7 +511,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">702</param>
-          <param name="label_y">1281</param><param name="panel_y">1313</param>
+          <param name="label_y">1281</param><param name="panel_y">1349</param>
           <param name="label_key">hbm_homecfg_mylist_row02_label</param>
           <param name="widget_key">hbm_homecfg_mylist_row02_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row02_visible</param>
@@ -444,7 +520,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">703</param>
-          <param name="label_y">1772</param><param name="panel_y">1804</param>
+          <param name="label_y">1772</param><param name="panel_y">1840</param>
           <param name="label_key">hbm_homecfg_mylist_row03_label</param>
           <param name="widget_key">hbm_homecfg_mylist_row03_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row03_visible</param>
@@ -453,7 +529,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">704</param>
-          <param name="label_y">2263</param><param name="panel_y">2295</param>
+          <param name="label_y">2263</param><param name="panel_y">2331</param>
           <param name="label_key">hbm_homecfg_mylist_row04_label</param>
           <param name="widget_key">hbm_homecfg_mylist_row04_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row04_visible</param>
@@ -462,7 +538,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">705</param>
-          <param name="label_y">2754</param><param name="panel_y">2786</param>
+          <param name="label_y">2754</param><param name="panel_y">2822</param>
           <param name="label_key">hbm_homecfg_mylist_row05_label</param>
           <param name="widget_key">hbm_homecfg_mylist_row05_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row05_visible</param>
@@ -471,7 +547,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">706</param>
-          <param name="label_y">3245</param><param name="panel_y">3277</param>
+          <param name="label_y">3245</param><param name="panel_y">3313</param>
           <param name="label_key">hbm_homecfg_mylist_row06_label</param>
           <param name="widget_key">hbm_homecfg_mylist_row06_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row06_visible</param>
@@ -480,7 +556,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">707</param>
-          <param name="label_y">3736</param><param name="panel_y">3768</param>
+          <param name="label_y">3736</param><param name="panel_y">3804</param>
           <param name="label_key">hbm_homecfg_mylist_row07_label</param>
           <param name="widget_key">hbm_homecfg_mylist_row07_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row07_visible</param>
@@ -489,7 +565,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">708</param>
-          <param name="label_y">4227</param><param name="panel_y">4259</param>
+          <param name="label_y">4227</param><param name="panel_y">4295</param>
           <param name="label_key">hbm_homecfg_mylist_row08_label</param>
           <param name="widget_key">hbm_homecfg_mylist_row08_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row08_visible</param>
@@ -498,7 +574,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">709</param>
-          <param name="label_y">4718</param><param name="panel_y">4750</param>
+          <param name="label_y">4718</param><param name="panel_y">4786</param>
           <param name="label_key">hbm_homecfg_mylist_row09_label</param>
           <param name="widget_key">hbm_homecfg_mylist_row09_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row09_visible</param>
@@ -507,7 +583,7 @@
         </include>
         <include content="HBM_Row_Landscape">
           <param name="id">710</param>
-          <param name="label_y">5209</param><param name="panel_y">5241</param>
+          <param name="label_y">5209</param><param name="panel_y">5277</param>
           <param name="label_key">hbm_homecfg_mylist_row10_label</param>
           <param name="widget_key">hbm_homecfg_mylist_row10_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row10_visible</param>
@@ -522,7 +598,7 @@
          scrolled rows disappear into it at the same line where the details area ends. -->
     <control type="group">
       <top>-100</top>
-      <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
+      <visible>[String.IsEqual(Skin.String(HBM.HomeActivePage),home) | String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) | String.IsEqual(Skin.String(HBM.HomeActivePage),movies)] + !String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
       <animation effect="fade" start="0" end="100" reversible="false" time="220" tween="sine" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
       <animation effect="fade" start="100" end="0" reversible="false" time="180" tween="sine" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
       <control type="image">
@@ -551,7 +627,7 @@
 
     <control type="label">
       <left>88</left><top>540</top><width>800</width><height>32</height>
-      <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
+      <visible>[String.IsEqual(Skin.String(HBM.HomeActivePage),home) | String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) | String.IsEqual(Skin.String(HBM.HomeActivePage),movies)] + !String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
       <animation effect="fade" start="0" end="100" reversible="false" time="220" tween="sine" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
       <animation effect="fade" start="100" end="0" reversible="false" time="180" tween="sine" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
       <label>$VAR[HBM_Row_SectionLabel]</label>
@@ -563,7 +639,7 @@
          Slides up slightly when rows are active, making the hero appear to shrink.
          Non-home hubs only — home gets its own taller group below. -->
     <control type="group">
-      <visible>!String.IsEqual(Skin.String(HBM.HomeActivePage),home)</visible>
+      <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) | String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)</visible>
       <!-- Shrink: slide up 80px when any row is active -->
       <animation effect="slide" start="0,0"   end="0,-80" reversible="false" time="350" tween="cubic" easing="out" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
       <animation effect="slide" start="0,-80" end="0,0"   reversible="false" time="350" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
@@ -631,10 +707,10 @@
       </control>
 
       <control type="textbox">
-        <left>0</left><top>452</top><width>540</width><height>120</height>
+        <left>0</left><top>452</top><width>540</width><height>200</height>
         <font>HBM_Body_M</font>
         <textcolor>TextSecondary</textcolor>
-        <autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
+        <autoscroll delay="2500" time="500" repeat="3000">!String.IsEqual(Skin.String(hbm_hero_autoscroll),off)</autoscroll>
         <label>$VAR[HBM_Row_Plot]</label>
       </control>
     </control>

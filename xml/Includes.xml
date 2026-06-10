@@ -207,10 +207,10 @@
 
         <!-- Description / plot -->
         <control type="textbox">
-          <left>0</left><top>468</top><width>540</width><height>96</height>
+          <left>0</left><top>468</top><width>540</width><height>200</height>
           <font>HBM_Body_M</font>
           <textcolor>TextSecondary</textcolor>
-          <autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
+          <autoscroll delay="2500" time="500" repeat="3000">!String.IsEqual(Skin.String(hbm_hero_autoscroll),off)</autoscroll>
           <label>$VAR[HBM_Hero_Plot]</label>
         </control>
 
