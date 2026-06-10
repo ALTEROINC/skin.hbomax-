@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Kodi zip
+        run: |
+          mkdir -p dist/skin.hbomax.dev
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='build' \
+            --exclude='tmp' \
+            --exclude='backup' \
+            --exclude='.claude' \
+            --exclude='.DS_Store' \
+            --exclude='.tmp_generalsans' \
+            --exclude='.tmp_resvg' \
+            --exclude='dist' \
+            . dist/skin.hbomax.dev/
+          cd dist
+          zip -r skin.hbomax.dev-${{ github.ref_name }}.zip skin.hbomax.dev/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: skin.hbomax.dev ${{ github.ref_name }}
+          files: dist/skin.hbomax.dev-${{ github.ref_name }}.zip
+          generate_release_notes: true
