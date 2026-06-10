@@ -13,7 +13,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -21,6 +21,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
       - name: Get version from addon.xml
         id: version
@@ -49,7 +52,6 @@ jobs:
           zip -r skin.hbomax.dev/skin.hbomax.dev-${VERSION}.zip skin.hbomax.dev/ \
             --exclude="skin.hbomax.dev/*.zip"
           cp ../../addon.xml skin.hbomax.dev/addon.xml
-          echo "Built skin.hbomax.dev-${VERSION}.zip"
 
       - name: Generate addons.xml and checksum
         run: python3 .github/scripts/generate_repo.py
@@ -58,8 +60,8 @@ jobs:
         run: |
           touch site/.nojekyll
           cp .github/scripts/index.html site/index.html
-          echo "Site contents:"
-          find site -type f
+          echo "--- Site contents ---"
+          find site -type f | sort
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
