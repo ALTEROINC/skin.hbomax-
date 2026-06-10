@@ -28,7 +28,7 @@ jobs:
       - name: Get version from addon.xml
         id: version
         run: |
-          VERSION=$(grep -oP 'version="\K[^"]+' addon.xml | head -1)
+          VERSION=$(grep 'id="skin.hbomax.dev"' addon.xml | grep -oP 'version="\K[^"]+')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Detected version: $VERSION"
 
