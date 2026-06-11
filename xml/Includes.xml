@@ -197,12 +197,22 @@
           <textcolor>TextHeroMeta</textcolor>
         </control>
 
-        <!-- Clear logo — global ListItem so it updates on both hero autoscroll and row focus -->
+        <!-- Clear logo — only renders when a real clearlogo is available -->
         <control type="image">
           <left>0</left><top>304</top><width>480</width><height>160</height>
+          <visible>!IsEmpty($VAR[HBM_Hero_Logo])</visible>
           <aspectratio align="left" aligny="center">keep</aspectratio>
           <fadetime>400</fadetime>
           <texture>$VAR[HBM_Hero_Logo]</texture>
+        </control>
+        <!-- Title text fallback when no clearlogo -->
+        <control type="label">
+          <left>0</left><top>322</top><width>620</width><height>64</height>
+          <visible>IsEmpty($VAR[HBM_Hero_Logo])</visible>
+          <label>$VAR[HBM_Hero_Title]</label>
+          <font>HBM_Title_M</font>
+          <textcolor>TextPrimary</textcolor>
+          <scroll>true</scroll>
         </control>
 
         <!-- Description / plot -->
