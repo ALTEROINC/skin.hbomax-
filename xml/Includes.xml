@@ -217,16 +217,16 @@
 
         <!-- Description / plot -->
         <control type="textbox">
-          <left>0</left><top>468</top><width>540</width><height>200</height>
+          <left>0</left><top>468</top><width>540</width><height>160</height>
           <font>HBM_Body_M</font>
           <textcolor>TextSecondary</textcolor>
-          <autoscroll delay="2500" time="500" repeat="3000">!String.IsEqual(Skin.String(hbm_hero_autoscroll),off)</autoscroll>
+          <autoscroll delay="3000" time="800" repeat="4000">!String.IsEqual(Skin.String(hbm_hero_autoscroll),off)</autoscroll>
           <label>$VAR[HBM_Hero_Plot]</label>
         </control>
 
         <!-- Play button -->
         <control type="button" id="625">
-          <left>0</left><top>626</top><width>210</width><height>46</height>
+          <left>0</left><top>702</top><width>210</width><height>46</height>
           <label>Play</label>
           <font>HBM_Nav_M</font>
           <align>center</align><aligny>center</aligny>
@@ -258,7 +258,7 @@
 
         <!-- More Info button -->
         <control type="button" id="626">
-          <left>0</left><top>572</top><width>210</width><height>46</height>
+          <left>0</left><top>644</top><width>210</width><height>46</height>
           <label>More Info</label>
           <font>HBM_Nav_M</font>
           <align>center</align><aligny>center</aligny>

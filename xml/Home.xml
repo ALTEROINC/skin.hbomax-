@@ -710,7 +710,7 @@
         <left>0</left><top>452</top><width>540</width><height>200</height>
         <font>HBM_Body_M</font>
         <textcolor>TextSecondary</textcolor>
-        <autoscroll delay="2500" time="500" repeat="3000">!String.IsEqual(Skin.String(hbm_hero_autoscroll),off)</autoscroll>
+        <autoscroll delay="3000" time="800" repeat="4000">!String.IsEqual(Skin.String(hbm_hero_autoscroll),off)</autoscroll>
         <label>$VAR[HBM_Row_Plot]</label>
       </control>
     </control>
