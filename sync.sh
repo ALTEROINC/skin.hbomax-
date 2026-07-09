@@ -8,6 +8,7 @@ rsync -av \
   --include="*.xml" \
   --include="*.png" \
   --include="*.svg" \
+  --include="*.py" \
   --exclude="*" \
   "$PROJECT_ROOT/" "$KODI_ADDON/"
 echo "Sync complete. Reload the skin in Kodi."

@@ -10,11 +10,21 @@
   <onload condition="String.IsEmpty(Skin.String(hbm_homecfg_mylist_hero_visible))">Skin.SetString(hbm_homecfg_mylist_hero_visible,Visible)</onload>
   <onload>Skin.SetString(HBM.ActiveRow,0)</onload>
   <onload>Skin.SetString(HBM.ReturnFocus,625)</onload>
-  <onload>AlarmClock(HBMHero620,Container.Next(620),00:00:07,silent,loop)</onload>
-  <onload>AlarmClock(HBMHero621,Container.Next(621),00:00:07,silent,loop)</onload>
-  <onload>AlarmClock(HBMHero622,Container.Next(622),00:00:07,silent,loop)</onload>
-  <onload>AlarmClock(HBMHero623,Container.Next(623),00:00:07,silent,loop)</onload>
-  <onload>AlarmClock(HBMHero624,Container.Next(624),00:00:07,silent,loop)</onload>
+  <onload condition="String.IsEmpty(Skin.String(HBM.HeroDot.620))">Skin.SetString(HBM.HeroDot.620,1)</onload>
+  <onload condition="String.IsEmpty(Skin.String(HBM.HeroDot.621))">Skin.SetString(HBM.HeroDot.621,1)</onload>
+  <onload condition="String.IsEmpty(Skin.String(HBM.HeroDot.622))">Skin.SetString(HBM.HeroDot.622,1)</onload>
+  <onload condition="String.IsEmpty(Skin.String(HBM.HeroDot.623))">Skin.SetString(HBM.HeroDot.623,1)</onload>
+  <onload condition="String.IsEmpty(Skin.String(HBM.HeroDot.624))">Skin.SetString(HBM.HeroDot.624,1)</onload>
+  <!-- Container(id).GoNext / Container.Next(id) are not real Kodi actions (confirmed via
+       kodi.log: "Keymapping error: no such action defined") — Kodi has no built-in skin
+       action to advance an unfocused container's selection by explicit id. Using a small
+       script against the xbmcgui Control API instead, which is unambiguous and doesn't
+       require the carousel panel to hold real GUI focus. -->
+  <onload>AlarmClock(HBMHero620,RunScript(special://skin/resources/scripts/hero_rotate.py,620),00:00:14,silent,loop)</onload>
+  <onload>AlarmClock(HBMHero621,RunScript(special://skin/resources/scripts/hero_rotate.py,621),00:00:14,silent,loop)</onload>
+  <onload>AlarmClock(HBMHero622,RunScript(special://skin/resources/scripts/hero_rotate.py,622),00:00:14,silent,loop)</onload>
+  <onload>AlarmClock(HBMHero623,RunScript(special://skin/resources/scripts/hero_rotate.py,623),00:00:14,silent,loop)</onload>
+  <onload>AlarmClock(HBMHero624,RunScript(special://skin/resources/scripts/hero_rotate.py,624),00:00:14,silent,loop)</onload>
   <onunload>CancelAlarm(HBMHero620,silent)</onunload>
   <onunload>CancelAlarm(HBMHero621,silent)</onunload>
   <onunload>CancelAlarm(HBMHero622,silent)</onunload>
@@ -678,7 +688,7 @@
     <!-- Row-focus details layer — separate from hero so hero behavior stays unchanged -->
     <control type="group">
       <left>248</left><top>0</top><width>680</width><height>756</height>
-      <visible>!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + $VAR[HBM_Row_HasContent]</visible>
+      <visible>!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + String.IsEqual($VAR[HBM_Row_HasContent],true)</visible>
       <animation effect="fade" start="0" end="100" reversible="false" time="220" tween="sine" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
       <animation effect="fade" start="100" end="0" reversible="false" time="180" tween="sine" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
 
@@ -691,7 +701,7 @@
 
       <control type="image">
         <left>0</left><top>264</top><width>480</width><height>160</height>
-        <visible>!IsEmpty($VAR[HBM_Row_Logo])</visible>
+        <visible>!String.IsEmpty($VAR[HBM_Row_Logo])</visible>
         <aspectratio align="left" aligny="center">keep</aspectratio>
         <fadetime>350</fadetime>
         <texture>$VAR[HBM_Row_Logo]</texture>
@@ -699,7 +709,7 @@
 
       <control type="label">
         <left>0</left><top>282</top><width>620</width><height>64</height>
-        <visible>IsEmpty($VAR[HBM_Row_Logo])</visible>
+        <visible>String.IsEmpty($VAR[HBM_Row_Logo])</visible>
         <label>$VAR[HBM_Row_Title]</label>
         <font>HBM_Title_M</font>
         <textcolor>TextPrimary</textcolor>

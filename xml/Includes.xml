@@ -114,51 +114,94 @@
           <left>808</left><top>970</top><width>216</width><height>20</height>
           <orientation>horizontal</orientation><itemgap>0</itemgap>
           <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),home)</visible>
-          <autoscroll time="7000" delay="2000" repeat="7000">true</autoscroll>
           <ondown>625</ondown>
           <content target="videos" limit="6">$INFO[Skin.String(hbm_homecfg_home_hero_widget)]</content>
+          <!-- Dim dot track only — the filled "current" dot is driven by HBM.HeroDot.620
+               below, not by itemlayout/focusedlayout, since that swap only renders while
+               this panel holds real GUI focus (which hero_rotate.py hands right back). -->
           <itemlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="55FFFFFF">special://skin/media/icons/dot-thin.png</texture></control></itemlayout>
-          <focusedlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture></control></focusedlayout>
+          <focusedlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="55FFFFFF">special://skin/media/icons/dot-thin.png</texture></control></focusedlayout>
+        </control>
+        <control type="group">
+          <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),home)</visible>
+          <control type="image"><left>816</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.620),1)</visible></control>
+          <control type="image"><left>852</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.620),2)</visible></control>
+          <control type="image"><left>888</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.620),3)</visible></control>
+          <control type="image"><left>924</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.620),4)</visible></control>
+          <control type="image"><left>960</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.620),5)</visible></control>
+          <control type="image"><left>996</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.620),6)</visible></control>
         </control>
         <control type="panel" id="621">
           <left>808</left><top>970</top><width>216</width><height>20</height>
           <orientation>horizontal</orientation><itemgap>0</itemgap>
           <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)</visible>
-          <autoscroll time="7000" delay="2000" repeat="7000">true</autoscroll>
           <ondown>625</ondown>
           <content target="videos" limit="6">$INFO[Skin.String(hbm_homecfg_tvshows_hero_widget)]</content>
           <itemlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="55FFFFFF">special://skin/media/icons/dot-thin.png</texture></control></itemlayout>
-          <focusedlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture></control></focusedlayout>
+          <focusedlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="55FFFFFF">special://skin/media/icons/dot-thin.png</texture></control></focusedlayout>
+        </control>
+        <control type="group">
+          <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)</visible>
+          <control type="image"><left>816</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.621),1)</visible></control>
+          <control type="image"><left>852</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.621),2)</visible></control>
+          <control type="image"><left>888</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.621),3)</visible></control>
+          <control type="image"><left>924</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.621),4)</visible></control>
+          <control type="image"><left>960</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.621),5)</visible></control>
+          <control type="image"><left>996</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.621),6)</visible></control>
         </control>
         <control type="panel" id="622">
           <left>808</left><top>970</top><width>216</width><height>20</height>
           <orientation>horizontal</orientation><itemgap>0</itemgap>
           <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),movies)</visible>
-          <autoscroll time="7000" delay="2000" repeat="7000">true</autoscroll>
           <ondown>625</ondown>
           <content target="videos" limit="6">$INFO[Skin.String(hbm_homecfg_movies_hero_widget)]</content>
           <itemlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="55FFFFFF">special://skin/media/icons/dot-thin.png</texture></control></itemlayout>
-          <focusedlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture></control></focusedlayout>
+          <focusedlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="55FFFFFF">special://skin/media/icons/dot-thin.png</texture></control></focusedlayout>
+        </control>
+        <control type="group">
+          <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),movies)</visible>
+          <control type="image"><left>816</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.622),1)</visible></control>
+          <control type="image"><left>852</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.622),2)</visible></control>
+          <control type="image"><left>888</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.622),3)</visible></control>
+          <control type="image"><left>924</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.622),4)</visible></control>
+          <control type="image"><left>960</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.622),5)</visible></control>
+          <control type="image"><left>996</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.622),6)</visible></control>
         </control>
         <control type="panel" id="623">
           <left>808</left><top>970</top><width>216</width><height>20</height>
           <orientation>horizontal</orientation><itemgap>0</itemgap>
           <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)</visible>
-          <autoscroll time="7000" delay="2000" repeat="7000">true</autoscroll>
           <ondown>625</ondown>
           <content target="videos" limit="6">$INFO[Skin.String(hbm_homecfg_livetv_hero_widget)]</content>
           <itemlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="55FFFFFF">special://skin/media/icons/dot-thin.png</texture></control></itemlayout>
-          <focusedlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture></control></focusedlayout>
+          <focusedlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="55FFFFFF">special://skin/media/icons/dot-thin.png</texture></control></focusedlayout>
+        </control>
+        <control type="group">
+          <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)</visible>
+          <control type="image"><left>816</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.623),1)</visible></control>
+          <control type="image"><left>852</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.623),2)</visible></control>
+          <control type="image"><left>888</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.623),3)</visible></control>
+          <control type="image"><left>924</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.623),4)</visible></control>
+          <control type="image"><left>960</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.623),5)</visible></control>
+          <control type="image"><left>996</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.623),6)</visible></control>
         </control>
         <control type="panel" id="624">
           <left>808</left><top>970</top><width>216</width><height>20</height>
           <orientation>horizontal</orientation><itemgap>0</itemgap>
           <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)</visible>
-          <autoscroll time="7000" delay="2000" repeat="7000">true</autoscroll>
           <ondown>625</ondown>
           <content target="videos" limit="6">$INFO[Skin.String(hbm_homecfg_mylist_hero_widget)]</content>
           <itemlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="55FFFFFF">special://skin/media/icons/dot-thin.png</texture></control></itemlayout>
-          <focusedlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture></control></focusedlayout>
+          <focusedlayout width="36" height="20"><control type="image"><left>8</left><top>0</top><width>20</width><height>20</height><texture colordiffuse="55FFFFFF">special://skin/media/icons/dot-thin.png</texture></control></focusedlayout>
+        </control>
+        <control type="group">
+          <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)</visible>
+          <control type="image"><left>816</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.624),1)</visible></control>
+          <control type="image"><left>852</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.624),2)</visible></control>
+          <control type="image"><left>888</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.624),3)</visible></control>
+          <control type="image"><left>924</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.624),4)</visible></control>
+          <control type="image"><left>960</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.624),5)</visible></control>
+          <control type="image"><left>996</left><top>970</top><width>20</width><height>20</height><texture colordiffuse="FFFFFFFF">special://skin/media/icons/dot-fill.png</texture><visible>String.IsEqual(Skin.String(HBM.HeroDot.624),6)</visible></control>
         </control>
       </control>
 
@@ -197,18 +240,27 @@
           <textcolor>TextHeroMeta</textcolor>
         </control>
 
-        <!-- Clear logo — only renders when a real clearlogo is available -->
+        <!-- Clear logo — only renders when a real clearlogo is available.
+             NOTE: $VAR[...] cannot be nested inside a boolean condition function
+             (String.IsEmpty, String.IsEqual, etc.) inside a <visible> tag — Kodi's
+             boolean-expression compiler fails to parse it entirely (confirmed via
+             kodi.log: "Error parsing boolean expression ...$var[hbm_hero_logo]...").
+             $VAR[] substitution only works reliably for <label>/<texture> content and
+             inside another variable's own <value condition>. So the underlying
+             per-hub art checks are inlined directly here instead of going through
+             $VAR[HBM_Hero_Logo]. Keep this in sync with the HBM_Hero_Logo variable
+             in Variables.xml if the fallback fields ever change. -->
         <control type="image">
           <left>0</left><top>304</top><width>480</width><height>160</height>
-          <visible>!IsEmpty($VAR[HBM_Hero_Logo])</visible>
+          <visible>[String.IsEqual(Skin.String(HBM.HomeActivePage),home) + [!String.IsEmpty(Container(620).ListItem.Art(tvshow.clearlogo)) | !String.IsEmpty(Container(620).ListItem.Art(clearlogo)) | !String.IsEmpty(Container(620).ListItem.Property(base_clearlogo))]] | [String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + [!String.IsEmpty(Container(621).ListItem.Art(tvshow.clearlogo)) | !String.IsEmpty(Container(621).ListItem.Art(clearlogo)) | !String.IsEmpty(Container(621).ListItem.Property(base_clearlogo))]] | [String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + [!String.IsEmpty(Container(622).ListItem.Art(tvshow.clearlogo)) | !String.IsEmpty(Container(622).ListItem.Art(clearlogo)) | !String.IsEmpty(Container(622).ListItem.Property(base_clearlogo))]] | [String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + [!String.IsEmpty(Container(623).ListItem.Art(tvshow.clearlogo)) | !String.IsEmpty(Container(623).ListItem.Art(clearlogo)) | !String.IsEmpty(Container(623).ListItem.Property(base_clearlogo))]] | [String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + [!String.IsEmpty(Container(624).ListItem.Art(tvshow.clearlogo)) | !String.IsEmpty(Container(624).ListItem.Art(clearlogo)) | !String.IsEmpty(Container(624).ListItem.Property(base_clearlogo))]]</visible>
           <aspectratio align="left" aligny="center">keep</aspectratio>
           <fadetime>400</fadetime>
           <texture>$VAR[HBM_Hero_Logo]</texture>
         </control>
-        <!-- Title text fallback when no clearlogo -->
+        <!-- Title text fallback when no clearlogo (exact inverse of the clearlogo's visible condition above) -->
         <control type="label">
           <left>0</left><top>322</top><width>620</width><height>64</height>
-          <visible>IsEmpty($VAR[HBM_Hero_Logo])</visible>
+          <visible>![String.IsEqual(Skin.String(HBM.HomeActivePage),home) + [!String.IsEmpty(Container(620).ListItem.Art(tvshow.clearlogo)) | !String.IsEmpty(Container(620).ListItem.Art(clearlogo)) | !String.IsEmpty(Container(620).ListItem.Property(base_clearlogo))]] + ![String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + [!String.IsEmpty(Container(621).ListItem.Art(tvshow.clearlogo)) | !String.IsEmpty(Container(621).ListItem.Art(clearlogo)) | !String.IsEmpty(Container(621).ListItem.Property(base_clearlogo))]] + ![String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + [!String.IsEmpty(Container(622).ListItem.Art(tvshow.clearlogo)) | !String.IsEmpty(Container(622).ListItem.Art(clearlogo)) | !String.IsEmpty(Container(622).ListItem.Property(base_clearlogo))]] + ![String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + [!String.IsEmpty(Container(623).ListItem.Art(tvshow.clearlogo)) | !String.IsEmpty(Container(623).ListItem.Art(clearlogo)) | !String.IsEmpty(Container(623).ListItem.Property(base_clearlogo))]] + ![String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + [!String.IsEmpty(Container(624).ListItem.Art(tvshow.clearlogo)) | !String.IsEmpty(Container(624).ListItem.Art(clearlogo)) | !String.IsEmpty(Container(624).ListItem.Property(base_clearlogo))]]</visible>
           <label>$VAR[HBM_Hero_Title]</label>
           <font>HBM_Title_M</font>
           <textcolor>TextPrimary</textcolor>
