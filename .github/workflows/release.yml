@@ -48,9 +48,13 @@ jobs:
           git commit -m "chore: bump version to ${{ steps.version.outputs.version }} [skip ci]"
           git push
 
-      - name: Build Kodi zip
+      - name: Build Kodi zips
         run: |
           VERSION=${{ steps.version.outputs.version }}
+          REPO_VERSION=$(grep -oP 'id="repository.hbomaxdev"[^>]*version="\K[^"]+' repository.hbomaxdev/addon.xml)
+
+          # Skin addon zip — must land at site/skin.hbomax.dev/skin.hbomax.dev-<version>.zip
+          # so Kodi's repository datadir (zip="true") convention can find it.
           mkdir -p staging/skin.hbomax.dev
           rsync -a \
             --exclude='.git' \
@@ -64,11 +68,18 @@ jobs:
             --exclude='.tmp_resvg' \
             --exclude='staging' \
             --exclude='site' \
+            --exclude='repository.hbomaxdev' \
             . staging/skin.hbomax.dev/
-          mkdir -p site
-          cd staging
-          zip -r ../site/skin.hbomax.dev-${VERSION}.zip skin.hbomax.dev/
-          echo "Zip size: $(du -sh ../site/skin.hbomax.dev-${VERSION}.zip)"
+          mkdir -p site/skin.hbomax.dev
+          (cd staging && zip -r "../site/skin.hbomax.dev/skin.hbomax.dev-${VERSION}.zip" skin.hbomax.dev/)
+          echo "Skin zip size: $(du -sh site/skin.hbomax.dev/skin.hbomax.dev-${VERSION}.zip)"
+
+          # Repository addon zip — same subfolder convention, own id/version.
+          mkdir -p staging/repository.hbomaxdev
+          rsync -a repository.hbomaxdev/ staging/repository.hbomaxdev/
+          mkdir -p site/repository.hbomaxdev
+          (cd staging && zip -r "../site/repository.hbomaxdev/repository.hbomaxdev-${REPO_VERSION}.zip" repository.hbomaxdev/)
+          echo "Repository zip size: $(du -sh site/repository.hbomaxdev/repository.hbomaxdev-${REPO_VERSION}.zip)"
 
       - name: Generate addons.xml, checksum, and index
         run: python3 .github/scripts/generate_repo.py
