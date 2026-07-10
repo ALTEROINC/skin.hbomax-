@@ -27,7 +27,15 @@
       <control type="image">
         <width>620</width>
         <height>720</height>
-        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+        <texture border="24" colordiffuse="CC000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+
+      <control type="image">
+        <left>26</left>
+        <top>8</top>
+        <width>568</width>
+        <height>176</height>
+        <texture colordiffuse="22FFFFFF">special://skin/media/overlays/row_top_fade.png</texture>
       </control>
 
       <control type="label" id="2">
@@ -37,7 +45,7 @@
         <height>46</height>
         <label>Power Menu</label>
         <font>HBM_Display_M</font>
-        <textcolor>TextPrimary</textcolor>
+        <textcolor>FFFFFFFF</textcolor>
         <align>center</align>
       </control>
 
@@ -68,7 +76,7 @@
             <width>520</width>
             <height>68</height>
             <font>HBM_Body_M</font>
-            <textcolor>TextSecondary</textcolor>
+            <textcolor>E6FFFFFF</textcolor>
             <align>center</align>
             <aligny>center</aligny>
             <label>$INFO[ListItem.Label]</label>
@@ -91,7 +99,7 @@
             <width>520</width>
             <height>68</height>
             <font>HBM_Body_M</font>
-            <textcolor>TextPrimary</textcolor>
+            <textcolor>FFFFFFFF</textcolor>
             <align>center</align>
             <aligny>center</aligny>
             <label>$INFO[ListItem.Label]</label>

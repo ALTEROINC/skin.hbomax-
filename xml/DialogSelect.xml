@@ -18,7 +18,14 @@
       <control type="image">
         <width>980</width>
         <height>736</height>
-        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+        <texture border="24" colordiffuse="CC000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <left>26</left>
+        <top>8</top>
+        <width>928</width>
+        <height>176</height>
+        <texture colordiffuse="22FFFFFF">special://skin/media/overlays/row_top_fade.png</texture>
       </control>
 
       <!-- Title -->
@@ -28,7 +35,7 @@
         <width>900</width>
         <height>48</height>
         <font>HBM_Display_M</font>
-        <textcolor>TextPrimary</textcolor>
+        <textcolor>FFFFFFFF</textcolor>
       </control>
 
       <!-- Header divider -->
@@ -64,7 +71,7 @@
             <width>852</width>
             <height>64</height>
             <font>HBM_Body_M</font>
-            <textcolor>TextSecondary</textcolor>
+            <textcolor>E6FFFFFF</textcolor>
             <aligny>center</aligny>
             <label>$INFO[ListItem.Label]</label>
           </control>
@@ -87,7 +94,7 @@
             <width>852</width>
             <height>64</height>
             <font>HBM_Body_M</font>
-            <textcolor>TextPrimary</textcolor>
+            <textcolor>FFFFFFFF</textcolor>
             <aligny>center</aligny>
             <label>$INFO[ListItem.Label]</label>
           </control>
@@ -108,14 +115,83 @@
         <ondown>9001</ondown>
       </control>
 
-      <!-- Description / extra info (id=6, set by Kodi C++) -->
-      <control type="textbox" id="6">
+      <!-- Second item list (id=6): Kodi uses this instead of id=3 for selections
+           that need a secondary line per item (Label2) — e.g. addon version
+           pickers show "version number" as Label and "source/repo" as Label2.
+           Previously this id was a plain textbox, which is a type mismatch: Kodi
+           populates a LIST here, and a textbox can't display list items at all,
+           which is why the addon "Versions" picker rendered as a blank box for
+           every addon. Occupies the same rect as id=3; only one is shown per
+           dialog invocation. -->
+      <control type="list" id="6">
         <left>40</left>
-        <top>580</top>
+        <top>110</top>
         <width>900</width>
-        <height>36</height>
-        <font>HBM_Body_S</font>
-        <textcolor>TextMuted</textcolor>
+        <height>460</height>
+        <pagecontrol>60</pagecontrol>
+        <onleft>60</onleft>
+        <onright>60</onright>
+        <onup>6</onup>
+        <ondown>9001</ondown>
+        <itemlayout height="72" width="900">
+          <control type="image">
+            <left>0</left>
+            <top>71</top>
+            <width>900</width>
+            <height>1</height>
+            <texture colordiffuse="16FFFFFF">white.png</texture>
+          </control>
+          <control type="label">
+            <left>18</left>
+            <top>8</top>
+            <width>852</width>
+            <height>32</height>
+            <font>HBM_Body_M</font>
+            <textcolor>E6FFFFFF</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+          <control type="label">
+            <left>18</left>
+            <top>40</top>
+            <width>852</width>
+            <height>26</height>
+            <font>HBM_Body_S</font>
+            <textcolor>99FFFFFF</textcolor>
+            <label>$INFO[ListItem.Label2]</label>
+          </control>
+        </itemlayout>
+        <focusedlayout height="72" width="900">
+          <control type="image">
+            <width>900</width>
+            <height>72</height>
+            <texture colordiffuse="FocusFill">white.png</texture>
+          </control>
+          <control type="image">
+            <left>0</left>
+            <top>71</top>
+            <width>900</width>
+            <height>1</height>
+            <texture colordiffuse="16FFFFFF">white.png</texture>
+          </control>
+          <control type="label">
+            <left>18</left>
+            <top>8</top>
+            <width>852</width>
+            <height>32</height>
+            <font>HBM_Body_M</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+          <control type="label">
+            <left>18</left>
+            <top>40</top>
+            <width>852</width>
+            <height>26</height>
+            <font>HBM_Body_S</font>
+            <textcolor>E6FFFFFF</textcolor>
+            <label>$INFO[ListItem.Label2]</label>
+          </control>
+        </focusedlayout>
       </control>
 
       <!-- Bottom divider above buttons -->
@@ -145,9 +221,10 @@
           <height>56</height>
           <label>$LOCALIZE[186]</label>
           <font>HBM_Body_M</font>
-          <textcolor>TextSecondary</textcolor>
-          <focusedcolor>TextPrimary</focusedcolor>
-          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <textcolor>E6FFFFFF</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <pulseonselect>false</pulseonselect>
+          <texturefocus border="8" colordiffuse="FFFFFFFF">white.png</texturefocus>
           <texturenofocus border="8" colordiffuse="1AFFFFFF">white.png</texturenofocus>
           <align>center</align><aligny>center</aligny>
         </control>
@@ -158,9 +235,10 @@
           <height>56</height>
           <label>$LOCALIZE[35261]</label>
           <font>HBM_Body_M</font>
-          <textcolor>TextSecondary</textcolor>
-          <focusedcolor>TextPrimary</focusedcolor>
-          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <textcolor>E6FFFFFF</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <pulseonselect>false</pulseonselect>
+          <texturefocus border="8" colordiffuse="FFFFFFFF">white.png</texturefocus>
           <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
           <align>center</align><aligny>center</aligny>
         </control>
@@ -171,9 +249,10 @@
           <height>56</height>
           <label>$LOCALIZE[222]</label>
           <font>HBM_Body_M</font>
-          <textcolor>TextSecondary</textcolor>
-          <focusedcolor>TextPrimary</focusedcolor>
-          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <textcolor>E6FFFFFF</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <pulseonselect>false</pulseonselect>
+          <texturefocus border="8" colordiffuse="FFFFFFFF">white.png</texturefocus>
           <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
           <align>center</align><aligny>center</aligny>
         </control>

@@ -23,7 +23,14 @@
       <control type="image">
         <width>320</width>
         <height>140</height>
-        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+        <texture border="24" colordiffuse="CC000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <left>26</left>
+        <top>8</top>
+        <width>268</width>
+        <height>46</height>
+        <texture colordiffuse="22FFFFFF">special://skin/media/overlays/row_top_fade.png</texture>
       </control>
       <control type="label">
         <left>0</left>
@@ -32,7 +39,7 @@
         <height>32</height>
         <label>Working...</label>
         <font>HBM_Body_M</font>
-        <textcolor>TextPrimary</textcolor>
+        <textcolor>FFFFFFFF</textcolor>
         <align>center</align>
       </control>
       <control type="progress" id="10">

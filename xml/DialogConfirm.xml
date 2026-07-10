@@ -26,7 +26,14 @@
         <top>0</top>
         <width>920</width>
         <height>390</height>
-        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+        <texture border="24" colordiffuse="CC000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <left>26</left>
+        <top>8</top>
+        <width>868</width>
+        <height>126</height>
+        <texture colordiffuse="22FFFFFF">special://skin/media/overlays/row_top_fade.png</texture>
       </control>
       <control type="label" id="1">
         <left>40</left>
@@ -34,7 +41,7 @@
         <width>840</width>
         <height>48</height>
         <font>HBM_Display_M</font>
-        <textcolor>TextPrimary</textcolor>
+        <textcolor>FFFFFFFF</textcolor>
         <align>center</align>
       </control>
       <control type="image">
@@ -50,7 +57,7 @@
         <width>840</width>
         <height>134</height>
         <font>HBM_Body_M</font>
-        <textcolor>TextSecondary</textcolor>
+        <textcolor>E6FFFFFF</textcolor>
       </control>
       <control type="progress" id="20">
         <left>40</left>
@@ -72,9 +79,10 @@
           <height>56</height>
           <label>$LOCALIZE[107]</label>
           <font>HBM_Body_M</font>
-          <textcolor>TextSecondary</textcolor>
-          <focusedcolor>TextPrimary</focusedcolor>
-          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <textcolor>E6FFFFFF</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <pulseonselect>false</pulseonselect>
+          <texturefocus border="8" colordiffuse="FFFFFFFF">white.png</texturefocus>
           <texturenofocus border="8" colordiffuse="1AFFFFFF">white.png</texturenofocus>
           <align>center</align><aligny>center</aligny>
         </control>
@@ -83,9 +91,10 @@
           <height>56</height>
           <label>$LOCALIZE[106]</label>
           <font>HBM_Body_M</font>
-          <textcolor>TextSecondary</textcolor>
-          <focusedcolor>TextPrimary</focusedcolor>
-          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <textcolor>E6FFFFFF</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <pulseonselect>false</pulseonselect>
+          <texturefocus border="8" colordiffuse="FFFFFFFF">white.png</texturefocus>
           <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
           <align>center</align><aligny>center</aligny>
         </control>
@@ -94,9 +103,10 @@
           <height>56</height>
           <label>$LOCALIZE[222]</label>
           <font>HBM_Body_M</font>
-          <textcolor>TextSecondary</textcolor>
-          <focusedcolor>TextPrimary</focusedcolor>
-          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <textcolor>E6FFFFFF</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <pulseonselect>false</pulseonselect>
+          <texturefocus border="8" colordiffuse="FFFFFFFF">white.png</texturefocus>
           <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
           <align>center</align><aligny>center</aligny>
         </control>

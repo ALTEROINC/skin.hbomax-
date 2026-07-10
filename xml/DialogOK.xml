@@ -24,7 +24,14 @@
       <control type="image">
         <width>860</width>
         <height>330</height>
-        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+        <texture border="24" colordiffuse="CC000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <left>26</left>
+        <top>8</top>
+        <width>808</width>
+        <height>106</height>
+        <texture colordiffuse="22FFFFFF">special://skin/media/overlays/row_top_fade.png</texture>
       </control>
       <control type="label" id="1">
         <left>40</left>
@@ -32,7 +39,7 @@
         <width>780</width>
         <height>48</height>
         <font>HBM_Display_M</font>
-        <textcolor>TextPrimary</textcolor>
+        <textcolor>FFFFFFFF</textcolor>
         <align>center</align>
       </control>
       <control type="image">
@@ -48,7 +55,7 @@
         <width>780</width>
         <height>114</height>
         <font>HBM_Body_M</font>
-        <textcolor>TextSecondary</textcolor>
+        <textcolor>E6FFFFFF</textcolor>
       </control>
       <control type="grouplist" id="9000">
         <left>0</left>
@@ -63,9 +70,10 @@
           <height>56</height>
           <label>$LOCALIZE[186]</label>
           <font>HBM_Body_M</font>
-          <textcolor>TextSecondary</textcolor>
-          <focusedcolor>TextPrimary</focusedcolor>
-          <texturefocus border="8" colordiffuse="FocusFill">white.png</texturefocus>
+          <textcolor>E6FFFFFF</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <pulseonselect>false</pulseonselect>
+          <texturefocus border="8" colordiffuse="FFFFFFFF">white.png</texturefocus>
           <texturenofocus border="8" colordiffuse="14FFFFFF">white.png</texturenofocus>
           <align>center</align><aligny>center</aligny>
         </control>

@@ -20,7 +20,14 @@
       <control type="image">
         <width>920</width>
         <height>220</height>
-        <texture border="24" colordiffuse="F1272A30">special://skin/media/panel_rounded.png</texture>
+        <texture border="24" colordiffuse="CC000000">special://skin/media/panel_rounded.png</texture>
+      </control>
+      <control type="image">
+        <left>26</left>
+        <top>8</top>
+        <width>868</width>
+        <height>71</height>
+        <texture colordiffuse="22FFFFFF">special://skin/media/overlays/row_top_fade.png</texture>
       </control>
 
       <control type="label" id="10">
@@ -30,7 +37,7 @@
         <height>28</height>
         <aligny>center</aligny>
         <font>HBM_Display_M</font>
-        <textcolor>TextPrimary</textcolor>
+        <textcolor>FFFFFFFF</textcolor>
       </control>
 
       <control type="label" id="12">
@@ -41,7 +48,7 @@
         <align>right</align>
         <aligny>center</aligny>
         <font>HBM_Body_S</font>
-        <textcolor>TextSecondary</textcolor>
+        <textcolor>E6FFFFFF</textcolor>
       </control>
 
       <control type="image">
@@ -62,7 +69,7 @@
         <onleft>11</onleft>
         <onright>11</onright>
         <texturesliderbar colordiffuse="22FFFFFF">white.png</texturesliderbar>
-        <textureslidernib colordiffuse="TextSecondary">white.png</textureslidernib>
+        <textureslidernib colordiffuse="E6FFFFFF">white.png</textureslidernib>
         <textureslidernibfocus colordiffuse="AccentPrimary">white.png</textureslidernibfocus>
       </control>
 
@@ -72,7 +79,7 @@
         <width>840</width>
         <height>30</height>
         <font>HBM_Body_S</font>
-        <textcolor>TextMuted</textcolor>
+        <textcolor>99FFFFFF</textcolor>
         <label>Use left and right to adjust the value, then back out when you're done.</label>
       </control>
     </control>
