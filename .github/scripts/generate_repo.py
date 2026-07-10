@@ -24,11 +24,17 @@ zip_path = f"site/{zip_name}"
 if os.path.exists(zip_path):
     zip_size = os.path.getsize(zip_path)
 
-# Generate addons.xml
+# Generate addons.xml (strip addon.xml's own XML declaration line first —
+# a second <?xml ...?> partway through the document is invalid XML and
+# breaks Kodi's repository update-checker parsing)
+addon_body = "\n".join(
+    line for line in addon_content.splitlines()
+    if not line.strip().startswith("<?xml")
+)
 addons_xml = (
     '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
     "<addons>\n"
-    + addon_content
+    + addon_body
     + "\n</addons>\n"
 )
 with open("site/addons.xml", "w") as f:
