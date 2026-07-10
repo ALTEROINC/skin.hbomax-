@@ -176,6 +176,10 @@
           <texturefocus colordiffuse="FFFFFFFF">special://skin/media/icons/player_skip_back.png</texturefocus>
           <texturenofocus colordiffuse="AAFFFFFF">special://skin/media/icons/player_skip_back.png</texturenofocus>
           <onclick>PlayerControl(SmallSkipBackward)</onclick>
+          <onup>87</onup>
+          <ondown>608</ondown>
+          <onleft>609</onleft>
+          <onright>602</onright>
         </control>
       </control>
 
@@ -201,6 +205,10 @@
           <alttexturenofocus colordiffuse="AAFFFFFF">special://skin/media/icons/player_play.png</alttexturenofocus>
           <usealttexture>Player.Paused | Player.Forwarding | Player.Rewinding</usealttexture>
           <onclick>PlayerControl(Play)</onclick>
+          <onup>87</onup>
+          <ondown>608</ondown>
+          <onleft>603</onleft>
+          <onright>604</onright>
         </control>
       </control>
 
@@ -223,6 +231,10 @@
           <texturefocus colordiffuse="FFFFFFFF">special://skin/media/icons/player_skip_fwd.png</texturefocus>
           <texturenofocus colordiffuse="AAFFFFFF">special://skin/media/icons/player_skip_fwd.png</texturenofocus>
           <onclick>PlayerControl(SmallSkipForward)</onclick>
+          <onup>87</onup>
+          <ondown>608</ondown>
+          <onleft>602</onleft>
+          <onright>605</onright>
         </control>
       </control>
 
