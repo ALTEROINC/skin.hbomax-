@@ -1,0 +1,16 @@
+{
+  "plugin.video.themoviedb.helper": {
+    "omdb_apikey": "",
+    "mdblist_apikey": "",
+    "fanarttv_clientkey": "",
+    "tvdb_token": ""
+  },
+  "plugin.video.umbrella": {
+    "tmdb.apikey": "",
+    "tmdb.v4.readtoken": "",
+    "tmdb.v4.accesstoken": "",
+    "fanart_tv.api_key": "",
+    "mdblist.token": "",
+    "realdebridtoken": ""
+  }
+}

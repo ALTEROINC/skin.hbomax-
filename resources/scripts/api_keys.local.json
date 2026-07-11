@@ -1,0 +1,16 @@
+{
+  "plugin.video.themoviedb.helper": {
+    "omdb_apikey": "dd8e4676",
+    "mdblist_apikey": "6ks35dejhcod493dn3numsxmc",
+    "fanarttv_clientkey": "756adb84bcabad736cd0194f067c4542",
+    "tvdb_token": ""
+  },
+  "plugin.video.umbrella": {
+    "tmdb.apikey": "3c457fce6e98d0b15d7359f0bc4d5f21",
+    "tmdb.v4.readtoken": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzYzQ1N2ZjZTZlOThkMGIxNWQ3MzU5ZjBiYzRkNWYyMSIsIm5iZiI6MTc2MDE5Njk4NC4zNDIwMDAyLCJzdWIiOiI2OGVhNzk3OGQ4YmY4OThlYjgxZjYzOTEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.VZDt5hNlm6UPq25C-9RN3BmE8nPCuQw-wHjXAoyjCDw",
+    "tmdb.v4.accesstoken": "",
+    "fanart_tv.api_key": "756adb84bcabad736cd0194f067c4542",
+    "mdblist.token": "6ks35dejhcod493dn3numsxmc",
+    "realdebridtoken": ""
+  }
+}

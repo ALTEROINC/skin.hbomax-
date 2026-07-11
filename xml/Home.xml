@@ -15,6 +15,11 @@
   <onload condition="String.IsEmpty(Skin.String(HBM.HeroDot.622))">Skin.SetString(HBM.HeroDot.622,1)</onload>
   <onload condition="String.IsEmpty(Skin.String(HBM.HeroDot.623))">Skin.SetString(HBM.HeroDot.623,1)</onload>
   <onload condition="String.IsEmpty(Skin.String(HBM.HeroDot.624))">Skin.SetString(HBM.HeroDot.624,1)</onload>
+  <!-- One-time first-run prefill of TMDb Helper / Umbrella API keys from a local,
+       gitignored config file (resources/scripts/api_keys.local.json). Gated on a
+       skin string so it only actually does work once per profile; the script is
+       also idempotent on its own if this ever fires again. -->
+  <onload condition="String.IsEmpty(Skin.String(HBM.APIKeysPrefilled))">RunScript(special://skin/resources/scripts/prefill_api_keys.py)</onload>
   <!-- Container(id).GoNext / Container.Next(id) are not real Kodi actions (confirmed via
        kodi.log: "Keymapping error: no such action defined") — Kodi has no built-in skin
        action to advance an unfocused container's selection by explicit id. Using a small
