@@ -21,7 +21,9 @@
       <width>1824</width>
       <height>90</height>
 
-      <!-- Current position / total duration -->
+      <!-- Current position / total duration — swaps to the script-driven
+           scrub preview label while a scrub gesture is in progress (see
+           resources/scripts/scrub_seek.py). -->
       <control type="label">
         <left>0</left><top>0</top><width>1824</width><height>28</height>
         <align>center</align>
@@ -29,29 +31,39 @@
         <textcolor>FFFFFFFF</textcolor>
         <shadowcolor>CC000000</shadowcolor>
         <label>$INFO[Player.Time] / $INFO[Player.Duration]</label>
+        <visible>!String.IsEqual(Skin.String(HBM.Scrubbing),1)</visible>
+      </control>
+      <control type="label">
+        <left>0</left><top>0</top><width>1824</width><height>28</height>
+        <align>center</align>
+        <font>HBM_Body_M</font>
+        <textcolor>FFFFFFFF</textcolor>
+        <shadowcolor>CC000000</shadowcolor>
+        <label>$INFO[Skin.String(HBM.ScrubTimeLabel)]</label>
+        <visible>String.IsEqual(Skin.String(HBM.Scrubbing),1)</visible>
       </control>
 
       <!-- Progress bar — identical visual treatment to VideoOSD's seekbar:
-           30%-opacity white track, solid white played fill, same 6px height. -->
+           30%-opacity white track, solid white played fill, same 6px height.
+           Two stacked controls: live player position normally, and a
+           script-driven preview percentage while scrubbing. This is what
+           makes holding left/right glide smoothly instead of hard-seeking
+           on every press — the real seek only commits once presses stop
+           (see resources/scripts/scrub_seek.py + scrub_commit.py, wired via
+           the keymap override installed by install_scrub_keymap.py). -->
       <control type="progress">
         <left>0</left><top>68</top><width>1824</width><height>6</height>
         <info>Player.Progress</info>
         <texturebg colordiffuse="4DFFFFFF">white.png</texturebg>
         <midtexture colordiffuse="FFFFFFFF">white.png</midtexture>
+        <visible>!String.IsEqual(Skin.String(HBM.Scrubbing),1)</visible>
       </control>
-
-      <!-- Interactive seek control, overlaid on the same rect as the progress
-           bar above. Track/nib are fully transparent so the look stays
-           identical to a plain progress bar — this is Kodi's native OSD
-           seek slider (engine-wired to this specific dialog window), so it
-           supports drag, click-to-seek, and continuous accelerating seek
-           on held left/right, with zero extra scripting needed. -->
-      <control type="slider" id="401">
-        <left>0</left><top>62</top><width>1824</width><height>18</height>
-        <texturesliderbar colordiffuse="00FFFFFF">white.png</texturesliderbar>
-        <textureslidernib colordiffuse="00FFFFFF">white.png</textureslidernib>
-        <textureslidernibfocus colordiffuse="FFFFFFFF">special://skin/media/circle_bg.png</textureslidernibfocus>
-        <visible>Player.SeekEnabled</visible>
+      <control type="progress">
+        <left>0</left><top>68</top><width>1824</width><height>6</height>
+        <value>$INFO[Skin.String(HBM.ScrubPercent)]</value>
+        <texturebg colordiffuse="4DFFFFFF">white.png</texturebg>
+        <midtexture colordiffuse="FFFFFFFF">white.png</midtexture>
+        <visible>String.IsEqual(Skin.String(HBM.Scrubbing),1)</visible>
       </control>
     </control>
   </controls>

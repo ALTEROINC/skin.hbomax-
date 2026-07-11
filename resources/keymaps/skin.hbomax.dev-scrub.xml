@@ -1,0 +1,12 @@
+<keymap>
+  <FullscreenVideo>
+    <keyboard>
+      <left>RunScript(special://skin/resources/scripts/scrub_seek.py,left)</left>
+      <right>RunScript(special://skin/resources/scripts/scrub_seek.py,right)</right>
+    </keyboard>
+    <remote>
+      <left>RunScript(special://skin/resources/scripts/scrub_seek.py,left)</left>
+      <right>RunScript(special://skin/resources/scripts/scrub_seek.py,right)</right>
+    </remote>
+  </FullscreenVideo>
+</keymap>
