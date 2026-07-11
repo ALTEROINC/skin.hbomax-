@@ -20,12 +20,19 @@
        skin string so it only actually does work once per profile; the script is
        also idempotent on its own if this ever fires again. -->
   <onload condition="String.IsEmpty(Skin.String(HBM.APIKeysPrefilled))">RunScript(special://skin/resources/scripts/prefill_api_keys.py)</onload>
+  <!-- One-time corrective fix: an earlier prefill run wrote the plain MDBList
+       API key into Umbrella's mdblist.token, which is actually an
+       authenticated session field (not a static key) and caused "session
+       expired" failures. Clears it back to empty. -->
+  <onload condition="String.IsEmpty(Skin.String(HBM.MDBListTokenFixed))">RunScript(special://skin/resources/scripts/fix_mdblist_token.py)</onload>
   <!-- One-time install of a keymap override that redirects fullscreen-video
        Left/Right to resources/scripts/scrub_seek.py instead of Kodi's
        default hard-seek (StepBack/StepForward), enabling smooth
-       preview-then-commit scrubbing. Requires a Kodi restart the first
-       time it installs (keymaps only load at startup). -->
-  <onload condition="String.IsEmpty(Skin.String(HBM.ScrubKeymapInstalled))">RunScript(special://skin/resources/scripts/install_scrub_keymap.py)</onload>
+       preview-then-commit scrubbing plus longpress Rewind/FastForward.
+       Requires a Kodi restart the first time it installs (keymaps only
+       load at startup). Gate name bumped to v2 to force a reinstall on
+       devices that already installed the earlier tap-only version. -->
+  <onload condition="String.IsEmpty(Skin.String(HBM.ScrubKeymapInstalledV2))">RunScript(special://skin/resources/scripts/install_scrub_keymap.py)</onload>
   <!-- Container(id).GoNext / Container.Next(id) are not real Kodi actions (confirmed via
        kodi.log: "Keymapping error: no such action defined") — Kodi has no built-in skin
        action to advance an unfocused container's selection by explicit id. Using a small

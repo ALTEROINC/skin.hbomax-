@@ -11,19 +11,18 @@ def log(msg):
 
 
 def main():
-    if xbmcvfs.exists(DEST):
-        xbmc.executebuiltin("Skin.SetString(HBM.ScrubKeymapInstalled,1)")
-        log("already installed")
-        return
-
+    # Always overwrite — the outer onload gate (Skin.String flag) controls
+    # whether this runs at all, so once it does run it should unconditionally
+    # sync the bundled keymap, otherwise future edits to this file would
+    # never reach devices that already installed an older version.
     if not xbmcvfs.exists(DEST_DIR):
         xbmcvfs.mkdirs(DEST_DIR)
 
     ok = xbmcvfs.copy(SRC, DEST)
     if ok:
-        xbmc.executebuiltin("Skin.SetString(HBM.ScrubKeymapInstalled,1)")
+        xbmc.executebuiltin("Skin.SetString(HBM.ScrubKeymapInstalledV2,1)")
         xbmc.executebuiltin(
-            "Notification(HBO Max Skin,Smooth scrubbing installed - restart Kodi once to activate,8000)"
+            "Notification(HBO Max Skin,Smooth scrubbing updated - restart Kodi once to activate,8000)"
         )
         log("installed keymap to " + DEST)
     else:

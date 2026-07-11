@@ -1,12 +1,24 @@
 <keymap>
   <FullscreenVideo>
+    <!-- Quick tap: discrete step via our preview/commit scrub script.
+         Long press: genuine accelerating Rewind/FastForward — this is a
+         native Kodi engine feature (longpress detection is timing-based,
+         not dependent on the remote sending repeat codes while held,
+         unlike our RunScript approach), so it reliably gives real smooth
+         sped-up playback on any remote/CEC device, not just a keyboard.
+         Pressing Play/Pause resumes normal speed (built-in Kodi behavior,
+         no extra binding needed). -->
     <keyboard>
       <left>RunScript(special://skin/resources/scripts/scrub_seek.py,left)</left>
       <right>RunScript(special://skin/resources/scripts/scrub_seek.py,right)</right>
+      <left mod="longpress">Rewind</left>
+      <right mod="longpress">FastForward</right>
     </keyboard>
     <remote>
       <left>RunScript(special://skin/resources/scripts/scrub_seek.py,left)</left>
       <right>RunScript(special://skin/resources/scripts/scrub_seek.py,right)</right>
+      <left mod="longpress">Rewind</left>
+      <right mod="longpress">FastForward</right>
     </remote>
   </FullscreenVideo>
 </keymap>
