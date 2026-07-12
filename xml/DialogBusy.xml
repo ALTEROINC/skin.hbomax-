@@ -1,54 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
   <controls>
+    <!-- Minimal top-right busy indicator — replaces Estuary's centered dim+panel
+         "Working..." dialog so background operations (e.g. trailer resolution)
+         don't visibly interrupt whatever's on screen. -->
     <control type="image">
-      <left>0</left>
-      <top>0</top>
-      <width>1920</width>
-      <height>1080</height>
-      <texture colordiffuse="77000000">white.png</texture>
-    </control>
-    <control type="group">
-      <centerleft>50%</centerleft>
-      <centertop>50%</centertop>
-      <width>320</width>
-      <height>140</height>
-      <control type="image">
-        <left>-6</left>
-        <top>-6</top>
-        <width>332</width>
-        <height>152</height>
-        <texture border="24" colordiffuse="16000000">special://skin/media/panel_rounded.png</texture>
-      </control>
-      <control type="image">
-        <width>320</width>
-        <height>140</height>
-        <texture border="24" colordiffuse="CC000000">special://skin/media/panel_rounded.png</texture>
-      </control>
-      <control type="image">
-        <left>26</left>
-        <top>8</top>
-        <width>268</width>
-        <height>46</height>
-        <texture colordiffuse="22FFFFFF">special://skin/media/overlays/row_top_fade.png</texture>
-      </control>
-      <control type="label">
-        <left>0</left>
-        <top>34</top>
-        <width>320</width>
-        <height>32</height>
-        <label>Working...</label>
-        <font>HBM_Body_M</font>
-        <textcolor>FFFFFFFF</textcolor>
-        <align>center</align>
-      </control>
-      <control type="progress" id="10">
-        <left>40</left>
-        <top>86</top>
-        <width>240</width>
-        <height>14</height>
-        <info>System.Progressbar</info>
-      </control>
+      <left>1856</left>
+      <top>24</top>
+      <width>40</width>
+      <height>40</height>
+      <texture>special://skin/media/overlays/hero_trailer_spinner.gif</texture>
     </control>
   </controls>
 </window>

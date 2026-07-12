@@ -232,14 +232,6 @@
         <height>756</height>
         <visible>String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
 
-        <!-- Hub / active page label -->
-        <control type="label">
-          <left>0</left><top>272</top><width>320</width><height>24</height>
-          <label>$VAR[HBM_Hero_ActiveLabel]</label>
-          <font>HBM_Meta_S</font>
-          <textcolor>TextHeroMeta</textcolor>
-        </control>
-
         <!-- Clear logo — only renders when a real clearlogo is available.
              NOTE: $VAR[...] cannot be nested inside a boolean condition function
              (String.IsEmpty, String.IsEqual, etc.) inside a <visible> tag — Kodi's
@@ -256,6 +248,9 @@
           <aspectratio align="left" aligny="center">keep</aspectratio>
           <fadetime>400</fadetime>
           <texture>$VAR[HBM_Hero_Logo]</texture>
+          <!-- While a trailer preview plays, slide out of the description area
+               into a small corner badge so it doesn't sit on top of the video. -->
+          <animation effect="slide" start="0,0" end="-20,-194" time="400" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.TrailerPlaying),1)">Conditional</animation>
         </control>
         <!-- Title text fallback when no clearlogo (exact inverse of the clearlogo's visible condition above) -->
         <control type="label">
@@ -265,20 +260,28 @@
           <font>HBM_Title_M</font>
           <textcolor>TextPrimary</textcolor>
           <scroll>true</scroll>
+          <animation effect="slide" start="0,0" end="-20,-194" time="400" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.TrailerPlaying),1)">Conditional</animation>
         </control>
 
-        <!-- Description / plot -->
+        <!-- Description / plot — hidden while a trailer preview plays -->
         <control type="textbox">
           <left>0</left><top>468</top><width>540</width><height>160</height>
           <font>HBM_Body_M</font>
-          <textcolor>TextSecondary</textcolor>
+          <textcolor>E6EDF1F8</textcolor>
           <autoscroll delay="3000" time="800" repeat="4000">!String.IsEqual(Skin.String(hbm_hero_autoscroll),off)</autoscroll>
           <label>$VAR[HBM_Hero_Plot]</label>
+          <visible>!String.IsEqual(Skin.String(HBM.TrailerPlaying),1)</visible>
+          <animation effect="fade" start="100" end="0" time="200" tween="sine" condition="String.IsEqual(Skin.String(HBM.TrailerPlaying),1)">Conditional</animation>
+          <animation effect="fade" start="0" end="100" time="200" tween="sine" condition="!String.IsEqual(Skin.String(HBM.TrailerPlaying),1)">Conditional</animation>
         </control>
 
         <!-- Play button -->
         <control type="button" id="625">
           <left>0</left><top>702</top><width>210</width><height>46</height>
+          <!-- Lands beside More Info (not stacked below it) at the dots' height —
+               stacking both at that Y pushed Play past the row label into the
+               content below it. -->
+          <animation effect="slide" start="0,0" end="230,268" time="400" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.TrailerPlaying),1)">Conditional</animation>
           <label>Play</label>
           <font>HBM_Nav_M</font>
           <align>center</align><aligny>center</aligny>
@@ -296,21 +299,22 @@
           <onfocus>Skin.SetString(HBM.ActiveRow,0)</onfocus>
           <onup>626</onup>
           <ondown>701</ondown>
-          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home)">Container(620).GoPrevious</onleft>
-          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)">Container(621).GoPrevious</onleft>
-          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies)">Container(622).GoPrevious</onleft>
-          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)">Container(623).GoPrevious</onleft>
-          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)">Container(624).GoPrevious</onleft>
-          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home)">Container(620).GoNext</onright>
-          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)">Container(621).GoNext</onright>
-          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies)">Container(622).GoNext</onright>
-          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)">Container(623).GoNext</onright>
-          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)">Container(624).GoNext</onright>
+          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home)">RunScript(special://skin/resources/scripts/hero_manual_nav.py,620,prev)</onleft>
+          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)">RunScript(special://skin/resources/scripts/hero_manual_nav.py,621,prev)</onleft>
+          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies)">RunScript(special://skin/resources/scripts/hero_manual_nav.py,622,prev)</onleft>
+          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)">RunScript(special://skin/resources/scripts/hero_manual_nav.py,623,prev)</onleft>
+          <onleft condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)">RunScript(special://skin/resources/scripts/hero_manual_nav.py,624,prev)</onleft>
+          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home)">RunScript(special://skin/resources/scripts/hero_manual_nav.py,620,next)</onright>
+          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows)">RunScript(special://skin/resources/scripts/hero_manual_nav.py,621,next)</onright>
+          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies)">RunScript(special://skin/resources/scripts/hero_manual_nav.py,622,next)</onright>
+          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)">RunScript(special://skin/resources/scripts/hero_manual_nav.py,623,next)</onright>
+          <onright condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist)">RunScript(special://skin/resources/scripts/hero_manual_nav.py,624,next)</onright>
         </control>
 
         <!-- More Info button -->
         <control type="button" id="626">
           <left>0</left><top>644</top><width>210</width><height>46</height>
+          <animation effect="slide" start="0,0" end="0,326" time="400" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.TrailerPlaying),1)">Conditional</animation>
           <label>More Info</label>
           <font>HBM_Nav_M</font>
           <align>center</align><aligny>center</aligny>
@@ -366,7 +370,7 @@
         <control type="textbox">
           <left>0</left><top>388</top><width>540</width><height>80</height>
           <font>HBM_Body_M</font>
-          <textcolor>TextSecondary</textcolor>
+          <textcolor>E6EDF1F8</textcolor>
           <label>$VAR[HBM_Hero_Plot]</label>
         </control>
 
@@ -1385,6 +1389,7 @@
           <onfocus>Skin.SetString(HBM.PreviousRow,$INFO[Skin.String(HBM.ActiveRow)])</onfocus>
           <onfocus>Skin.SetString(HBM.ActiveRow,$PARAM[id])</onfocus>
           <onfocus>Skin.SetString(HBM.ReturnFocus,$PARAM[id])</onfocus>
+          <onfocus>RunScript(special://skin/resources/scripts/hero_trailer_stop.py)</onfocus>
           <content target="videos" limit="100">$INFO[Skin.String($PARAM[widget_key])]</content>
 
           <!-- Normal (unfocused) channel row -->
@@ -1528,6 +1533,7 @@
           <onfocus>Skin.SetString(HBM.PreviousRow,$INFO[Skin.String(HBM.ActiveRow)])</onfocus>
           <onfocus>Skin.SetString(HBM.ActiveRow,$PARAM[id])</onfocus>
           <onfocus>Skin.SetString(HBM.ReturnFocus,$PARAM[id])</onfocus>
+          <onfocus>RunScript(special://skin/resources/scripts/hero_trailer_stop.py)</onfocus>
           <visible>!String.IsEmpty(Skin.String($PARAM[widget_key]))</visible>
           <content target="videos" limit="25">$INFO[Skin.String($PARAM[widget_key])]</content>
 

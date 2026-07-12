@@ -35,6 +35,15 @@ def main():
     if active_row != '0' or active_page != expected_page:
         return
 
+    # A trailer wait/play/hold cycle is in progress for the current item —
+    # pause auto-rotation entirely. The loop keeps calling this every 14s
+    # regardless; it just no-ops until hero_trailer_advance.py clears the
+    # flag and forces the next rotation itself once the full cycle (7s wait,
+    # trailer, 10s hold) has finished.
+    if xbmc.getCondVisibility('String.IsEqual(Skin.String(HBM.TrailerCycleActive),1)'):
+        log('container=%s trailer cycle active, skipping rotation this cycle' % container_id)
+        return
+
     current_raw = xbmc.getInfoLabel('Container(%s).CurrentItem' % container_id)
     total_raw = xbmc.getInfoLabel('Container(%s).NumItems' % container_id)
 
@@ -66,6 +75,15 @@ def main():
     # panel holds real GUI focus, which we immediately hand back above — so the
     # dots need their own focus-independent driver instead of relying on that.
     xbmc.executebuiltin('Skin.SetString(HBM.HeroDot.%s,%d)' % (container_id, next_pos_1based))
+
+    # Hold on the plain hero (description, no trailer) for 7s before even
+    # attempting to resolve/play a trailer for the new item — TrailerCycleActive
+    # keeps this rotation loop paused for the whole wait+play+hold cycle.
+    xbmc.executebuiltin('Skin.SetString(HBM.TrailerCycleActive,1)')
+    xbmc.executebuiltin(
+        'AlarmClock(HBMTrailerStart%s,RunScript(special://skin/resources/scripts/hero_trailer_start.py,%s),00:00:07,silent)'
+        % (container_id, container_id)
+    )
 
     log('container=%s current=%d total=%d next(1-based)=%d next(0-based)=%d focus restored to %s' % (
         container_id, current, total, next_pos_1based, next_pos_0based, return_to))

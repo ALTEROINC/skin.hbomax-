@@ -48,6 +48,7 @@
   <onunload>CancelAlarm(HBMHero622,silent)</onunload>
   <onunload>CancelAlarm(HBMHero623,silent)</onunload>
   <onunload>CancelAlarm(HBMHero624,silent)</onunload>
+  <onunload>RunScript(special://skin/resources/scripts/hero_trailer_stop.py)</onunload>
 
   <controls>
     <include>HBM_Home_BackgroundStack</include>
@@ -67,16 +68,28 @@
         <left>0</left><top>0</top><width>1920</width><height>1080</height>
         <aspectratio align="center" aligny="center">scale</aspectratio><fadetime>500</fadetime>
         <texture>$VAR[HBM_Hero_Backdrop]</texture>
+        <visible>!String.IsEqual(Skin.String(HBM.TrailerPlaying),1)</visible>
+      </control>
+      <!-- Trailer preview swap. Plays behind the same gradient/tint/bottom-fade
+           stack the static backdrop uses, so only the image-vs-video layer
+           changes — everything layered on top stays identical either way.
+           Also present on TV Shows and Movies hero blocks below. -->
+      <control type="videowindow">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <visible>String.IsEqual(Skin.String(HBM.TrailerPlaying),1)</visible>
+      </control>
+      <!-- Gradient swapped from left_readability_gradient.png to full_page_gradient.png
+           — same native-1920px, pre-tuned smooth gradient already used for the side
+           rail expand treatment elsewhere in this skin. -->
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio>stretch</aspectratio>
+        <texture>special://skin/media/overlays/full_page_gradient.png</texture>
       </control>
       <control type="image">
         <left>0</left><top>0</top><width>1920</width><height>1080</height>
         <aspectratio>stretch</aspectratio>
-        <texture colordiffuse="99FFFFFF">special://skin/media/overlays/left_readability_gradient.png</texture>
-      </control>
-      <control type="image">
-        <left>0</left><top>0</top><width>1920</width><height>1080</height>
-        <aspectratio>stretch</aspectratio>
-        <texture colordiffuse="0A000000">white.png</texture>
+        <texture colordiffuse="12000000">white.png</texture>
       </control>
       <!-- Bottom-heavy fade keeps the image feeling full-screen while the rows still
            blend into a darker base as focus transitions downward. -->
@@ -102,16 +115,21 @@
         <left>0</left><top>0</top><width>1920</width><height>1080</height>
         <aspectratio align="center" aligny="center">scale</aspectratio><fadetime>500</fadetime>
         <texture>$VAR[HBM_Hero_Backdrop]</texture>
+        <visible>!String.IsEqual(Skin.String(HBM.TrailerPlaying),1)</visible>
+      </control>
+      <control type="videowindow">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <visible>String.IsEqual(Skin.String(HBM.TrailerPlaying),1)</visible>
       </control>
       <control type="image">
         <left>0</left><top>0</top><width>1920</width><height>1080</height>
         <aspectratio>stretch</aspectratio>
-        <texture colordiffuse="99FFFFFF">special://skin/media/overlays/left_readability_gradient.png</texture>
+        <texture>special://skin/media/overlays/full_page_gradient.png</texture>
       </control>
       <control type="image">
         <left>0</left><top>0</top><width>1920</width><height>1080</height>
         <aspectratio>stretch</aspectratio>
-        <texture colordiffuse="0A000000">white.png</texture>
+        <texture colordiffuse="12000000">white.png</texture>
       </control>
       <!-- Bottom-heavy fade keeps the image feeling full-screen while the rows still
            blend into a darker base as focus transitions downward. -->
@@ -137,16 +155,21 @@
         <left>0</left><top>0</top><width>1920</width><height>1080</height>
         <aspectratio align="center" aligny="center">scale</aspectratio><fadetime>500</fadetime>
         <texture>$VAR[HBM_Hero_Backdrop]</texture>
+        <visible>!String.IsEqual(Skin.String(HBM.TrailerPlaying),1)</visible>
+      </control>
+      <control type="videowindow">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <visible>String.IsEqual(Skin.String(HBM.TrailerPlaying),1)</visible>
       </control>
       <control type="image">
         <left>0</left><top>0</top><width>1920</width><height>1080</height>
         <aspectratio>stretch</aspectratio>
-        <texture colordiffuse="99FFFFFF">special://skin/media/overlays/left_readability_gradient.png</texture>
+        <texture>special://skin/media/overlays/full_page_gradient.png</texture>
       </control>
       <control type="image">
         <left>0</left><top>0</top><width>1920</width><height>1080</height>
         <aspectratio>stretch</aspectratio>
-        <texture colordiffuse="0A000000">white.png</texture>
+        <texture colordiffuse="12000000">white.png</texture>
       </control>
       <!-- Bottom-heavy fade keeps the image feeling full-screen while the rows still
            blend into a darker base as focus transitions downward. -->
@@ -642,7 +665,12 @@
       <control type="image">
         <left>0</left><top>0</top><width>1920</width><height>702</height>
         <aspectratio>stretch</aspectratio>
-        <texture colordiffuse="06000000">white.png</texture>
+        <texture>special://skin/media/overlays/full_page_gradient.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>702</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="12000000">white.png</texture>
       </control>
       <!-- Soft seam at the row cutoff: straddles the actual hero/row handoff so there is
            no visible hard line where the row section begins. -->
@@ -687,13 +715,13 @@
       <control type="image">
         <left>0</left><top>0</top><width>1920</width><height>760</height>
         <aspectratio>stretch</aspectratio>
-        <texture colordiffuse="99FFFFFF">special://skin/media/overlays/left_readability_gradient.png</texture>
+        <texture>special://skin/media/overlays/full_page_gradient.png</texture>
       </control>
       <!-- Subtle dark tint -->
       <control type="image">
         <left>0</left><top>0</top><width>1920</width><height>760</height>
         <aspectratio>stretch</aspectratio>
-        <texture colordiffuse="06000000">white.png</texture>
+        <texture colordiffuse="12000000">white.png</texture>
       </control>
       <!-- Fade at hero bottom -->
       <control type="image">
@@ -737,7 +765,7 @@
       <control type="textbox">
         <left>0</left><top>452</top><width>540</width><height>200</height>
         <font>HBM_Body_M</font>
-        <textcolor>TextSecondary</textcolor>
+        <textcolor>E6EDF1F8</textcolor>
         <autoscroll delay="3000" time="800" repeat="4000">!String.IsEqual(Skin.String(hbm_hero_autoscroll),off)</autoscroll>
         <label>$VAR[HBM_Row_Plot]</label>
       </control>
@@ -918,7 +946,7 @@
           <left>0</left><top>222</top><width>540</width><height>180</height>
           <label>$INFO[Container(701).ListItem.Plot]</label>
           <font>HBM_Body_S</font>
-          <textcolor>TextSecondary</textcolor>
+          <textcolor>E6EDF1F8</textcolor>
           <scroll>false</scroll>
         </control>
 

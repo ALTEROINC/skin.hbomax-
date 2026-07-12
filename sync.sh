@@ -16,6 +16,7 @@ rsync -av \
   --include="*.xml" \
   --include="*.png" \
   --include="*.svg" \
+  --include="*.gif" \
   --include="*.py" \
   --include="*.json" \
   --exclude="*" \

@@ -9,6 +9,11 @@
   <onload>Skin.SetString(HBM.ShowTMDB,$INFO[ListItem.UniqueID(tmdb)])</onload>
   <onload>Skin.SetString(HBM.CurrentSeason,1)</onload>
   <onload>Skin.Reset(HBM.SeasonOpen)</onload>
+  <!-- Auto trailer preview: same 7s-wait / spinner-while-resolving / reveal-on-
+       actually-playing pattern as the Home hero, adapted for this dialog's single
+       fixed ListItem (no rotation/advance needed — see dialoginfo_trailer_*.py). -->
+  <onload>AlarmClock(HBMInfoTrailerStart,RunScript(special://skin/resources/scripts/dialoginfo_trailer_start.py),00:00:07,silent)</onload>
+  <onunload>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onunload>
 
   <controls>
 
@@ -17,6 +22,19 @@
       <left>0</left><top>0</top><width>1920</width><height>1080</height>
       <aspectratio>stretch</aspectratio>
       <texture colordiffuse="BackgroundBase">white.png</texture>
+    </control>
+
+    <!-- Trailer videowindow — deliberately standalone, NOT nested inside the scroll
+         wrapper group below (which has a conditional slide animation for episode
+         browsing): Kodi's native video overlay doesn't reliably composite through
+         an animated ancestor group the way normal texture controls do (confirmed
+         while building the Home row-focus trailer feature). Rendered here, before
+         the scroll wrapper, so its dim/fade/floor overlays still layer on top of
+         it same as the static fanart. Fixed in place rather than scrolling with
+         episode browsing — a known, accepted tradeoff. -->
+    <control type="videowindow">
+      <left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <visible>String.IsEqual(Skin.String(HBM.InfoTrailerPlaying),1)</visible>
     </control>
 
     <!-- Scroll wrapper: hero backdrop + content slide together when episodes focused -->
@@ -30,19 +48,20 @@
         <aspectratio>scale</aspectratio>
         <fadetime>500</fadetime>
         <texture>$INFO[ListItem.Art(fanart)]</texture>
+        <visible>!String.IsEqual(Skin.String(HBM.InfoTrailerPlaying),1)</visible>
       </control>
       <control type="image">
         <left>0</left><top>0</top><width>1920</width><height>1080</height>
         <aspectratio>scale</aspectratio>
         <fadetime>500</fadetime>
-        <visible>String.IsEmpty(ListItem.Art(fanart))</visible>
+        <visible>String.IsEmpty(ListItem.Art(fanart)) + !String.IsEqual(Skin.String(HBM.InfoTrailerPlaying),1)</visible>
         <texture>$INFO[ListItem.Art(tvshow.fanart)]</texture>
       </control>
       <control type="image">
         <left>0</left><top>0</top><width>1920</width><height>1080</height>
         <aspectratio>scale</aspectratio>
         <fadetime>500</fadetime>
-        <visible>String.IsEmpty(ListItem.Art(fanart)) + String.IsEmpty(ListItem.Art(tvshow.fanart))</visible>
+        <visible>String.IsEmpty(ListItem.Art(fanart)) + String.IsEmpty(ListItem.Art(tvshow.fanart)) + !String.IsEqual(Skin.String(HBM.InfoTrailerPlaying),1)</visible>
         <texture>$INFO[ListItem.Art(landscape)]</texture>
       </control>
 
@@ -73,7 +92,7 @@
 
         <!-- Genre badge -->
         <control type="label">
-          <left>0</left><top>390</top><width>780</width><height>24</height>
+          <left>0</left><top>592</top><width>780</width><height>24</height>
           <label>$INFO[ListItem.Genre]</label>
           <font>HBM_Meta_S</font>
           <textcolor>TextHeroMeta</textcolor>
@@ -85,6 +104,7 @@
           <aspectratio align="left" aligny="center">keep</aspectratio>
           <fadetime>400</fadetime>
           <texture>$INFO[ListItem.Art(clearlogo)]</texture>
+          <visible>!String.IsEqual(Skin.String(HBM.InfoTrailerPlaying),1)</visible>
         </control>
 
         <!-- Title fallback when no clearlogo -->
@@ -94,7 +114,29 @@
           <font>HBM_Display_L</font>
           <textcolor>TextPrimary</textcolor>
           <aligny>center</aligny>
-          <visible>String.IsEmpty(ListItem.Art(clearlogo))</visible>
+          <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEqual(Skin.String(HBM.InfoTrailerPlaying),1)</visible>
+        </control>
+
+        <!-- Trailer-active clear logo: separate control (not an animated version of
+             the one above) since it needs a genuinely centered box — the normal
+             clearlogo is intentionally left-anchored via aspectratio align=left,
+             which can't be centered just by animating position. left=-160/width=1920
+             re-spans the full screen width despite this group's own left=160 offset. -->
+        <control type="image">
+          <left>-160</left><top>20</top><width>1920</width><height>120</height>
+          <aspectratio align="center" aligny="center">keep</aspectratio>
+          <fadetime>400</fadetime>
+          <texture>$INFO[ListItem.Art(clearlogo)]</texture>
+          <visible>String.IsEqual(Skin.String(HBM.InfoTrailerPlaying),1)</visible>
+        </control>
+        <control type="label">
+          <left>-160</left><top>20</top><width>1920</width><height>120</height>
+          <label>$INFO[ListItem.Title]</label>
+          <font>HBM_Display_L</font>
+          <textcolor>TextPrimary</textcolor>
+          <align>center</align>
+          <aligny>center</aligny>
+          <visible>String.IsEmpty(ListItem.Art(clearlogo)) + String.IsEqual(Skin.String(HBM.InfoTrailerPlaying),1)</visible>
         </control>
 
         <!-- Meta: year · MPAA · duration -->
@@ -111,6 +153,7 @@
           <label></label>
           <texturenofocus>-</texturenofocus>
           <texturefocus>-</texturefocus>
+          <onclick>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onclick>
           <onclick>Skin.SetString(HBM.PlayedFromDialog,1)</onclick>
           <onclick condition="String.IsEqual(ListItem.DBTYPE,movie)">Skin.SetString(HBM.DialogItemType,movie)</onclick>
           <onclick condition="!String.IsEqual(ListItem.DBTYPE,movie)">Skin.SetString(HBM.DialogItemType,tv)</onclick>
@@ -215,6 +258,7 @@
           <focusedcolor>FFFFFFFF</focusedcolor>
           <texturenofocus border="6" colordiffuse="33FFFFFF">special://skin/media/panel_rect.png</texturenofocus>
           <texturefocus border="6" colordiffuse="55FFFFFF">special://skin/media/panel_rect.png</texturefocus>
+          <onclick>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onclick>
           <onclick>Skin.SetString(HBM.PlayedFromDialog,1)</onclick>
           <onclick condition="String.IsEqual(ListItem.DBTYPE,movie)">Skin.SetString(HBM.DialogItemType,movie)</onclick>
           <onclick condition="!String.IsEqual(ListItem.DBTYPE,movie)">Skin.SetString(HBM.DialogItemType,tv)</onclick>
@@ -281,6 +325,7 @@
           <label></label>
           <texturenofocus>-</texturenofocus>
           <texturefocus>-</texturefocus>
+          <onclick>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onclick>
           <onclick>PlayMedia($INFO[ListItem.Trailer])</onclick>
           <onfocus>Skin.SetString(HBM.ReturnFocus,5)</onfocus>
           <onup>2</onup>
@@ -370,6 +415,7 @@
             <onclick>Skin.ToggleSetting(HBM.SeasonOpen)</onclick>
             <onfocus>Skin.Reset(HBM.SeasonOpen)</onfocus>
             <onfocus>Skin.SetString(HBM.ReturnFocus,500)</onfocus>
+            <onfocus>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onfocus>
             <onup>4</onup>
             <ondown condition="Skin.HasSetting(HBM.SeasonOpen)">502</ondown>
             <ondown>501</ondown>
@@ -382,10 +428,12 @@
             <itemgap>0</itemgap>
             <scrolltime tween="sine" easing="out">200</scrolltime>
             <preloaditems>6</preloaditems>
+            <onclick>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onclick>
             <onclick>Skin.SetString(HBM.PlayedFromDialog,1)</onclick>
             <onclick>Skin.SetString(HBM.DialogItemType,tv)</onclick>
             <onclick>PlayMedia($INFO[ListItem.FileNameAndPath])</onclick>
             <onfocus>Skin.SetString(HBM.ReturnFocus,501)</onfocus>
+            <onfocus>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onfocus>
             <onup>500</onup>
             <onleft>200</onleft>
             <onright>501</onright>
@@ -509,6 +557,7 @@
               <onclick>Skin.SetString(HBM.CurrentSeason,$INFO[ListItem.Season])</onclick>
               <onclick>Skin.Reset(HBM.SeasonOpen)</onclick>
               <onclick>SetFocus(501)</onclick>
+              <onfocus>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onfocus>
               <onup>500</onup>
               <onleft>500</onleft>
               <onright>500</onright>
