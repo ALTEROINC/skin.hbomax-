@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
   <include file="Variables.xml"/>
-  <include file="Custom_Animations.xml"/>
+  <include file="SkinAnimations.xml"/>
   <!-- Runtime-safe plain dark backdrop for non-home fallback windows -->
   <include name="HBM_Runtime_Background">
     <control type="image">
@@ -263,14 +263,14 @@
           <animation effect="slide" start="0,0" end="-20,-194" time="400" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.TrailerPlaying),1)">Conditional</animation>
         </control>
 
-        <!-- Description / plot — hidden while a trailer preview plays -->
+        <!-- Description / plot — hidden while trailer plays or rows are focused -->
         <control type="textbox">
           <left>0</left><top>468</top><width>540</width><height>160</height>
           <font>HBM_Body_M</font>
           <textcolor>E6EDF1F8</textcolor>
           <autoscroll delay="3000" time="800" repeat="4000">!String.IsEqual(Skin.String(hbm_hero_autoscroll),off)</autoscroll>
           <label>$VAR[HBM_Hero_Plot]</label>
-          <visible>!String.IsEqual(Skin.String(HBM.TrailerPlaying),1)</visible>
+          <visible>!String.IsEqual(Skin.String(HBM.TrailerPlaying),1) + String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
           <animation effect="fade" start="100" end="0" time="200" tween="sine" condition="String.IsEqual(Skin.String(HBM.TrailerPlaying),1)">Conditional</animation>
           <animation effect="fade" start="0" end="100" time="200" tween="sine" condition="!String.IsEqual(Skin.String(HBM.TrailerPlaying),1)">Conditional</animation>
         </control>
@@ -371,6 +371,7 @@
           <left>0</left><top>388</top><width>540</width><height>80</height>
           <font>HBM_Body_M</font>
           <textcolor>E6EDF1F8</textcolor>
+          <autoscroll delay="3000" time="800" repeat="4000">!String.IsEqual(Skin.String(hbm_hero_autoscroll),off)</autoscroll>
           <label>$VAR[HBM_Hero_Plot]</label>
         </control>
 
@@ -1578,6 +1579,124 @@
             <control type="image"><left>2</left><top>50</top><width>189</width><height>189</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
             <control type="image"><left>2</left><top>50</top><width>189</width><height>189</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
             <control type="image"><left>2</left><top>50</top><width>189</width><height>189</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
+          </focusedlayout>
+
+        </control>
+
+      </control><!-- end row group -->
+
+    </definition>
+  </include>
+
+  <!-- Large poster row: 260×390 card, 276px cell, 390px panel — home hub only.
+       Landscape/Square retain original sizes (scaled poster only). -->
+  <include name="HBM_Row_Landscape_Large">
+    <param name="id">701</param>
+    <param name="label_y">814</param>
+    <param name="panel_y">858</param>
+    <param name="label_key">hbm_homecfg_home_row01_label</param>
+    <param name="widget_key">hbm_homecfg_home_row01_widget</param>
+    <param name="visible_key">hbm_homecfg_home_row01_visible</param>
+    <param name="style_key">hbm_homecfg_home_row01_style</param>
+    <param name="nav_up">200</param>
+    <param name="nav_down">702</param>
+    <param name="panel_height">390</param>
+    <definition>
+
+      <control type="group">
+        <visible>String.IsEqual(Skin.String($PARAM[visible_key]),Visible)</visible>
+
+        <control type="label">
+          <left>0</left><top>$PARAM[label_y]</top><width>800</width><height>32</height>
+          <label>$INFO[Skin.String($PARAM[label_key])]</label>
+          <font>HBM_Nav_M</font>
+          <textcolor>FFFFFFFF</textcolor>
+        </control>
+
+        <!-- Placeholder: shown when no widget configured -->
+        <control type="panel">
+          <left>0</left><top>$PARAM[panel_y]</top><width>1832</width><height>$PARAM[panel_height]</height>
+          <orientation>horizontal</orientation>
+          <visible>String.IsEmpty(Skin.String($PARAM[widget_key]))</visible>
+          <content>
+            <item><label>1</label></item><item><label>2</label></item>
+            <item><label>3</label></item><item><label>4</label></item>
+            <item><label>5</label></item><item><label>6</label></item>
+            <item><label>7</label></item><item><label>8</label></item>
+          </content>
+          <itemlayout width="276" height="390" condition="!String.IsEqual(Skin.String($PARAM[style_key]),Landscape)+!String.IsEqual(Skin.String($PARAM[style_key]),Square)">
+            <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="33161C24">white.png</texture></control>
+          </itemlayout>
+          <itemlayout width="483" height="390" condition="String.IsEqual(Skin.String($PARAM[style_key]),Landscape)">
+            <control type="image"><left>0</left><top>0</top><width>467</width><height>280</height><aspectratio>stretch</aspectratio><texture colordiffuse="33161C24">white.png</texture></control>
+          </itemlayout>
+          <itemlayout width="276" height="390" condition="String.IsEqual(Skin.String($PARAM[style_key]),Square)">
+            <control type="image"><left>0</left><top>48</top><width>260</width><height>260</height><aspectratio>stretch</aspectratio><texture colordiffuse="33161C24">white.png</texture></control>
+          </itemlayout>
+          <focusedlayout width="276" height="390">
+            <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="33161C24">white.png</texture></control>
+          </focusedlayout>
+        </control>
+
+        <!-- Live panel: dynamic widget content -->
+        <control type="panel" id="$PARAM[id]">
+          <left>0</left><top>$PARAM[panel_y]</top><width>1832</width><height>$PARAM[panel_height]</height>
+          <orientation>horizontal</orientation>
+          <scrolltime tween="cubic" easing="out">300</scrolltime>
+          <preloaditems>2</preloaditems>
+          <onclick>Action(info)</onclick>
+          <onup>Control.SetFocus($PARAM[nav_up],$INFO[Container($PARAM[id]).Position])</onup>
+          <ondown>Control.SetFocus($PARAM[nav_down],$INFO[Container($PARAM[id]).Position])</ondown>
+          <onleft>200</onleft>
+          <onright>$PARAM[id]</onright>
+          <onfocus>Skin.SetString(HBM.PreviousRow,$INFO[Skin.String(HBM.ActiveRow)])</onfocus>
+          <onfocus>Skin.SetString(HBM.ActiveRow,$PARAM[id])</onfocus>
+          <onfocus>Skin.SetString(HBM.ReturnFocus,$PARAM[id])</onfocus>
+          <onfocus>RunScript(special://skin/resources/scripts/hero_trailer_stop.py)</onfocus>
+          <visible>!String.IsEmpty(Skin.String($PARAM[widget_key]))</visible>
+          <content target="videos" limit="25">$INFO[Skin.String($PARAM[widget_key])]</content>
+
+          <!-- Poster -->
+          <itemlayout width="276" height="390" condition="!String.IsEqual(Skin.String($PARAM[style_key]),Landscape)+!String.IsEqual(Skin.String($PARAM[style_key]),Square)">
+            <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+            <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
+            <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+          </itemlayout>
+          <!-- Landscape -->
+          <itemlayout width="483" height="390" condition="String.IsEqual(Skin.String($PARAM[style_key]),Landscape)">
+            <control type="image"><left>0</left><top>0</top><width>467</width><height>280</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+            <control type="image"><left>0</left><top>0</top><width>467</width><height>280</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(landscape)]</texture></control>
+            <control type="image"><left>0</left><top>0</top><width>467</width><height>280</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(fanart)]</texture></control>
+            <control type="image"><left>0</left><top>0</top><width>467</width><height>280</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+          </itemlayout>
+          <!-- Square -->
+          <itemlayout width="276" height="390" condition="String.IsEqual(Skin.String($PARAM[style_key]),Square)">
+            <control type="image"><left>0</left><top>48</top><width>260</width><height>260</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+            <control type="image"><left>0</left><top>48</top><width>260</width><height>260</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+            <control type="image"><left>0</left><top>48</top><width>260</width><height>260</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
+          </itemlayout>
+
+          <!-- Poster focused: white border, art inset 2px -->
+          <focusedlayout width="276" height="390" condition="!String.IsEqual(Skin.String($PARAM[style_key]),Landscape)+!String.IsEqual(Skin.String($PARAM[style_key]),Square)">
+            <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture></control>
+            <control type="image"><left>2</left><top>2</top><width>256</width><height>386</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+            <control type="image"><left>2</left><top>2</top><width>256</width><height>386</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
+            <control type="image"><left>2</left><top>2</top><width>256</width><height>386</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+          </focusedlayout>
+          <!-- Landscape focused -->
+          <focusedlayout width="483" height="390" condition="String.IsEqual(Skin.String($PARAM[style_key]),Landscape)">
+            <control type="image"><left>0</left><top>0</top><width>467</width><height>280</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture></control>
+            <control type="image"><left>2</left><top>2</top><width>463</width><height>276</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+            <control type="image"><left>2</left><top>2</top><width>463</width><height>276</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(landscape)]</texture></control>
+            <control type="image"><left>2</left><top>2</top><width>463</width><height>276</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(fanart)]</texture></control>
+            <control type="image"><left>2</left><top>2</top><width>463</width><height>276</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+          </focusedlayout>
+          <!-- Square focused -->
+          <focusedlayout width="276" height="390" condition="String.IsEqual(Skin.String($PARAM[style_key]),Square)">
+            <control type="image"><left>0</left><top>48</top><width>260</width><height>260</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture></control>
+            <control type="image"><left>2</left><top>50</top><width>256</width><height>256</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+            <control type="image"><left>2</left><top>50</top><width>256</width><height>256</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+            <control type="image"><left>2</left><top>50</top><width>256</width><height>256</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
           </focusedlayout>
 
         </control>

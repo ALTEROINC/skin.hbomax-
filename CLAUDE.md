@@ -84,3 +84,7 @@ The same focus dependency from #4/#5 applies to a panel's `itemlayout` vs `focus
 ### 7. `<content limit="N">` can still yield more than N items
 
 Observed: `limit="6"` on a hero panel's `<content>`, but `Container(id).NumItems` reported `7`, with the trailing item rendering blank. Don't trust `NumItems` blindly for bounds — cap any position math to the intended limit explicitly.
+
+### 8. Panels/lists inside a hidden parent `<group>` do not load their `<content>`
+
+Wrapping a `<control type="panel">` or `<control type="list">` in a parent `<control type="group">` with a `<visible>` condition prevents the container from initializing its content if the group starts invisible. The panel physically disappears from the render tree until the group becomes visible, by which point the content fetch may never have started. This means the hero carousel panels (620–624) **must keep their own individual `<visible>` tags** — do not try to consolidate their visibility check into a parent group as a performance optimization. Plain `<group>` controls containing only images/labels are safe to consolidate.

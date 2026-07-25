@@ -4,7 +4,7 @@ import xbmc
 
 # How long to hold on the item (static backdrop, description back on screen)
 # after its trailer finishes before auto-scrolling to the next one.
-HOLD_DELAY = "00:00:10"
+HOLD_DELAY = "00:00:08"
 
 
 def log(msg):
