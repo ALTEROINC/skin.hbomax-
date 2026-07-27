@@ -3,8 +3,12 @@
   <defaultcontrol always="true">602</defaultcontrol>
   <onload>SetFocus(602)</onload>
   <onload condition="Player.Forwarding | Player.Rewinding">PlayerControl(Play)</onload>
+  <onload>Skin.SetString(HBM.OSDTmdbId,$INFO[VideoPlayer.UniqueID(tmdb)])</onload>
+  <onload>Skin.SetString(HBM.OSDTmdbSeason,$INFO[VideoPlayer.Season])</onload>
   <onunload>Skin.SetString(HBM.OSDEpisodesOpen,0)</onunload>
   <onunload>Skin.SetString(HBM.OSDEpisodesTab,)</onunload>
+  <onunload>Skin.SetString(HBM.OSDTmdbId,)</onunload>
+  <onunload>Skin.SetString(HBM.OSDTmdbSeason,)</onunload>
   <animation effect="fade" start="0" end="100" time="200" type="WindowOpen"/>
   <animation effect="fade" start="100" end="0" time="200" type="WindowClose"/>
   <controls>
@@ -474,7 +478,7 @@
         <onleft>800</onleft>
         <onright>800</onright>
         <visible>String.IsEqual(Skin.String(HBM.OSDEpisodesTab),episodes)</visible>
-        <content target="videos" limit="30">plugin://plugin.video.themoviedb.helper/?info=episodes&amp;tmdb_type=tv&amp;tmdb_id=$INFO[VideoPlayer.UniqueID(tmdb)]&amp;season=$INFO[VideoPlayer.Season]</content>
+        <content target="videos" limit="30">plugin://plugin.video.themoviedb.helper/?info=episodes&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.OSDTmdbId)]&amp;season=$INFO[Skin.String(HBM.OSDTmdbSeason)]</content>
 
         <!-- Unfocused card: thumbnail + text below -->
         <itemlayout width="436" height="390">
@@ -580,7 +584,7 @@
         <onleft>810</onleft>
         <onright>810</onright>
         <visible>String.IsEqual(Skin.String(HBM.OSDEpisodesTab),ymal)</visible>
-        <content target="videos" limit="30">plugin://plugin.video.themoviedb.helper/?info=similar&amp;tmdb_type=movie&amp;tmdb_id=$INFO[VideoPlayer.UniqueID(tmdb)]</content>
+        <content target="videos" limit="30">plugin://plugin.video.themoviedb.helper/?info=similar&amp;tmdb_type=movie&amp;tmdb_id=$INFO[Skin.String(HBM.OSDTmdbId)]</content>
 
         <itemlayout width="436" height="390">
           <control type="image">

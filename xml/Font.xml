@@ -17,6 +17,11 @@
       <size>32</size>
     </font>
     <font>
+      <name>HBM_Browse_Title</name>
+      <filename>GeneralSans-Bold.ttf</filename>
+      <size>38</size>
+    </font>
+    <font>
       <name>HBM_Nav_M</name>
       <filename>GeneralSans-Semibold.ttf</filename>
       <size>25</size>

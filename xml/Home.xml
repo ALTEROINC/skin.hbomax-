@@ -10,6 +10,7 @@
   <onload condition="String.IsEmpty(Skin.String(hbm_homecfg_mylist_hero_visible))">Skin.SetString(hbm_homecfg_mylist_hero_visible,Visible)</onload>
   <onload>Skin.SetString(HBM.ActiveRow,0)</onload>
   <onload>Skin.SetString(HBM.ReturnFocus,625)</onload>
+  <onload>RunScript(special://skin/resources/scripts/patch_tmdbhelper.py)</onload>
   <onload condition="String.IsEmpty(Skin.String(HBM.HeroDot.620))">Skin.SetString(HBM.HeroDot.620,1)</onload>
   <onload condition="String.IsEmpty(Skin.String(HBM.HeroDot.621))">Skin.SetString(HBM.HeroDot.621,1)</onload>
   <onload condition="String.IsEmpty(Skin.String(HBM.HeroDot.622))">Skin.SetString(HBM.HeroDot.622,1)</onload>
@@ -262,6 +263,7 @@
           <param name="visible_key">hbm_homecfg_home_row01_visible</param>
           <param name="style_key">hbm_homecfg_home_row01_style</param>
           <param name="nav_up">625</param><param name="nav_down">702</param>
+          <param name="see_all_id">0</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">702</param>
@@ -271,6 +273,7 @@
           <param name="visible_key">hbm_homecfg_home_row02_visible</param>
           <param name="style_key">hbm_homecfg_home_row02_style</param>
           <param name="nav_up">701</param><param name="nav_down">703</param>
+          <param name="see_all_id">0</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">703</param>
@@ -280,6 +283,7 @@
           <param name="visible_key">hbm_homecfg_home_row03_visible</param>
           <param name="style_key">hbm_homecfg_home_row03_style</param>
           <param name="nav_up">702</param><param name="nav_down">704</param>
+          <param name="see_all_id">0</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">704</param>
@@ -289,6 +293,7 @@
           <param name="visible_key">hbm_homecfg_home_row04_visible</param>
           <param name="style_key">hbm_homecfg_home_row04_style</param>
           <param name="nav_up">703</param><param name="nav_down">705</param>
+          <param name="see_all_id">0</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">705</param>
@@ -298,6 +303,7 @@
           <param name="visible_key">hbm_homecfg_home_row05_visible</param>
           <param name="style_key">hbm_homecfg_home_row05_style</param>
           <param name="nav_up">704</param><param name="nav_down">706</param>
+          <param name="see_all_id">0</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">706</param>
@@ -307,6 +313,7 @@
           <param name="visible_key">hbm_homecfg_home_row06_visible</param>
           <param name="style_key">hbm_homecfg_home_row06_style</param>
           <param name="nav_up">705</param><param name="nav_down">707</param>
+          <param name="see_all_id">0</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">707</param>
@@ -316,6 +323,7 @@
           <param name="visible_key">hbm_homecfg_home_row07_visible</param>
           <param name="style_key">hbm_homecfg_home_row07_style</param>
           <param name="nav_up">706</param><param name="nav_down">708</param>
+          <param name="see_all_id">0</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">708</param>
@@ -325,6 +333,7 @@
           <param name="visible_key">hbm_homecfg_home_row08_visible</param>
           <param name="style_key">hbm_homecfg_home_row08_style</param>
           <param name="nav_up">707</param><param name="nav_down">709</param>
+          <param name="see_all_id">0</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">709</param>
@@ -334,6 +343,7 @@
           <param name="visible_key">hbm_homecfg_home_row09_visible</param>
           <param name="style_key">hbm_homecfg_home_row09_style</param>
           <param name="nav_up">708</param><param name="nav_down">710</param>
+          <param name="see_all_id">0</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">710</param>
@@ -343,6 +353,7 @@
           <param name="visible_key">hbm_homecfg_home_row10_visible</param>
           <param name="style_key">hbm_homecfg_home_row10_style</param>
           <param name="nav_up">709</param><param name="nav_down">710</param>
+          <param name="see_all_id">0</param>
         </include>
       </control>
 
@@ -653,22 +664,22 @@
       <animation effect="fade" start="0" end="100" reversible="false" time="220" tween="sine" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
       <animation effect="fade" start="100" end="0" reversible="false" time="180" tween="sine" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
       <control type="image">
-        <left>0</left><top>0</top><width>1920</width><height>702</height>
+        <left>0</left><top>0</top><width>1920</width><height>696</height>
         <aspectratio>stretch</aspectratio>
         <texture colordiffuse="BackgroundBase">white.png</texture>
       </control>
       <control type="image">
-        <left>0</left><top>0</top><width>1920</width><height>702</height>
+        <left>0</left><top>0</top><width>1920</width><height>696</height>
         <aspectratio align="center" aligny="top">scale</aspectratio><fadetime>500</fadetime>
         <texture>$VAR[HBM_Hero_Backdrop]</texture>
       </control>
       <control type="image">
-        <left>0</left><top>0</top><width>1920</width><height>702</height>
+        <left>0</left><top>0</top><width>1920</width><height>696</height>
         <aspectratio>stretch</aspectratio>
         <texture>special://skin/media/overlays/full_page_gradient.png</texture>
       </control>
       <control type="image">
-        <left>0</left><top>0</top><width>1920</width><height>702</height>
+        <left>0</left><top>0</top><width>1920</width><height>696</height>
         <aspectratio>stretch</aspectratio>
         <texture colordiffuse="12000000">white.png</texture>
       </control>

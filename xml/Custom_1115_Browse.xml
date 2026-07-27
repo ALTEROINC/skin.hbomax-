@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="1115">
+  <defaultcontrol always="true">800</defaultcontrol>
+  <animation effect="fade" time="200">WindowOpen</animation>
+  <animation effect="fade" time="200">WindowClose</animation>
+  <controls>
+
+    <!-- Dark background -->
+    <control type="image">
+      <left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="BackgroundBase">white.png</texture>
+    </control>
+
+    <!-- ═══ NAV RAIL ═══ -->
+    <control type="image">
+      <left>0</left><top>0</top><width>88</width><height>1080</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="BackgroundBase">white.png</texture>
+    </control>
+    <control type="image">
+      <left>87</left><top>0</top><width>1</width><height>1080</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="SurfaceStroke">white.png</texture>
+    </control>
+    <control type="image">
+      <left>16</left><top>18</top><width>64</width><height>64</height>
+      <aspectratio align="center" aligny="center">keep</aspectratio>
+      <texture>special://skin/media/brand/hbo_white.png</texture>
+    </control>
+
+    <!-- Back button on rail — closes this window -->
+    <control type="button" id="700">
+      <left>0</left><top>0</top><width>88</width><height>1080</height>
+      <label />
+      <texturenofocus />
+      <texturefocus />
+      <onclick>Action(back)</onclick>
+      <onright>800</onright>
+      <onleft>700</onleft>
+    </control>
+
+    <!-- ═══ HEADER ═══ -->
+    <control type="label">
+      <left>160</left><top>14</top><width>1700</width><height>48</height>
+      <label>$INFO[Skin.String(HBM.BrowseLabel)]</label>
+      <font>HBM_Browse_Title</font>
+      <textcolor>TextPrimary</textcolor>
+    </control>
+
+    <!-- ═══ POSTER GRID ═══
+         Card: 294×441 (2:3 portrait). Cell: 305×639.
+         The first row opens centered; subsequent rows use the native panel's
+         regular upward scrolling, preserving the multi-row grid view. -->
+    <control type="panel" id="800">
+      <left>88</left><top>319</top><width>1830</width><height>1080</height>
+      <orientation>vertical</orientation>
+      <scrolltime tween="cubic" easing="out">300</scrolltime>
+      <preloaditems>3</preloaditems>
+      <onclick>Action(info)</onclick>
+      <onleft>700</onleft>
+      <onright>800</onright>
+      <content target="videos" limit="50">$INFO[Skin.String(HBM.BrowseWidget)]</content>
+
+      <itemlayout width="305" height="639">
+        <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture><visible>!String.IsEqual(ListItem.Property(HBM.Placeholder),1)</visible></control>
+        <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture><visible>!String.IsEqual(ListItem.Property(HBM.Placeholder),1)</visible></control>
+        <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture><visible>!String.IsEqual(ListItem.Property(HBM.Placeholder),1)</visible></control>
+      </itemlayout>
+
+      <focusedlayout width="305" height="639">
+        <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture><visible>!String.IsEqual(ListItem.Property(HBM.Placeholder),1)</visible></control>
+        <control type="image"><left>2</left><top>2</top><width>290</width><height>437</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture><visible>!String.IsEqual(ListItem.Property(HBM.Placeholder),1)</visible></control>
+        <control type="image"><left>2</left><top>2</top><width>290</width><height>437</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture><visible>!String.IsEqual(ListItem.Property(HBM.Placeholder),1)</visible></control>
+        <control type="image"><left>2</left><top>2</top><width>290</width><height>437</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture><visible>!String.IsEqual(ListItem.Property(HBM.Placeholder),1)</visible></control>
+      </focusedlayout>
+
+    </control>
+
+  </controls>
+</window>

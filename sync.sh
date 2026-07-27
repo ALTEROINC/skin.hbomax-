@@ -9,6 +9,7 @@ rsync -av \
   --exclude=".claude/" \
   --exclude=".tmp_generalsans/" \
   --exclude=".tmp_resvg/" \
+  --exclude="__pycache__/" \
   --exclude="build/" \
   --exclude="tmp/" \
   --exclude="backup/" \
@@ -21,4 +22,5 @@ rsync -av \
   --include="*.json" \
   --exclude="*" \
   "$PROJECT_ROOT/" "$KODI_ADDON/"
+
 echo "Sync complete. Reload the skin in Kodi."

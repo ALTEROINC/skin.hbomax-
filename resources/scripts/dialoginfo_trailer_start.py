@@ -11,6 +11,15 @@ def main():
     if not xbmc.getCondVisibility("Window.IsActive(movieinformation)"):
         return
 
+    # Movie related-title browsing is intentionally static.  Do not begin the
+    # delayed preview after focus has already left the hero.
+    if (
+        xbmc.getCondVisibility("String.IsEqual(Skin.String(HBM.InfoDbType),movie)")
+        and xbmc.getCondVisibility("Control.HasFocus(504) | Control.HasFocus(507)")
+    ):
+        log("movie related content focused, skipping trailer preview")
+        return
+
     # Don't stomp on something the user actually pressed Play/Trailer/Restart on.
     if xbmc.Player().isPlaying():
         return

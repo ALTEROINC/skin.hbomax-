@@ -13,7 +13,7 @@ HUB_BY_CONTAINER = {
 # Matches the <content limit="6"> on each hero panel. Some widget sources report
 # one extra trailing item beyond the requested limit (seen empirically: limit=6
 # but Container(id).NumItems reported 7) which renders blank — never rotate into it.
-CONTENT_LIMIT = 6
+CONTENT_LIMIT = 3
 
 
 def log(msg):

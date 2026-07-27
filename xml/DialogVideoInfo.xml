@@ -7,13 +7,18 @@
   <onload>Skin.SetString(HBM.InDialog,1)</onload>
   <onunload>Skin.Reset(HBM.InDialog)</onunload>
   <onload>Skin.SetString(HBM.ShowTMDB,$INFO[ListItem.UniqueID(tmdb)])</onload>
+  <onload>Skin.SetString(HBM.InfoDbType,$INFO[ListItem.DBTYPE])</onload>
+  <onload>Skin.SetString(HBM.InfoClearLogo,$INFO[ListItem.Art(clearlogo)])</onload>
   <onload>Skin.SetString(HBM.CurrentSeason,1)</onload>
-  <onload>Skin.Reset(HBM.SeasonOpen)</onload>
+  <onload>Skin.SetString(HBM.EpisodeTab,episodes)</onload>
   <!-- Auto trailer preview: same 7s-wait / spinner-while-resolving / reveal-on-
        actually-playing pattern as the Home hero, adapted for this dialog's single
        fixed ListItem (no rotation/advance needed — see dialoginfo_trailer_*.py). -->
   <onload>AlarmClock(HBMInfoTrailerStart,RunScript(special://skin/resources/scripts/dialoginfo_trailer_start.py),00:00:07,silent)</onload>
   <onunload>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onunload>
+  <onunload>Skin.SetString(HBM.InfoClearLogo,)</onunload>
+  <onunload>Skin.Reset(HBM.InfoDbType)</onunload>
+  <onunload>Skin.Reset(HBM.EpisodeTab)</onunload>
 
   <controls>
 
@@ -40,7 +45,6 @@
     <!-- Scroll wrapper: hero backdrop + content slide together when episodes focused -->
     <control type="group">
       <left>0</left><top>0</top><width>1920</width><height>1400</height>
-      <animation effect="slide" start="0,0" end="0,-300" time="250" tween="quadratic" easing="out" condition="Control.HasFocus(500) | Control.HasFocus(501) | Control.HasFocus(502)">Conditional</animation>
 
       <!-- Fanart backdrop -->
       <control type="image">
@@ -65,25 +69,21 @@
         <texture>$INFO[ListItem.Art(landscape)]</texture>
       </control>
 
-      <!-- Subtle overall dim -->
+      <!-- One restrained full-screen readability gradient, below all hero content. -->
       <control type="image">
-        <left>0</left><top>0</top><width>1920</width><height>756</height>
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
         <aspectratio>stretch</aspectratio>
-        <texture colordiffuse="33000000">white.png</texture>
+        <texture colordiffuse="55FFFFFF">special://skin/media/overlays/full_page_gradient.png</texture>
       </control>
 
-      <!-- Bottom fade -->
+      <!-- Episode mode: deepen the full backdrop while leaving all episode content crisp. -->
       <control type="image">
-        <left>0</left><top>420</top><width>1920</width><height>400</height>
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
         <aspectratio>stretch</aspectratio>
-        <texture>special://skin/media/overlays/row_top_fade.png</texture>
-      </control>
-
-      <!-- Solid dark floor below hero -->
-      <control type="image">
-        <left>0</left><top>756</top><width>1920</width><height>644</height>
-        <aspectratio>stretch</aspectratio>
-        <texture colordiffuse="BackgroundBase">white.png</texture>
+        <texture colordiffuse="88000000">white.png</texture>
+        <visible>Control.HasFocus(501) | Control.HasFocus(502) | Control.HasFocus(504) | Control.HasFocus(505) | Control.HasFocus(506) | Control.HasFocus(507)</visible>
+        <animation effect="fade" start="0" end="100" time="250" tween="cubic" easing="out">Visible</animation>
+        <animation effect="fade" start="100" end="0" time="200" tween="cubic" easing="in">Hidden</animation>
       </control>
 
       <!-- Content group -->
@@ -96,6 +96,7 @@
           <label>$INFO[ListItem.Genre]</label>
           <font>HBM_Meta_S</font>
           <textcolor>TextHeroMeta</textcolor>
+          <visible>!Control.HasFocus(501) + !Control.HasFocus(502) + !Control.HasFocus(504) + !Control.HasFocus(505) + !Control.HasFocus(506) + !Control.HasFocus(507)</visible>
         </control>
 
         <!-- Clear logo -->
@@ -103,7 +104,9 @@
           <left>0</left><top>420</top><width>560</width><height>190</height>
           <aspectratio align="left" aligny="center">keep</aspectratio>
           <fadetime>400</fadetime>
-          <texture>$INFO[ListItem.Art(clearlogo)]</texture>
+          <animation effect="slide" start="0,0" end="0,-115" time="300" tween="cubic" easing="out" condition="Control.HasFocus(501) | Control.HasFocus(502) | Control.HasFocus(504) | Control.HasFocus(505) | Control.HasFocus(506) | Control.HasFocus(507)">Conditional</animation>
+          <animation effect="zoom" start="100" end="65" center="0,0" time="300" tween="cubic" easing="out" condition="Control.HasFocus(501) | Control.HasFocus(502) | Control.HasFocus(504) | Control.HasFocus(505) | Control.HasFocus(506) | Control.HasFocus(507)">Conditional</animation>
+          <texture>$INFO[Skin.String(HBM.InfoClearLogo)]</texture>
           <visible>!String.IsEqual(Skin.String(HBM.InfoTrailerPlaying),1)</visible>
         </control>
 
@@ -114,7 +117,7 @@
           <font>HBM_Display_L</font>
           <textcolor>TextPrimary</textcolor>
           <aligny>center</aligny>
-          <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEqual(Skin.String(HBM.InfoTrailerPlaying),1)</visible>
+          <visible>String.IsEmpty(Skin.String(HBM.InfoClearLogo)) + !String.IsEqual(Skin.String(HBM.InfoTrailerPlaying),1) + !Control.HasFocus(501) + !Control.HasFocus(502) + !Control.HasFocus(504) + !Control.HasFocus(505) + !Control.HasFocus(506) + !Control.HasFocus(507)</visible>
         </control>
 
         <!-- Trailer-active clear logo: separate control (not an animated version of
@@ -145,7 +148,12 @@
           <label>$INFO[ListItem.Year]  ·  $INFO[ListItem.MPAA]  ·  $INFO[ListItem.Duration]</label>
           <font>HBM_Meta_S</font>
           <textcolor>TextHeroMeta</textcolor>
+          <visible>!Control.HasFocus(501) + !Control.HasFocus(502) + !Control.HasFocus(504) + !Control.HasFocus(505) + !Control.HasFocus(506) + !Control.HasFocus(507)</visible>
         </control>
+
+        <!-- Hero actions: hidden as one unit while browsing episodes. -->
+        <control type="group">
+          <visible>!Control.HasFocus(501) + !Control.HasFocus(502) + !Control.HasFocus(504) + !Control.HasFocus(505) + !Control.HasFocus(506) + !Control.HasFocus(507)</visible>
 
         <!-- Primary play button hit area (id=2) -->
         <control type="button" id="2">
@@ -275,7 +283,7 @@
 
         <!-- My List (id=4) — no background, icon above label -->
         <control type="button" id="4">
-          <left>0</left><top>718</top><width>110</width><height>58</height>
+          <left>312</left><top>650</top><width>180</width><height>56</height>
           <label></label>
           <texturenofocus>-</texturenofocus>
           <texturefocus>-</texturefocus>
@@ -286,35 +294,36 @@
           <onleft condition="ListItem.IsResumable | (!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Season))">6</onleft>
           <onleft>200</onleft>
           <onright>5</onright>
-          <ondown>500</ondown>
+          <ondown condition="String.IsEqual(ListItem.DBTYPE,movie)">504</ondown>
+          <ondown>502</ondown>
         </control>
         <!-- My List icon — bright when focused, dim when not -->
         <control type="image">
-          <left>39</left><top>720</top><width>32</width><height>32</height>
+          <left>332</left><top>662</top><width>32</width><height>32</height>
           <texture colordiffuse="FFFFFFFF">special://skin/media/icons/plus-bold.png</texture>
           <visible>Control.HasFocus(4)</visible>
         </control>
         <control type="image">
-          <left>39</left><top>720</top><width>32</width><height>32</height>
+          <left>332</left><top>662</top><width>32</width><height>32</height>
           <texture colordiffuse="66FFFFFF">special://skin/media/icons/plus-bold.png</texture>
           <visible>!Control.HasFocus(4)</visible>
         </control>
         <!-- My List label — bright when focused, dim when not -->
         <control type="label">
-          <left>0</left><top>756</top><width>110</width><height>22</height>
+          <left>372</left><top>650</top><width>112</width><height>56</height>
           <label>My List</label>
           <font>HBM_Meta_S</font>
           <textcolor>FFFFFFFF</textcolor>
-          <align>center</align>
+          <align>left</align>
           <aligny>center</aligny>
           <visible>Control.HasFocus(4)</visible>
         </control>
         <control type="label">
-          <left>0</left><top>756</top><width>110</width><height>22</height>
+          <left>372</left><top>650</top><width>112</width><height>56</height>
           <label>My List</label>
           <font>HBM_Meta_S</font>
           <textcolor>66FFFFFF</textcolor>
-          <align>center</align>
+          <align>left</align>
           <aligny>center</aligny>
           <visible>!Control.HasFocus(4)</visible>
         </control>
@@ -331,7 +340,7 @@
           <onup>2</onup>
           <onleft>4</onleft>
           <onright>200</onright>
-          <ondown>500</ondown>
+          <ondown>502</ondown>
           <visible>!String.IsEmpty(ListItem.Trailer)</visible>
         </control>
         <!-- Trailer icon — bright when focused, dim when not -->
@@ -365,60 +374,108 @@
           <visible>!Control.HasFocus(5) + !String.IsEmpty(ListItem.Trailer)</visible>
         </control>
 
+        </control>
+
         <!-- Plot — below buttons, autoscrolls long descriptions -->
         <control type="textbox">
-          <left>0</left><top>790</top><width>600</width><height>80</height>
+          <left>0</left><top>730</top><width>600</width><height>112</height>
           <font>HBM_Body_M</font>
-          <textcolor>TextSecondary</textcolor>
+          <textcolor>FFFFFFFF</textcolor>
           <label>$INFO[ListItem.Plot]</label>
           <autoscroll delay="3000" time="6000" repeat="8000">true</autoscroll>
+          <visible>!Control.HasFocus(501) + !Control.HasFocus(502) + !Control.HasFocus(504) + !Control.HasFocus(505) + !Control.HasFocus(506) + !Control.HasFocus(507)</visible>
         </control>
 
         <!-- Episodes section — TV shows only -->
         <control type="group">
-          <left>0</left><top>890</top><width>1760</width><height>450</height>
-          <visible>!String.IsEqual(ListItem.DBTYPE,movie)</visible>
+          <left>0</left><top>1120</top><width>1760</width><height>450</height>
+        <animation effect="slide" start="0,0" end="0,-800" time="300" tween="cubic" easing="out" condition="Control.HasFocus(501) | Control.HasFocus(502) | Control.HasFocus(504) | Control.HasFocus(505) | Control.HasFocus(506) | Control.HasFocus(507)">Conditional</animation>
 
-          <!-- "Episodes" label -->
-          <control type="label">
-            <left>0</left><top>0</top><width>200</width><height>28</height>
+          <!-- Episodes label: white outline only, with no background fill. -->
+          <control type="image">
+            <left>0</left><top>-8</top><width>160</width><height>44</height>
+            <texture>special://skin/media/overlays/episode_label_pill.png</texture>
+            <visible>!String.IsEqual(ListItem.DBTYPE,movie)</visible>
+          </control>
+          <control type="button" id="505">
+            <left>0</left><top>-8</top><width>160</width><height>44</height>
             <label>Episodes</label>
             <font>HBM_Nav_M</font>
             <textcolor>FFFFFFFF</textcolor>
-            <align>left</align>
-            <aligny>center</aligny>
+            <focusedcolor>FF000000</focusedcolor>
+            <align>center</align><aligny>center</aligny>
+            <texturenofocus colordiffuse="AAFFFFFF">special://skin/media/overlays/episode_label_pill.png</texturenofocus>
+            <texturefocus border="22" colordiffuse="FFFFFFFF">special://skin/media/panel_rounded.png</texturefocus>
+            <onfocus>Skin.SetString(HBM.EpisodeTab,episodes)</onfocus>
+            <onclick>Skin.SetString(HBM.EpisodeTab,episodes)</onclick>
+            <onclick>SetFocus(501)</onclick>
+            <onleft>200</onleft>
+            <onright>504</onright>
+            <onup>503</onup>
+            <ondown>502</ondown>
+            <visible>!String.IsEqual(ListItem.DBTYPE,movie)</visible>
           </control>
-
-          <!-- Grey divider -->
-          <control type="image">
-            <left>0</left><top>30</top><width>1600</width><height>2</height>
-            <texture colordiffuse="44FFFFFF">white.png</texture>
-          </control>
-
-          <!-- White underline under "Episodes" only -->
-          <control type="image">
-            <left>0</left><top>30</top><width>110</width><height>2</height>
-            <texture colordiffuse="FFFFFFFF">white.png</texture>
-          </control>
-
-          <!-- Season picker (id=500) — safe ID avoids Kodi's reserved dialog control IDs -->
-          <control type="button" id="500">
-            <left>0</left><top>46</top><width>200</width><height>46</height>
-            <label>Season $INFO[Skin.String(HBM.CurrentSeason)]  ▾</label>
+          <control type="button" id="504">
+            <left>176</left><top>-8</top><width>246</width><height>44</height>
+            <label>You May Also Like</label>
             <font>HBM_Nav_M</font>
-            <align>center</align>
-            <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
-            <focusedcolor>FFFFFFFF</focusedcolor>
-            <texturenofocus border="4" colordiffuse="88AAAAAA">special://skin/media/panel_rect.png</texturenofocus>
-            <texturefocus border="4" colordiffuse="BBBBBBBB">special://skin/media/panel_rect.png</texturefocus>
-            <onclick>Skin.ToggleSetting(HBM.SeasonOpen)</onclick>
-            <onfocus>Skin.Reset(HBM.SeasonOpen)</onfocus>
-            <onfocus>Skin.SetString(HBM.ReturnFocus,500)</onfocus>
+            <focusedcolor>FF000000</focusedcolor>
+            <align>center</align>
+            <texturenofocus colordiffuse="AAFFFFFF">special://skin/media/overlays/episode_label_pill.png</texturenofocus>
+            <texturefocus border="22" colordiffuse="FFFFFFFF">special://skin/media/panel_rounded.png</texturefocus>
+            <onfocus>Skin.SetString(HBM.EpisodeTab,related)</onfocus>
+            <onfocus condition="String.IsEqual(Skin.String(HBM.InfoDbType),movie)">RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onfocus>
+            <onclick>Skin.SetString(HBM.EpisodeTab,related)</onclick>
+            <onclick condition="String.IsEqual(ListItem.DBTYPE,movie)">SetFocus(507)</onclick>
+            <onclick condition="!String.IsEqual(ListItem.DBTYPE,movie)">SetFocus(506)</onclick>
+            <onleft>505</onleft>
+            <onright>200</onright>
+            <onup condition="String.IsEqual(ListItem.DBTYPE,movie)">503</onup>
+            <onup>505</onup>
+            <ondown condition="String.IsEqual(ListItem.DBTYPE,movie)">507</ondown>
+            <ondown>506</ondown>
+          </control>
+
+          <!-- Clean horizontal season selector -->
+          <control type="label">
+            <left>0</left><top>63</top><width>96</width><height>32</height>
+            <label>Season</label>
+            <font>HBM_Body_S</font>
+            <textcolor>TextSecondary</textcolor>
+            <aligny>center</aligny>
+            <visible>!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEqual(Skin.String(HBM.EpisodeTab),related)</visible>
+          </control>
+          <control type="panel" id="502">
+            <left>104</left><top>49</top><width>720</width><height>60</height>
+            <orientation>horizontal</orientation>
+            <scrolltime tween="cubic" easing="out">200</scrolltime>
+            <onclick>Skin.SetString(HBM.CurrentSeason,$INFO[ListItem.Season])</onclick>
+            <onclick>SetFocus(501)</onclick>
+            <onfocus>Skin.SetString(HBM.ReturnFocus,502)</onfocus>
             <onfocus>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onfocus>
-            <onup>4</onup>
-            <ondown condition="Skin.HasSetting(HBM.SeasonOpen)">502</ondown>
+            <onup>505</onup>
             <ondown>501</ondown>
+            <onleft>200</onleft>
+            <visible>!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEqual(Skin.String(HBM.EpisodeTab),related)</visible>
+            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=seasons&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]</content>
+            <itemlayout width="72" height="60">
+              <control type="label"><left>0</left><top>0</top><width>60</width><height>60</height><label>$INFO[ListItem.Season]</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><align>center</align><aligny>center</aligny></control>
+            </itemlayout>
+            <focusedlayout width="72" height="60">
+              <control type="image"><left>6</left><top>48</top><width>48</width><height>2</height><texture colordiffuse="FFFFFFFF">white.png</texture></control>
+              <control type="label"><left>0</left><top>0</top><width>60</width><height>60</height><label>$INFO[ListItem.Season]</label><font>HBM_Body_M</font><textcolor>TextPrimary</textcolor><align>center</align><aligny>center</aligny></control>
+            </focusedlayout>
+          </control>
+
+          <!-- Kept visually empty.  It briefly receives Up from the season row so
+               the hero state can become visible before focus returns to Watch Now. -->
+          <control type="button" id="503">
+            <left>0</left><top>0</top><width>1</width><height>1</height>
+            <label></label>
+            <texturenofocus>-</texturenofocus>
+            <texturefocus>-</texturefocus>
+            <onfocus>SetFocus(2)</onfocus>
           </control>
 
           <!-- Horizontal episode cards (id=501) — 416×234 landscape 16:9 -->
@@ -434,10 +491,11 @@
             <onclick>PlayMedia($INFO[ListItem.FileNameAndPath])</onclick>
             <onfocus>Skin.SetString(HBM.ReturnFocus,501)</onfocus>
             <onfocus>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onfocus>
-            <onup>500</onup>
+            <onup>502</onup>
             <onleft>200</onleft>
             <onright>501</onright>
             <ondown>2</ondown>
+            <visible>!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEqual(Skin.String(HBM.EpisodeTab),related)</visible>
             <content target="videos">plugin://plugin.video.themoviedb.helper/?info=episodes&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=$INFO[Skin.String(HBM.CurrentSeason)]</content>
 
             <!-- cell=440 (416 image + 24 gap baked in), height=390 -->
@@ -538,58 +596,63 @@
 
           </control>
 
-          <!-- Season dropdown — overlays below season button -->
-          <control type="group">
-            <left>0</left><top>92</top><width>240</width><height>244</height>
-            <visible>Skin.HasSetting(HBM.SeasonOpen)</visible>
+          <!-- Dynamic related shows for the title currently open in this dialog. -->
+          <control type="panel" id="506">
+            <left>0</left><top>130</top><width>1760</width><height>450</height>
+            <orientation>horizontal</orientation>
+            <itemgap>0</itemgap>
+            <scrolltime tween="cubic" easing="out">300</scrolltime>
+            <preloaditems>4</preloaditems>
+            <onclick>Action(Info)</onclick>
+            <onfocus>Skin.SetString(HBM.ReturnFocus,506)</onfocus>
+            <onup>504</onup><ondown>504</ondown><onleft>200</onleft>
+            <visible>!String.IsEqual(ListItem.DBTYPE,movie) + String.IsEqual(Skin.String(HBM.EpisodeTab),related)</visible>
+            <content target="videos" limit="30">plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]</content>
+            <itemlayout width="276" height="450">
+              <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+              <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
+              <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+              <control type="label"><left>0</left><top>400</top><width>260</width><height>24</height><label>$INFO[ListItem.Title]</label><font>HBM_Body_M</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
+              <control type="label"><left>0</left><top>426</top><width>260</width><height>20</height><label>$INFO[ListItem.Year]</label><font>HBM_Meta_S</font><textcolor>TextSecondary</textcolor></control>
+            </itemlayout>
+            <focusedlayout width="276" height="450">
+              <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture></control>
+              <control type="image"><left>2</left><top>2</top><width>256</width><height>386</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+              <control type="image"><left>2</left><top>2</top><width>256</width><height>386</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
+              <control type="image"><left>2</left><top>2</top><width>256</width><height>386</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+              <control type="label"><left>0</left><top>400</top><width>260</width><height>24</height><label>$INFO[ListItem.Title]</label><font>HBM_Body_M</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
+              <control type="label"><left>0</left><top>426</top><width>260</width><height>20</height><label>$INFO[ListItem.Year]</label><font>HBM_Meta_S</font><textcolor>TextSecondary</textcolor></control>
+            </focusedlayout>
+          </control>
 
-            <!-- Dark dropdown background — full black matches rail's solid backing -->
-            <control type="image">
-              <left>0</left><top>0</top><width>240</width><height>244</height>
-              <texture border="6" colordiffuse="FF000000">special://skin/media/panel_rect.png</texture>
-            </control>
-
-            <!-- Season list panel -->
-            <control type="panel" id="502">
-              <left>8</left><top>8</top><width>224</width><height>228</height>
-              <orientation>vertical</orientation>
-              <itemgap>0</itemgap>
-              <onclick>Skin.SetString(HBM.CurrentSeason,$INFO[ListItem.Season])</onclick>
-              <onclick>Skin.Reset(HBM.SeasonOpen)</onclick>
-              <onclick>SetFocus(501)</onclick>
-              <onfocus>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onfocus>
-              <onup>500</onup>
-              <onleft>500</onleft>
-              <onright>500</onright>
-              <ondown>501</ondown>
-              <content target="videos">plugin://plugin.video.themoviedb.helper/?info=seasons&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]</content>
-
-              <itemlayout width="224" height="48">
-                <control type="label">
-                  <left>16</left><top>0</top><width>192</width><height>48</height>
-                  <label>Season $INFO[ListItem.Season]</label>
-                  <font>HBM_Nav_M</font>
-                  <textcolor>TextSecondary</textcolor>
-                  <aligny>center</aligny>
-                </control>
-              </itemlayout>
-
-              <focusedlayout width="224" height="48">
-                <control type="image">
-                  <left>4</left><top>4</top><width>216</width><height>40</height>
-                  <texture border="4" colordiffuse="33FFFFFF">special://skin/media/panel_rect.png</texture>
-                </control>
-                <control type="label">
-                  <left>16</left><top>0</top><width>192</width><height>48</height>
-                  <label>Season $INFO[ListItem.Season]</label>
-                  <font>HBM_Nav_M</font>
-                  <textcolor>TextPrimary</textcolor>
-                  <aligny>center</aligny>
-                </control>
-              </focusedlayout>
-
-            </control>
-
+          <!-- Same dynamic feed for movie detail pages. -->
+          <control type="panel" id="507">
+            <left>0</left><top>130</top><width>1760</width><height>450</height>
+            <orientation>horizontal</orientation>
+            <itemgap>0</itemgap>
+            <scrolltime tween="cubic" easing="out">300</scrolltime>
+            <preloaditems>4</preloaditems>
+            <onclick>Action(Info)</onclick>
+            <onfocus>Skin.SetString(HBM.ReturnFocus,507)</onfocus>
+            <onfocus>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onfocus>
+            <onup>504</onup><ondown>504</ondown><onleft>200</onleft>
+            <visible>String.IsEqual(ListItem.DBTYPE,movie) + String.IsEqual(Skin.String(HBM.EpisodeTab),related)</visible>
+            <content target="videos" limit="30">plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;tmdb_type=movie&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]</content>
+            <itemlayout width="276" height="450">
+              <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+              <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
+              <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+              <control type="label"><left>0</left><top>400</top><width>260</width><height>24</height><label>$INFO[ListItem.Title]</label><font>HBM_Body_M</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
+              <control type="label"><left>0</left><top>426</top><width>260</width><height>20</height><label>$INFO[ListItem.Year]</label><font>HBM_Meta_S</font><textcolor>TextSecondary</textcolor></control>
+            </itemlayout>
+            <focusedlayout width="276" height="450">
+              <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture></control>
+              <control type="image"><left>2</left><top>2</top><width>256</width><height>386</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+              <control type="image"><left>2</left><top>2</top><width>256</width><height>386</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
+              <control type="image"><left>2</left><top>2</top><width>256</width><height>386</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+              <control type="label"><left>0</left><top>400</top><width>260</width><height>24</height><label>$INFO[ListItem.Title]</label><font>HBM_Body_M</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
+              <control type="label"><left>0</left><top>426</top><width>260</width><height>20</height><label>$INFO[ListItem.Year]</label><font>HBM_Meta_S</font><textcolor>TextSecondary</textcolor></control>
+            </focusedlayout>
           </control>
 
         </control>
