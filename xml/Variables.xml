@@ -12,13 +12,13 @@
   <variable name="HBM_Key_0"><value>0</value></variable>
 
   <variable name="HBM_SearchURL_TV">
-    <value condition="!String.IsEmpty(Skin.String(HBM.SearchTerm))">plugin://plugin.video.themoviedb.helper/?info=search&amp;tmdb_type=tv&amp;query=$INFO[Skin.String(HBM.SearchTerm)]</value>
+    <value condition="!String.IsEmpty(Skin.String(HBM.SearchTermCommitted))">plugin://plugin.video.themoviedb.helper/?info=search&amp;tmdb_type=tv&amp;query=$INFO[Skin.String(HBM.SearchTermCommitted)]</value>
   </variable>
   <variable name="HBM_SearchURL_Movie">
-    <value condition="!String.IsEmpty(Skin.String(HBM.SearchTerm))">plugin://plugin.video.themoviedb.helper/?info=search&amp;tmdb_type=movie&amp;query=$INFO[Skin.String(HBM.SearchTerm)]</value>
+    <value condition="!String.IsEmpty(Skin.String(HBM.SearchTermCommitted))">plugin://plugin.video.themoviedb.helper/?info=search&amp;tmdb_type=movie&amp;query=$INFO[Skin.String(HBM.SearchTermCommitted)]</value>
   </variable>
   <variable name="HBM_SearchURL_Person">
-    <value condition="!String.IsEmpty(Skin.String(HBM.SearchTerm))">plugin://plugin.video.themoviedb.helper/?info=search&amp;tmdb_type=person&amp;query=$INFO[Skin.String(HBM.SearchTerm)]</value>
+    <value condition="!String.IsEmpty(Skin.String(HBM.SearchTermCommitted))">plugin://plugin.video.themoviedb.helper/?info=search&amp;tmdb_type=person&amp;query=$INFO[Skin.String(HBM.SearchTermCommitted)]</value>
   </variable>
 
   <variable name="AutoCompletionContentVar">
