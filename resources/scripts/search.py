@@ -1,19 +1,11 @@
 import sys
 import xbmc
 
-DEBOUNCE_MS = 600
 
-
-def commit():
-    term_before = xbmc.getInfoLabel('Skin.String(HBM.SearchTerm)')
-    xbmc.sleep(DEBOUNCE_MS)
-    term_after = xbmc.getInfoLabel('Skin.String(HBM.SearchTerm)')
-    if term_before != term_after:
-        return
-    if term_after:
-        xbmc.executebuiltin('Skin.SetString(HBM.SearchTermCommitted,"' + term_after + '")')
-    else:
-        xbmc.executebuiltin('Skin.Reset(HBM.SearchTermCommitted)')
+def schedule_commit():
+    xbmc.executebuiltin(
+        'AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)'
+    )
 
 
 def main():
@@ -27,13 +19,16 @@ def main():
                 xbmc.executebuiltin('Skin.SetString(HBM.SearchTerm,"' + new_val + '")')
             else:
                 xbmc.executebuiltin('Skin.Reset(HBM.SearchTerm)')
-        commit()
+        schedule_commit()
     elif action == 'space':
         if current:
             xbmc.executebuiltin('Skin.SetString(HBM.SearchTerm,"' + current + ' ")')
-        commit()
-    elif action == 'schedule':
-        commit()
+        schedule_commit()
+    elif action == 'commit':
+        if current:
+            xbmc.executebuiltin('Skin.SetString(HBM.SearchTermCommitted,"' + current + '")')
+        else:
+            xbmc.executebuiltin('Skin.Reset(HBM.SearchTermCommitted)')
 
 
 main()
