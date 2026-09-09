@@ -407,4 +407,458 @@
     <value>Expand On Focus</value>
   </variable>
 
+  <!--
+    Row up/down navigation targets: computed here (not as multiple
+    conditioned onup/ondown on the row control itself) because Kodi's
+    per-control navigation resolution for onup/ondown is not proven
+    reliable when there are several conditioned entries whose content is
+    itself a builtin call (Control.SetFocus(...)) rather than a bare
+    control id — confirmed broken by real on-device testing, symptom was
+    navigation always falling through to the last (unconditioned)
+    fallback entry regardless of which condition was actually true.
+    Variables use the same flat, "+"-only condition style already proven
+    reliable elsewhere in this file (e.g. HBM_Row_Logo), and the row's
+    onup/ondown becomes a single plain Control.SetFocus($VAR[...]) call.
+  -->
+
+
+  <variable name="HBM_RowDownTarget_701">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row10_visible),Visible)">710</value>
+    <value>701</value>
+  </variable>
+
+  <variable name="HBM_RowDownTarget_702">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row10_visible),Visible)">710</value>
+    <value>702</value>
+  </variable>
+
+  <variable name="HBM_RowDownTarget_703">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row10_visible),Visible)">710</value>
+    <value>703</value>
+  </variable>
+
+  <variable name="HBM_RowDownTarget_704">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row10_visible),Visible)">710</value>
+    <value>704</value>
+  </variable>
+
+  <variable name="HBM_RowDownTarget_705">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row10_visible),Visible)">710</value>
+    <value>705</value>
+  </variable>
+
+  <variable name="HBM_RowDownTarget_706">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row10_visible),Visible)">710</value>
+    <value>706</value>
+  </variable>
+
+  <variable name="HBM_RowDownTarget_707">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row10_visible),Visible)">710</value>
+    <value>707</value>
+  </variable>
+
+  <variable name="HBM_RowDownTarget_708">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row10_visible),Visible)">710</value>
+    <value>708</value>
+  </variable>
+
+  <variable name="HBM_RowDownTarget_709">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row10_visible),Visible)">710</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row10_visible),Visible)">710</value>
+    <value>709</value>
+  </variable>
+
+  <variable name="HBM_RowDownTarget_710">
+    <value>710</value>
+  </variable>
+
+  <variable name="HBM_RowUpTarget_701">
+    <value>625</value>
+  </variable>
+
+  <variable name="HBM_RowUpTarget_702">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row01_visible),Visible)">701</value>
+    <value>625</value>
+  </variable>
+
+  <variable name="HBM_RowUpTarget_703">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row01_visible),Visible)">701</value>
+    <value>625</value>
+  </variable>
+
+  <variable name="HBM_RowUpTarget_704">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row01_visible),Visible)">701</value>
+    <value>625</value>
+  </variable>
+
+  <variable name="HBM_RowUpTarget_705">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row01_visible),Visible)">701</value>
+    <value>625</value>
+  </variable>
+
+  <variable name="HBM_RowUpTarget_706">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row01_visible),Visible)">701</value>
+    <value>625</value>
+  </variable>
+
+  <variable name="HBM_RowUpTarget_707">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row01_visible),Visible)">701</value>
+    <value>625</value>
+  </variable>
+
+  <variable name="HBM_RowUpTarget_708">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row01_visible),Visible)">701</value>
+    <value>625</value>
+  </variable>
+
+  <variable name="HBM_RowUpTarget_709">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row01_visible),Visible)">701</value>
+    <value>625</value>
+  </variable>
+
+  <variable name="HBM_RowUpTarget_710">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row09_visible),Visible)">709</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row08_visible),Visible)">708</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row07_visible),Visible)">707</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row06_visible),Visible)">706</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row05_visible),Visible)">705</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row04_visible),Visible)">704</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row03_visible),Visible)">703</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row02_visible),Visible)">702</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + String.IsEqual(Skin.String(hbm_homecfg_home_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(hbm_homecfg_tvshows_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(hbm_homecfg_movies_row01_visible),Visible)">701</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row01_visible),Visible)">701</value>
+    <value>625</value>
+  </variable>
 </includes>
