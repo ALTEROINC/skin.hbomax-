@@ -172,7 +172,7 @@
           <onclick condition="!String.IsEqual(ListItem.DBTYPE,movie) + String.IsEmpty(Container(510).ListItemAbsolute(0).Season) + String.IsEmpty(Container(511).ListItemAbsolute(0).Season)">PlayMedia(plugin://plugin.video.themoviedb.helper/?info=play&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=1&amp;episode=1)</onclick>
           <onfocus>Skin.SetString(HBM.ReturnFocus,2)</onfocus>
           <onleft>200</onleft>
-          <onright condition="ListItem.IsResumable | (!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Season))">6</onright>
+          <onright condition="ListItem.IsResumable | [!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Season)]">6</onright>
           <onright>4</onright>
           <ondown>4</ondown>
         </control>
@@ -278,7 +278,7 @@
           <onleft>2</onleft>
           <onright>4</onright>
           <ondown>4</ondown>
-          <visible>ListItem.IsResumable | (!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Season))</visible>
+          <visible>ListItem.IsResumable | [!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Season)]</visible>
         </control>
 
         <!-- My List (id=4) — no background, icon above label -->
@@ -291,7 +291,7 @@
           <onclick condition="!String.IsEqual(ListItem.DBTYPE,movie)">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_type=tv,tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)],sync_type=watchlist)</onclick>
           <onfocus>Skin.SetString(HBM.ReturnFocus,4)</onfocus>
           <onup>2</onup>
-          <onleft condition="ListItem.IsResumable | (!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Season))">6</onleft>
+          <onleft condition="ListItem.IsResumable | [!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(Container(510).ListItemAbsolute(0).Season)]">6</onleft>
           <onleft>200</onleft>
           <onright>5</onright>
           <ondown condition="String.IsEqual(ListItem.DBTYPE,movie)">504</ondown>
