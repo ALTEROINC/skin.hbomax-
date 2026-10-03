@@ -343,15 +343,7 @@
         <animation effect="fade" start="0" end="100" time="220" tween="quadratic" easing="out">Visible</animation>
         <animation effect="fade" start="100" end="0" time="180" tween="sine">Hidden</animation>
 
-        <!-- Clearlogo of focused item -->
-        <control type="image">
-          <left>0</left><top>240</top><width>440</width><height>140</height>
-          <aspectratio align="left" aligny="center">keep</aspectratio>
-          <fadetime>300</fadetime>
-          <texture>$VAR[HBM_Hero_Logo]</texture>
-        </control>
-
-        <!-- Plot / description -->
+        <!-- Plot / description (the focused row's clearlogo/title lives in Home.xml's row-focus details layer) -->
         <control type="textbox">
           <left>0</left><top>388</top><width>540</width><height>80</height>
           <font>HBM_Body_M</font>

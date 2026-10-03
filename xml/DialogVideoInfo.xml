@@ -458,7 +458,7 @@
             <ondown>501</ondown>
             <onleft>200</onleft>
             <visible>!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEqual(Skin.String(HBM.EpisodeTab),related)</visible>
-            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=seasons&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]</content>
+            <content target="videos">$VAR[HBM_Dlg_Seasons_Source]</content>
             <itemlayout width="72" height="60">
               <control type="label"><left>0</left><top>0</top><width>60</width><height>60</height><label>$INFO[ListItem.Season]</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><align>center</align><aligny>center</aligny></control>
             </itemlayout>
@@ -496,7 +496,7 @@
             <onright>501</onright>
             <ondown>2</ondown>
             <visible>!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEqual(Skin.String(HBM.EpisodeTab),related)</visible>
-            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=episodes&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=$INFO[Skin.String(HBM.CurrentSeason)]</content>
+            <content target="videos">$VAR[HBM_Dlg_Episodes_Source]</content>
 
             <!-- cell=440 (416 image + 24 gap baked in), height=390 -->
             <itemlayout width="440" height="390">
@@ -607,7 +607,7 @@
             <onfocus>Skin.SetString(HBM.ReturnFocus,506)</onfocus>
             <onup>504</onup><ondown>504</ondown><onleft>200</onleft>
             <visible>!String.IsEqual(ListItem.DBTYPE,movie) + String.IsEqual(Skin.String(HBM.EpisodeTab),related)</visible>
-            <content target="videos" limit="30">plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]</content>
+            <content target="videos" limit="30">$VAR[HBM_Dlg_RecTV_Source]</content>
             <itemlayout width="276" height="450">
               <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
               <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
@@ -637,7 +637,7 @@
             <onfocus>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onfocus>
             <onup>504</onup><ondown>504</ondown><onleft>200</onleft>
             <visible>String.IsEqual(ListItem.DBTYPE,movie) + String.IsEqual(Skin.String(HBM.EpisodeTab),related)</visible>
-            <content target="videos" limit="30">plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;tmdb_type=movie&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]</content>
+            <content target="videos" limit="30">$VAR[HBM_Dlg_RecMovie_Source]</content>
             <itemlayout width="276" height="450">
               <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
               <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
@@ -668,7 +668,7 @@
         <itemgap>0</itemgap>
         <preloaditems>1</preloaditems>
         <visible>!String.IsEqual(ListItem.DBTYPE,movie)</visible>
-        <content target="videos" limit="1">plugin://plugin.video.themoviedb.helper/?info=trakt_upnext&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]</content>
+        <content target="videos" limit="1">$VAR[HBM_Dlg_UpNext_Source]</content>
         <itemlayout width="1" height="1"><control type="group" /></itemlayout>
         <focusedlayout width="1" height="1"><control type="group" /></focusedlayout>
       </control>
@@ -679,7 +679,7 @@
         <itemgap>0</itemgap>
         <preloaditems>1</preloaditems>
         <visible>!String.IsEqual(ListItem.DBTYPE,movie)</visible>
-        <content target="videos" limit="1">plugin://plugin.video.themoviedb.helper/?info=episodes&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=1</content>
+        <content target="videos" limit="1">$VAR[HBM_Dlg_Season1_Source]</content>
         <itemlayout width="1" height="1"><control type="group" /></itemlayout>
         <focusedlayout width="1" height="1"><control type="group" /></focusedlayout>
       </control>

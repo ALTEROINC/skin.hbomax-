@@ -861,4 +861,58 @@
     <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),mylist) + String.IsEqual(Skin.String(hbm_homecfg_mylist_row01_visible),Visible)">701</value>
     <value>625</value>
   </variable>
+
+  <!--
+    OSD episodes / similar panel sources. onunload clears HBM.OSDTmdbId,
+    which re-evaluates the panels' <content> URLs; without a guard they
+    request TMDb with tmdb_id= (blank) and log GetDirectory errors. Empty
+    value (no condition match) = no source = no fetch.
+  -->
+  <variable name="HBM_OSD_Episodes_Source">
+    <value condition="!String.IsEmpty(Skin.String(HBM.OSDTmdbId)) + !String.IsEmpty(Skin.String(HBM.OSDTmdbSeason))">plugin://plugin.video.themoviedb.helper/?info=episodes&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.OSDTmdbId)]&amp;season=$INFO[Skin.String(HBM.OSDTmdbSeason)]</value>
+    <value></value>
+  </variable>
+
+  <variable name="HBM_OSD_Similar_Source">
+    <value condition="!String.IsEmpty(Skin.String(HBM.OSDTmdbId)) + String.IsEqual(Skin.String(HBM.OSDTmdbType),tv)">plugin://plugin.video.themoviedb.helper/?info=similar&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.OSDTmdbId)]</value>
+    <value condition="!String.IsEmpty(Skin.String(HBM.OSDTmdbId))">plugin://plugin.video.themoviedb.helper/?info=similar&amp;tmdb_type=movie&amp;tmdb_id=$INFO[Skin.String(HBM.OSDTmdbId)]</value>
+    <value></value>
+  </variable>
+
+  <!--
+    DialogVideoInfo panel sources. Every <content> is fetched whether or not
+    its panel is visible, so a TV show's dialog also fetched the movie
+    recommendations panel with the show's id (and vice versa), and every
+    panel fired with a blank id before HBM.ShowTMDB was set. Each source is
+    gated on a non-empty id (and the matching DBTYPE where type-specific).
+  -->
+  <variable name="HBM_Dlg_Seasons_Source">
+    <value condition="!String.IsEmpty(Skin.String(HBM.ShowTMDB)) + !String.IsEqual(ListItem.DBTYPE,movie)">plugin://plugin.video.themoviedb.helper/?info=seasons&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]</value>
+    <value></value>
+  </variable>
+
+  <variable name="HBM_Dlg_Episodes_Source">
+    <value condition="!String.IsEmpty(Skin.String(HBM.ShowTMDB)) + !String.IsEmpty(Skin.String(HBM.CurrentSeason)) + !String.IsEqual(ListItem.DBTYPE,movie)">plugin://plugin.video.themoviedb.helper/?info=episodes&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=$INFO[Skin.String(HBM.CurrentSeason)]</value>
+    <value></value>
+  </variable>
+
+  <variable name="HBM_Dlg_RecTV_Source">
+    <value condition="!String.IsEmpty(Skin.String(HBM.ShowTMDB)) + !String.IsEqual(ListItem.DBTYPE,movie)">plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]</value>
+    <value></value>
+  </variable>
+
+  <variable name="HBM_Dlg_RecMovie_Source">
+    <value condition="!String.IsEmpty(Skin.String(HBM.ShowTMDB)) + String.IsEqual(ListItem.DBTYPE,movie)">plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;tmdb_type=movie&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]</value>
+    <value></value>
+  </variable>
+
+  <variable name="HBM_Dlg_UpNext_Source">
+    <value condition="!String.IsEmpty(Skin.String(HBM.ShowTMDB)) + !String.IsEqual(ListItem.DBTYPE,movie)">plugin://plugin.video.themoviedb.helper/?info=trakt_upnext&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]</value>
+    <value></value>
+  </variable>
+
+  <variable name="HBM_Dlg_Season1_Source">
+    <value condition="!String.IsEmpty(Skin.String(HBM.ShowTMDB)) + !String.IsEqual(ListItem.DBTYPE,movie)">plugin://plugin.video.themoviedb.helper/?info=episodes&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=1</value>
+    <value></value>
+  </variable>
 </includes>
