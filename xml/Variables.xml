@@ -891,9 +891,26 @@
     <value></value>
   </variable>
 
+  <!--
+    Season the episode list shows. A season the user clicked wins; otherwise the
+    Trakt "up next" season (panel 510) once it resolves; otherwise HBM.CurrentSeason
+    (reset to 1 on open), so a never-watched show opens on season 1 immediately and
+    never waits on Trakt. episodes_loading.py mirrors this logic — keep them in sync.
+  -->
+  <variable name="HBM_Dlg_EpSeason">
+    <value condition="String.IsEqual(Skin.String(HBM.SeasonChosen),1)">$INFO[Skin.String(HBM.CurrentSeason)]</value>
+    <value condition="!String.IsEmpty(Container(510).ListItemAbsolute(0).Season)">$INFO[Container(510).ListItemAbsolute(0).Season]</value>
+    <value>$INFO[Skin.String(HBM.CurrentSeason)]</value>
+  </variable>
+
   <variable name="HBM_Dlg_Episodes_Source">
-    <value condition="!String.IsEmpty(Skin.String(HBM.ShowTMDB)) + !String.IsEmpty(Skin.String(HBM.CurrentSeason)) + !String.IsEqual(ListItem.DBTYPE,movie)">plugin://plugin.video.themoviedb.helper/?info=episodes&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=$INFO[Skin.String(HBM.CurrentSeason)]</value>
+    <value condition="!String.IsEmpty(Skin.String(HBM.ShowTMDB)) + !String.IsEqual(ListItem.DBTYPE,movie)">plugin://plugin.video.themoviedb.helper/?info=episodes&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=$VAR[HBM_Dlg_EpSeason]</value>
     <value></value>
+  </variable>
+
+  <variable name="HBM_EpBar_Width">
+    <value condition="!String.IsEmpty(Window(Home).Property(HBM.EpBarW))">$INFO[Window(Home).Property(HBM.EpBarW)]</value>
+    <value>0</value>
   </variable>
 
   <variable name="HBM_Dlg_RecTV_Source">

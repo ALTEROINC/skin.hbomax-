@@ -39,17 +39,12 @@
        action to advance an unfocused container's selection by explicit id. Using a small
        script against the xbmcgui Control API instead, which is unambiguous and doesn't
        require the carousel panel to hold real GUI focus. -->
-  <onload>AlarmClock(HBMHero620,RunScript(special://skin/resources/scripts/hero_rotate.py,620),00:00:14,silent,loop)</onload>
-  <onload>AlarmClock(HBMHero621,RunScript(special://skin/resources/scripts/hero_rotate.py,621),00:00:14,silent,loop)</onload>
-  <onload>AlarmClock(HBMHero622,RunScript(special://skin/resources/scripts/hero_rotate.py,622),00:00:14,silent,loop)</onload>
-  <onload>AlarmClock(HBMHero623,RunScript(special://skin/resources/scripts/hero_rotate.py,623),00:00:14,silent,loop)</onload>
-  <onload>AlarmClock(HBMHero624,RunScript(special://skin/resources/scripts/hero_rotate.py,624),00:00:14,silent,loop)</onload>
-  <onunload>CancelAlarm(HBMHero620,silent)</onunload>
-  <onunload>CancelAlarm(HBMHero621,silent)</onunload>
-  <onunload>CancelAlarm(HBMHero622,silent)</onunload>
-  <onunload>CancelAlarm(HBMHero623,silent)</onunload>
-  <onunload>CancelAlarm(HBMHero624,silent)</onunload>
-  <onunload>RunScript(special://skin/resources/scripts/hero_trailer_stop.py)</onunload>
+  <!-- One loop for all hubs: hero_rotate.py with no argument rotates whichever hub is active. -->
+  <onload>AlarmClock(HBMHeroRotate,RunScript(special://skin/resources/scripts/hero_rotate.py),00:00:14,silent,loop)</onload>
+  <!-- One-shot: retries Trakt rows that missed the startup token refresh (see row_retry.py). -->
+  <onload>AlarmClock(HBMRowRetry,RunScript(special://skin/resources/scripts/row_retry.py),00:00:20,silent)</onload>
+  <onunload>CancelAlarm(HBMRowRetry,silent)</onunload>
+  <onunload>CancelAlarm(HBMHeroRotate,silent)</onunload>
 
   <controls>
     <include>HBM_Home_BackgroundStack</include>
@@ -69,15 +64,6 @@
         <left>0</left><top>0</top><width>1920</width><height>1080</height>
         <aspectratio align="center" aligny="center">scale</aspectratio><fadetime>500</fadetime>
         <texture>$VAR[HBM_Hero_Backdrop]</texture>
-        <visible>!String.IsEqual(Skin.String(HBM.TrailerPlaying),1)</visible>
-      </control>
-      <!-- Trailer preview swap. Plays behind the same gradient/tint/bottom-fade
-           stack the static backdrop uses, so only the image-vs-video layer
-           changes — everything layered on top stays identical either way.
-           Also present on TV Shows and Movies hero blocks below. -->
-      <control type="videowindow">
-        <left>0</left><top>0</top><width>1920</width><height>1080</height>
-        <visible>String.IsEqual(Skin.String(HBM.TrailerPlaying),1)</visible>
       </control>
       <!-- Gradient swapped from left_readability_gradient.png to full_page_gradient.png
            — same native-1920px, pre-tuned smooth gradient already used for the side
@@ -116,11 +102,6 @@
         <left>0</left><top>0</top><width>1920</width><height>1080</height>
         <aspectratio align="center" aligny="center">scale</aspectratio><fadetime>500</fadetime>
         <texture>$VAR[HBM_Hero_Backdrop]</texture>
-        <visible>!String.IsEqual(Skin.String(HBM.TrailerPlaying),1)</visible>
-      </control>
-      <control type="videowindow">
-        <left>0</left><top>0</top><width>1920</width><height>1080</height>
-        <visible>String.IsEqual(Skin.String(HBM.TrailerPlaying),1)</visible>
       </control>
       <control type="image">
         <left>0</left><top>0</top><width>1920</width><height>1080</height>
@@ -156,11 +137,6 @@
         <left>0</left><top>0</top><width>1920</width><height>1080</height>
         <aspectratio align="center" aligny="center">scale</aspectratio><fadetime>500</fadetime>
         <texture>$VAR[HBM_Hero_Backdrop]</texture>
-        <visible>!String.IsEqual(Skin.String(HBM.TrailerPlaying),1)</visible>
-      </control>
-      <control type="videowindow">
-        <left>0</left><top>0</top><width>1920</width><height>1080</height>
-        <visible>String.IsEqual(Skin.String(HBM.TrailerPlaying),1)</visible>
       </control>
       <control type="image">
         <left>0</left><top>0</top><width>1920</width><height>1080</height>

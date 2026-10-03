@@ -233,9 +233,6 @@
           <aspectratio align="left" aligny="center">keep</aspectratio>
           <fadetime>400</fadetime>
           <texture>$VAR[HBM_Hero_Logo]</texture>
-          <!-- While a trailer preview plays, slide out of the description area
-               into a small corner badge so it doesn't sit on top of the video. -->
-          <animation effect="slide" start="0,0" end="-20,-194" time="400" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.TrailerPlaying),1)">Conditional</animation>
         </control>
         <!-- Title text fallback when no clearlogo (exact inverse of the clearlogo's visible condition above) -->
         <control type="label">
@@ -245,19 +242,16 @@
           <font>HBM_Title_M</font>
           <textcolor>TextPrimary</textcolor>
           <scroll>true</scroll>
-          <animation effect="slide" start="0,0" end="-20,-194" time="400" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.TrailerPlaying),1)">Conditional</animation>
         </control>
 
-        <!-- Description / plot — hidden while trailer plays or rows are focused -->
+        <!-- Description / plot — hidden while rows are focused -->
         <control type="textbox">
           <left>0</left><top>468</top><width>540</width><height>160</height>
           <font>HBM_Body_M</font>
           <textcolor>E6EDF1F8</textcolor>
           <autoscroll delay="3000" time="800" repeat="4000">!String.IsEqual(Skin.String(hbm_hero_autoscroll),off)</autoscroll>
           <label>$VAR[HBM_Hero_Plot]</label>
-          <visible>!String.IsEqual(Skin.String(HBM.TrailerPlaying),1) + String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
-          <animation effect="fade" start="100" end="0" time="200" tween="sine" condition="String.IsEqual(Skin.String(HBM.TrailerPlaying),1)">Conditional</animation>
-          <animation effect="fade" start="0" end="100" time="200" tween="sine" condition="!String.IsEqual(Skin.String(HBM.TrailerPlaying),1)">Conditional</animation>
+          <visible>String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
         </control>
 
         <!-- Play button -->
@@ -266,7 +260,6 @@
           <!-- Lands beside More Info (not stacked below it) at the dots' height —
                stacking both at that Y pushed Play past the row label into the
                content below it. -->
-          <animation effect="slide" start="0,0" end="230,268" time="400" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.TrailerPlaying),1)">Conditional</animation>
           <label>Play</label>
           <font>HBM_Nav_M</font>
           <align>center</align><aligny>center</aligny>
@@ -299,7 +292,6 @@
         <!-- More Info button -->
         <control type="button" id="626">
           <left>0</left><top>644</top><width>210</width><height>46</height>
-          <animation effect="slide" start="0,0" end="0,326" time="400" tween="cubic" easing="out" condition="String.IsEqual(Skin.String(HBM.TrailerPlaying),1)">Conditional</animation>
           <label>More Info</label>
           <font>HBM_Nav_M</font>
           <align>center</align><aligny>center</aligny>
@@ -1367,7 +1359,6 @@
           <onfocus>Skin.SetString(HBM.PreviousRow,$INFO[Skin.String(HBM.ActiveRow)])</onfocus>
           <onfocus>Skin.SetString(HBM.ActiveRow,$PARAM[id])</onfocus>
           <onfocus>Skin.SetString(HBM.ReturnFocus,$PARAM[id])</onfocus>
-          <onfocus>RunScript(special://skin/resources/scripts/hero_trailer_stop.py)</onfocus>
           <content target="videos" limit="100">$INFO[Skin.String($PARAM[widget_key])]</content>
 
           <!-- Normal (unfocused) channel row -->
@@ -1511,9 +1502,8 @@
           <onfocus>Skin.SetString(HBM.PreviousRow,$INFO[Skin.String(HBM.ActiveRow)])</onfocus>
           <onfocus>Skin.SetString(HBM.ActiveRow,$PARAM[id])</onfocus>
           <onfocus>Skin.SetString(HBM.ReturnFocus,$PARAM[id])</onfocus>
-          <onfocus>RunScript(special://skin/resources/scripts/hero_trailer_stop.py)</onfocus>
           <visible>!String.IsEmpty(Skin.String($PARAM[widget_key]))</visible>
-          <content target="videos" limit="25">$INFO[Skin.String($PARAM[widget_key])]</content>
+          <content target="videos" limit="25">$INFO[Skin.String($PARAM[widget_key])]$INFO[Window(Home).Property($PARAM[widget_key]_retry)]</content>
 
           <!-- Poster: card 290×435, cell 314×435 -->
           <itemlayout width="209" height="290" condition="!String.IsEqual(Skin.String($PARAM[style_key]),Landscape)+!String.IsEqual(Skin.String($PARAM[style_key]),Square)">
@@ -1632,9 +1622,8 @@
           <onfocus>Skin.SetString(HBM.PreviousRow,$INFO[Skin.String(HBM.ActiveRow)])</onfocus>
           <onfocus>Skin.SetString(HBM.ActiveRow,$PARAM[id])</onfocus>
           <onfocus>Skin.SetString(HBM.ReturnFocus,$PARAM[id])</onfocus>
-          <onfocus>RunScript(special://skin/resources/scripts/hero_trailer_stop.py)</onfocus>
           <visible>!String.IsEmpty(Skin.String($PARAM[widget_key]))</visible>
-          <content target="videos" limit="25">$INFO[Skin.String($PARAM[widget_key])]</content>
+          <content target="videos" limit="25">$INFO[Skin.String($PARAM[widget_key])]$INFO[Window(Home).Property($PARAM[widget_key]_retry)]</content>
 
           <!-- Poster — "See All" overlay shown per-control for the Next page item -->
           <itemlayout width="276" height="390" condition="!String.IsEqual(Skin.String($PARAM[style_key]),Landscape)+!String.IsEqual(Skin.String($PARAM[style_key]),Square)">

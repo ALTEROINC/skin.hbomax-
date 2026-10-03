@@ -10,6 +10,9 @@
   <onload>Skin.SetString(HBM.InfoDbType,$INFO[ListItem.DBTYPE])</onload>
   <onload>Skin.SetString(HBM.InfoClearLogo,$INFO[ListItem.Art(clearlogo)])</onload>
   <onload>Skin.SetString(HBM.CurrentSeason,1)</onload>
+  <onload>Skin.SetString(HBM.SeasonChosen,0)</onload>
+  <!-- Drives the loading line under the episode list (see episodes_loading.py). -->
+  <onload condition="!String.IsEqual(ListItem.DBTYPE,movie)">RunScript(special://skin/resources/scripts/episodes_loading.py)</onload>
   <onload>Skin.SetString(HBM.EpisodeTab,episodes)</onload>
   <!-- Auto trailer preview: same 7s-wait / spinner-while-resolving / reveal-on-
        actually-playing pattern as the Home hero, adapted for this dialog's single
@@ -19,6 +22,7 @@
   <onunload>Skin.SetString(HBM.InfoClearLogo,)</onunload>
   <onunload>Skin.Reset(HBM.InfoDbType)</onunload>
   <onunload>Skin.Reset(HBM.EpisodeTab)</onunload>
+  <onunload>Skin.Reset(HBM.SeasonChosen)</onunload>
 
   <controls>
 
@@ -451,9 +455,11 @@
             <orientation>horizontal</orientation>
             <scrolltime tween="cubic" easing="out">200</scrolltime>
             <onclick>Skin.SetString(HBM.CurrentSeason,$INFO[ListItem.Season])</onclick>
+            <onclick>Skin.SetString(HBM.SeasonChosen,1)</onclick>
             <onclick>SetFocus(501)</onclick>
-            <onfocus>Skin.SetString(HBM.ReturnFocus,502)</onfocus>
-            <onfocus>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onfocus>
+            <!-- EpSync: episodes_loading.py focuses this strip briefly to move its selection; skip side effects then. -->
+            <onfocus condition="String.IsEmpty(Window(Home).Property(HBM.EpSync))">Skin.SetString(HBM.ReturnFocus,502)</onfocus>
+            <onfocus condition="String.IsEmpty(Window(Home).Property(HBM.EpSync))">RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onfocus>
             <onup>505</onup>
             <ondown>501</ondown>
             <onleft>200</onleft>
@@ -497,6 +503,10 @@
             <ondown>2</ondown>
             <visible>!String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEqual(Skin.String(HBM.EpisodeTab),related)</visible>
             <content target="videos">$VAR[HBM_Dlg_Episodes_Source]</content>
+            <!-- Fade the list out while the requested season is still loading. Opacity only,
+                 never <visible>, so the container keeps fetching. Gated on EpPoller so a
+                 dead script can't leave the episodes hidden. -->
+            <animation effect="fade" start="100" end="0" time="150" condition="String.IsEqual(Window(Home).Property(HBM.EpLoading),1) + !String.IsEmpty(Window(Home).Property(HBM.EpPoller))">Conditional</animation>
 
             <!-- cell=440 (416 image + 24 gap baked in), height=390 -->
             <itemlayout width="440" height="390">
@@ -594,6 +604,25 @@
               </control>
             </focusedlayout>
 
+          </control>
+
+          <!-- Loading line, centered on the episode section (panel 501 is 1760x390 at top 130).
+               Fills as the season loads, then fades out as the list fades in. -->
+          <control type="group">
+            <left>780</left><top>324</top><width>200</width><height>2</height>
+            <visible>String.IsEqual(Window(Home).Property(HBM.EpLoading),1) + !String.IsEmpty(Window(Home).Property(HBM.EpPoller)) + !String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEqual(Skin.String(HBM.EpisodeTab),related)</visible>
+            <animation effect="fade" start="0" end="100" time="150">Visible</animation>
+            <animation effect="fade" start="100" end="0" time="350">Hidden</animation>
+            <control type="image">
+              <left>0</left><top>0</top><width>200</width><height>2</height>
+              <aspectratio>stretch</aspectratio>
+              <texture colordiffuse="33B6CBF7">white.png</texture>
+            </control>
+            <control type="image">
+              <left>0</left><top>0</top><width>$VAR[HBM_EpBar_Width]</width><height>2</height>
+              <aspectratio>stretch</aspectratio>
+              <texture colordiffuse="FFB6CBF7">white.png</texture>
+            </control>
           </control>
 
           <!-- Dynamic related shows for the title currently open in this dialog. -->
