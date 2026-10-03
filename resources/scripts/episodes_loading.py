@@ -11,7 +11,7 @@ import xbmcgui
 # new one arrives, so this script compares the season that is *requested* with
 # the season of the list that is actually *there*:
 #   - they differ  -> loading: HBM.EpLoading=1 (list fades out) and HBM.EpBar=1
-#                     (line shown); HBM.EpBarW creeps toward full
+#                     (line shown); HBM.EpBarN (segments lit) creeps toward full
 #   - they match   -> loaded: HBM.EpLoading is cleared at once so the list fades
 #                     in with no added delay, while the line sweeps the rest of
 #                     the way to full and then fades out (HBM.EpBar cleared).
@@ -36,7 +36,8 @@ import xbmcgui
 
 HOME = 10000
 TICK = 0.05
-BAR_FULL = 240        # px; must match the line's width in DialogVideoInfo.xml
+BAR_FULL = 240        # px; the line is BAR_FULL / SEGMENT_PX segments in DialogVideoInfo.xml
+SEGMENT_PX = 6        # px per segment; must match the segment images in DialogVideoInfo.xml
 CREEP_MAX = 0.92      # share of the bar the creep may reach before data arrives
 EXPECTED_DEFAULT = 1.5   # seconds a load is assumed to take until we've seen one
 EXPECTED_MIN = 0.4
@@ -134,7 +135,7 @@ def main():
         nonlocal last_w
         w = int(w)
         if w != last_w:
-            win.setProperty('HBM.EpBarW', str(w))
+            win.setProperty('HBM.EpBarN', str(w // SEGMENT_PX))
             last_w = w
 
     def end_bar():
@@ -215,7 +216,7 @@ def main():
     finally:
         win.clearProperty('HBM.EpLoading')
         win.clearProperty('HBM.EpBar')
-        win.clearProperty('HBM.EpBarW')
+        win.clearProperty('HBM.EpBarN')
         win.clearProperty('HBM.EpPoller')
         win.clearProperty('HBM.EpSync')
 

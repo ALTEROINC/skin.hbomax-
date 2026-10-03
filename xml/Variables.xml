@@ -861,11 +861,6 @@
     <value></value>
   </variable>
 
-  <variable name="HBM_EpBar_Width">
-    <value condition="!String.IsEmpty(Window(Home).Property(HBM.EpBarW))">$INFO[Window(Home).Property(HBM.EpBarW)]</value>
-    <value>0</value>
-  </variable>
-
   <variable name="HBM_Dlg_RecTV_Source">
     <value condition="!String.IsEmpty(Skin.String(HBM.ShowTMDB)) + !String.IsEqual(ListItem.DBTYPE,movie)">plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;tmdb_type=tv&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]</value>
     <value></value>
