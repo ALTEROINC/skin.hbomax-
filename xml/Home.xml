@@ -693,19 +693,9 @@
       </control>
 
       <control type="image">
-        <left>0</left><top>264</top><width>480</width><height>160</height>
-        <!--
-          Row containers hold real GUI focus when active (unlike the hero
-          panels — see CLAUDE.md hero-carousel focus lessons), so unqualified
-          ListItem.* already targets whichever row container is currently
-          focused, matching the existing fallback-art pattern in
-          Variables.xml (e.g. HBM_Hero_Backdrop's ActiveRow!=0 + ListItem.Art
-          clauses). The previous version enumerated all 10 row ids in one
-          expression mixing + and | inside nested parens per row, which Kodi's
-          boolean parser could not parse ("unmatched parentheses" / "Misplaced
-          !" in kodi.log) — it silently evaluated to false, so neither this
-          logo nor its title fallback below ever showed.
-        -->
+        <left>0</left><top>240</top><width>440</width><height>140</height>
+        <!-- Unqualified ListItem.* is the focused row item (row containers hold real GUI focus
+             while a row is active). Never use Container(70x) here: those ids repeat across hubs. -->
         <visible>!String.IsEqual(Skin.String(HBM.ActiveRow),0) + [!String.IsEmpty(ListItem.Property(base_clearlogo)) | !String.IsEmpty(ListItem.Art(tvshow.clearlogo)) | !String.IsEmpty(ListItem.Art(clearlogo))]</visible>
         <aspectratio align="left" aligny="center">keep</aspectratio>
         <fadetime>350</fadetime>
@@ -714,12 +704,21 @@
 
       <control type="label">
         <left>0</left><top>282</top><width>620</width><height>64</height>
-        <!-- Title fallback: shown when the focused row's item has none of the three clearlogo sources (De Morgan of the image's condition above, restructured to the same flat-AND pattern this codebase's boolean expressions rely on — see the comment above). -->
+        <!-- Title fallback: shown when the focused item has none of the three clearlogo sources. -->
         <visible>!String.IsEqual(Skin.String(HBM.ActiveRow),0) + String.IsEmpty(ListItem.Property(base_clearlogo)) + String.IsEmpty(ListItem.Art(tvshow.clearlogo)) + String.IsEmpty(ListItem.Art(clearlogo))</visible>
         <label>$VAR[HBM_Row_Title]</label>
         <font>HBM_Title_M</font>
         <textcolor>TextPrimary</textcolor>
         <scroll>true</scroll>
+      </control>
+
+      <!-- Plot / description of the focused row item -->
+      <control type="textbox">
+        <left>0</left><top>388</top><width>540</width><height>80</height>
+        <font>HBM_Body_M</font>
+        <textcolor>E6EDF1F8</textcolor>
+        <autoscroll delay="3000" time="800" repeat="4000">!String.IsEqual(Skin.String(hbm_hero_autoscroll),off)</autoscroll>
+        <label>$VAR[HBM_Hero_Plot]</label>
       </control>
 
     </control>

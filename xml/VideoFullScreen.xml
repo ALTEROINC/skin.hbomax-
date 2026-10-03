@@ -2,6 +2,11 @@
 <window id="12005">
   <defaultcontrol always="true">0</defaultcontrol>
   <onaction>ActivateWindow(VideoOSD)</onaction>
+  <!-- Playback started from the show/movie info page: that page is a full-screen dialog that
+       stays open over the video and OSD, so they stay hidden until the user presses Back.
+       Send that one Back for them. Only while the info page is actually open: Back with
+       nothing on top of the video would stop playback. -->
+  <onload condition="String.IsEqual(Skin.String(HBM.PlayedFromDialog),1) + Window.IsActive(movieinformation)">Action(Back)</onload>
   <onunload condition="String.IsEqual(Skin.String(HBM.PlayedFromDialog),1)">Skin.SetString(HBM.PlayedFromDialog,0)</onunload>
   <controls>
   </controls>

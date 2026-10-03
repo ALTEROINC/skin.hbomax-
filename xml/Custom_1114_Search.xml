@@ -188,7 +188,9 @@
         <texturenofocus border="6" colordiffuse="FF262626">special://skin/media/panel_rect.png</texturenofocus>
         <texturefocus border="6" colordiffuse="FF3C3C3C">special://skin/media/panel_rect.png</texturefocus>
         <onleft>501</onleft><onright>503</onright><onup>133</onup><ondown>51</ondown>
-        <onclick>RunScript(special://skin/resources/scripts/search.py,space)</onclick>
+        <!-- Appends in XML (no Python process); empty term stays empty, like the old script did. -->
+        <onclick condition="!String.IsEmpty(Skin.String(HBM.SearchTerm))">Skin.SetString(HBM.SearchTerm,"$INFO[Skin.String(HBM.SearchTerm)] ")</onclick>
+        <onclick condition="!String.IsEmpty(Skin.String(HBM.SearchTerm))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick>
       </control>
       <control type="image">
         <left>62</left><top>14</top><width>28</width><height>28</height>
@@ -208,6 +210,8 @@
         <onleft>502</onleft><onright>503</onright><onup>136</onup><ondown>51</ondown>
         <onclick>Skin.Reset(HBM.SearchTerm)</onclick>
         <onclick>Skin.Reset(HBM.SearchTermCommitted)</onclick>
+        <onclick>Skin.Reset(HBM.SearchTermCommittedMovie)</onclick>
+        <onclick>Skin.Reset(HBM.SearchTermCommittedPerson)</onclick>
         <onclick>CancelAlarm(hbmsearchdebounce,true)</onclick>
       </control>
       <control type="image">
