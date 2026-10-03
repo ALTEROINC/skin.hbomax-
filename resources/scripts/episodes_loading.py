@@ -10,9 +10,15 @@ import xbmcgui
 # HBM_Dlg_EpSeason resolves to. Kodi keeps showing the previous list until the
 # new one arrives, so this script compares the season that is *requested* with
 # the season of the list that is actually *there*:
-#   - they differ  -> loading: HBM.EpLoading=1 and HBM.EpBarW creeps toward full
-#   - they match   -> loaded: bar snaps to full, then HBM.EpLoading is cleared
-#                     and the XML fades the line out and the list in.
+#   - they differ  -> loading: HBM.EpLoading=1 (list fades out) and HBM.EpBar=1
+#                     (line shown); HBM.EpBarW creeps toward full
+#   - they match   -> loaded: HBM.EpLoading is cleared at once so the list fades
+#                     in with no added delay, while the line sweeps the rest of
+#                     the way to full and then fades out (HBM.EpBar cleared).
+#
+# The creep adapts to this device: the time the last loads took is remembered
+# (HBM.EpExpected) and the line is paced to reach ~90% in about that long, so it
+# fills across a quick load and a slow one alike instead of using a fixed speed.
 #
 # HBM.EpPoller is the fail-safe: the XML only hides the list / shows the line
 # while it is set, and it is cleared on exit, so a dead script can never leave
@@ -29,12 +35,15 @@ import xbmcgui
 # keep the two in sync.
 
 HOME = 10000
-TICK = 0.1
-BAR_FULL = 200        # px; must match the line's width in DialogVideoInfo.xml
+TICK = 0.05
+BAR_FULL = 240        # px; must match the line's width in DialogVideoInfo.xml
 CREEP_MAX = 0.92      # share of the bar the creep may reach before data arrives
-CREEP_TAU = 4.0       # seconds; larger = slower creep
+EXPECTED_DEFAULT = 1.5   # seconds a load is assumed to take until we've seen one
+EXPECTED_MIN = 0.4
+EXPECTED_MAX = 8.0
 TIMEOUT = 90          # give up (and reveal whatever is there) after this long
-FINISH_HOLD = 0.25    # let the full bar show briefly before it fades
+RAMP_SECONDS = 0.3    # final sweep to a full bar once the list has arrived
+FINISH_HOLD = 0.15    # full bar stays this long before it fades
 CLOSED_GRACE = 2.0    # dialog may flicker between windows; exit after this long
 
 
@@ -47,6 +56,20 @@ def requested_season():
         return xbmc.getInfoLabel('Skin.String(HBM.CurrentSeason)')
     up_next = xbmc.getInfoLabel('Container(510).ListItemAbsolute(0).Season')
     return up_next or xbmc.getInfoLabel('Skin.String(HBM.CurrentSeason)')
+
+
+def load_expected(win):
+    try:
+        return min(EXPECTED_MAX, max(EXPECTED_MIN, float(win.getProperty('HBM.EpExpected'))))
+    except ValueError:
+        return EXPECTED_DEFAULT
+
+
+def remember_duration(win, expected, took):
+    """Blend how long this load took into the pace for the next one."""
+    expected = min(EXPECTED_MAX, max(EXPECTED_MIN, 0.5 * expected + 0.5 * took))
+    win.setProperty('HBM.EpExpected', '%.2f' % expected)
+    return expected
 
 
 def strip_position(season):
@@ -99,6 +122,8 @@ def main():
     started = 0.0
     closed_since = None
     last_w = None
+    expected = load_expected(win)
+    bar_on = False
     strip_synced = None  # season the strip is already positioned on
     gave_up = None  # (requested, have) we already timed out on; don't restart the line for it
 
@@ -112,12 +137,24 @@ def main():
             win.setProperty('HBM.EpBarW', str(w))
             last_w = w
 
+    def end_bar():
+        nonlocal bar_on
+        win.clearProperty('HBM.EpBar')
+        bar_on = False
+
     def finish():
+        """List is here: reveal it immediately, let the line sweep to full and fade."""
         nonlocal loading
-        set_width(BAR_FULL)
-        monitor.waitForAbort(FINISH_HOLD)
         win.clearProperty('HBM.EpLoading')
         loading = False
+        start_w = last_w or 0
+        steps = max(1, int(RAMP_SECONDS / TICK))
+        for i in range(1, steps + 1):
+            set_width(start_w + (BAR_FULL - start_w) * (i / steps))
+            if monitor.waitForAbort(TICK):
+                return
+        monitor.waitForAbort(FINISH_HOLD)
+        end_bar()
 
     heartbeat()
     try:
@@ -142,6 +179,8 @@ def main():
                 if loading:
                     win.clearProperty('HBM.EpLoading')
                     loading = False
+                if bar_on:
+                    end_bar()
             else:
                 req = requested_season()
                 have = xbmc.getInfoLabel('Container(501).ListItemAbsolute(0).Season')
@@ -149,6 +188,7 @@ def main():
 
                 if loaded:
                     if loading:
+                        expected = remember_duration(win, expected, time.time() - started)
                         finish()
                 elif (req, have) == gave_up:
                     pass
@@ -157,6 +197,8 @@ def main():
                         loading = True
                         started = time.time()
                         set_width(0)
+                        win.setProperty('HBM.EpBar', '1')
+                        bar_on = True
                         win.setProperty('HBM.EpLoading', '1')
                     elapsed = time.time() - started
                     if elapsed > TIMEOUT:
@@ -165,12 +207,14 @@ def main():
                         finish()
                         monitor.waitForAbort(TICK)
                         continue
-                    set_width(BAR_FULL * CREEP_MAX * (1 - math.exp(-elapsed / CREEP_TAU)))
+                    # 1 - e^-2.3 is ~0.9: reach ~90% of the creep range in `expected` seconds
+                    set_width(BAR_FULL * CREEP_MAX * (1 - math.exp(-2.3 * elapsed / expected)))
 
             if monitor.waitForAbort(TICK):
                 break
     finally:
         win.clearProperty('HBM.EpLoading')
+        win.clearProperty('HBM.EpBar')
         win.clearProperty('HBM.EpBarW')
         win.clearProperty('HBM.EpPoller')
         win.clearProperty('HBM.EpSync')

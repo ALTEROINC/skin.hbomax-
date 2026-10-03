@@ -607,19 +607,20 @@
           </control>
 
           <!-- Loading line, centered on the episode section (panel 501 is 1760x390 at top 130).
-               Fills as the season loads, then fades out as the list fades in. -->
+               Fills as the season loads, sweeps to full when it arrives and fades out while the
+               list fades in. HBM.EpBar (not EpLoading) controls it so it outlives the list's fade. -->
           <control type="group">
-            <left>780</left><top>324</top><width>200</width><height>2</height>
-            <visible>String.IsEqual(Window(Home).Property(HBM.EpLoading),1) + !String.IsEmpty(Window(Home).Property(HBM.EpPoller)) + !String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEqual(Skin.String(HBM.EpisodeTab),related)</visible>
-            <animation effect="fade" start="0" end="100" time="150">Visible</animation>
-            <animation effect="fade" start="100" end="0" time="350">Hidden</animation>
+            <left>760</left><top>323</top><width>240</width><height>3</height>
+            <visible>String.IsEqual(Window(Home).Property(HBM.EpBar),1) + !String.IsEmpty(Window(Home).Property(HBM.EpPoller)) + !String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEqual(Skin.String(HBM.EpisodeTab),related)</visible>
+            <animation effect="fade" start="0" end="100" time="120">Visible</animation>
+            <animation effect="fade" start="100" end="0" time="300">Hidden</animation>
             <control type="image">
-              <left>0</left><top>0</top><width>200</width><height>2</height>
+              <left>0</left><top>0</top><width>240</width><height>3</height>
               <aspectratio>stretch</aspectratio>
-              <texture colordiffuse="33B6CBF7">white.png</texture>
+              <texture colordiffuse="55B6CBF7">white.png</texture>
             </control>
             <control type="image">
-              <left>0</left><top>0</top><width>$VAR[HBM_EpBar_Width]</width><height>2</height>
+              <left>0</left><top>0</top><width>$VAR[HBM_EpBar_Width]</width><height>3</height>
               <aspectratio>stretch</aspectratio>
               <texture colordiffuse="FFB6CBF7">white.png</texture>
             </control>
