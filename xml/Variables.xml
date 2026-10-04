@@ -17,9 +17,6 @@
   <variable name="HBM_SearchURL_Movie">
     <value condition="!String.IsEmpty(Skin.String(HBM.SearchTermCommittedMovie))">plugin://plugin.video.themoviedb.helper/?info=search&amp;tmdb_type=movie&amp;query=$INFO[Skin.String(HBM.SearchTermCommittedMovie)]</value>
   </variable>
-  <variable name="HBM_SearchURL_Person">
-    <value condition="!String.IsEmpty(Skin.String(HBM.SearchTermCommittedPerson))">plugin://plugin.video.themoviedb.helper/?info=search&amp;tmdb_type=person&amp;query=$INFO[Skin.String(HBM.SearchTermCommittedPerson)]</value>
-  </variable>
 
   <variable name="AutoCompletionContentVar">
     <value condition="System.AddonIsEnabled(plugin.program.autocompletion) + !System.HasHiddenInput">plugin://plugin.program.autocompletion?info=autocomplete&amp;&amp;id=$INFO[Control.GetLabel(312).index(1)]&amp;&amp;limit=9</value>
@@ -912,5 +909,15 @@
     <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + System.AddonIsEnabled(pvr.iptvsimple)">792</value>
     <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)">793</value>
     <value>$INFO[Skin.String(HBM.ReturnFocus)]</value>
+  </variable>
+
+  <!-- Genre browser: the genre's discover path, asking TMDb Helper for HBM.GenreLen pages merged into one
+       list (20 items each) and no Next page item. genre_scroll.py raises GenreLen as you near the end,
+       so scrolling is continuous but only the pages you reach are ever requested. -->
+  <variable name="HBM_GenreSource">
+    <!-- TMDb Helper sources take length= (pages merged) and nextpage=False; anything else (pvr://, library, other
+         plugins) is used as is, since a stray query string would break those paths. -->
+    <value condition="String.Contains(Skin.String(HBM.GenreURL),themoviedb.helper) + !String.IsEmpty(Skin.String(HBM.GenreURL))">$INFO[Skin.String(HBM.GenreURL)]&amp;length=$INFO[Skin.String(HBM.GenreLen)]&amp;nextpage=False</value>
+    <value condition="!String.IsEmpty(Skin.String(HBM.GenreURL))">$INFO[Skin.String(HBM.GenreURL)]</value>
   </variable>
 </includes>

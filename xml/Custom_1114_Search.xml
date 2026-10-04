@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window id="1114">
   <defaultcontrol always="true">101</defaultcontrol>
+  <onload>Skin.Reset(HBM.SearchBackspace)</onload>
+  <onload>RunScript(special://skin/resources/scripts/search.py,poll)</onload>
   <animation effect="fade" time="250">WindowOpen</animation>
   <animation effect="fade" time="250">WindowClose</animation>
   <controls>
@@ -94,67 +96,67 @@
       <!-- Row 1: A B C D E F -->
       <control type="group">
         <top>0</top>
-        <control type="button" id="101"><left>0</left><width>72</width><height>72</height><label>a</label><include>HBM_KeyStyle</include><onleft>704</onleft><onright>102</onright><ondown>107</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]a)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="102"><left>80</left><width>72</width><height>72</height><label>b</label><include>HBM_KeyStyle</include><onleft>101</onleft><onright>103</onright><ondown>108</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]b)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="103"><left>160</left><width>72</width><height>72</height><label>c</label><include>HBM_KeyStyle</include><onleft>102</onleft><onright>104</onright><ondown>109</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]c)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="104"><left>240</left><width>72</width><height>72</height><label>d</label><include>HBM_KeyStyle</include><onleft>103</onleft><onright>105</onright><ondown>110</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]d)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="105"><left>320</left><width>72</width><height>72</height><label>e</label><include>HBM_KeyStyle</include><onleft>104</onleft><onright>106</onright><ondown>111</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]e)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="106"><left>400</left><width>72</width><height>72</height><label>f</label><include>HBM_KeyStyle</include><onleft>105</onleft><onright>51</onright><ondown>112</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]f)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="101"><left>0</left><width>72</width><height>72</height><label>a</label><include>HBM_KeyStyle</include><onleft>704</onleft><onright>102</onright><ondown>107</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]a)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="102"><left>80</left><width>72</width><height>72</height><label>b</label><include>HBM_KeyStyle</include><onleft>101</onleft><onright>103</onright><ondown>108</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]b)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="103"><left>160</left><width>72</width><height>72</height><label>c</label><include>HBM_KeyStyle</include><onleft>102</onleft><onright>104</onright><ondown>109</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]c)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="104"><left>240</left><width>72</width><height>72</height><label>d</label><include>HBM_KeyStyle</include><onleft>103</onleft><onright>105</onright><ondown>110</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]d)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="105"><left>320</left><width>72</width><height>72</height><label>e</label><include>HBM_KeyStyle</include><onleft>104</onleft><onright>106</onright><ondown>111</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]e)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="106"><left>400</left><width>72</width><height>72</height><label>f</label><include>HBM_KeyStyle</include><onleft>105</onleft><onright>51</onright><ondown>112</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]f)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
       </control>
 
       <!-- Row 2: G H I J K L -->
       <control type="group">
         <top>80</top>
-        <control type="button" id="107"><left>0</left><width>72</width><height>72</height><label>g</label><include>HBM_KeyStyle</include><onleft>704</onleft><onright>108</onright><onup>101</onup><ondown>113</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]g)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="108"><left>80</left><width>72</width><height>72</height><label>h</label><include>HBM_KeyStyle</include><onleft>107</onleft><onright>109</onright><onup>102</onup><ondown>114</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]h)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="109"><left>160</left><width>72</width><height>72</height><label>i</label><include>HBM_KeyStyle</include><onleft>108</onleft><onright>110</onright><onup>103</onup><ondown>115</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]i)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="110"><left>240</left><width>72</width><height>72</height><label>j</label><include>HBM_KeyStyle</include><onleft>109</onleft><onright>111</onright><onup>104</onup><ondown>116</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]j)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="111"><left>320</left><width>72</width><height>72</height><label>k</label><include>HBM_KeyStyle</include><onleft>110</onleft><onright>112</onright><onup>105</onup><ondown>117</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]k)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="112"><left>400</left><width>72</width><height>72</height><label>l</label><include>HBM_KeyStyle</include><onleft>111</onleft><onright>51</onright><onup>106</onup><ondown>118</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]l)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="107"><left>0</left><width>72</width><height>72</height><label>g</label><include>HBM_KeyStyle</include><onleft>704</onleft><onright>108</onright><onup>101</onup><ondown>113</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]g)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="108"><left>80</left><width>72</width><height>72</height><label>h</label><include>HBM_KeyStyle</include><onleft>107</onleft><onright>109</onright><onup>102</onup><ondown>114</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]h)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="109"><left>160</left><width>72</width><height>72</height><label>i</label><include>HBM_KeyStyle</include><onleft>108</onleft><onright>110</onright><onup>103</onup><ondown>115</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]i)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="110"><left>240</left><width>72</width><height>72</height><label>j</label><include>HBM_KeyStyle</include><onleft>109</onleft><onright>111</onright><onup>104</onup><ondown>116</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]j)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="111"><left>320</left><width>72</width><height>72</height><label>k</label><include>HBM_KeyStyle</include><onleft>110</onleft><onright>112</onright><onup>105</onup><ondown>117</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]k)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="112"><left>400</left><width>72</width><height>72</height><label>l</label><include>HBM_KeyStyle</include><onleft>111</onleft><onright>51</onright><onup>106</onup><ondown>118</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]l)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
       </control>
 
       <!-- Row 3: M N O P Q R -->
       <control type="group">
         <top>160</top>
-        <control type="button" id="113"><left>0</left><width>72</width><height>72</height><label>m</label><include>HBM_KeyStyle</include><onleft>704</onleft><onright>114</onright><onup>107</onup><ondown>119</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]m)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="114"><left>80</left><width>72</width><height>72</height><label>n</label><include>HBM_KeyStyle</include><onleft>113</onleft><onright>115</onright><onup>108</onup><ondown>120</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]n)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="115"><left>160</left><width>72</width><height>72</height><label>o</label><include>HBM_KeyStyle</include><onleft>114</onleft><onright>116</onright><onup>109</onup><ondown>121</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]o)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="116"><left>240</left><width>72</width><height>72</height><label>p</label><include>HBM_KeyStyle</include><onleft>115</onleft><onright>117</onright><onup>110</onup><ondown>122</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]p)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="117"><left>320</left><width>72</width><height>72</height><label>q</label><include>HBM_KeyStyle</include><onleft>116</onleft><onright>118</onright><onup>111</onup><ondown>123</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]q)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="118"><left>400</left><width>72</width><height>72</height><label>r</label><include>HBM_KeyStyle</include><onleft>117</onleft><onright>51</onright><onup>112</onup><ondown>124</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]r)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="113"><left>0</left><width>72</width><height>72</height><label>m</label><include>HBM_KeyStyle</include><onleft>704</onleft><onright>114</onright><onup>107</onup><ondown>119</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]m)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="114"><left>80</left><width>72</width><height>72</height><label>n</label><include>HBM_KeyStyle</include><onleft>113</onleft><onright>115</onright><onup>108</onup><ondown>120</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]n)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="115"><left>160</left><width>72</width><height>72</height><label>o</label><include>HBM_KeyStyle</include><onleft>114</onleft><onright>116</onright><onup>109</onup><ondown>121</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]o)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="116"><left>240</left><width>72</width><height>72</height><label>p</label><include>HBM_KeyStyle</include><onleft>115</onleft><onright>117</onright><onup>110</onup><ondown>122</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]p)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="117"><left>320</left><width>72</width><height>72</height><label>q</label><include>HBM_KeyStyle</include><onleft>116</onleft><onright>118</onright><onup>111</onup><ondown>123</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]q)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="118"><left>400</left><width>72</width><height>72</height><label>r</label><include>HBM_KeyStyle</include><onleft>117</onleft><onright>51</onright><onup>112</onup><ondown>124</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]r)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
       </control>
 
       <!-- Row 4: S T U V W X -->
       <control type="group">
         <top>240</top>
-        <control type="button" id="119"><left>0</left><width>72</width><height>72</height><label>s</label><include>HBM_KeyStyle</include><onleft>704</onleft><onright>120</onright><onup>113</onup><ondown>125</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]s)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="120"><left>80</left><width>72</width><height>72</height><label>t</label><include>HBM_KeyStyle</include><onleft>119</onleft><onright>121</onright><onup>114</onup><ondown>126</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]t)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="121"><left>160</left><width>72</width><height>72</height><label>u</label><include>HBM_KeyStyle</include><onleft>120</onleft><onright>122</onright><onup>115</onup><ondown>132</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]u)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="122"><left>240</left><width>72</width><height>72</height><label>v</label><include>HBM_KeyStyle</include><onleft>121</onleft><onright>123</onright><onup>116</onup><ondown>133</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]v)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="123"><left>320</left><width>72</width><height>72</height><label>w</label><include>HBM_KeyStyle</include><onleft>122</onleft><onright>124</onright><onup>117</onup><ondown>135</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]w)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="124"><left>400</left><width>72</width><height>72</height><label>x</label><include>HBM_KeyStyle</include><onleft>123</onleft><onright>51</onright><onup>118</onup><ondown>137</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]x)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="119"><left>0</left><width>72</width><height>72</height><label>s</label><include>HBM_KeyStyle</include><onleft>704</onleft><onright>120</onright><onup>113</onup><ondown>125</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]s)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="120"><left>80</left><width>72</width><height>72</height><label>t</label><include>HBM_KeyStyle</include><onleft>119</onleft><onright>121</onright><onup>114</onup><ondown>126</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]t)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="121"><left>160</left><width>72</width><height>72</height><label>u</label><include>HBM_KeyStyle</include><onleft>120</onleft><onright>122</onright><onup>115</onup><ondown>132</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]u)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="122"><left>240</left><width>72</width><height>72</height><label>v</label><include>HBM_KeyStyle</include><onleft>121</onleft><onright>123</onright><onup>116</onup><ondown>133</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]v)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="123"><left>320</left><width>72</width><height>72</height><label>w</label><include>HBM_KeyStyle</include><onleft>122</onleft><onright>124</onright><onup>117</onup><ondown>135</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]w)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="124"><left>400</left><width>72</width><height>72</height><label>x</label><include>HBM_KeyStyle</include><onleft>123</onleft><onright>51</onright><onup>118</onup><ondown>137</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]x)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
       </control>
 
       <!-- Row 5: Y Z -->
       <control type="group">
         <top>320</top>
-        <control type="button" id="125"><left>0</left><width>72</width><height>72</height><label>y</label><include>HBM_KeyStyle</include><onleft>704</onleft><onright>126</onright><onup>119</onup><ondown>128</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]y)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="126"><left>80</left><width>72</width><height>72</height><label>z</label><include>HBM_KeyStyle</include><onleft>125</onleft><onright>51</onright><onup>120</onup><ondown>130</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]z)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="125"><left>0</left><width>72</width><height>72</height><label>y</label><include>HBM_KeyStyle</include><onleft>704</onleft><onright>126</onright><onup>119</onup><ondown>128</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]y)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="126"><left>80</left><width>72</width><height>72</height><label>z</label><include>HBM_KeyStyle</include><onleft>125</onleft><onright>51</onright><onup>120</onup><ondown>130</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]z)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
       </control>
 
       <!-- Row 6: 0–9 -->
       <control type="group">
         <top>400</top>
-        <control type="button" id="128"><left>0</left><width>43</width><height>72</height><label>$VAR[HBM_Key_1]</label><include>HBM_KeyStyle</include><onleft>704</onleft><onright>129</onright><onup>119</onup><ondown>501</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]1)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="129"><left>47</left><width>43</width><height>72</height><label>$VAR[HBM_Key_2]</label><include>HBM_KeyStyle</include><onleft>128</onleft><onright>130</onright><onup>119</onup><ondown>501</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]2)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="130"><left>94</left><width>43</width><height>72</height><label>$VAR[HBM_Key_3]</label><include>HBM_KeyStyle</include><onleft>129</onleft><onright>131</onright><onup>120</onup><ondown>501</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]3)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="131"><left>141</left><width>43</width><height>72</height><label>$VAR[HBM_Key_4]</label><include>HBM_KeyStyle</include><onleft>130</onleft><onright>132</onright><onup>121</onup><ondown>502</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]4)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="132"><left>188</left><width>43</width><height>72</height><label>$VAR[HBM_Key_5]</label><include>HBM_KeyStyle</include><onleft>131</onleft><onright>133</onright><onup>121</onup><ondown>502</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]5)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="133"><left>235</left><width>43</width><height>72</height><label>$VAR[HBM_Key_6]</label><include>HBM_KeyStyle</include><onleft>132</onleft><onright>134</onright><onup>122</onup><ondown>502</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]6)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="134"><left>282</left><width>43</width><height>72</height><label>$VAR[HBM_Key_7]</label><include>HBM_KeyStyle</include><onleft>133</onleft><onright>135</onright><onup>122</onup><ondown>502</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]7)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="135"><left>329</left><width>43</width><height>72</height><label>$VAR[HBM_Key_8]</label><include>HBM_KeyStyle</include><onleft>134</onleft><onright>136</onright><onup>123</onup><ondown>503</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]8)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="136"><left>376</left><width>43</width><height>72</height><label>$VAR[HBM_Key_9]</label><include>HBM_KeyStyle</include><onleft>135</onleft><onright>137</onright><onup>124</onup><ondown>503</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]9)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
-        <control type="button" id="137"><left>423</left><width>43</width><height>72</height><label>$VAR[HBM_Key_0]</label><include>HBM_KeyStyle</include><onleft>136</onleft><onright>51</onright><onup>124</onup><ondown>503</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]0)</onclick><onclick>AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="128"><left>0</left><width>43</width><height>72</height><label>$VAR[HBM_Key_1]</label><include>HBM_KeyStyle</include><onleft>704</onleft><onright>129</onright><onup>119</onup><ondown>501</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]1)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="129"><left>47</left><width>43</width><height>72</height><label>$VAR[HBM_Key_2]</label><include>HBM_KeyStyle</include><onleft>128</onleft><onright>130</onright><onup>119</onup><ondown>501</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]2)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="130"><left>94</left><width>43</width><height>72</height><label>$VAR[HBM_Key_3]</label><include>HBM_KeyStyle</include><onleft>129</onleft><onright>131</onright><onup>120</onup><ondown>501</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]3)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="131"><left>141</left><width>43</width><height>72</height><label>$VAR[HBM_Key_4]</label><include>HBM_KeyStyle</include><onleft>130</onleft><onright>132</onright><onup>121</onup><ondown>502</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]4)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="132"><left>188</left><width>43</width><height>72</height><label>$VAR[HBM_Key_5]</label><include>HBM_KeyStyle</include><onleft>131</onleft><onright>133</onright><onup>121</onup><ondown>502</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]5)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="133"><left>235</left><width>43</width><height>72</height><label>$VAR[HBM_Key_6]</label><include>HBM_KeyStyle</include><onleft>132</onleft><onright>134</onright><onup>122</onup><ondown>502</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]6)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="134"><left>282</left><width>43</width><height>72</height><label>$VAR[HBM_Key_7]</label><include>HBM_KeyStyle</include><onleft>133</onleft><onright>135</onright><onup>122</onup><ondown>502</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]7)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="135"><left>329</left><width>43</width><height>72</height><label>$VAR[HBM_Key_8]</label><include>HBM_KeyStyle</include><onleft>134</onleft><onright>136</onright><onup>123</onup><ondown>503</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]8)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="136"><left>376</left><width>43</width><height>72</height><label>$VAR[HBM_Key_9]</label><include>HBM_KeyStyle</include><onleft>135</onleft><onright>137</onright><onup>124</onup><ondown>503</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]9)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
+        <control type="button" id="137"><left>423</left><width>43</width><height>72</height><label>$VAR[HBM_Key_0]</label><include>HBM_KeyStyle</include><onleft>136</onleft><onright>51</onright><onup>124</onup><ondown>503</ondown><onclick>Skin.SetString(HBM.SearchTerm,$INFO[Skin.String(HBM.SearchTerm)]0)</onclick><onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick></control>
       </control>
 
     </control>
@@ -168,7 +170,9 @@
         <label></label>
         <include>HBM_KeyStyle</include>
         <onleft>704</onleft><onright>502</onright><onup>129</onup><ondown>51</ondown>
-        <onclick>RunScript(special://skin/resources/scripts/search.py,backspace)</onclick>
+        <!-- Poller running: just raise a flag, it applies the backspace within ~0.1s. Otherwise fall back to the script. -->
+        <onclick condition="!String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">Skin.SetString(HBM.SearchBackspace,1)</onclick>
+        <onclick condition="String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">RunScript(special://skin/resources/scripts/search.py,backspace)</onclick>
       </control>
       <control type="image">
         <left>62</left><top>14</top><width>28</width><height>28</height>
@@ -192,7 +196,7 @@
         <onleft>501</onleft><onright>503</onright><onup>133</onup><ondown>51</ondown>
         <!-- Appends in XML (no Python process); empty term stays empty, like the old script did. -->
         <onclick condition="!String.IsEmpty(Skin.String(HBM.SearchTerm))">Skin.SetString(HBM.SearchTerm,"$INFO[Skin.String(HBM.SearchTerm)] ")</onclick>
-        <onclick condition="!String.IsEmpty(Skin.String(HBM.SearchTerm))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick>
+        <onclick condition="!String.IsEmpty(Skin.String(HBM.SearchTerm)) + String.IsEmpty(Window(Home).Property(HBM.SearchPoller))">AlarmClock(hbmsearchdebounce,RunScript(special://skin/resources/scripts/search.py,commit),00:00:01,silent,true)</onclick>
       </control>
       <control type="image">
         <left>62</left><top>14</top><width>28</width><height>28</height>
@@ -217,7 +221,7 @@
         <onclick>Skin.Reset(HBM.SearchTerm)</onclick>
         <onclick>Skin.Reset(HBM.SearchTermCommitted)</onclick>
         <onclick>Skin.Reset(HBM.SearchTermCommittedMovie)</onclick>
-        <onclick>Skin.Reset(HBM.SearchTermCommittedPerson)</onclick>
+        <onclick>Skin.Reset(HBM.SearchBackspace)</onclick>
         <onclick>CancelAlarm(hbmsearchdebounce,true)</onclick>
       </control>
       <control type="image">
@@ -235,14 +239,10 @@
     <!-- ========== RESULTS PANEL ========== -->
 
     <!-- Scrolling group: slides up as focus moves between categories.
-         Two additive animations: each -744px.
-         TV Shows = 0, Movies = -744, Actors = -1488 -->
+         TV Shows = 0, Movies = -744. -->
     <control type="group" id="5000">
-      <left>616</left><top>116</top><width>1280</width><height>2304</height>
-      <animation type="conditional" condition="Control.HasFocus(52) | Control.HasFocus(552) | Control.HasFocus(53) | Control.HasFocus(553)">
-        <effect type="slide" start="0,0" end="0,-744" time="400" tween="cubic" easing="inout"/>
-      </animation>
-      <animation type="conditional" condition="Control.HasFocus(53) | Control.HasFocus(553)">
+      <left>616</left><top>116</top><width>1280</width><height>1560</height>
+      <animation type="conditional" condition="Control.HasFocus(52) | Control.HasFocus(552)">
         <effect type="slide" start="0,0" end="0,-744" time="400" tween="cubic" easing="inout"/>
       </animation>
 
@@ -330,7 +330,7 @@
       </control>
       <control type="panel" id="52">
         <left>0</left><top>784</top><width>1280</width><height>660</height>
-        <onleft>9000</onleft><onup>51</onup><ondown>53</ondown>
+        <onleft>9000</onleft><onup>51</onup><ondown>52</ondown>
         <onclick>Action(info)</onclick>
         <scrolltime tween="cubic" easing="out">400</scrolltime>
         <preloaditems>4</preloaditems>
@@ -368,66 +368,6 @@
         </focusedlayout>
       </control>
 
-      <!-- ===== ACTORS ===== -->
-      <control type="label">
-        <left>24</left><top>1488</top><width>1100</width><height>36</height>
-        <aligny>center</aligny>
-        <font>HBM_Title_M</font>
-        <textcolor>TextPrimary</textcolor>
-        <label>Actors</label>
-        <visible>!String.IsEmpty(Skin.String(HBM.SearchTerm))</visible>
-      </control>
-      <control type="button" id="553">
-        <left>1140</left><top>1488</top><width>140</width><height>36</height>
-        <label>Next →</label>
-        <align>right</align>
-        <font>HBM_Body_S</font>
-        <textcolor>TextMuted</textcolor>
-        <focusedcolor>TextPrimary</focusedcolor>
-        <pulseonselect>false</pulseonselect>
-        <texturenofocus /><texturefocus />
-        <ondown>53</ondown><onleft>53</onleft><onright>553</onright>
-        <visible>!String.IsEmpty(Skin.String(HBM.SearchTerm))</visible>
-      </control>
-      <control type="panel" id="53">
-        <left>0</left><top>1528</top><width>1280</width><height>660</height>
-        <onleft>9000</onleft><onup>52</onup><ondown>53</ondown>
-        <onclick>Action(info)</onclick>
-        <scrolltime tween="cubic" easing="out">400</scrolltime>
-        <preloaditems>4</preloaditems>
-        <visible>!String.IsEmpty(Skin.String(HBM.SearchTerm))</visible>
-        <content target="videos">$VAR[HBM_SearchURL_Person]</content>
-        <itemlayout height="330" width="216">
-          <control type="image">
-            <left>0</left><top>0</top><width>200</width><height>300</height>
-            <texture fallback="DefaultActor.png" background="true">$INFO[ListItem.Art(poster)]</texture>
-            <aspectratio>scale</aspectratio><fadetime>400</fadetime>
-          </control>
-          <control type="label">
-            <left>0</left><top>304</top><width>200</width><height>24</height>
-            <align>center</align><font>HBM_Meta_S</font>
-            <textcolor>TextSecondary</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-        </itemlayout>
-        <focusedlayout height="330" width="216">
-          <control type="image">
-            <left>0</left><top>0</top><width>200</width><height>300</height>
-            <texture fallback="DefaultActor.png" background="true">$INFO[ListItem.Art(poster)]</texture>
-            <aspectratio>scale</aspectratio><fadetime>400</fadetime>
-          </control>
-          <control type="image"><left>0</left><top>0</top><width>200</width><height>2</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5F7FB">white.png</texture></control>
-          <control type="image"><left>0</left><top>298</top><width>200</width><height>2</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5F7FB">white.png</texture></control>
-          <control type="image"><left>0</left><top>0</top><width>2</width><height>300</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5F7FB">white.png</texture></control>
-          <control type="image"><left>198</left><top>0</top><width>2</width><height>300</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5F7FB">white.png</texture></control>
-          <control type="label">
-            <left>0</left><top>304</top><width>200</width><height>24</height>
-            <align>center</align><font>HBM_Meta_S</font>
-            <textcolor>TextPrimary</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-        </focusedlayout>
-      </control>
 
     </control>
 
