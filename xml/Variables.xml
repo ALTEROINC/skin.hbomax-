@@ -884,8 +884,18 @@
   <!-- Live TV: channel list source. The focused channel group's path; falls back to the
        widget configured in Homepage settings when the group list has nothing selected. -->
   <variable name="HBM_LiveTV_Source">
+    <!-- Only request PVR data while the Live TV hub is open. Home is always loaded, so an
+         ungated pvr:// source would fetch every channel on each Home load and whenever PVR
+         refreshes (e.g. right after a playlist is imported), even if you never open Live TV. -->
+    <value condition="!String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)"></value>
     <value condition="!String.IsEmpty(Container(791).ListItem.FolderPath)">$INFO[Container(791).ListItem.FolderPath]</value>
     <value>$INFO[Skin.String(hbm_homecfg_livetv_row01_widget)]</value>
+  </variable>
+
+  <!-- Channel groups list source: same rule. -->
+  <variable name="HBM_LiveTV_Groups">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)">pvr://channels/tv/</value>
+    <value></value>
   </variable>
 
   <!-- Where "right" from the group list goes: the channels, or the setup button when empty. -->

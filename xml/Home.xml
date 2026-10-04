@@ -776,7 +776,7 @@
         <ondown>791</ondown>
         <onfocus>Skin.SetString(HBM.ActiveRow,791)</onfocus>
         <onfocus>Skin.SetString(HBM.ReturnFocus,791)</onfocus>
-        <content>pvr://channels/tv/</content>
+        <content>$VAR[HBM_LiveTV_Groups]</content>
         <itemlayout width="280" height="64">
           <control type="label"><left>24</left><top>0</top><width>240</width><height>64</height><aligny>center</aligny><label>$INFO[ListItem.Label]</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><scroll>false</scroll></control>
         </itemlayout>
