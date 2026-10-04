@@ -16,7 +16,7 @@ import xbmcgui
 HOME = 10000
 PANEL = 800
 PER_PAGE = 20
-STEP = 3             # pages added per growth
+STEP = 2             # pages added per growth
 MAX_LEN = 20         # at most 400 titles per genre (keeps the list light on this device)
 TRIGGER = 13         # grow when this close to the last item (a bit over two rows of six)
 MISSING_OK = 4       # a page can come back a few items short without meaning "no more pages"
@@ -60,7 +60,7 @@ def main():
                 continue
             closed_since = None
 
-            length = num('Skin.String(HBM.GenreLen)', 3)
+            length = num('Skin.String(HBM.GenreLen)', 2)
             total = num('Container(%d).NumItems' % PANEL)
             cur = num('Container(%d).CurrentItem' % PANEL)   # 1-based
 

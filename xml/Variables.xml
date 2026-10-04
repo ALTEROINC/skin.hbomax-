@@ -964,7 +964,7 @@
   <variable name="HBM_GenreSource">
     <!-- TMDb Helper sources take length= (pages merged) and nextpage=False; anything else (pvr://, library, other
          plugins) is used as is, since a stray query string would break those paths. -->
-    <value condition="String.Contains(Skin.String(HBM.GenreURL),themoviedb.helper) + !String.IsEmpty(Skin.String(HBM.GenreURL))">$INFO[Skin.String(HBM.GenreURL)]&amp;length=$INFO[Skin.String(HBM.GenreLen)]&amp;limit=100&amp;nextpage=False</value>
+    <value condition="String.Contains(Skin.String(HBM.GenreURL),themoviedb.helper) + !String.IsEmpty(Skin.String(HBM.GenreURL))">$INFO[Skin.String(HBM.GenreURL)]&amp;length=$INFO[Skin.String(HBM.GenreLen)]&amp;nextpage=False</value>
     <value condition="!String.IsEmpty(Skin.String(HBM.GenreURL))">$INFO[Skin.String(HBM.GenreURL)]</value>
   </variable>
 </includes>
