@@ -1566,7 +1566,6 @@
     <param name="visible_key">hbm_homecfg_home_row01_visible</param>
     <param name="style_key">hbm_homecfg_home_row01_style</param>
     <param name="panel_height">390</param>
-    <param name="see_all_id">0</param>
     <definition>
 
       <control type="group">
@@ -1606,26 +1605,64 @@
 
         <!-- Live panel: dynamic widget content -->
         <control type="panel" id="$PARAM[id]">
-          <left>0</left><top>$PARAM[panel_y]</top><width>1556</width><height>$PARAM[panel_height]</height>
+          <left>0</left><top>$PARAM[panel_y]</top><width>1832</width><height>$PARAM[panel_height]</height>
           <orientation>horizontal</orientation>
           <scrolltime tween="cubic" easing="out">300</scrolltime>
           <preloaditems>2</preloaditems>
           <onclick condition="String.Contains(Skin.String($PARAM[widget_key]),info=genres)">Skin.SetString(HBM.GenreURL,$INFO[ListItem.FolderPath])</onclick>
           <onclick condition="String.Contains(Skin.String($PARAM[widget_key]),info=genres)">Skin.SetString(HBM.GenreLabel,$INFO[ListItem.Label])</onclick>
-          <onclick condition="String.Contains(Skin.String($PARAM[widget_key]),info=genres)">Skin.SetString(HBM.GenreLen,2)</onclick>
+          <onclick condition="String.Contains(Skin.String($PARAM[widget_key]),info=genres)">Skin.SetString(HBM.GenreLen,3)</onclick>
           <onclick condition="String.Contains(Skin.String($PARAM[widget_key]),info=genres)">ActivateWindow(1116)</onclick>
+          <onclick condition="String.IsEqual(ListItem.Label,Next page)">Skin.SetString(HBM.GenreURL,$INFO[Skin.String($PARAM[widget_key])])</onclick>
+          <onclick condition="String.IsEqual(ListItem.Label,Next page)">Skin.SetString(HBM.GenreLabel,$INFO[Skin.String($PARAM[label_key])])</onclick>
+          <onclick condition="String.IsEqual(ListItem.Label,Next page)">Skin.SetString(HBM.GenreLen,3)</onclick>
+          <onclick condition="String.IsEqual(ListItem.Label,Next page)">ActivateWindow(1116)</onclick>
           <onclick condition="!String.IsEqual(ListItem.Label,Next page) + !String.Contains(Skin.String($PARAM[widget_key]),info=genres)">Action(info)</onclick>
           <onup>Control.SetFocus($VAR[HBM_RowUpTarget_$PARAM[id]],$INFO[Container($PARAM[id]).Position])</onup>
           <ondown>Control.SetFocus($VAR[HBM_RowDownTarget_$PARAM[id]],$INFO[Container($PARAM[id]).Position])</ondown>
           <onleft>200</onleft>
-          <onright>$PARAM[see_all_id]</onright>
+          <onright>$PARAM[id]</onright>
           <onfocus>Skin.SetString(HBM.PreviousRow,$INFO[Skin.String(HBM.ActiveRow)])</onfocus>
           <onfocus>Skin.SetString(HBM.ActiveRow,$PARAM[id])</onfocus>
           <onfocus>Skin.SetString(HBM.ReturnFocus,$PARAM[id])</onfocus>
-          <onfocus>Skin.Reset(HBM.SeeAllFocus)</onfocus>
           <visible>!String.IsEmpty(Skin.String($PARAM[widget_key]))</visible>
-          <!-- limit 20 = one TMDb page: the plugin's own "Next page" item (always the 21st) is cut, so every row ends the same way, with the See All tile. -->
-          <content target="videos" limit="20">$INFO[Skin.String($PARAM[widget_key])]$INFO[Window(Home).Property($PARAM[widget_key]_retry)]</content>
+          <!-- limit 21 = one TMDb page (20) plus its trailing "Next page" item, shown as the See All tile. -->
+          <content target="videos" limit="21">$INFO[Skin.String($PARAM[widget_key])]$INFO[Window(Home).Property($PARAM[widget_key]_retry)]</content>
+
+          <!-- See All tile: the plugin's trailing "Next page" item, drawn as the last tile of the row (scrolls with the posters). -->
+          <itemlayout width="276" height="390" condition="String.IsEqual(ListItem.Label,Next page)+!String.IsEqual(Skin.String($PARAM[style_key]),Landscape)+!String.IsEqual(Skin.String($PARAM[style_key]),Square)">
+            <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="2EFFFFFF">white.png</texture></control>
+            <control type="image"><left>1</left><top>1</top><width>258</width><height>388</height><aspectratio>stretch</aspectratio><texture colordiffuse="FF12171D">white.png</texture></control>
+            <control type="image"><left>102</left><top>139</top><width>56</width><height>56</height><aspectratio>keep</aspectratio><texture colordiffuse="FFF5F7FB">special://skin/media/icons/arrow-right.png</texture></control>
+            <control type="label"><left>0</left><top>205</top><width>260</width><height>36</height><label>See All</label><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><align>center</align><aligny>center</aligny></control>
+          </itemlayout>
+          <itemlayout width="483" height="390" condition="String.IsEqual(ListItem.Label,Next page)+String.IsEqual(Skin.String($PARAM[style_key]),Landscape)">
+            <control type="image"><left>0</left><top>0</top><width>467</width><height>280</height><aspectratio>stretch</aspectratio><texture colordiffuse="2EFFFFFF">white.png</texture></control>
+            <control type="image"><left>1</left><top>1</top><width>465</width><height>278</height><aspectratio>stretch</aspectratio><texture colordiffuse="FF12171D">white.png</texture></control>
+            <control type="image"><left>205</left><top>84</top><width>56</width><height>56</height><aspectratio>keep</aspectratio><texture colordiffuse="FFF5F7FB">special://skin/media/icons/arrow-right.png</texture></control>
+            <control type="label"><left>0</left><top>150</top><width>467</width><height>36</height><label>See All</label><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><align>center</align><aligny>center</aligny></control>
+          </itemlayout>
+          <itemlayout width="276" height="390" condition="String.IsEqual(ListItem.Label,Next page)+String.IsEqual(Skin.String($PARAM[style_key]),Square)">
+            <control type="image"><left>0</left><top>48</top><width>260</width><height>260</height><aspectratio>stretch</aspectratio><texture colordiffuse="2EFFFFFF">white.png</texture></control>
+            <control type="image"><left>1</left><top>49</top><width>258</width><height>258</height><aspectratio>stretch</aspectratio><texture colordiffuse="FF12171D">white.png</texture></control>
+            <control type="image"><left>102</left><top>122</top><width>56</width><height>56</height><aspectratio>keep</aspectratio><texture colordiffuse="FFF5F7FB">special://skin/media/icons/arrow-right.png</texture></control>
+            <control type="label"><left>0</left><top>188</top><width>260</width><height>36</height><label>See All</label><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><align>center</align><aligny>center</aligny></control>
+          </itemlayout>
+          <focusedlayout width="276" height="390" condition="String.IsEqual(ListItem.Label,Next page)+!String.IsEqual(Skin.String($PARAM[style_key]),Landscape)+!String.IsEqual(Skin.String($PARAM[style_key]),Square)">
+            <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture></control>
+            <control type="image"><left>102</left><top>139</top><width>56</width><height>56</height><aspectratio>keep</aspectratio><texture colordiffuse="FF161C24">special://skin/media/icons/arrow-right.png</texture></control>
+            <control type="label"><left>0</left><top>205</top><width>260</width><height>36</height><label>See All</label><font>HBM_Nav_M</font><textcolor>FF161C24</textcolor><align>center</align><aligny>center</aligny></control>
+          </focusedlayout>
+          <focusedlayout width="483" height="390" condition="String.IsEqual(ListItem.Label,Next page)+String.IsEqual(Skin.String($PARAM[style_key]),Landscape)">
+            <control type="image"><left>0</left><top>0</top><width>467</width><height>280</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture></control>
+            <control type="image"><left>205</left><top>84</top><width>56</width><height>56</height><aspectratio>keep</aspectratio><texture colordiffuse="FF161C24">special://skin/media/icons/arrow-right.png</texture></control>
+            <control type="label"><left>0</left><top>150</top><width>467</width><height>36</height><label>See All</label><font>HBM_Nav_M</font><textcolor>FF161C24</textcolor><align>center</align><aligny>center</aligny></control>
+          </focusedlayout>
+          <focusedlayout width="276" height="390" condition="String.IsEqual(ListItem.Label,Next page)+String.IsEqual(Skin.String($PARAM[style_key]),Square)">
+            <control type="image"><left>0</left><top>48</top><width>260</width><height>260</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture></control>
+            <control type="image"><left>102</left><top>122</top><width>56</width><height>56</height><aspectratio>keep</aspectratio><texture colordiffuse="FF161C24">special://skin/media/icons/arrow-right.png</texture></control>
+            <control type="label"><left>0</left><top>188</top><width>260</width><height>36</height><label>See All</label><font>HBM_Nav_M</font><textcolor>FF161C24</textcolor><align>center</align><aligny>center</aligny></control>
+          </focusedlayout>
 
           <!-- Genre tile: uniform square, name centered. Same 276px pitch as the Square style, so spacing matches other rows. -->
           <itemlayout width="276" height="390" condition="String.Contains(Skin.String($PARAM[widget_key]),info=genres)">
@@ -1641,15 +1678,11 @@
             <control type="label"><left>12</left><top>206</top><width>236</width><height>80</height><label>$INFO[ListItem.Label]</label><font>HBM_Nav_M</font><textcolor>FF161C24</textcolor><align>center</align><aligny>center</aligny><scroll>false</scroll></control>
           </focusedlayout>
 
-          <!-- Poster — "See All" overlay shown per-control for the Next page item -->
+          <!-- Poster -->
           <itemlayout width="276" height="390" condition="!String.IsEqual(Skin.String($PARAM[style_key]),Landscape)+!String.IsEqual(Skin.String($PARAM[style_key]),Square)">
-            <!-- art: hidden when this is the Next page item -->
-            <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture><visible>!String.IsEqual(ListItem.Label,Next page)</visible></control>
-            <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture><visible>!String.IsEqual(ListItem.Label,Next page)</visible></control>
-            <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture><visible>!String.IsEqual(ListItem.Label,Next page)</visible></control>
-            <!-- See All overlay: only shown for the Next page item -->
-            <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="CC161C24">white.png</texture><visible>String.IsEqual(ListItem.Label,Next page)</visible></control>
-            <control type="label"><left>0</left><top>0</top><width>260</width><height>390</height><label>See All</label><font>HBM_Nav_M</font><textcolor>CCFFFFFF</textcolor><align>center</align><aligny>center</aligny><visible>String.IsEqual(ListItem.Label,Next page)</visible></control>
+            <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+            <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
+            <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
           </itemlayout>
           <!-- Landscape -->
           <itemlayout width="483" height="390" condition="String.IsEqual(Skin.String($PARAM[style_key]),Landscape)">
@@ -1665,16 +1698,13 @@
             <control type="image"><left>0</left><top>48</top><width>260</width><height>260</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
           </itemlayout>
 
-          <!-- Poster focused: white border, art inset 2px; See All overlay for Next page item -->
+          <!-- Poster focused: white border, art inset 2px -->
           <focusedlayout width="276" height="390" condition="!String.IsEqual(Skin.String($PARAM[style_key]),Landscape)+!String.IsEqual(Skin.String($PARAM[style_key]),Square)">
             <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture></control>
             <!-- art: hidden for Next page item -->
-            <control type="image"><left>2</left><top>2</top><width>256</width><height>386</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture><visible>!String.IsEqual(ListItem.Label,Next page)</visible></control>
-            <control type="image"><left>2</left><top>2</top><width>256</width><height>386</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture><visible>!String.IsEqual(ListItem.Label,Next page)</visible></control>
-            <control type="image"><left>2</left><top>2</top><width>256</width><height>386</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture><visible>!String.IsEqual(ListItem.Label,Next page)</visible></control>
-            <!-- See All overlay: only for Next page item -->
-            <control type="image"><left>2</left><top>2</top><width>256</width><height>386</height><aspectratio>stretch</aspectratio><texture colordiffuse="FF161C24">white.png</texture><visible>String.IsEqual(ListItem.Label,Next page)</visible></control>
-            <control type="label"><left>2</left><top>2</top><width>256</width><height>386</height><label>See All</label><font>HBM_Nav_M</font><textcolor>FFFFFFFF</textcolor><align>center</align><aligny>center</aligny><visible>String.IsEqual(ListItem.Label,Next page)</visible></control>
+            <control type="image"><left>2</left><top>2</top><width>256</width><height>386</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
+            <control type="image"><left>2</left><top>2</top><width>256</width><height>386</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
+            <control type="image"><left>2</left><top>2</top><width>256</width><height>386</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
           </focusedlayout>
           <!-- Landscape focused -->
           <focusedlayout width="483" height="390" condition="String.IsEqual(Skin.String($PARAM[style_key]),Landscape)">
@@ -1692,99 +1722,6 @@
             <control type="image"><left>2</left><top>50</top><width>256</width><height>256</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
           </focusedlayout>
 
-        </control>
-
-        <!-- See All tile (poster rows). Pinned at the right end of the row. -->
-        <control type="group">
-          <left>1556</left><top>$PARAM[panel_y]</top><width>260</width><height>390</height>
-          <visible>!String.IsEmpty(Skin.String($PARAM[widget_key])) + !String.Contains(Skin.String($PARAM[widget_key]),info=genres) + !String.IsEqual(Skin.String($PARAM[style_key]),Landscape) + !String.IsEqual(Skin.String($PARAM[style_key]),Square)</visible>
-          <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="2EFFFFFF">white.png</texture><visible>!Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="image"><left>1</left><top>1</top><width>258</width><height>388</height><aspectratio>stretch</aspectratio><texture colordiffuse="FF12171D">white.png</texture><visible>!Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="image"><left>0</left><top>0</top><width>260</width><height>390</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture><visible>Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="image"><left>102</left><top>151</top><width>56</width><height>56</height><aspectratio>keep</aspectratio><texture colordiffuse="FFF5F7FB">special://skin/media/icons/arrow-right.png</texture><visible>!Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="image"><left>102</left><top>151</top><width>56</width><height>56</height><aspectratio>keep</aspectratio><texture colordiffuse="FF161C24">special://skin/media/icons/arrow-right.png</texture><visible>Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="label"><left>0</left><top>217</top><width>260</width><height>36</height><label>See All</label><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><align>center</align><aligny>center</aligny><visible>!Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="label"><left>0</left><top>217</top><width>260</width><height>36</height><label>See All</label><font>HBM_Nav_M</font><textcolor>FF161C24</textcolor><align>center</align><aligny>center</aligny><visible>Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="button" id="$PARAM[see_all_id]">
-            <left>0</left><top>0</top><width>260</width><height>390</height>
-            <label />
-            <texturenofocus />
-            <texturefocus />
-            <onclick>Skin.SetString(HBM.GenreURL,$INFO[Skin.String($PARAM[widget_key])])</onclick>
-            <onclick>Skin.SetString(HBM.GenreLabel,$INFO[Skin.String($PARAM[label_key])])</onclick>
-            <onclick>Skin.SetString(HBM.GenreLen,2)</onclick>
-            <onclick>ActivateWindow(1116)</onclick>
-            <onleft>$PARAM[id]</onleft>
-            <onright>$PARAM[see_all_id]</onright>
-            <onup>Control.SetFocus($VAR[HBM_RowUpTarget_$PARAM[id]],$INFO[Container($PARAM[id]).Position])</onup>
-            <ondown>Control.SetFocus($VAR[HBM_RowDownTarget_$PARAM[id]],$INFO[Container($PARAM[id]).Position])</ondown>
-            <onfocus>Skin.SetString(HBM.PreviousRow,$INFO[Skin.String(HBM.ActiveRow)])</onfocus>
-            <onfocus>Skin.SetString(HBM.ActiveRow,$PARAM[id])</onfocus>
-            <onfocus>Skin.SetString(HBM.ReturnFocus,$PARAM[id])</onfocus>
-            <onfocus>Skin.SetString(HBM.SeeAllFocus,1)</onfocus>
-          </control>
-        </control>
-
-        <!-- See All tile (landscape rows). Pinned at the right end of the row. -->
-        <control type="group">
-          <left>1556</left><top>$PARAM[panel_y]</top><width>260</width><height>390</height>
-          <visible>!String.IsEmpty(Skin.String($PARAM[widget_key])) + !String.Contains(Skin.String($PARAM[widget_key]),info=genres) + String.IsEqual(Skin.String($PARAM[style_key]),Landscape)</visible>
-          <control type="image"><left>0</left><top>0</top><width>260</width><height>280</height><aspectratio>stretch</aspectratio><texture colordiffuse="2EFFFFFF">white.png</texture><visible>!Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="image"><left>1</left><top>1</top><width>258</width><height>278</height><aspectratio>stretch</aspectratio><texture colordiffuse="FF12171D">white.png</texture><visible>!Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="image"><left>0</left><top>0</top><width>260</width><height>280</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture><visible>Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="image"><left>102</left><top>96</top><width>56</width><height>56</height><aspectratio>keep</aspectratio><texture colordiffuse="FFF5F7FB">special://skin/media/icons/arrow-right.png</texture><visible>!Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="image"><left>102</left><top>96</top><width>56</width><height>56</height><aspectratio>keep</aspectratio><texture colordiffuse="FF161C24">special://skin/media/icons/arrow-right.png</texture><visible>Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="label"><left>0</left><top>162</top><width>260</width><height>36</height><label>See All</label><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><align>center</align><aligny>center</aligny><visible>!Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="label"><left>0</left><top>162</top><width>260</width><height>36</height><label>See All</label><font>HBM_Nav_M</font><textcolor>FF161C24</textcolor><align>center</align><aligny>center</aligny><visible>Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="button" id="$PARAM[see_all_id]">
-            <left>0</left><top>0</top><width>260</width><height>280</height>
-            <label />
-            <texturenofocus />
-            <texturefocus />
-            <onclick>Skin.SetString(HBM.GenreURL,$INFO[Skin.String($PARAM[widget_key])])</onclick>
-            <onclick>Skin.SetString(HBM.GenreLabel,$INFO[Skin.String($PARAM[label_key])])</onclick>
-            <onclick>Skin.SetString(HBM.GenreLen,2)</onclick>
-            <onclick>ActivateWindow(1116)</onclick>
-            <onleft>$PARAM[id]</onleft>
-            <onright>$PARAM[see_all_id]</onright>
-            <onup>Control.SetFocus($VAR[HBM_RowUpTarget_$PARAM[id]],$INFO[Container($PARAM[id]).Position])</onup>
-            <ondown>Control.SetFocus($VAR[HBM_RowDownTarget_$PARAM[id]],$INFO[Container($PARAM[id]).Position])</ondown>
-            <onfocus>Skin.SetString(HBM.PreviousRow,$INFO[Skin.String(HBM.ActiveRow)])</onfocus>
-            <onfocus>Skin.SetString(HBM.ActiveRow,$PARAM[id])</onfocus>
-            <onfocus>Skin.SetString(HBM.ReturnFocus,$PARAM[id])</onfocus>
-            <onfocus>Skin.SetString(HBM.SeeAllFocus,1)</onfocus>
-          </control>
-        </control>
-
-        <!-- See All tile (square rows). Pinned at the right end of the row. -->
-        <control type="group">
-          <left>1556</left><top>$PARAM[panel_y]</top><width>260</width><height>390</height>
-          <visible>!String.IsEmpty(Skin.String($PARAM[widget_key])) + !String.Contains(Skin.String($PARAM[widget_key]),info=genres) + String.IsEqual(Skin.String($PARAM[style_key]),Square)</visible>
-          <control type="image"><left>0</left><top>48</top><width>260</width><height>260</height><aspectratio>stretch</aspectratio><texture colordiffuse="2EFFFFFF">white.png</texture><visible>!Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="image"><left>1</left><top>49</top><width>258</width><height>258</height><aspectratio>stretch</aspectratio><texture colordiffuse="FF12171D">white.png</texture><visible>!Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="image"><left>0</left><top>48</top><width>260</width><height>260</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture><visible>Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="image"><left>102</left><top>134</top><width>56</width><height>56</height><aspectratio>keep</aspectratio><texture colordiffuse="FFF5F7FB">special://skin/media/icons/arrow-right.png</texture><visible>!Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="image"><left>102</left><top>134</top><width>56</width><height>56</height><aspectratio>keep</aspectratio><texture colordiffuse="FF161C24">special://skin/media/icons/arrow-right.png</texture><visible>Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="label"><left>0</left><top>200</top><width>260</width><height>36</height><label>See All</label><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><align>center</align><aligny>center</aligny><visible>!Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="label"><left>0</left><top>200</top><width>260</width><height>36</height><label>See All</label><font>HBM_Nav_M</font><textcolor>FF161C24</textcolor><align>center</align><aligny>center</aligny><visible>Control.HasFocus($PARAM[see_all_id])</visible></control>
-          <control type="button" id="$PARAM[see_all_id]">
-            <left>0</left><top>48</top><width>260</width><height>260</height>
-            <label />
-            <texturenofocus />
-            <texturefocus />
-            <onclick>Skin.SetString(HBM.GenreURL,$INFO[Skin.String($PARAM[widget_key])])</onclick>
-            <onclick>Skin.SetString(HBM.GenreLabel,$INFO[Skin.String($PARAM[label_key])])</onclick>
-            <onclick>Skin.SetString(HBM.GenreLen,2)</onclick>
-            <onclick>ActivateWindow(1116)</onclick>
-            <onleft>$PARAM[id]</onleft>
-            <onright>$PARAM[see_all_id]</onright>
-            <onup>Control.SetFocus($VAR[HBM_RowUpTarget_$PARAM[id]],$INFO[Container($PARAM[id]).Position])</onup>
-            <ondown>Control.SetFocus($VAR[HBM_RowDownTarget_$PARAM[id]],$INFO[Container($PARAM[id]).Position])</ondown>
-            <onfocus>Skin.SetString(HBM.PreviousRow,$INFO[Skin.String(HBM.ActiveRow)])</onfocus>
-            <onfocus>Skin.SetString(HBM.ActiveRow,$PARAM[id])</onfocus>
-            <onfocus>Skin.SetString(HBM.ReturnFocus,$PARAM[id])</onfocus>
-            <onfocus>Skin.SetString(HBM.SeeAllFocus,1)</onfocus>
-          </control>
         </control>
 
       </control><!-- end row group -->

@@ -16,7 +16,7 @@ import xbmcgui
 HOME = 10000
 PANEL = 800
 PER_PAGE = 20
-STEP = 2             # pages added per growth
+STEP = 3             # pages added per growth
 MAX_LEN = 20         # at most 400 titles per genre (keeps the list light on this device)
 TRIGGER = 13         # grow when this close to the last item (a bit over two rows of six)
 MISSING_OK = 4       # a page can come back a few items short without meaning "no more pages"
@@ -45,7 +45,8 @@ def main():
 
     monitor = xbmc.Monitor()
     closed_since = None
-    pending = None   # (target item count, started, position before growth)
+    pending = None   # (target item count, started, position before growth, item count before)
+    exhausted = False  # a growth brought nothing new: the source has no more titles
     try:
         while not monitor.abortRequested():
             win.setProperty(PROP, str(time.time()))
@@ -59,21 +60,24 @@ def main():
                 continue
             closed_since = None
 
-            length = num('Skin.String(HBM.GenreLen)', 2)
+            length = num('Skin.String(HBM.GenreLen)', 3)
             total = num('Container(%d).NumItems' % PANEL)
             cur = num('Container(%d).CurrentItem' % PANEL)   # 1-based
 
             if pending:
-                target, started, saved = pending
+                target, started, saved, before = pending
                 if total >= target - MISSING_OK or time.time() - started > LOAD_TIMEOUT:
                     if saved and cur < saved - 2:
                         xbmc.executebuiltin('SetFocus(%d,%d,absolute)' % (PANEL, saved - 1))
                         log('selection had reset to %d, restored to %d' % (cur, saved))
+                    if total <= before and time.time() - started <= LOAD_TIMEOUT:
+                        exhausted = True
+                        log('no new titles after growing (%d items): stopping' % total)
                     pending = None
-            elif total and length < MAX_LEN and total >= length * PER_PAGE - MISSING_OK and cur >= total - TRIGGER:
+            elif not exhausted and total and length < MAX_LEN and total >= length * PER_PAGE - MISSING_OK and cur >= total - TRIGGER:
                 length = min(MAX_LEN, length + STEP)
                 xbmc.executebuiltin('Skin.SetString(HBM.GenreLen,%d)' % length)
-                pending = (length * PER_PAGE, time.time(), cur)
+                pending = (length * PER_PAGE, time.time(), cur, total)
                 log('near the end (%d of %d): now requesting %d pages' % (cur, total, length))
 
             if monitor.waitForAbort(POLL_SECONDS):

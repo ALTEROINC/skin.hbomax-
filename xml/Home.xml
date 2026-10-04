@@ -41,7 +41,8 @@
        require the carousel panel to hold real GUI focus. -->
   <!-- One loop for all hubs: hero_rotate.py with no argument rotates whichever hub is active. -->
   <!-- Fills the first empty row of the TV Shows and Movies hubs with a Genres row, once. -->
-  <onload condition="!Skin.HasSetting(hbm_genre_rows_v1)">RunScript(special://skin/resources/scripts/genre_defaults.py)</onload>
+  <onload condition="!Skin.HasSetting(hbm_genre_row11_v1)">RunScript(special://skin/resources/scripts/genre_defaults.py)</onload>
+  <onload>RunScript(special://skin/resources/scripts/seeall_migrate.py)</onload>
   <onload>AlarmClock(HBMHeroRotate,RunScript(special://skin/resources/scripts/hero_rotate.py),00:00:14,silent,loop)</onload>
   <!-- One-shot: retries Trakt rows that missed the startup token refresh (see row_retry.py). -->
   <onload>AlarmClock(HBMRowRetry,RunScript(special://skin/resources/scripts/row_retry.py),00:00:20,silent)</onload>
@@ -210,7 +211,10 @@
       <animation effect="slide" start="0,-3100" end="0,-3530" reversible="false" time="340" tween="quart" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),709)+!String.IsEqual(Skin.String(HBM.PreviousRow),710)">Conditional</animation>
       <animation effect="slide" start="0,-3960" end="0,-3530" reversible="false" time="340" tween="quart" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),709)+String.IsEqual(Skin.String(HBM.PreviousRow),710)">Conditional</animation>
       <!-- Row 710 -->
-      <animation effect="slide" start="0,-3530" end="0,-3960" reversible="false" time="340" tween="quart" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),710)">Conditional</animation>
+      <animation effect="slide" start="0,-3530" end="0,-3960" reversible="false" time="340" tween="quart" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),710)+!String.IsEqual(Skin.String(HBM.PreviousRow),711)">Conditional</animation>
+      <animation effect="slide" start="0,-4390" end="0,-3960" reversible="false" time="340" tween="quart" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),710)+String.IsEqual(Skin.String(HBM.PreviousRow),711)">Conditional</animation>
+      <!-- Row 711 (Genres, TV Shows and Movies only) -->
+      <animation effect="slide" start="0,-3960" end="0,-4390" reversible="false" time="340" tween="quart" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),711)">Conditional</animation>
       <!-- Return to hero -->
       <animation effect="slide" start="0,-90"   end="0,0" reversible="false" time="340" tween="quart" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)+String.IsEqual(Skin.String(HBM.PreviousRow),701)">Conditional</animation>
       <animation effect="slide" start="0,-520"  end="0,0" reversible="false" time="340" tween="quart" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)+String.IsEqual(Skin.String(HBM.PreviousRow),702)">Conditional</animation>
@@ -222,6 +226,7 @@
       <animation effect="slide" start="0,-3100" end="0,0" reversible="false" time="340" tween="quart" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)+String.IsEqual(Skin.String(HBM.PreviousRow),708)">Conditional</animation>
       <animation effect="slide" start="0,-3530" end="0,0" reversible="false" time="340" tween="quart" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)+String.IsEqual(Skin.String(HBM.PreviousRow),709)">Conditional</animation>
       <animation effect="slide" start="0,-3960" end="0,0" reversible="false" time="340" tween="quart" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)+String.IsEqual(Skin.String(HBM.PreviousRow),710)">Conditional</animation>
+      <animation effect="slide" start="0,-4390" end="0,0" reversible="false" time="340" tween="quart" easing="out" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)+String.IsEqual(Skin.String(HBM.PreviousRow),711)">Conditional</animation>
 
       <!-- ═══ HOME ═══ -->
       <control type="group">
@@ -240,7 +245,6 @@
           <param name="widget_key">hbm_homecfg_home_row01_widget</param>
           <param name="visible_key">hbm_homecfg_home_row01_visible</param>
           <param name="style_key">hbm_homecfg_home_row01_style</param>
-          <param name="see_all_id">8101</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">702</param>
@@ -249,7 +253,6 @@
           <param name="widget_key">hbm_homecfg_home_row02_widget</param>
           <param name="visible_key">hbm_homecfg_home_row02_visible</param>
           <param name="style_key">hbm_homecfg_home_row02_style</param>
-          <param name="see_all_id">8102</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">703</param>
@@ -258,7 +261,6 @@
           <param name="widget_key">hbm_homecfg_home_row03_widget</param>
           <param name="visible_key">hbm_homecfg_home_row03_visible</param>
           <param name="style_key">hbm_homecfg_home_row03_style</param>
-          <param name="see_all_id">8103</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">704</param>
@@ -267,7 +269,6 @@
           <param name="widget_key">hbm_homecfg_home_row04_widget</param>
           <param name="visible_key">hbm_homecfg_home_row04_visible</param>
           <param name="style_key">hbm_homecfg_home_row04_style</param>
-          <param name="see_all_id">8104</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">705</param>
@@ -276,7 +277,6 @@
           <param name="widget_key">hbm_homecfg_home_row05_widget</param>
           <param name="visible_key">hbm_homecfg_home_row05_visible</param>
           <param name="style_key">hbm_homecfg_home_row05_style</param>
-          <param name="see_all_id">8105</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">706</param>
@@ -285,7 +285,6 @@
           <param name="widget_key">hbm_homecfg_home_row06_widget</param>
           <param name="visible_key">hbm_homecfg_home_row06_visible</param>
           <param name="style_key">hbm_homecfg_home_row06_style</param>
-          <param name="see_all_id">8106</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">707</param>
@@ -294,7 +293,6 @@
           <param name="widget_key">hbm_homecfg_home_row07_widget</param>
           <param name="visible_key">hbm_homecfg_home_row07_visible</param>
           <param name="style_key">hbm_homecfg_home_row07_style</param>
-          <param name="see_all_id">8107</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">708</param>
@@ -303,7 +301,6 @@
           <param name="widget_key">hbm_homecfg_home_row08_widget</param>
           <param name="visible_key">hbm_homecfg_home_row08_visible</param>
           <param name="style_key">hbm_homecfg_home_row08_style</param>
-          <param name="see_all_id">8108</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">709</param>
@@ -312,7 +309,6 @@
           <param name="widget_key">hbm_homecfg_home_row09_widget</param>
           <param name="visible_key">hbm_homecfg_home_row09_visible</param>
           <param name="style_key">hbm_homecfg_home_row09_style</param>
-          <param name="see_all_id">8109</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">710</param>
@@ -321,7 +317,6 @@
           <param name="widget_key">hbm_homecfg_home_row10_widget</param>
           <param name="visible_key">hbm_homecfg_home_row10_visible</param>
           <param name="style_key">hbm_homecfg_home_row10_style</param>
-          <param name="see_all_id">8110</param>
         </include>
       </control>
 
@@ -339,7 +334,6 @@
           <param name="widget_key">hbm_homecfg_tvshows_row01_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row01_visible</param>
           <param name="style_key">hbm_homecfg_tvshows_row01_style</param>
-          <param name="see_all_id">8101</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">702</param>
@@ -348,7 +342,6 @@
           <param name="widget_key">hbm_homecfg_tvshows_row02_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row02_visible</param>
           <param name="style_key">hbm_homecfg_tvshows_row02_style</param>
-          <param name="see_all_id">8102</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">703</param>
@@ -357,7 +350,6 @@
           <param name="widget_key">hbm_homecfg_tvshows_row03_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row03_visible</param>
           <param name="style_key">hbm_homecfg_tvshows_row03_style</param>
-          <param name="see_all_id">8103</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">704</param>
@@ -366,7 +358,6 @@
           <param name="widget_key">hbm_homecfg_tvshows_row04_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row04_visible</param>
           <param name="style_key">hbm_homecfg_tvshows_row04_style</param>
-          <param name="see_all_id">8104</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">705</param>
@@ -375,7 +366,6 @@
           <param name="widget_key">hbm_homecfg_tvshows_row05_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row05_visible</param>
           <param name="style_key">hbm_homecfg_tvshows_row05_style</param>
-          <param name="see_all_id">8105</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">706</param>
@@ -384,7 +374,6 @@
           <param name="widget_key">hbm_homecfg_tvshows_row06_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row06_visible</param>
           <param name="style_key">hbm_homecfg_tvshows_row06_style</param>
-          <param name="see_all_id">8106</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">707</param>
@@ -393,7 +382,6 @@
           <param name="widget_key">hbm_homecfg_tvshows_row07_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row07_visible</param>
           <param name="style_key">hbm_homecfg_tvshows_row07_style</param>
-          <param name="see_all_id">8107</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">708</param>
@@ -402,7 +390,6 @@
           <param name="widget_key">hbm_homecfg_tvshows_row08_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row08_visible</param>
           <param name="style_key">hbm_homecfg_tvshows_row08_style</param>
-          <param name="see_all_id">8108</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">709</param>
@@ -411,7 +398,6 @@
           <param name="widget_key">hbm_homecfg_tvshows_row09_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row09_visible</param>
           <param name="style_key">hbm_homecfg_tvshows_row09_style</param>
-          <param name="see_all_id">8109</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">710</param>
@@ -420,7 +406,14 @@
           <param name="widget_key">hbm_homecfg_tvshows_row10_widget</param>
           <param name="visible_key">hbm_homecfg_tvshows_row10_visible</param>
           <param name="style_key">hbm_homecfg_tvshows_row10_style</param>
-          <param name="see_all_id">8110</param>
+        </include>
+        <include content="HBM_Row_Landscape_Large">
+          <param name="id">711</param>
+          <param name="label_y">5114</param><param name="panel_y">5150</param>
+          <param name="label_key">hbm_homecfg_tvshows_row11_label</param>
+          <param name="widget_key">hbm_homecfg_tvshows_row11_widget</param>
+          <param name="visible_key">hbm_homecfg_tvshows_row11_visible</param>
+          <param name="style_key">hbm_homecfg_tvshows_row11_style</param>
         </include>
       </control>
 
@@ -438,7 +431,6 @@
           <param name="widget_key">hbm_homecfg_movies_row01_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row01_visible</param>
           <param name="style_key">hbm_homecfg_movies_row01_style</param>
-          <param name="see_all_id">8101</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">702</param>
@@ -447,7 +439,6 @@
           <param name="widget_key">hbm_homecfg_movies_row02_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row02_visible</param>
           <param name="style_key">hbm_homecfg_movies_row02_style</param>
-          <param name="see_all_id">8102</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">703</param>
@@ -456,7 +447,6 @@
           <param name="widget_key">hbm_homecfg_movies_row03_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row03_visible</param>
           <param name="style_key">hbm_homecfg_movies_row03_style</param>
-          <param name="see_all_id">8103</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">704</param>
@@ -465,7 +455,6 @@
           <param name="widget_key">hbm_homecfg_movies_row04_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row04_visible</param>
           <param name="style_key">hbm_homecfg_movies_row04_style</param>
-          <param name="see_all_id">8104</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">705</param>
@@ -474,7 +463,6 @@
           <param name="widget_key">hbm_homecfg_movies_row05_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row05_visible</param>
           <param name="style_key">hbm_homecfg_movies_row05_style</param>
-          <param name="see_all_id">8105</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">706</param>
@@ -483,7 +471,6 @@
           <param name="widget_key">hbm_homecfg_movies_row06_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row06_visible</param>
           <param name="style_key">hbm_homecfg_movies_row06_style</param>
-          <param name="see_all_id">8106</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">707</param>
@@ -492,7 +479,6 @@
           <param name="widget_key">hbm_homecfg_movies_row07_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row07_visible</param>
           <param name="style_key">hbm_homecfg_movies_row07_style</param>
-          <param name="see_all_id">8107</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">708</param>
@@ -501,7 +487,6 @@
           <param name="widget_key">hbm_homecfg_movies_row08_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row08_visible</param>
           <param name="style_key">hbm_homecfg_movies_row08_style</param>
-          <param name="see_all_id">8108</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">709</param>
@@ -510,7 +495,6 @@
           <param name="widget_key">hbm_homecfg_movies_row09_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row09_visible</param>
           <param name="style_key">hbm_homecfg_movies_row09_style</param>
-          <param name="see_all_id">8109</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">710</param>
@@ -519,7 +503,14 @@
           <param name="widget_key">hbm_homecfg_movies_row10_widget</param>
           <param name="visible_key">hbm_homecfg_movies_row10_visible</param>
           <param name="style_key">hbm_homecfg_movies_row10_style</param>
-          <param name="see_all_id">8110</param>
+        </include>
+        <include content="HBM_Row_Landscape_Large">
+          <param name="id">711</param>
+          <param name="label_y">5114</param><param name="panel_y">5150</param>
+          <param name="label_key">hbm_homecfg_movies_row11_label</param>
+          <param name="widget_key">hbm_homecfg_movies_row11_widget</param>
+          <param name="visible_key">hbm_homecfg_movies_row11_visible</param>
+          <param name="style_key">hbm_homecfg_movies_row11_style</param>
         </include>
       </control>
 
@@ -537,7 +528,6 @@
           <param name="widget_key">hbm_homecfg_mylist_row01_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row01_visible</param>
           <param name="style_key">hbm_homecfg_mylist_row01_style</param>
-          <param name="see_all_id">8101</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">702</param>
@@ -546,7 +536,6 @@
           <param name="widget_key">hbm_homecfg_mylist_row02_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row02_visible</param>
           <param name="style_key">hbm_homecfg_mylist_row02_style</param>
-          <param name="see_all_id">8102</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">703</param>
@@ -555,7 +544,6 @@
           <param name="widget_key">hbm_homecfg_mylist_row03_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row03_visible</param>
           <param name="style_key">hbm_homecfg_mylist_row03_style</param>
-          <param name="see_all_id">8103</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">704</param>
@@ -564,7 +552,6 @@
           <param name="widget_key">hbm_homecfg_mylist_row04_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row04_visible</param>
           <param name="style_key">hbm_homecfg_mylist_row04_style</param>
-          <param name="see_all_id">8104</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">705</param>
@@ -573,7 +560,6 @@
           <param name="widget_key">hbm_homecfg_mylist_row05_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row05_visible</param>
           <param name="style_key">hbm_homecfg_mylist_row05_style</param>
-          <param name="see_all_id">8105</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">706</param>
@@ -582,7 +568,6 @@
           <param name="widget_key">hbm_homecfg_mylist_row06_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row06_visible</param>
           <param name="style_key">hbm_homecfg_mylist_row06_style</param>
-          <param name="see_all_id">8106</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">707</param>
@@ -591,7 +576,6 @@
           <param name="widget_key">hbm_homecfg_mylist_row07_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row07_visible</param>
           <param name="style_key">hbm_homecfg_mylist_row07_style</param>
-          <param name="see_all_id">8107</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">708</param>
@@ -600,7 +584,6 @@
           <param name="widget_key">hbm_homecfg_mylist_row08_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row08_visible</param>
           <param name="style_key">hbm_homecfg_mylist_row08_style</param>
-          <param name="see_all_id">8108</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">709</param>
@@ -609,7 +592,6 @@
           <param name="widget_key">hbm_homecfg_mylist_row09_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row09_visible</param>
           <param name="style_key">hbm_homecfg_mylist_row09_style</param>
-          <param name="see_all_id">8109</param>
         </include>
         <include content="HBM_Row_Landscape_Large">
           <param name="id">710</param>
@@ -618,7 +600,6 @@
           <param name="widget_key">hbm_homecfg_mylist_row10_widget</param>
           <param name="visible_key">hbm_homecfg_mylist_row10_visible</param>
           <param name="style_key">hbm_homecfg_mylist_row10_style</param>
-          <param name="see_all_id">8110</param>
         </include>
       </control>
 
@@ -717,7 +698,7 @@
            top of the screen (0) and the focused row's category label (y 654 once the row stack
            has slid up): 268px tall, so top -47 leaves 193px above and 193px below. -->
       <left>128</left><top>-47</top><width>540</width><height>756</height>
-      <visible>!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + String.IsEmpty(Skin.String(HBM.SeeAllFocus))</visible>
+      <visible>!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)</visible>
       <animation effect="fade" start="0" end="100" reversible="false" time="220" tween="sine" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
       <animation effect="fade" start="100" end="0" reversible="false" time="180" tween="sine" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
 

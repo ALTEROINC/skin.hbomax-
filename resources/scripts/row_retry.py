@@ -24,7 +24,7 @@ POLL_SECONDS = 3
 MAX_SECONDS = 300
 STABLE_POLLS = 2   # condition must hold this many polls in a row
 HUBS = ('home', 'tvshows', 'movies', 'mylist')
-ROWS = range(1, 11)
+ROWS = range(1, 12)
 HOME = 10000
 RUN_PROP = 'HBM.RowRetryStarted'
 
