@@ -606,63 +606,6 @@
 
           </control>
 
-          <!-- Loading line, centered on the episode section (panel 501 is 1760x390 at top 130).
-               Fills as the season loads, sweeps to full when it arrives and fades out while the
-               list fades in. HBM.EpBar (not EpLoading) controls it so it outlives the list's fade. -->
-          <control type="group">
-            <left>760</left><top>323</top><width>240</width><height>3</height>
-            <visible>String.IsEqual(Window(Home).Property(HBM.EpBar),1) + !String.IsEmpty(Window(Home).Property(HBM.EpPoller)) + !String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEqual(Skin.String(HBM.EpisodeTab),related)</visible>
-            <animation effect="fade" start="0" end="100" time="120">Visible</animation>
-            <animation effect="fade" start="100" end="0" time="300">Hidden</animation>
-            <control type="image">
-              <left>0</left><top>0</top><width>240</width><height>3</height>
-              <aspectratio>stretch</aspectratio>
-              <texture colordiffuse="55B6CBF7">white.png</texture>
-            </control>
-            <!-- Fill: 40 segments of 6px. A control's size is not reliably re-read from an infolabel, so
-                 the script publishes how many segments are lit (HBM.EpBarN) and each shows itself. -->
-            <control type="image"><left>0</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),0)</visible></control>
-            <control type="image"><left>6</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),1)</visible></control>
-            <control type="image"><left>12</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),2)</visible></control>
-            <control type="image"><left>18</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),3)</visible></control>
-            <control type="image"><left>24</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),4)</visible></control>
-            <control type="image"><left>30</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),5)</visible></control>
-            <control type="image"><left>36</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),6)</visible></control>
-            <control type="image"><left>42</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),7)</visible></control>
-            <control type="image"><left>48</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),8)</visible></control>
-            <control type="image"><left>54</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),9)</visible></control>
-            <control type="image"><left>60</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),10)</visible></control>
-            <control type="image"><left>66</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),11)</visible></control>
-            <control type="image"><left>72</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),12)</visible></control>
-            <control type="image"><left>78</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),13)</visible></control>
-            <control type="image"><left>84</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),14)</visible></control>
-            <control type="image"><left>90</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),15)</visible></control>
-            <control type="image"><left>96</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),16)</visible></control>
-            <control type="image"><left>102</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),17)</visible></control>
-            <control type="image"><left>108</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),18)</visible></control>
-            <control type="image"><left>114</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),19)</visible></control>
-            <control type="image"><left>120</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),20)</visible></control>
-            <control type="image"><left>126</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),21)</visible></control>
-            <control type="image"><left>132</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),22)</visible></control>
-            <control type="image"><left>138</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),23)</visible></control>
-            <control type="image"><left>144</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),24)</visible></control>
-            <control type="image"><left>150</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),25)</visible></control>
-            <control type="image"><left>156</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),26)</visible></control>
-            <control type="image"><left>162</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),27)</visible></control>
-            <control type="image"><left>168</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),28)</visible></control>
-            <control type="image"><left>174</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),29)</visible></control>
-            <control type="image"><left>180</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),30)</visible></control>
-            <control type="image"><left>186</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),31)</visible></control>
-            <control type="image"><left>192</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),32)</visible></control>
-            <control type="image"><left>198</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),33)</visible></control>
-            <control type="image"><left>204</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),34)</visible></control>
-            <control type="image"><left>210</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),35)</visible></control>
-            <control type="image"><left>216</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),36)</visible></control>
-            <control type="image"><left>222</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),37)</visible></control>
-            <control type="image"><left>228</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),38)</visible></control>
-            <control type="image"><left>234</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),39)</visible></control>
-          </control>
-
           <!-- Dynamic related shows for the title currently open in this dialog. -->
           <control type="panel" id="506">
             <left>0</left><top>130</top><width>1760</width><height>450</height>
@@ -754,6 +697,64 @@
     <!-- Side nav rail — identical to home -->
     <include>HBM_Home_Phase1_RailShell</include>
     <include>HBM_Home_Phase1_RailMenu</include>
+
+    <!-- Loading line along the bottom edge of the screen (4px gap), centered on screen.
+       Top-level on purpose: inside the scroll wrapper it would slide with episode browsing.
+       Fills as the season loads, sweeps to full when it arrives and fades out while the
+       list fades in. HBM.EpBar (not EpLoading) controls it so it outlives the list's fade. -->
+    <control type="group">
+      <left>840</left><top>1073</top><width>240</width><height>3</height>
+      <visible>String.IsEqual(Window(Home).Property(HBM.EpBar),1) + !String.IsEmpty(Window(Home).Property(HBM.EpPoller)) + !String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEqual(Skin.String(HBM.EpisodeTab),related)</visible>
+      <animation effect="fade" start="0" end="100" time="120">Visible</animation>
+      <animation effect="fade" start="100" end="0" time="300">Hidden</animation>
+      <control type="image">
+        <left>0</left><top>0</top><width>240</width><height>3</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="55B6CBF7">white.png</texture>
+      </control>
+      <!-- Fill: 40 segments of 6px. A control's size is not reliably re-read from an infolabel, so
+           the script publishes how many segments are lit (HBM.EpBarN) and each shows itself. -->
+      <control type="image"><left>0</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),0)</visible></control>
+      <control type="image"><left>6</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),1)</visible></control>
+      <control type="image"><left>12</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),2)</visible></control>
+      <control type="image"><left>18</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),3)</visible></control>
+      <control type="image"><left>24</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),4)</visible></control>
+      <control type="image"><left>30</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),5)</visible></control>
+      <control type="image"><left>36</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),6)</visible></control>
+      <control type="image"><left>42</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),7)</visible></control>
+      <control type="image"><left>48</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),8)</visible></control>
+      <control type="image"><left>54</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),9)</visible></control>
+      <control type="image"><left>60</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),10)</visible></control>
+      <control type="image"><left>66</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),11)</visible></control>
+      <control type="image"><left>72</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),12)</visible></control>
+      <control type="image"><left>78</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),13)</visible></control>
+      <control type="image"><left>84</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),14)</visible></control>
+      <control type="image"><left>90</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),15)</visible></control>
+      <control type="image"><left>96</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),16)</visible></control>
+      <control type="image"><left>102</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),17)</visible></control>
+      <control type="image"><left>108</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),18)</visible></control>
+      <control type="image"><left>114</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),19)</visible></control>
+      <control type="image"><left>120</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),20)</visible></control>
+      <control type="image"><left>126</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),21)</visible></control>
+      <control type="image"><left>132</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),22)</visible></control>
+      <control type="image"><left>138</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),23)</visible></control>
+      <control type="image"><left>144</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),24)</visible></control>
+      <control type="image"><left>150</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),25)</visible></control>
+      <control type="image"><left>156</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),26)</visible></control>
+      <control type="image"><left>162</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),27)</visible></control>
+      <control type="image"><left>168</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),28)</visible></control>
+      <control type="image"><left>174</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),29)</visible></control>
+      <control type="image"><left>180</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),30)</visible></control>
+      <control type="image"><left>186</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),31)</visible></control>
+      <control type="image"><left>192</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),32)</visible></control>
+      <control type="image"><left>198</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),33)</visible></control>
+      <control type="image"><left>204</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),34)</visible></control>
+      <control type="image"><left>210</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),35)</visible></control>
+      <control type="image"><left>216</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),36)</visible></control>
+      <control type="image"><left>222</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),37)</visible></control>
+      <control type="image"><left>228</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),38)</visible></control>
+      <control type="image"><left>234</left><top>0</top><width>6</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture><visible>Integer.IsGreater(Window(Home).Property(HBM.EpBarN),39)</visible></control>
+    </control>
 
   </controls>
 </window>

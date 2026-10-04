@@ -1192,7 +1192,7 @@
         <control type="label"><left>88</left><top>0</top><width>152</width><height>68</height><label>Live TV</label><font>HBM_Nav_M</font><textcolor>TextNavInactive</textcolor><align>center</align><aligny>center</aligny><visible>ControlGroup(299).HasFocus</visible><include>HBM_Anim_RailLabelReveal</include></control>
         <control type="image"><left>64</left><top>-10</top><width>200</width><height>88</height><aspectratio>stretch</aspectratio><texture>special://skin/media/overlays/label_glow.png</texture><visible>Control.HasFocus(203)</visible></control>
         <control type="label"><left>88</left><top>0</top><width>152</width><height>68</height><label>Live TV</label><font>HBM_Nav_M</font><textcolor>FFFFFFFF</textcolor><align>center</align><aligny>center</aligny><visible>Control.HasFocus(203)</visible></control>
-        <control type="button" id="203"><left>0</left><top>0</top><width>304</width><height>68</height><label /><texturenofocus /><texturefocus /><onclick>Skin.SetString(HBM.HomeActivePage,livetv)</onclick><onclick>Skin.SetString(HBM.ReturnFocus,701)</onclick><onclick condition="String.IsEqual(Skin.String(HBM.InDialog),1)">Action(Back)</onclick><onup>201</onup><ondown>205</ondown><onleft>203</onleft><onright>Control.SetFocus($INFO[Skin.String(HBM.ReturnFocus)])</onright></control>
+        <control type="button" id="203"><left>0</left><top>0</top><width>304</width><height>68</height><label /><texturenofocus /><texturefocus /><onclick>Skin.SetString(HBM.HomeActivePage,livetv)</onclick><onclick>Skin.SetString(HBM.ReturnFocus,790)</onclick><onclick condition="String.IsEqual(Skin.String(HBM.InDialog),1)">Action(Back)</onclick><onup>201</onup><ondown>205</ondown><onleft>203</onleft><onright>Control.SetFocus($VAR[HBM_LiveTV_EntryTarget])</onright></control>
       </control>
 
       <control type="group">
@@ -1233,17 +1233,39 @@
   </include>
 
   <!-- Keyboard dialog support for Skin.SetString editing -->
+  <!-- DialogKeyboard character key: 82x72 on the keyboard's 90x80 grid (8px gaps). -->
   <include name="KeyboardButton">
-    <width>120</width>
-    <height>120</height>
-    <textoffsety>27</textoffsety>
-    <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
-    <texturenofocus />
+    <width>82</width>
+    <height>72</height>
+    <include>HBM_KeyStyle</include>
+  </include>
+
+  <!-- One key look for every keyboard (search screen + DialogKeyboard): small-radius dark key,
+       solid white key with dark text when focused. -->
+  <include name="HBM_KeyStyle">
+    <font>HBM_Nav_M</font>
     <align>center</align>
-    <aligny>top</aligny>
-    <font>HBM_Display_M</font>
-    <textcolor>TextPrimary</textcolor>
-    <focusedcolor>TextPrimary</focusedcolor>
+    <aligny>center</aligny>
+    <textcolor>FFF5F7FB</textcolor>
+    <focusedcolor>FF161C24</focusedcolor>
+    <pulseonselect>false</pulseonselect>
+    <texturenofocus border="6" colordiffuse="FF1D232B">special://skin/media/panel_rect.png</texturenofocus>
+    <texturefocus border="6" colordiffuse="FFFFFFFF">special://skin/media/panel_rect.png</texturefocus>
+  </include>
+
+  <!-- Same look for the keyboard's wide action buttons (Done, Cancel, ...). -->
+  <include name="HBM_KeyActionButton">
+    <param name="width">260</param>
+    <param name="height">72</param>
+    <param name="label"></param>
+    <definition>
+      <control type="button" id="$PARAM[id]">
+        <width>$PARAM[width]</width>
+        <height>$PARAM[height]</height>
+        <label>$PARAM[label]</label>
+        <include>HBM_KeyStyle</include>
+      </control>
+    </definition>
   </include>
 
   <include name="DefaultDialogButton">

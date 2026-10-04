@@ -680,8 +680,11 @@
 
     <!-- Row-focus details layer — separate from hero so hero behavior stays unchanged -->
     <control type="group">
-      <!-- Column is 540 wide; logo, title fallback and plot are all centered in it. -->
-      <left>128</left><top>0</top><width>540</width><height>756</height>
+      <!-- Column is 540 wide; logo, title fallback and plot are all centered in it.
+           Vertically, the logo box (240) through the plot box (508) is centered between the
+           top of the screen (0) and the focused row's category label (y 654 once the row stack
+           has slid up): 268px tall, so top -47 leaves 193px above and 193px below. -->
+      <left>128</left><top>-47</top><width>540</width><height>756</height>
       <visible>!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)</visible>
       <animation effect="fade" start="0" end="100" reversible="false" time="220" tween="sine" condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
       <animation effect="fade" start="100" end="0" reversible="false" time="180" tween="sine" condition="String.IsEqual(Skin.String(HBM.ActiveRow),0)">Conditional</animation>
@@ -722,7 +725,10 @@
     <!-- Hero shell — fixed overlay, renders on top of rows -->
     <include>HBM_Home_HeroShell</include>
 
-    <!-- ═══ LIVE TV FULL-SCREEN GUIDE ═══ -->
+    <!-- ═══ LIVE TV FULL-SCREEN GUIDE ═══
+         Three columns: channel groups (791) | channels (790) | details for the focused channel.
+         Control ids 790/791/792/793 are unique on purpose: 701-710 are reused by every hub's rows,
+         so Container(701) could resolve to a Home row instead of the channel list. -->
     <control type="group">
       <left>0</left><top>0</top><width>1920</width><height>1080</height>
       <visible>String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)</visible>
@@ -734,7 +740,7 @@
         <texture colordiffuse="E6000000">white.png</texture>
       </control>
 
-      <!-- Header: title + live clock -->
+      <!-- Header: title, current group + channel count, live clock -->
       <control type="label">
         <left>88</left><top>24</top><width>900</width><height>44</height>
         <label>Live TV</label>
@@ -742,114 +748,174 @@
         <textcolor>TextPrimary</textcolor>
       </control>
       <control type="label">
-        <left>88</left><top>72</top><width>900</width><height>28</height>
-        <label>$INFO[System.Date] · $INFO[System.Time]</label>
+        <left>88</left><top>72</top><width>1100</width><height>28</height>
+        <label>$INFO[Container(791).ListItem.Label]$INFO[Container(790).NumItems, · , channels]</label>
         <font>HBM_Meta_S</font>
         <textcolor>TextMuted</textcolor>
       </control>
-
-      <!-- Header divider -->
+      <control type="label">
+        <left>1372</left><top>72</top><width>500</width><height>28</height>
+        <label>$INFO[System.Date] · $INFO[System.Time]</label>
+        <font>HBM_Meta_S</font>
+        <textcolor>TextMuted</textcolor>
+        <align>right</align>
+      </control>
       <control type="image">
         <left>88</left><top>110</top><width>1784</width><height>1</height>
         <aspectratio>stretch</aspectratio>
         <texture colordiffuse="1AFFFFFF">white.png</texture>
       </control>
 
-      <!-- ── CHANNEL LIST ── -->
-      <control type="list" id="701">
-        <left>88</left><top>122</top><width>1212</width><height>944</height>
-        <scrolltime tween="cubic" easing="out">250</scrolltime>
-        <preloaditems>5</preloaditems>
-        <onclick>PlayMedia($INFO[ListItem.FileNameAndPath])</onclick>
-        <onup>625</onup>
+      <!-- ── CHANNEL GROUPS (id 791) — PVR channel groups, native listing ── -->
+      <control type="list" id="791">
+        <left>88</left><top>122</top><width>280</width><height>944</height>
+        <scrolltime tween="cubic" easing="out">200</scrolltime>
         <onleft>200</onleft>
-        <onright>730</onright>
-        <onfocus>Skin.SetString(HBM.PreviousRow,$INFO[Skin.String(HBM.ActiveRow)])</onfocus>
-        <onfocus>Skin.SetString(HBM.ActiveRow,701)</onfocus>
-        <onfocus>Skin.SetString(HBM.ReturnFocus,701)</onfocus>
-        <content target="videos" limit="200">$INFO[Skin.String(hbm_homecfg_livetv_row01_widget)]</content>
-
-        <!-- Unfocused row (78px) -->
-        <itemlayout width="1212" height="78">
-          <control type="image"><left>0</left><top>0</top><width>1212</width><height>77</height><aspectratio>stretch</aspectratio><texture colordiffuse="0D000000">white.png</texture></control>
-          <control type="image"><left>12</left><top>9</top><width>60</width><height>60</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon)]</texture></control>
-          <control type="image"><left>12</left><top>9</top><width>60</width><height>60</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
-          <control type="label"><left>84</left><top>14</top><width>156</width><height>22</height><label>$INFO[ListItem.ChannelNumber]</label><font>HBM_Meta_S</font><textcolor>TextMuted</textcolor></control>
-          <control type="label"><left>84</left><top>42</top><width>156</width><height>22</height><label>$INFO[ListItem.ChannelName]</label><font>HBM_Meta_S</font><textcolor>TextSecondary</textcolor><scroll>false</scroll></control>
-          <control type="image"><left>252</left><top>12</top><width>1</width><height>54</height><aspectratio>stretch</aspectratio><texture colordiffuse="20FFFFFF">white.png</texture></control>
-          <control type="label"><left>268</left><top>10</top><width>832</width><height>28</height><label>$INFO[ListItem.Title]</label><font>HBM_Body_M</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
-          <control type="label"><left>268</left><top>46</top><width>600</width><height>20</height><label>$INFO[ListItem.StartTime] – $INFO[ListItem.EndTime]</label><font>HBM_Meta_S</font><textcolor>TextMuted</textcolor></control>
-          <control type="image"><left>1116</left><top>53</top><width>88</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="15FFFFFF">white.png</texture></control>
-          <control type="progress"><left>1116</left><top>53</top><width>88</width><height>3</height><info>ListItem.Progress</info><texturebg colordiffuse="00000000">white.png</texturebg><textureleft colordiffuse="00000000">white.png</textureleft><texturemid colordiffuse="66FFFFFF">white.png</texturemid><textureright colordiffuse="00000000">white.png</textureright><textureoverlay colordiffuse="00000000">white.png</textureoverlay></control>
-          <control type="image"><left>0</left><top>77</top><width>1212</width><height>1</height><aspectratio>stretch</aspectratio><texture colordiffuse="0DFFFFFF">white.png</texture></control>
+        <onright>Control.SetFocus($VAR[HBM_LiveTV_RightTarget])</onright>
+        <onup>791</onup>
+        <ondown>791</ondown>
+        <onfocus>Skin.SetString(HBM.ActiveRow,791)</onfocus>
+        <onfocus>Skin.SetString(HBM.ReturnFocus,791)</onfocus>
+        <content>pvr://channels/tv/</content>
+        <itemlayout width="280" height="64">
+          <control type="label"><left>24</left><top>0</top><width>240</width><height>64</height><aligny>center</aligny><label>$INFO[ListItem.Label]</label><font>HBM_Body_M</font><textcolor>TextSecondary</textcolor><scroll>false</scroll></control>
         </itemlayout>
-
-        <!-- Focused row (78px) -->
-        <focusedlayout width="1212" height="78">
-          <control type="image"><left>0</left><top>0</top><width>1212</width><height>77</height><aspectratio>stretch</aspectratio><texture colordiffuse="1EFFFFFF">white.png</texture></control>
-          <control type="image"><left>0</left><top>0</top><width>3</width><height>78</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture></control>
-          <control type="image"><left>16</left><top>9</top><width>60</width><height>60</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon)]</texture></control>
-          <control type="image"><left>16</left><top>9</top><width>60</width><height>60</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
-          <control type="label"><left>88</left><top>14</top><width>156</width><height>22</height><label>$INFO[ListItem.ChannelNumber]</label><font>HBM_Meta_S</font><textcolor>TextSecondary</textcolor></control>
-          <control type="label"><left>88</left><top>42</top><width>156</width><height>22</height><label>$INFO[ListItem.ChannelName]</label><font>HBM_Meta_S</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
-          <control type="image"><left>256</left><top>12</top><width>1</width><height>54</height><aspectratio>stretch</aspectratio><texture colordiffuse="40FFFFFF">white.png</texture></control>
-          <control type="label"><left>272</left><top>10</top><width>832</width><height>28</height><label>$INFO[ListItem.Title]</label><font>HBM_Nav_M</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
-          <control type="label"><left>272</left><top>46</top><width>600</width><height>20</height><label>$INFO[ListItem.StartTime] – $INFO[ListItem.EndTime]</label><font>HBM_Meta_S</font><textcolor>TextSecondary</textcolor></control>
-          <control type="image"><left>1120</left><top>53</top><width>84</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="26FFFFFF">white.png</texture></control>
-          <control type="progress"><left>1120</left><top>53</top><width>84</width><height>3</height><info>ListItem.Progress</info><texturebg colordiffuse="00000000">white.png</texturebg><textureleft colordiffuse="00000000">white.png</textureleft><texturemid colordiffuse="FFB6CBF7">white.png</texturemid><textureright colordiffuse="00000000">white.png</textureright><textureoverlay colordiffuse="00000000">white.png</textureoverlay></control>
-          <control type="image"><left>0</left><top>77</top><width>1212</width><height>1</height><aspectratio>stretch</aspectratio><texture colordiffuse="26FFFFFF">white.png</texture></control>
+        <focusedlayout width="280" height="64">
+          <control type="image"><left>0</left><top>2</top><width>280</width><height>60</height><aspectratio>stretch</aspectratio><texture colordiffuse="1EFFFFFF">white.png</texture></control>
+          <control type="image"><left>0</left><top>2</top><width>3</width><height>60</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture></control>
+          <control type="label"><left>24</left><top>0</top><width>240</width><height>64</height><aligny>center</aligny><label>$INFO[ListItem.Label]</label><font>HBM_Nav_M</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
         </focusedlayout>
+      </control>
 
-      </control><!-- end channel list -->
-
-      <!-- Vertical divider between list and info panel -->
       <control type="image">
-        <left>1316</left><top>122</top><width>1</width><height>944</height>
+        <left>384</left><top>122</top><width>1</width><height>944</height>
         <aspectratio>stretch</aspectratio>
         <texture colordiffuse="1AFFFFFF">white.png</texture>
       </control>
 
-      <!-- ── INFO PANEL (right side) ── -->
+      <!-- ── CHANNEL LIST (id 790) ── -->
+      <control type="list" id="790">
+        <left>400</left><top>122</top><width>880</width><height>944</height>
+        <scrolltime tween="cubic" easing="out">250</scrolltime>
+        <preloaditems>5</preloaditems>
+        <onclick>PlayMedia($INFO[ListItem.FileNameAndPath])</onclick>
+        <onleft>791</onleft>
+        <onright>730</onright>
+        <onup>790</onup>
+        <onfocus>Skin.SetString(HBM.PreviousRow,$INFO[Skin.String(HBM.ActiveRow)])</onfocus>
+        <onfocus>Skin.SetString(HBM.ActiveRow,790)</onfocus>
+        <onfocus>Skin.SetString(HBM.ReturnFocus,790)</onfocus>
+        <content target="videos" limit="500">$VAR[HBM_LiveTV_Source]</content>
+
+        <itemlayout width="880" height="78">
+          <control type="image"><left>0</left><top>0</top><width>880</width><height>77</height><aspectratio>stretch</aspectratio><texture colordiffuse="0D000000">white.png</texture></control>
+          <control type="image"><left>12</left><top>9</top><width>60</width><height>60</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon)]</texture></control>
+          <control type="image"><left>12</left><top>9</top><width>60</width><height>60</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+          <control type="label"><left>84</left><top>14</top><width>150</width><height>22</height><label>$INFO[ListItem.ChannelNumber]</label><font>HBM_Meta_S</font><textcolor>TextMuted</textcolor></control>
+          <control type="label"><left>84</left><top>42</top><width>150</width><height>22</height><label>$INFO[ListItem.ChannelName]</label><font>HBM_Meta_S</font><textcolor>TextSecondary</textcolor><scroll>false</scroll></control>
+          <control type="image"><left>240</left><top>12</top><width>1</width><height>54</height><aspectratio>stretch</aspectratio><texture colordiffuse="20FFFFFF">white.png</texture></control>
+          <control type="label"><left>256</left><top>10</top><width>500</width><height>28</height><label>$INFO[ListItem.Title]</label><font>HBM_Body_M</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
+          <control type="label"><left>256</left><top>46</top><width>440</width><height>20</height><label>$INFO[ListItem.StartTime] – $INFO[ListItem.EndTime]</label><font>HBM_Meta_S</font><textcolor>TextMuted</textcolor></control>
+          <control type="image"><left>772</left><top>53</top><width>92</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="26FFFFFF">white.png</texture></control>
+          <control type="progress"><left>772</left><top>53</top><width>92</width><height>3</height><info>ListItem.Progress</info><texturebg colordiffuse="00000000">white.png</texturebg><textureleft colordiffuse="00000000">white.png</textureleft><texturemid colordiffuse="FFB6CBF7">white.png</texturemid><textureright colordiffuse="00000000">white.png</textureright><textureoverlay colordiffuse="00000000">white.png</textureoverlay></control>
+          <control type="image"><left>0</left><top>77</top><width>880</width><height>1</height><aspectratio>stretch</aspectratio><texture colordiffuse="0DFFFFFF">white.png</texture></control>
+        </itemlayout>
+        <focusedlayout width="880" height="78">
+          <control type="image"><left>0</left><top>0</top><width>880</width><height>77</height><aspectratio>stretch</aspectratio><texture colordiffuse="1EFFFFFF">white.png</texture></control>
+          <control type="image"><left>0</left><top>0</top><width>3</width><height>78</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFB6CBF7">white.png</texture></control>
+          <control type="image"><left>16</left><top>9</top><width>60</width><height>60</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon)]</texture></control>
+          <control type="image"><left>16</left><top>9</top><width>60</width><height>60</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+          <control type="label"><left>88</left><top>14</top><width>150</width><height>22</height><label>$INFO[ListItem.ChannelNumber]</label><font>HBM_Meta_S</font><textcolor>TextSecondary</textcolor></control>
+          <control type="label"><left>88</left><top>42</top><width>150</width><height>22</height><label>$INFO[ListItem.ChannelName]</label><font>HBM_Meta_S</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
+          <control type="image"><left>240</left><top>12</top><width>1</width><height>54</height><aspectratio>stretch</aspectratio><texture colordiffuse="40FFFFFF">white.png</texture></control>
+          <control type="label"><left>256</left><top>10</top><width>500</width><height>28</height><label>$INFO[ListItem.Title]</label><font>HBM_Nav_M</font><textcolor>TextPrimary</textcolor><scroll>false</scroll></control>
+          <control type="label"><left>256</left><top>46</top><width>440</width><height>20</height><label>$INFO[ListItem.StartTime] – $INFO[ListItem.EndTime]</label><font>HBM_Meta_S</font><textcolor>TextSecondary</textcolor></control>
+          <control type="image"><left>772</left><top>53</top><width>92</width><height>3</height><aspectratio>stretch</aspectratio><texture colordiffuse="26FFFFFF">white.png</texture></control>
+          <control type="progress"><left>772</left><top>53</top><width>92</width><height>3</height><info>ListItem.Progress</info><texturebg colordiffuse="00000000">white.png</texturebg><textureleft colordiffuse="00000000">white.png</textureleft><texturemid colordiffuse="FFB6CBF7">white.png</texturemid><textureright colordiffuse="00000000">white.png</textureright><textureoverlay colordiffuse="00000000">white.png</textureoverlay></control>
+          <control type="image"><left>0</left><top>77</top><width>880</width><height>1</height><aspectratio>stretch</aspectratio><texture colordiffuse="26FFFFFF">white.png</texture></control>
+        </focusedlayout>
+      </control><!-- end channel list -->
+
+      <!-- Nothing to show: no PVR client, no playlist, or an empty group. Appears after a short
+           delay so a normal load never flashes it. -->
       <control type="group">
-        <left>1332</left><top>122</top><width>540</width><height>944</height>
-
-        <!-- Channel logo (large) -->
-        <control type="image">
-          <left>0</left><top>0</top><width>100</width><height>100</height>
-          <aspectratio>keep</aspectratio>
-          <texture>$INFO[Container(701).ListItem.Art(icon)]</texture>
-        </control>
-        <control type="image">
-          <left>0</left><top>0</top><width>100</width><height>100</height>
-          <aspectratio>keep</aspectratio>
-          <texture>$INFO[Container(701).ListItem.Art(thumb)]</texture>
-        </control>
-
-        <!-- Channel number -->
+        <left>400</left><top>122</top><width>880</width><height>944</height>
+        <visible>Integer.IsEqual(Container(790).NumItems,0) + !Integer.IsGreater(Container(791).NumItems,0)</visible>
+        <animation effect="fade" start="0" end="100" delay="900" time="250">Visible</animation>
         <control type="label">
-          <left>116</left><top>14</top><width>424</width><height>24</height>
-          <label>$INFO[Container(701).ListItem.ChannelNumber]</label>
+          <left>0</left><top>300</top><width>880</width><height>48</height>
+          <align>center</align>
+          <label>No channels yet</label>
+          <font>HBM_Display_M</font>
+          <textcolor>TextPrimary</textcolor>
+        </control>
+        <control type="textbox">
+          <left>140</left><top>364</top><width>600</width><height>120</height>
+          <align>center</align>
+          <label>Live TV uses PVR IPTV Simple Client. Add your M3U playlist URL (and a guide URL if you have one) in its settings and your channels will appear here.</label>
+          <font>HBM_Body_M</font>
+          <textcolor>TextSecondary</textcolor>
+        </control>
+        <control type="button" id="792">
+          <left>330</left><top>500</top><width>220</width><height>56</height>
+          <label>Open IPTV settings</label>
+          <include>HBM_KeyStyle</include>
+          <visible>System.AddonIsEnabled(pvr.iptvsimple)</visible>
+          <onclick>Addon.OpenSettings(pvr.iptvsimple)</onclick>
+          <onleft>200</onleft><onup>792</onup><ondown>792</ondown><onright>792</onright>
+        </control>
+        <control type="button" id="793">
+          <left>330</left><top>500</top><width>220</width><height>56</height>
+          <label>Install IPTV client</label>
+          <include>HBM_KeyStyle</include>
+          <visible>!System.AddonIsEnabled(pvr.iptvsimple)</visible>
+          <onclick>InstallAddon(pvr.iptvsimple)</onclick>
+          <onleft>200</onleft><onup>793</onup><ondown>793</ondown><onright>793</onright>
+        </control>
+      </control>
+
+      <!-- Vertical divider between list and info panel -->
+      <control type="image">
+        <left>1296</left><top>122</top><width>1</width><height>944</height>
+        <aspectratio>stretch</aspectratio>
+        <texture colordiffuse="1AFFFFFF">white.png</texture>
+      </control>
+
+      <!-- ── INFO PANEL (right side) — reads Container(790), the channel list ── -->
+      <control type="group">
+        <left>1312</left><top>122</top><width>560</width><height>944</height>
+        <visible>Integer.IsGreater(Container(790).NumItems,0)</visible>
+
+        <control type="image">
+          <left>0</left><top>0</top><width>100</width><height>100</height>
+          <aspectratio>keep</aspectratio>
+          <texture>$INFO[Container(790).ListItem.Art(icon)]</texture>
+        </control>
+        <control type="image">
+          <left>0</left><top>0</top><width>100</width><height>100</height>
+          <aspectratio>keep</aspectratio>
+          <texture>$INFO[Container(790).ListItem.Art(thumb)]</texture>
+        </control>
+        <control type="label">
+          <left>116</left><top>14</top><width>444</width><height>24</height>
+          <label>$INFO[Container(790).ListItem.ChannelNumber]</label>
           <font>HBM_Meta_S</font>
           <textcolor>TextMuted</textcolor>
         </control>
-
-        <!-- Channel name -->
         <control type="label">
-          <left>116</left><top>42</top><width>424</width><height>32</height>
-          <label>$INFO[Container(701).ListItem.ChannelName]</label>
+          <left>116</left><top>42</top><width>444</width><height>32</height>
+          <label>$INFO[Container(790).ListItem.ChannelName]</label>
           <font>HBM_Nav_M</font>
           <textcolor>TextPrimary</textcolor>
           <scroll>true</scroll>
         </control>
-
-        <!-- Thin separator -->
         <control type="image">
-          <left>0</left><top>112</top><width>540</width><height>1</height>
+          <left>0</left><top>112</top><width>560</width><height>1</height>
           <aspectratio>stretch</aspectratio>
           <texture colordiffuse="1AFFFFFF">white.png</texture>
         </control>
 
-        <!-- NOW · time range -->
+        <!-- NOW -->
         <control type="label">
           <left>0</left><top>124</top><width>60</width><height>24</height>
           <label>NOW</label>
@@ -857,67 +923,84 @@
           <textcolor>AccentPrimary</textcolor>
         </control>
         <control type="label">
-          <left>72</left><top>124</top><width>468</width><height>24</height>
-          <label>$INFO[Container(701).ListItem.StartTime] – $INFO[Container(701).ListItem.EndTime]</label>
+          <left>72</left><top>124</top><width>488</width><height>24</height>
+          <label>$INFO[Container(790).ListItem.StartTime] – $INFO[Container(790).ListItem.EndTime]</label>
           <font>HBM_Meta_S</font>
           <textcolor>TextMuted</textcolor>
         </control>
-
-        <!-- Program title -->
         <control type="label">
-          <left>0</left><top>156</top><width>540</width><height>40</height>
-          <label>$INFO[Container(701).ListItem.Title]</label>
+          <left>0</left><top>156</top><width>560</width><height>40</height>
+          <label>$INFO[Container(790).ListItem.Title]</label>
           <font>HBM_Title_M</font>
           <textcolor>TextPrimary</textcolor>
           <scroll>true</scroll>
         </control>
-
-        <!-- EPG progress track -->
         <control type="image">
-          <left>0</left><top>206</top><width>540</width><height>3</height>
+          <left>0</left><top>206</top><width>560</width><height>3</height>
           <aspectratio>stretch</aspectratio>
           <texture colordiffuse="26FFFFFF">white.png</texture>
         </control>
-        <!-- EPG progress fill (accent blue) -->
         <control type="progress">
-          <left>0</left><top>206</top><width>540</width><height>3</height>
-          <info>Container(701).ListItem.Progress</info>
+          <left>0</left><top>206</top><width>560</width><height>3</height>
+          <info>Container(790).ListItem.Progress</info>
           <texturebg colordiffuse="00000000">white.png</texturebg>
           <textureleft colordiffuse="00000000">white.png</textureleft>
           <texturemid colordiffuse="FFB6CBF7">white.png</texturemid>
           <textureright colordiffuse="00000000">white.png</textureright>
           <textureoverlay colordiffuse="00000000">white.png</textureoverlay>
         </control>
-
-        <!-- Plot / synopsis -->
         <control type="textbox">
-          <left>0</left><top>222</top><width>540</width><height>180</height>
-          <label>$INFO[Container(701).ListItem.Plot]</label>
+          <left>0</left><top>222</top><width>560</width><height>150</height>
+          <label>$INFO[Container(790).ListItem.Plot]</label>
           <font>HBM_Body_S</font>
           <textcolor>E6EDF1F8</textcolor>
           <scroll>false</scroll>
         </control>
 
-        <!-- Separator before action buttons -->
+        <!-- NEXT (only when the guide has a following programme) -->
+        <control type="group">
+          <left>0</left><top>388</top><width>560</width><height>110</height>
+          <visible>!String.IsEmpty(Container(790).ListItem.NextTitle)</visible>
+          <control type="label">
+            <left>0</left><top>0</top><width>70</width><height>24</height>
+            <label>NEXT</label>
+            <font>HBM_Meta_S</font>
+            <textcolor>TextMuted</textcolor>
+          </control>
+          <control type="label">
+            <left>82</left><top>0</top><width>478</width><height>24</height>
+            <label>$INFO[Container(790).ListItem.NextStartTime] – $INFO[Container(790).ListItem.NextEndTime]</label>
+            <font>HBM_Meta_S</font>
+            <textcolor>TextMuted</textcolor>
+          </control>
+          <control type="label">
+            <left>0</left><top>32</top><width>560</width><height>34</height>
+            <label>$INFO[Container(790).ListItem.NextTitle]</label>
+            <font>HBM_Body_M</font>
+            <textcolor>TextSecondary</textcolor>
+            <scroll>true</scroll>
+          </control>
+        </control>
+
         <control type="image">
-          <left>0</left><top>414</top><width>540</width><height>1</height>
+          <left>0</left><top>510</top><width>560</width><height>1</height>
           <aspectratio>stretch</aspectratio>
           <texture colordiffuse="1AFFFFFF">white.png</texture>
         </control>
 
         <!-- Play button -->
         <control type="button" id="730">
-          <left>0</left><top>430</top><width>220</width><height>52</height>
-          <label>Play</label>
+          <left>0</left><top>526</top><width>220</width><height>52</height>
+          <label>Watch live</label>
           <font>HBM_Nav_M</font>
           <align>center</align><aligny>center</aligny>
           <textcolor>FF161C24</textcolor>
           <focusedcolor>FF161C24</focusedcolor>
           <texturenofocus border="6" colordiffuse="FFFFFFFF">special://skin/media/panel_rect.png</texturenofocus>
           <texturefocus border="6" colordiffuse="CCF0F0F0">special://skin/media/panel_rect.png</texturefocus>
-          <onclick>PlayMedia($INFO[Container(701).ListItem.FileNameAndPath])</onclick>
-          <onleft>701</onleft>
-          <onup>200</onup>
+          <onclick>PlayMedia($INFO[Container(790).ListItem.FileNameAndPath])</onclick>
+          <onleft>790</onleft>
+          <onup>730</onup>
           <ondown>730</ondown>
           <onright>730</onright>
         </control>

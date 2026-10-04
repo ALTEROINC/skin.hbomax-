@@ -880,4 +880,27 @@
     <value condition="!String.IsEmpty(Skin.String(HBM.ShowTMDB)) + !String.IsEqual(ListItem.DBTYPE,movie)">plugin://plugin.video.themoviedb.helper/?info=episodes&amp;tmdb_id=$INFO[Skin.String(HBM.ShowTMDB)]&amp;season=1</value>
     <value></value>
   </variable>
+
+  <!-- Live TV: channel list source. The focused channel group's path; falls back to the
+       widget configured in Homepage settings when the group list has nothing selected. -->
+  <variable name="HBM_LiveTV_Source">
+    <value condition="!String.IsEmpty(Container(791).ListItem.FolderPath)">$INFO[Container(791).ListItem.FolderPath]</value>
+    <value>$INFO[Skin.String(hbm_homecfg_livetv_row01_widget)]</value>
+  </variable>
+
+  <!-- Where "right" from the group list goes: the channels, or the setup button when empty. -->
+  <variable name="HBM_LiveTV_RightTarget">
+    <value condition="Integer.IsGreater(Container(790).NumItems,0)">790</value>
+    <value condition="System.AddonIsEnabled(pvr.iptvsimple)">792</value>
+    <value>793</value>
+  </variable>
+
+  <!-- Where focus lands when entering Live TV from the side rail. -->
+  <variable name="HBM_LiveTV_EntryTarget">
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + Integer.IsGreater(Container(790).NumItems,0)">790</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + Integer.IsGreater(Container(791).NumItems,0)">791</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv) + System.AddonIsEnabled(pvr.iptvsimple)">792</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)">793</value>
+    <value>$INFO[Skin.String(HBM.ReturnFocus)]</value>
+  </variable>
 </includes>

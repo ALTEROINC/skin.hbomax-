@@ -44,7 +44,7 @@
       <control type="image">
         <left>190</left><top>76</top>
         <width>1400</width><height>52</height>
-        <texture border="8" colordiffuse="22FFFFFF">white.png</texture>
+        <texture border="6" colordiffuse="FF1D232B">special://skin/media/panel_rect.png</texture>
       </control>
 
       <!-- Text input edit (id=312) -->
@@ -71,12 +71,12 @@
         <control type="image">
           <left>190</left><top>140</top>
           <width>1400</width><height>44</height>
-          <texture border="8" colordiffuse="16FFFFFF">white.png</texture>
+          <texture border="6" colordiffuse="FF1D232B">special://skin/media/panel_rect.png</texture>
         </control>
         <control type="image">
           <left>190</left><top>196</top>
           <width>1400</width><height>44</height>
-          <texture border="8" colordiffuse="16FFFFFF">white.png</texture>
+          <texture border="6" colordiffuse="FF1D232B">special://skin/media/panel_rect.png</texture>
         </control>
         <control type="label" id="314">
           <left>190</left><top>196</top>
@@ -99,27 +99,27 @@
         <itemlayout width="460" height="64">
           <control type="image">
             <left>8</left><top>4</top><width>444</width><height>56</height>
-            <texture colordiffuse="14FFFFFF">white.png</texture>
+            <texture border="6" colordiffuse="FF1D232B">special://skin/media/panel_rect.png</texture>
           </control>
           <control type="label">
             <left>24</left><top>4</top><width>420</width><height>56</height>
             <label>$INFO[ListItem.Label]</label>
             <font>HBM_Body_M</font>
-            <textcolor>TextSecondary</textcolor>
+            <textcolor>FFF5F7FB</textcolor>
             <aligny>center</aligny>
           </control>
         </itemlayout>
         <focusedlayout width="460" height="64">
           <control type="image">
             <left>8</left><top>4</top><width>444</width><height>56</height>
-            <texture colordiffuse="FocusFill">white.png</texture>
+            <texture border="6" colordiffuse="FFFFFFFF">special://skin/media/panel_rect.png</texture>
             <include>Animation_FocusTextureFade</include>
           </control>
           <control type="label">
             <left>24</left><top>4</top><width>420</width><height>56</height>
             <label>$INFO[ListItem.Label]</label>
             <font>HBM_Body_M</font>
-            <textcolor>TextPrimary</textcolor>
+            <textcolor>FF161C24</textcolor>
             <aligny>center</aligny>
           </control>
         </focusedlayout>
@@ -197,16 +197,12 @@
         <!-- Symbols toggle (id=304) -->
         <control type="radiobutton" id="304">
           <left>360</left><top>320</top>
-          <width>120</width><height>80</height>
+          <width>82</width><height>72</height>
           <label>?@</label>
-          <font>HBM_Body_M</font>
-          <textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor>
-          <align>center</align><aligny>center</aligny>
+          <include>HBM_KeyStyle</include>
           <onleft>8</onleft><onright>303</onright>
           <onup>160</onup><ondown>100</ondown>
-          <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
-          <texturenofocus colordiffuse="14FFFFFF">white.png</texturenofocus>
-          <radioposx>0</radioposx><radioposy>0</radioposy>
+                    <radioposx>0</radioposx><radioposy>0</radioposy>
           <radiowidth>0</radiowidth><radioheight>0</radioheight>
           <textureradioonfocus colordiffuse="00000000">white.png</textureradioonfocus>
           <textureradioonnofocus colordiffuse="00000000">white.png</textureradioonnofocus>
@@ -217,19 +213,15 @@
         <!-- Caps Lock (id=303) -->
         <control type="radiobutton" id="303">
           <left>450</left><top>320</top>
-          <width>120</width><height>80</height>
+          <width>82</width><height>72</height>
           <label>AA</label>
-          <font>HBM_Body_M</font>
-          <textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor>
-          <align>center</align><aligny>center</aligny>
+          <include>HBM_KeyStyle</include>
           <onleft>304</onleft><onright>302</onright>
           <onup>161</onup><ondown>101</ondown>
-          <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
-          <texturenofocus colordiffuse="14FFFFFF">white.png</texturenofocus>
-          <radioposx>0</radioposx><radioposy>0</radioposy>
-          <radiowidth>0</radiowidth><radioheight>0</radioheight>
-          <textureradioonfocus colordiffuse="33FFFFFF">white.png</textureradioonfocus>
-          <textureradioonnofocus colordiffuse="22FFFFFF">white.png</textureradioonnofocus>
+                    <radioposx>26</radioposx><radioposy>62</radioposy>
+          <radiowidth>30</radiowidth><radioheight>3</radioheight>
+          <textureradioonfocus colordiffuse="FF3B5BA8">white.png</textureradioonfocus>
+          <textureradioonnofocus colordiffuse="FFB6CBF7">white.png</textureradioonnofocus>
           <textureradioofffocus colordiffuse="00000000">white.png</textureradioofffocus>
           <textureradiooffnofocus colordiffuse="00000000">white.png</textureradiooffnofocus>
         </control>
@@ -237,19 +229,15 @@
         <!-- Shift (id=302) -->
         <control type="radiobutton" id="302">
           <left>540</left><top>320</top>
-          <width>120</width><height>80</height>
+          <width>82</width><height>72</height>
           <label>Aa</label>
-          <font>HBM_Body_M</font>
-          <textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor>
-          <align>center</align><aligny>center</aligny>
+          <include>HBM_KeyStyle</include>
           <onleft>303</onleft><onright>32</onright>
           <onup>162</onup><ondown>102</ondown>
-          <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
-          <texturenofocus colordiffuse="14FFFFFF">white.png</texturenofocus>
-          <radioposx>0</radioposx><radioposy>0</radioposy>
-          <radiowidth>0</radiowidth><radioheight>0</radioheight>
-          <textureradioonfocus colordiffuse="33FFFFFF">white.png</textureradioonfocus>
-          <textureradioonnofocus colordiffuse="22FFFFFF">white.png</textureradioonnofocus>
+                    <radioposx>26</radioposx><radioposy>62</radioposy>
+          <radiowidth>30</radiowidth><radioheight>3</radioheight>
+          <textureradioonfocus colordiffuse="FF3B5BA8">white.png</textureradioonfocus>
+          <textureradioonnofocus colordiffuse="FFB6CBF7">white.png</textureradioonnofocus>
           <textureradioofffocus colordiffuse="00000000">white.png</textureradioofffocus>
           <textureradiooffnofocus colordiffuse="00000000">white.png</textureradiooffnofocus>
         </control>
@@ -257,32 +245,27 @@
         <!-- Spacebar (id=32) -->
         <control type="radiobutton" id="32">
           <left>630</left><top>320</top>
-          <width>390</width><height>80</height>
+          <width>352</width><height>72</height>
           <onleft>302</onleft><onright>305</onright>
           <onup>164</onup><ondown>104</ondown>
-          <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
-          <texturenofocus/>
-          <radioposx>15</radioposx><radioposy>22</radioposy>
-          <radiowidth>360</radiowidth><radioheight>36</radioheight>
-          <textureradioonfocus colordiffuse="FocusFill">white.png</textureradioonfocus>
-          <textureradioonnofocus colordiffuse="22FFFFFF">white.png</textureradioonnofocus>
-          <textureradioofffocus colordiffuse="FocusFill">white.png</textureradioofffocus>
-          <textureradiooffnofocus colordiffuse="22FFFFFF">white.png</textureradiooffnofocus>
+          <include>HBM_KeyStyle</include>
+          <radioposx>136</radioposx><radioposy>34</radioposy>
+          <radiowidth>80</radiowidth><radioheight>3</radioheight>
+          <textureradioonfocus colordiffuse="FF161C24">white.png</textureradioonfocus>
+          <textureradioonnofocus colordiffuse="88F5F7FB">white.png</textureradioonnofocus>
+          <textureradioofffocus colordiffuse="FF161C24">white.png</textureradioofffocus>
+          <textureradiooffnofocus colordiffuse="88F5F7FB">white.png</textureradiooffnofocus>
         </control>
 
         <!-- Cursor left (id=305) -->
         <control type="radiobutton" id="305">
           <left>990</left><top>320</top>
-          <width>120</width><height>80</height>
+          <width>82</width><height>72</height>
           <label>&lt;</label>
-          <font>HBM_Display_M</font>
-          <textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor>
-          <align>center</align><aligny>center</aligny>
+          <include>HBM_KeyStyle</include>
           <onleft>32</onleft><onright>306</onright>
           <ondown>107</ondown><onup>167</onup>
-          <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
-          <texturenofocus colordiffuse="14FFFFFF">white.png</texturenofocus>
-          <radioposx>0</radioposx><radioposy>0</radioposy>
+                    <radioposx>0</radioposx><radioposy>0</radioposy>
           <radiowidth>0</radiowidth><radioheight>0</radioheight>
           <textureradioonfocus colordiffuse="00000000">white.png</textureradioonfocus>
           <textureradioonnofocus colordiffuse="00000000">white.png</textureradioonnofocus>
@@ -293,16 +276,12 @@
         <!-- Cursor right (id=306) -->
         <control type="radiobutton" id="306">
           <left>1080</left><top>320</top>
-          <width>120</width><height>80</height>
+          <width>82</width><height>72</height>
           <label>&gt;</label>
-          <font>HBM_Display_M</font>
-          <textcolor>TextSecondary</textcolor><focusedcolor>TextPrimary</focusedcolor>
-          <align>center</align><aligny>center</aligny>
+          <include>HBM_KeyStyle</include>
           <onleft>305</onleft><onright>8</onright>
           <ondown>108</ondown><onup>168</onup>
-          <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
-          <texturenofocus colordiffuse="14FFFFFF">white.png</texturenofocus>
-          <radioposx>0</radioposx><radioposy>0</radioposy>
+                    <radioposx>0</radioposx><radioposy>0</radioposy>
           <radiowidth>0</radiowidth><radioheight>0</radioheight>
           <textureradioonfocus colordiffuse="00000000">white.png</textureradioonfocus>
           <textureradioonnofocus colordiffuse="00000000">white.png</textureradioonnofocus>
@@ -313,17 +292,16 @@
         <!-- Backspace (id=8) -->
         <control type="radiobutton" id="8">
           <left>1170</left><top>320</top>
-          <width>120</width><height>80</height>
+          <width>82</width><height>72</height>
           <onleft>306</onleft><onright>95200</onright>
           <onup>169</onup><ondown>109</ondown>
-          <texturefocus colordiffuse="FocusFill">white.png</texturefocus>
-          <texturenofocus colordiffuse="14FFFFFF">white.png</texturenofocus>
-          <radioposx>34</radioposx><radioposy>22</radioposy>
-          <radiowidth>52</radiowidth><radioheight>36</radioheight>
-          <textureradioonfocus>special://skin/media/icons/backspace-fill.png</textureradioonfocus>
-          <textureradioonnofocus>special://skin/media/icons/backspace-fill.png</textureradioonnofocus>
-          <textureradioofffocus>special://skin/media/icons/backspace-fill.png</textureradioofffocus>
-          <textureradiooffnofocus>special://skin/media/icons/backspace-fill.png</textureradiooffnofocus>
+          <include>HBM_KeyStyle</include>
+          <radioposx>27</radioposx><radioposy>22</radioposy>
+          <radiowidth>28</radiowidth><radioheight>28</radioheight>
+          <textureradioonfocus colordiffuse="FF161C24">special://skin/media/icons/backspace-fill.png</textureradioonfocus>
+          <textureradioonnofocus colordiffuse="FFF5F7FB">special://skin/media/icons/backspace-fill.png</textureradioonnofocus>
+          <textureradioofffocus colordiffuse="FF161C24">special://skin/media/icons/backspace-fill.png</textureradioofffocus>
+          <textureradiooffnofocus colordiffuse="FFF5F7FB">special://skin/media/icons/backspace-fill.png</textureradiooffnofocus>
         </control>
 
       </control>
@@ -338,29 +316,29 @@
         <ondown>95200</ondown>
         <onleft>78500</onleft>
         <onright>95200</onright>
-        <include content="DefaultDialogButton">
+        <include content="HBM_KeyActionButton">
           <param name="id" value="300" />
           <param name="label" value="$LOCALIZE[12321]" />
           <param name="width" value="260" />
           <param name="height" value="72" />
         </include>
-        <include content="DefaultDialogButton">
+        <include content="HBM_KeyActionButton">
           <param name="id" value="301" />
           <param name="label" value="$LOCALIZE[222]" />
           <param name="width" value="260" />
           <param name="height" value="72" />
         </include>
-        <include content="DefaultDialogButton">
+        <include content="HBM_KeyActionButton">
           <param name="id" value="310" />
           <param name="width" value="260" />
           <param name="height" value="72" />
         </include>
-        <include content="DefaultDialogButton">
+        <include content="HBM_KeyActionButton">
           <param name="id" value="309" />
           <param name="width" value="260" />
           <param name="height" value="72" />
         </include>
-        <include content="DefaultDialogButton">
+        <include content="HBM_KeyActionButton">
           <param name="id" value="307" />
           <param name="label" value="$LOCALIZE[1006]" />
           <param name="width" value="260" />
