@@ -1,71 +1,34 @@
-import os
-import sys
-
 import xbmc
-import xbmcgui
 import xbmcvfs
 
-# Kodi shows its startup splash from special://home/media/splash.jpg (or .png) when present, before any
-# skin loads, so a skin can't draw it. This keeps that file in sync so the *next* launch shows it.
-#
-#   (no argument)  on Home load: install the skin's own media/splash.png, unless the user picked their
-#                  own image in Skin Settings (HBM.SplashImage), which is left alone.
-#   apply          copy the image picked in Skin Settings.
-#   reset          drop the picked image and go back to the skin's own splash.
+# Kodi shows its own startup splash from special://home/media/splash.jpg (or .png) before any skin loads, so a
+# skin can't draw it. The skin wants that first splash to be plain black (the real splash image is shown by
+# Startup.xml after the intro video), so this keeps a black image there. Runs on Home load; only copies when needed.
 
-BUNDLED = 'special://skin/media/splash.png'
+BLACK = 'special://skin/media/splash_black.png'
 TARGET_DIR = 'special://home/media/'
-TARGETS = (TARGET_DIR + 'splash.jpg', TARGET_DIR + 'splash.png')   # Kodi checks .jpg first
+TARGET = TARGET_DIR + 'splash.png'
+OTHER = TARGET_DIR + 'splash.jpg'     # Kodi checks .jpg first, so a leftover one would hide ours
 
 
 def log(msg):
     xbmc.log('[install_splash] ' + msg, level=xbmc.LOGINFO)
 
 
-def notify(msg):
-    xbmcgui.Dialog().notification('HBO Max Skin', msg, xbmcgui.NOTIFICATION_INFO, 5000)
-
-
-def remove_targets():
-    for target in TARGETS:
-        if xbmcvfs.exists(target):
-            xbmcvfs.delete(target)
-
-
-def install(source):
-    """Make `source` the splash (named by its own extension). Returns True on success."""
-    ext = '.jpg' if os.path.splitext(source)[1].lower() in ('.jpg', '.jpeg') else '.png'
-    target = TARGET_DIR + 'splash' + ext
-    if xbmcvfs.exists(target) and xbmcvfs.exists(source):
-        if xbmcvfs.Stat(source).st_size() == xbmcvfs.Stat(target).st_size() \
-                and all(not xbmcvfs.exists(t) for t in TARGETS if t != target):
-            return True   # already installed
-    xbmcvfs.mkdirs(TARGET_DIR)
-    remove_targets()
-    ok = xbmcvfs.copy(source, target)
-    log('%s -> %s: %s' % (source, target, 'ok' if ok else 'FAILED'))
-    return bool(ok)
-
-
 def main():
-    action = sys.argv[1] if len(sys.argv) > 1 else ''
-    chosen = xbmc.getInfoLabel('Skin.String(HBM.SplashImage)')
-
+    if not xbmcvfs.exists(BLACK):
+        return
     try:
-        if action == 'apply':
-            if chosen and xbmcvfs.exists(chosen) and install(chosen):
-                notify('Splash saved. It shows the next time Kodi starts.')
-            else:
-                notify('Could not use that image.')
-        elif action == 'reset':
-            xbmc.executebuiltin('Skin.Reset(HBM.SplashImage)', True)
-            remove_targets()
-            if xbmcvfs.exists(BUNDLED) and install(BUNDLED):
-                notify('Default splash restored. It shows the next time Kodi starts.')
-            else:
-                notify('Splash removed. Kodi\'s own splash will show.')
-        elif not chosen and xbmcvfs.exists(BUNDLED):
-            install(BUNDLED)
+        if not xbmcvfs.exists(OTHER) and xbmcvfs.exists(TARGET) \
+                and xbmcvfs.Stat(BLACK).st_size() == xbmcvfs.Stat(TARGET).st_size():
+            return
+        xbmcvfs.mkdirs(TARGET_DIR)
+        if xbmcvfs.exists(OTHER):
+            xbmcvfs.delete(OTHER)
+        if xbmcvfs.exists(TARGET):
+            xbmcvfs.delete(TARGET)
+        ok = xbmcvfs.copy(BLACK, TARGET)
+        log('black native splash installed: %s (takes effect next launch)' % ('ok' if ok else 'FAILED'))
     except Exception as e:
         log('failed: %s' % e)
 

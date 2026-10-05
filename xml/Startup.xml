@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-  <!-- Startup intro (see intro.py): plays over the hub as it loads; Back skips it. -->
+  <!-- Startup: plain black while intro.py starts the intro video (if any); after the video the splash image is shown
+       for a moment, then the startup window opens, so the hub never flashes before the video. The alarm is a fail-safe in case the script dies. -->
+  <onload>AlarmClock(HBMStartFallback,ReplaceWindow($INFO[System.StartupWindow]),01:00,silent)</onload>
   <onload>RunScript(special://skin/resources/scripts/intro.py)</onload>
-  <onload>ReplaceWindow($INFO[System.StartupWindow])</onload>
-  <controls />
+  <onunload>CancelAlarm(HBMStartFallback,silent)</onunload>
+  <controls>
+    <control type="image">
+      <left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <aspectratio>stretch</aspectratio>
+      <texture colordiffuse="FF000000">white.png</texture>
+    </control>
+    <!-- The splash image (picked in Skin Settings, else the skin's own), shown after the video via HBM.StartupSplash. -->
+    <control type="image">
+      <left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <aspectratio>stretch</aspectratio>
+      <texture>special://skin/media/splash.png</texture>
+      <visible>String.IsEmpty(Skin.String(HBM.SplashImage)) + !String.IsEmpty(Window(Home).Property(HBM.StartupSplash))</visible>
+    </control>
+    <control type="image">
+      <left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <aspectratio>stretch</aspectratio>
+      <texture>$INFO[Skin.String(HBM.SplashImage)]</texture>
+      <visible>!String.IsEmpty(Skin.String(HBM.SplashImage)) + !String.IsEmpty(Window(Home).Property(HBM.StartupSplash))</visible>
+    </control>
+  </controls>
 </window>
