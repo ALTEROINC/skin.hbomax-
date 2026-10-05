@@ -186,6 +186,8 @@
     <!-- Row browsing -->
     <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Plot)">$INFO[ListItem.Plot]</value>
     <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Property(Plot))">$INFO[ListItem.Property(Plot)]</value>
+    <!-- Focused row item has no plot (See All tile, genre tile...): show nothing rather than the hero carousel's plot -->
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEqual(Skin.String(HBM.HomeActivePage),livetv)"></value>
     <!-- Hero zone -->
     <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEmpty(Container(620).ListItem.Plot)">$INFO[Container(620).ListItem.Plot]</value>
     <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),home) + !String.IsEmpty(Container(620).ListItem.Property(Plot))">$INFO[Container(620).ListItem.Property(Plot)]</value>
@@ -270,6 +272,7 @@
     <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(HBM.ActiveRow),708)">$INFO[Skin.String(hbm_homecfg_tvshows_row08_label)]</value>
     <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(HBM.ActiveRow),709)">$INFO[Skin.String(hbm_homecfg_tvshows_row09_label)]</value>
     <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(HBM.ActiveRow),710)">$INFO[Skin.String(hbm_homecfg_tvshows_row10_label)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),tvshows) + String.IsEqual(Skin.String(HBM.ActiveRow),711)">$INFO[Skin.String(hbm_homecfg_tvshows_row11_label)]</value>
     <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(HBM.ActiveRow),701)">$INFO[Skin.String(hbm_homecfg_movies_row01_label)]</value>
     <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(HBM.ActiveRow),702)">$INFO[Skin.String(hbm_homecfg_movies_row02_label)]</value>
     <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(HBM.ActiveRow),703)">$INFO[Skin.String(hbm_homecfg_movies_row03_label)]</value>
@@ -280,6 +283,7 @@
     <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(HBM.ActiveRow),708)">$INFO[Skin.String(hbm_homecfg_movies_row08_label)]</value>
     <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(HBM.ActiveRow),709)">$INFO[Skin.String(hbm_homecfg_movies_row09_label)]</value>
     <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(HBM.ActiveRow),710)">$INFO[Skin.String(hbm_homecfg_movies_row10_label)]</value>
+    <value condition="String.IsEqual(Skin.String(HBM.HomeActivePage),movies) + String.IsEqual(Skin.String(HBM.ActiveRow),711)">$INFO[Skin.String(hbm_homecfg_movies_row11_label)]</value>
   </variable>
 
   <variable name="HBM_Browse_X">

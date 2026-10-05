@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
+  <!-- Startup intro (see intro.py): plays over the hub as it loads; Back skips it. -->
+  <onload>RunScript(special://skin/resources/scripts/intro.py)</onload>
   <onload>ReplaceWindow($INFO[System.StartupWindow])</onload>
   <controls />
 </window>

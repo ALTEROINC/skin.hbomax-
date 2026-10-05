@@ -9,7 +9,19 @@ import xbmcaddon
 # Kodi needs a restart afterwards for TMDb Helper to load the patched source.
 
 LISTITEM_MARKER = "# HBM_SETPROPS_FIX"
-SEEALL_MARKER = "# HBM_SEEALL"
+SEEALL_MARKER = "# HBM_SEEALL2"
+# First version of the See All patch (required pagination to be on, which TMDb Helper turns off for widgets
+# when "next page in widgets" is disabled). Removed before the current one is applied.
+SEEALL_V1 = (
+    "        if self.pagination and self.params.get('hbm_seeall') and item_queue and not any(  # HBM_SEEALL\n"
+    "                li.next_page for li in item_queue if li):\n"
+    "            try:\n"
+    "                _seeall = self._make_item(self.ib.get_listitem({'next_page': 2}, use_iterprops=self.is_detailed))\n"
+    "                if _seeall:\n"
+    "                    item_queue.append(_seeall)\n"
+    "            except Exception:\n"
+    "                pass\n"
+)
 
 
 def log(msg, level=xbmc.LOGINFO):
@@ -72,11 +84,20 @@ def main():
 
     # See All: when a list URL carries hbm_seeall=True and the list has no "Next page" item of its own
     # (single page, Trakt/sync lists, random lists...), append one so every row ends with the same tile.
+    container = os.path.join(lib, "items", "container.py")
+    if os.path.exists(container):
+        with open(container, "r") as f:
+            text = f.read()
+        if SEEALL_V1 in text:
+            with open(container, "w") as f:
+                f.write(text.replace(SEEALL_V1, "", 1))
+            log("removed first See All patch before upgrading it")
+
     changed |= patch_file(
-        os.path.join(lib, "items", "container.py"),
+        container,
         SEEALL_MARKER,
         "        return item_queue\n\n    def add_items",
-        "        if self.pagination and self.params.get('hbm_seeall') and item_queue and not any(  " + SEEALL_MARKER + "\n"
+        "        if self.params.get('hbm_seeall') and boolean(self.params.get('nextpage', True)) and item_queue and not any(  " + SEEALL_MARKER + "\n"
         "                li.next_page for li in item_queue if li):\n"
         "            try:\n"
         "                _seeall = self._make_item(self.ib.get_listitem({'next_page': 2}, use_iterprops=self.is_detailed))\n"

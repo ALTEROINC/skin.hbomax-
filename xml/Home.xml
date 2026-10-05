@@ -43,6 +43,7 @@
   <!-- Fills the first empty row of the TV Shows and Movies hubs with a Genres row, once. -->
   <onload condition="!Skin.HasSetting(hbm_genre_row11_v1)">RunScript(special://skin/resources/scripts/genre_defaults.py)</onload>
   <onload>RunScript(special://skin/resources/scripts/seeall_migrate.py)</onload>
+  <onload>RunScript(special://skin/resources/scripts/install_splash.py)</onload>
   <onload>AlarmClock(HBMHeroRotate,RunScript(special://skin/resources/scripts/hero_rotate.py),00:00:14,silent,loop)</onload>
   <!-- One-shot: retries Trakt rows that missed the startup token refresh (see row_retry.py). -->
   <onload>AlarmClock(HBMRowRetry,RunScript(special://skin/resources/scripts/row_retry.py),00:00:20,silent)</onload>

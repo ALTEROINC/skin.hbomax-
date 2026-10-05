@@ -18,6 +18,8 @@ rsync -av \
   --include="*.png" \
   --include="*.svg" \
   --include="*.gif" \
+  --include="*.jpg" \
+  --include="*.mp4" \
   --include="*.py" \
   --include="*.json" \
   --exclude="*" \
