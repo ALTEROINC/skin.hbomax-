@@ -66,17 +66,13 @@
       <onright>800</onright>
       <content target="videos">$VAR[HBM_GenreSource]</content>
 
-      <itemlayout width="305" height="465" condition="[String.IsEqual(ListItem.Property(specialsort),bottom) | String.Contains(ListItem.Label,Next page) | String.Contains(ListItem.Label,Next &gt;) | String.Contains(ListItem.Label,&gt;&gt;) | String.Contains(ListItem.Label,») | String.IsEqual(ListItem.Label,Next) | String.IsEqual(ListItem.Label,More) | String.IsEqual(ListItem.Label,More...) | String.IsEqual(ListItem.Label,See All)]">
-        <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>stretch</aspectratio><texture colordiffuse="2EFFFFFF">white.png</texture></control>
-        <control type="image"><left>1</left><top>1</top><width>292</width><height>439</height><aspectratio>stretch</aspectratio><texture colordiffuse="FF12171D">white.png</texture></control>
-        <control type="image"><left>119</left><top>172</top><width>56</width><height>56</height><aspectratio>keep</aspectratio><texture colordiffuse="FFF5F7FB">special://skin/media/icons/arrow-right.png</texture></control>
-        <control type="label"><left>0</left><top>238</top><width>294</width><height>36</height><label>More</label><font>HBM_Nav_M</font><textcolor>FFF5F7FB</textcolor><align>center</align><aligny>center</aligny></control>
-      </itemlayout>
-      <focusedlayout width="305" height="465" condition="[String.IsEqual(ListItem.Property(specialsort),bottom) | String.Contains(ListItem.Label,Next page) | String.Contains(ListItem.Label,Next &gt;) | String.Contains(ListItem.Label,&gt;&gt;) | String.Contains(ListItem.Label,») | String.IsEqual(ListItem.Label,Next) | String.IsEqual(ListItem.Label,More) | String.IsEqual(ListItem.Label,More...) | String.IsEqual(ListItem.Label,See All)]">
-        <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture></control>
-        <control type="image"><left>119</left><top>172</top><width>56</width><height>56</height><aspectratio>keep</aspectratio><texture colordiffuse="FF161C24">special://skin/media/icons/arrow-right.png</texture></control>
-        <control type="label"><left>0</left><top>238</top><width>294</width><height>36</height><label>More</label><font>HBM_Nav_M</font><textcolor>FF161C24</textcolor><align>center</align><aligny>center</aligny></control>
-      </focusedlayout>
+        <itemlayout width="305" height="465" condition="[String.IsEqual(ListItem.Property(specialsort),bottom) | String.Contains(ListItem.Label,Next page) | String.Contains(ListItem.Label,Next &gt;) | String.Contains(ListItem.Label,&gt;&gt;) | String.Contains(ListItem.Label,») | String.IsEqual(ListItem.Label,Next) | String.IsEqual(ListItem.Label,More) | String.IsEqual(ListItem.Label,More...) | String.IsEqual(ListItem.Label,See All)]">
+          <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>scale</aspectratio><texture>special://skin/media/seeall_poster.png</texture></control>
+        </itemlayout>
+        <focusedlayout width="305" height="465" condition="[String.IsEqual(ListItem.Property(specialsort),bottom) | String.Contains(ListItem.Label,Next page) | String.Contains(ListItem.Label,Next &gt;) | String.Contains(ListItem.Label,&gt;&gt;) | String.Contains(ListItem.Label,») | String.IsEqual(ListItem.Label,Next) | String.IsEqual(ListItem.Label,More) | String.IsEqual(ListItem.Label,More...) | String.IsEqual(ListItem.Label,See All)]">
+          <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture></control>
+          <control type="image"><left>3</left><top>3</top><width>288</width><height>435</height><aspectratio>scale</aspectratio><texture>special://skin/media/seeall_poster.png</texture></control>
+        </focusedlayout>
 
       <itemlayout width="305" height="465">
         <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>

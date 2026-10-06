@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
   <!-- Startup: plain black while intro.py starts the intro video (if any); after the video the splash image is shown
-       for a moment, then the startup window opens, so the hub never flashes before the video. The alarm is a fail-safe in case the script dies. -->
-  <onload>AlarmClock(HBMStartFallback,ReplaceWindow($INFO[System.StartupWindow]),01:00,silent)</onload>
-  <onload>RunScript(special://skin/resources/scripts/intro.py)</onload>
+       for a moment, then the startup window opens, so the hub never flashes before the video. The alarm is a fail-safe in case the script dies.
+       This window loads again whenever the video closes and returns to it, so everything is guarded to run once per launch. -->
+  <onload condition="String.IsEmpty(Window(Home).Property(HBM.IntroStarted))">AlarmClock(HBMStartFallback,ReplaceWindow($INFO[System.StartupWindow]),01:00,silent)</onload>
+  <onload condition="String.IsEmpty(Window(Home).Property(HBM.IntroStarted))">RunScript(special://skin/resources/scripts/intro.py)</onload>
   <onunload>CancelAlarm(HBMStartFallback,silent)</onunload>
   <controls>
     <control type="image">

@@ -1,4 +1,5 @@
 import xbmc
+import xbmcgui
 import xbmcvfs
 
 # Startup (called from Startup.xml, once per Kodi launch). Startup.xml shows a black screen while this runs
@@ -43,6 +44,12 @@ def intro_path():
 
 
 def main():
+    # Startup.xml loads again when the video closes and returns to it; only the first run does anything.
+    home = xbmcgui.Window(10000)
+    if home.getProperty('HBM.IntroStarted'):
+        return
+    home.setProperty('HBM.IntroStarted', '1')
+
     path = intro_path()
     monitor = xbmc.Monitor()
     if not path:
