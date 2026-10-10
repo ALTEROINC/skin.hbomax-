@@ -10,7 +10,8 @@ import xbmcvfs
 
 # IMDb and Rotten Tomatoes scores for the title on the info page (DialogVideoInfo), shown on the line above the
 # Watch button. Started from the dialog's onload; fetches once, publishes Window(Home) properties
-#   HBM.RateIMDb  e.g. "8.3"       HBM.RateRT  e.g. "94%"
+#   HBM.RateIMDb  e.g. "8.3"       HBM.RateRT  e.g. "94%"       HBM.RatePop  e.g. "91%" (audience score)
+# plus HBM.RateRTNum / HBM.RatePopNum with the bare numbers
 # and does nothing if the keys are missing. Keys are the ones already set in TMDb Helper's settings
 # (mdblist_apikey, omdb_apikey); they are never logged.
 #
@@ -21,6 +22,10 @@ import xbmcvfs
 HOME = 10000
 PROP_IMDB = 'HBM.RateIMDb'
 PROP_RT = 'HBM.RateRT'
+PROP_RT_NUM = 'HBM.RateRTNum'      # plain number, so the skin can pick tomato (60+) or splat
+PROP_POP = 'HBM.RatePop'          # Popcornmeter (Rotten Tomatoes audience score)
+PROP_POP_NUM = 'HBM.RatePopNum'
+PROPS = (PROP_IMDB, PROP_RT, PROP_RT_NUM, PROP_POP, PROP_POP_NUM)
 CACHE_FILE = 'special://profile/addon_data/skin.hbomax.dev/ratings_cache.json'
 CACHE_DAYS = 7
 TIMEOUT = 6
@@ -101,6 +106,8 @@ def from_mdblist(tmdb_id, media):
             out['imdb'] = fmt_imdb(rating.get('value'))
         elif source == 'tomatoes':
             out['rt'] = fmt_rt(rating.get('value'))
+        elif source == 'tomatoesaudience':
+            out['pop'] = fmt_rt(rating.get('value'))
     if data and data.get('imdbid'):
         out['imdbid'] = data['imdbid']
     return out
@@ -124,17 +131,17 @@ def lookup(tmdb_id, media, imdb_id):
     scores = from_mdblist(tmdb_id, media)
     imdb_id = imdb_id or scores.get('imdbid', '')
     if not (scores.get('imdb') and scores.get('rt')):
-        extra = from_omdb(imdb_id)
+        extra = from_omdb(imdb_id)          # OMDb has no audience score
         for k in ('imdb', 'rt'):
             if not scores.get(k) and extra.get(k):
                 scores[k] = extra[k]
-    return {'imdb': scores.get('imdb', ''), 'rt': scores.get('rt', '')}
+    return {'imdb': scores.get('imdb', ''), 'rt': scores.get('rt', ''), 'pop': scores.get('pop', '')}
 
 
 def main():
     win = xbmcgui.Window(HOME)
-    win.clearProperty(PROP_IMDB)
-    win.clearProperty(PROP_RT)
+    for prop in PROPS:
+        win.clearProperty(prop)
 
     tmdb_id = xbmc.getInfoLabel('ListItem.UniqueID(tmdb)')
     media = 'movie' if xbmc.getInfoLabel('ListItem.DBTYPE') == 'movie' else 'show'
@@ -145,14 +152,14 @@ def main():
     key = '%s:%s' % (media, tmdb_id or imdb_id)
     cache = load_cache()
     entry = cache.get(key)
-    if entry and time.time() - entry.get('t', 0) < CACHE_DAYS * 86400:
+    if entry and 'pop' in entry and time.time() - entry.get('t', 0) < CACHE_DAYS * 86400:
         scores = entry
     else:
         scores = lookup(tmdb_id, media, imdb_id)
-        if scores['imdb'] or scores['rt']:
+        if scores['imdb'] or scores['rt'] or scores['pop']:
             cache[key] = dict(scores, t=time.time())
             save_cache(cache)
-        log('%s -> imdb=%s rt=%s' % (key, scores['imdb'] or '-', scores['rt'] or '-'))
+        log('%s -> imdb=%s rt=%s popcorn=%s' % (key, scores['imdb'] or '-', scores['rt'] or '-', scores['pop'] or '-'))
 
     # Only publish if the dialog is still open on the same title.
     if xbmc.getCondVisibility('Window.IsActive(movieinformation)') \
@@ -161,6 +168,10 @@ def main():
             win.setProperty(PROP_IMDB, scores['imdb'])
         if scores.get('rt'):
             win.setProperty(PROP_RT, scores['rt'])
+            win.setProperty(PROP_RT_NUM, scores['rt'].rstrip('%'))
+        if scores.get('pop'):
+            win.setProperty(PROP_POP, scores['pop'])
+            win.setProperty(PROP_POP_NUM, scores['pop'].rstrip('%'))
 
 
 main()

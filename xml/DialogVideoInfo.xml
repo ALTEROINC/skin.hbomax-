@@ -17,9 +17,15 @@
   <!-- IMDb / Rotten Tomatoes line above the Watch button (see ratings.py). -->
   <onload>ClearProperty(HBM.RateIMDb,home)</onload>
   <onload>ClearProperty(HBM.RateRT,home)</onload>
+  <onload>ClearProperty(HBM.RateRTNum,home)</onload>
+  <onload>ClearProperty(HBM.RatePop,home)</onload>
+  <onload>ClearProperty(HBM.RatePopNum,home)</onload>
   <onload>RunScript(special://skin/resources/scripts/ratings.py)</onload>
   <onunload>ClearProperty(HBM.RateIMDb,home)</onunload>
   <onunload>ClearProperty(HBM.RateRT,home)</onunload>
+  <onunload>ClearProperty(HBM.RateRTNum,home)</onunload>
+  <onunload>ClearProperty(HBM.RatePop,home)</onunload>
+  <onunload>ClearProperty(HBM.RatePopNum,home)</onunload>
   <!-- Trailer preview: started only by the Trailer button (id 5), which runs dialoginfo_trailer_start.py -
        resolve, then reveal once actually playing (see dialoginfo_trailer_*.py). Nothing starts on its own. -->
   <onunload>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onunload>
@@ -109,7 +115,7 @@
 
         <!-- Clear logo -->
         <control type="image">
-          <left>0</left><top>420</top><width>560</width><height>190</height>
+          <left>0</left><top>398</top><width>560</width><height>180</height>
           <aspectratio align="left" aligny="center">keep</aspectratio>
           <fadetime>400</fadetime>
           <animation effect="slide" start="0,0" end="0,-115" time="300" tween="cubic" easing="out" condition="Control.HasFocus(501) | Control.HasFocus(502) | Control.HasFocus(504) | Control.HasFocus(505) | Control.HasFocus(506) | Control.HasFocus(507)">Conditional</animation>
@@ -120,7 +126,7 @@
 
         <!-- Title fallback when no clearlogo -->
         <control type="label">
-          <left>0</left><top>420</top><width>780</width><height>190</height>
+          <left>0</left><top>398</top><width>780</width><height>180</height>
           <label>$INFO[ListItem.Title]</label>
           <font>HBM_Display_L</font>
           <textcolor>TextPrimary</textcolor>
@@ -163,24 +169,42 @@
         <control type="group">
           <visible>!Control.HasFocus(501) + !Control.HasFocus(502) + !Control.HasFocus(504) + !Control.HasFocus(505) + !Control.HasFocus(506) + !Control.HasFocus(507)</visible>
 
-        <!-- Ratings line: IMDb and Rotten Tomatoes, only the ones that were found (ratings.py). -->
+        <!-- Ratings line: IMDb, Rotten Tomatoes (tomato at 60%+, splat below) and Popcornmeter (upright bucket at 60%+, spilled
+             below) - only the ones that were found (ratings.py). Icons are Rotten Tomatoes' own, sized exactly so there is no spare space. -->
         <control type="grouplist">
-          <left>0</left><top>650</top><width>700</width><height>40</height>
+          <left>0</left><top>650</top><width>900</width><height>44</height>
           <orientation>horizontal</orientation>
-          <itemgap>26</itemgap>
+          <itemgap>32</itemgap>
           <control type="group">
-            <width>112</width><height>40</height>
+            <width>140</width><height>44</height>
             <visible>!String.IsEmpty(Window(Home).Property(HBM.RateIMDb))</visible>
-            <control type="image"><left>0</left><top>7</top><width>52</width><height>26</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5C518" border="6">special://skin/media/panel_rect.png</texture></control>
-            <control type="label"><left>0</left><top>7</top><width>52</width><height>26</height><label>IMDb</label><font>HBM_Meta_S</font><textcolor>FF161C24</textcolor><align>center</align><aligny>center</aligny></control>
-            <control type="label"><left>62</left><top>0</top><width>50</width><height>40</height><label>$INFO[Window(Home).Property(HBM.RateIMDb)]</label><font>HBM_Meta_S</font><textcolor>FFFFFFFF</textcolor><align>left</align><aligny>center</aligny></control>
+            <control type="image"><left>0</left><top>4</top><width>78</width><height>36</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5C518" border="6">special://skin/media/panel_rect.png</texture></control>
+            <control type="label"><left>0</left><top>4</top><width>78</width><height>36</height><label>IMDb</label><font>HBM_Nav_M</font><textcolor>FF161C24</textcolor><align>center</align><aligny>center</aligny></control>
+            <control type="label"><left>88</left><top>0</top><width>52</width><height>44</height><label>$INFO[Window(Home).Property(HBM.RateIMDb)]</label><font>HBM_Nav_M</font><textcolor>FFFFFFFF</textcolor><align>left</align><aligny>center</aligny></control>
           </control>
           <control type="group">
-            <width>112</width><height>40</height>
-            <visible>!String.IsEmpty(Window(Home).Property(HBM.RateRT))</visible>
-            <control type="image"><left>0</left><top>7</top><width>40</width><height>26</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFA320A" border="6">special://skin/media/panel_rect.png</texture></control>
-            <control type="label"><left>0</left><top>7</top><width>40</width><height>26</height><label>RT</label><font>HBM_Meta_S</font><textcolor>FFFFFFFF</textcolor><align>center</align><aligny>center</aligny></control>
-            <control type="label"><left>50</left><top>0</top><width>62</width><height>40</height><label>$INFO[Window(Home).Property(HBM.RateRT)]</label><font>HBM_Meta_S</font><textcolor>FFFFFFFF</textcolor><align>left</align><aligny>center</aligny></control>
+            <width>123</width><height>44</height>
+            <visible>!String.IsEmpty(Window(Home).Property(HBM.RateRT)) + Integer.IsGreater(Window(Home).Property(HBM.RateRTNum),59)</visible>
+            <control type="image"><left>0</left><top>4</top><width>35</width><height>36</height><aspectratio>keep</aspectratio><texture>special://skin/media/ratings/fresh.png</texture></control>
+            <control type="label"><left>45</left><top>0</top><width>78</width><height>44</height><label>$INFO[Window(Home).Property(HBM.RateRT)]</label><font>HBM_Nav_M</font><textcolor>FFFFFFFF</textcolor><align>left</align><aligny>center</aligny></control>
+          </control>
+          <control type="group">
+            <width>126</width><height>44</height>
+            <visible>!String.IsEmpty(Window(Home).Property(HBM.RateRT)) + !Integer.IsGreater(Window(Home).Property(HBM.RateRTNum),59)</visible>
+            <control type="image"><left>0</left><top>4</top><width>38</width><height>36</height><aspectratio>keep</aspectratio><texture>special://skin/media/ratings/rotten.png</texture></control>
+            <control type="label"><left>48</left><top>0</top><width>78</width><height>44</height><label>$INFO[Window(Home).Property(HBM.RateRT)]</label><font>HBM_Nav_M</font><textcolor>FFFFFFFF</textcolor><align>left</align><aligny>center</aligny></control>
+          </control>
+          <control type="group">
+            <width>115</width><height>44</height>
+            <visible>!String.IsEmpty(Window(Home).Property(HBM.RatePop)) + Integer.IsGreater(Window(Home).Property(HBM.RatePopNum),59)</visible>
+            <control type="image"><left>0</left><top>4</top><width>27</width><height>36</height><aspectratio>keep</aspectratio><texture>special://skin/media/ratings/popcorn_up.png</texture></control>
+            <control type="label"><left>37</left><top>0</top><width>78</width><height>44</height><label>$INFO[Window(Home).Property(HBM.RatePop)]</label><font>HBM_Nav_M</font><textcolor>FFFFFFFF</textcolor><align>left</align><aligny>center</aligny></control>
+          </control>
+          <control type="group">
+            <width>136</width><height>44</height>
+            <visible>!String.IsEmpty(Window(Home).Property(HBM.RatePop)) + !Integer.IsGreater(Window(Home).Property(HBM.RatePopNum),59)</visible>
+            <control type="image"><left>0</left><top>4</top><width>48</width><height>36</height><aspectratio>keep</aspectratio><texture>special://skin/media/ratings/popcorn_spilled.png</texture></control>
+            <control type="label"><left>58</left><top>0</top><width>78</width><height>44</height><label>$INFO[Window(Home).Property(HBM.RatePop)]</label><font>HBM_Nav_M</font><textcolor>FFFFFFFF</textcolor><align>left</align><aligny>center</aligny></control>
           </control>
         </control>
 
