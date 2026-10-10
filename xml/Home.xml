@@ -44,6 +44,8 @@
   <onload condition="!Skin.HasSetting(hbm_genre_row11_v1)">RunScript(special://skin/resources/scripts/genre_defaults.py)</onload>
   <onload>RunScript(special://skin/resources/scripts/seeall_migrate.py)</onload>
   <onload>RunScript(special://skin/resources/scripts/install_splash.py)</onload>
+  <!-- Network / studio logo in the hero for the focused title (see studio_logo.py). -->
+  <onload>RunScript(special://skin/resources/scripts/studio_logo.py)</onload>
   <onload>AlarmClock(HBMHeroRotate,RunScript(special://skin/resources/scripts/hero_rotate.py),00:00:14,silent,loop)</onload>
   <!-- One-shot: retries Trakt rows that missed the startup token refresh (see row_retry.py). -->
   <onload>AlarmClock(HBMRowRetry,RunScript(special://skin/resources/scripts/row_retry.py),00:00:20,silent)</onload>
@@ -650,6 +652,25 @@
       <label>$VAR[HBM_Row_SectionLabel]</label>
       <font>HBM_Nav_M</font>
       <textcolor>FFFFFFFF</textcolor>
+    </control>
+
+    <!-- Network / studio logo for the focused title, bottom right of the hero image. HBM.StudioLogo is set by
+         studio_logo.py and cleared whenever focus moves. Two spots: hero focused (image runs to y~968) and a row focused. -->
+    <control type="image">
+      <left>1500</left><top>838</top><width>320</width><height>104</height>
+      <aspectratio align="right" aligny="bottom">keep</aspectratio>
+      <texture>$INFO[Window(Home).Property(HBM.StudioLogo)]</texture>
+      <visible>!String.IsEmpty(Window(Home).Property(HBM.StudioLogo)) + String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
+      <animation effect="fade" start="0" end="100" time="250" tween="sine">Visible</animation>
+      <animation effect="fade" start="100" end="0" time="120" tween="sine">Hidden</animation>
+    </control>
+    <control type="image">
+      <left>1500</left><top>436</top><width>320</width><height>104</height>
+      <aspectratio align="right" aligny="bottom">keep</aspectratio>
+      <texture>$INFO[Window(Home).Property(HBM.StudioLogo)]</texture>
+      <visible>!String.IsEmpty(Window(Home).Property(HBM.StudioLogo)) + !String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
+      <animation effect="fade" start="0" end="100" time="250" tween="sine">Visible</animation>
+      <animation effect="fade" start="100" end="0" time="120" tween="sine">Hidden</animation>
     </control>
 
     <!-- Hero backdrop group — rendered AFTER scroll wrapper so rows disappear behind it.
