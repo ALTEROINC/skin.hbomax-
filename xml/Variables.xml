@@ -99,6 +99,8 @@
 
   <variable name="HBM_Hero_Backdrop">
     <!-- Row browsing: global ListItem tracks the focused poster -->
+    <!-- The See All / Next page tile has no art of its own: use the skin's backdrop instead of the plugin's icon -->
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + $EXP[HBM_IsSeeAll]">special://skin/media/seeall_hero.jpg</value>
     <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
     <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Art(tvshow.fanart))">$INFO[ListItem.Art(tvshow.fanart)]</value>
     <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Art(landscape))">$INFO[ListItem.Art(landscape)]</value>
@@ -219,6 +221,8 @@
 
   <!-- Focused row item's title, shown when it has no clearlogo (same focused-item rule as HBM_Row_Logo). -->
   <variable name="HBM_Row_Title">
+    <!-- The See All / Next page tile: say "See All", not the plugin's own label -->
+    <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + $EXP[HBM_IsSeeAll]">See All</value>
     <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.TVShowTitle)">$INFO[ListItem.TVShowTitle]</value>
     <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
     <value condition="!String.IsEqual(Skin.String(HBM.ActiveRow),0) + !String.IsEmpty(ListItem.Label)">$INFO[ListItem.Label]</value>
@@ -975,5 +979,15 @@
   <variable name="HBM_TMDbKeyState">
     <value condition="!String.IsEmpty(Skin.String(HBM.TMDbKey))">Set</value>
     <value>Not set</value>
+  </variable>
+  <!-- Info page meta line: year · rating · length, joined only from the parts that exist, so shows and movies read the same. -->
+  <variable name="HBM_Dlg_Meta">
+    <value condition="!String.IsEmpty(ListItem.Year) + !String.IsEmpty(ListItem.MPAA) + !String.IsEmpty(ListItem.Duration)">$INFO[ListItem.Year]  ·  $INFO[ListItem.MPAA]  ·  $INFO[ListItem.Duration]</value>
+    <value condition="!String.IsEmpty(ListItem.Year) + !String.IsEmpty(ListItem.MPAA) + String.IsEmpty(ListItem.Duration)">$INFO[ListItem.Year]  ·  $INFO[ListItem.MPAA]</value>
+    <value condition="!String.IsEmpty(ListItem.Year) + String.IsEmpty(ListItem.MPAA) + !String.IsEmpty(ListItem.Duration)">$INFO[ListItem.Year]  ·  $INFO[ListItem.Duration]</value>
+    <value condition="String.IsEmpty(ListItem.Year) + !String.IsEmpty(ListItem.MPAA) + !String.IsEmpty(ListItem.Duration)">$INFO[ListItem.MPAA]  ·  $INFO[ListItem.Duration]</value>
+    <value condition="!String.IsEmpty(ListItem.Year)">$INFO[ListItem.Year]</value>
+    <value condition="!String.IsEmpty(ListItem.MPAA)">$INFO[ListItem.MPAA]</value>
+    <value condition="!String.IsEmpty(ListItem.Duration)">$INFO[ListItem.Duration]</value>
   </variable>
 </includes>

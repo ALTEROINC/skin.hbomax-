@@ -14,6 +14,12 @@
   <!-- Drives the loading line under the episode list (see episodes_loading.py). -->
   <onload condition="!String.IsEqual(ListItem.DBTYPE,movie)">RunScript(special://skin/resources/scripts/episodes_loading.py)</onload>
   <onload>Skin.SetString(HBM.EpisodeTab,episodes)</onload>
+  <!-- IMDb / Rotten Tomatoes line above the Watch button (see ratings.py). -->
+  <onload>ClearProperty(HBM.RateIMDb,home)</onload>
+  <onload>ClearProperty(HBM.RateRT,home)</onload>
+  <onload>RunScript(special://skin/resources/scripts/ratings.py)</onload>
+  <onunload>ClearProperty(HBM.RateIMDb,home)</onunload>
+  <onunload>ClearProperty(HBM.RateRT,home)</onunload>
   <!-- Auto trailer preview: same 7s-wait / spinner-while-resolving / reveal-on-
        actually-playing pattern as the Home hero, adapted for this dialog's single
        fixed ListItem (no rotation/advance needed — see dialoginfo_trailer_*.py). -->
@@ -99,7 +105,7 @@
           <left>0</left><top>592</top><width>780</width><height>24</height>
           <label>$INFO[ListItem.Genre]</label>
           <font>HBM_Meta_S</font>
-          <textcolor>TextHeroMeta</textcolor>
+          <textcolor>FFFFFFFF</textcolor>
           <visible>!Control.HasFocus(501) + !Control.HasFocus(502) + !Control.HasFocus(504) + !Control.HasFocus(505) + !Control.HasFocus(506) + !Control.HasFocus(507)</visible>
         </control>
 
@@ -149,9 +155,9 @@
         <!-- Meta: year · MPAA · duration -->
         <control type="label">
           <left>0</left><top>618</top><width>780</width><height>24</height>
-          <label>$INFO[ListItem.Year]  ·  $INFO[ListItem.MPAA]  ·  $INFO[ListItem.Duration]</label>
+          <label>$VAR[HBM_Dlg_Meta]</label>
           <font>HBM_Meta_S</font>
-          <textcolor>TextHeroMeta</textcolor>
+          <textcolor>FFFFFFFF</textcolor>
           <visible>!Control.HasFocus(501) + !Control.HasFocus(502) + !Control.HasFocus(504) + !Control.HasFocus(505) + !Control.HasFocus(506) + !Control.HasFocus(507)</visible>
         </control>
 
@@ -159,9 +165,31 @@
         <control type="group">
           <visible>!Control.HasFocus(501) + !Control.HasFocus(502) + !Control.HasFocus(504) + !Control.HasFocus(505) + !Control.HasFocus(506) + !Control.HasFocus(507)</visible>
 
+        <!-- Ratings line: IMDb and Rotten Tomatoes, only the ones that were found (ratings.py). -->
+        <control type="grouplist">
+          <left>0</left><top>650</top><width>700</width><height>40</height>
+          <orientation>horizontal</orientation>
+          <itemgap>26</itemgap>
+          <control type="group">
+            <width>112</width><height>40</height>
+            <visible>!String.IsEmpty(Window(Home).Property(HBM.RateIMDb))</visible>
+            <control type="image"><left>0</left><top>7</top><width>52</width><height>26</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFF5C518" border="6">special://skin/media/panel_rect.png</texture></control>
+            <control type="label"><left>0</left><top>7</top><width>52</width><height>26</height><label>IMDb</label><font>HBM_Meta_S</font><textcolor>FF161C24</textcolor><align>center</align><aligny>center</aligny></control>
+            <control type="label"><left>62</left><top>0</top><width>50</width><height>40</height><label>$INFO[Window(Home).Property(HBM.RateIMDb)]</label><font>HBM_Meta_S</font><textcolor>FFFFFFFF</textcolor><align>left</align><aligny>center</aligny></control>
+          </control>
+          <control type="group">
+            <width>112</width><height>40</height>
+            <visible>!String.IsEmpty(Window(Home).Property(HBM.RateRT))</visible>
+            <control type="image"><left>0</left><top>7</top><width>40</width><height>26</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFA320A" border="6">special://skin/media/panel_rect.png</texture></control>
+            <control type="label"><left>0</left><top>7</top><width>40</width><height>26</height><label>RT</label><font>HBM_Meta_S</font><textcolor>FFFFFFFF</textcolor><align>center</align><aligny>center</aligny></control>
+            <control type="label"><left>50</left><top>0</top><width>62</width><height>40</height><label>$INFO[Window(Home).Property(HBM.RateRT)]</label><font>HBM_Meta_S</font><textcolor>FFFFFFFF</textcolor><align>left</align><aligny>center</aligny></control>
+          </control>
+        </control>
+
+
         <!-- Primary play button hit area (id=2) -->
         <control type="button" id="2">
-          <left>0</left><top>650</top><width>300</width><height>56</height>
+          <left>0</left><top>712</top><width>300</width><height>56</height>
           <label></label>
           <texturenofocus>-</texturenofocus>
           <texturefocus>-</texturefocus>
@@ -182,23 +210,23 @@
         </control>
         <!-- Primary button background (nofocus / focus) -->
         <control type="image">
-          <left>0</left><top>650</top><width>300</width><height>56</height>
+          <left>0</left><top>712</top><width>300</width><height>56</height>
           <texture border="6" colordiffuse="BBFFFFFF">special://skin/media/panel_rect.png</texture>
           <visible>!Control.HasFocus(2)</visible>
         </control>
         <control type="image">
-          <left>0</left><top>650</top><width>300</width><height>56</height>
+          <left>0</left><top>712</top><width>300</width><height>56</height>
           <texture border="6" colordiffuse="DDFFFFFF">special://skin/media/panel_rect.png</texture>
           <visible>Control.HasFocus(2)</visible>
         </control>
         <!-- Play icon — centered-left in 300px button -->
         <control type="image">
-          <left>70</left><top>665</top><width>26</width><height>26</height>
+          <left>70</left><top>727</top><width>26</width><height>26</height>
           <texture>special://skin/media/icons/play-fill.png</texture>
         </control>
         <!-- Label: Watch Now (movie, not started) -->
         <control type="label">
-          <left>104</left><top>650</top><width>188</width><height>56</height>
+          <left>104</left><top>712</top><width>188</width><height>56</height>
           <label>Watch Now</label>
           <font>HBM_Nav_M</font>
           <textcolor>FF161C24</textcolor>
@@ -207,7 +235,7 @@
         </control>
         <!-- Label: Continue Watching (movie, resumable) -->
         <control type="label">
-          <left>104</left><top>650</top><width>188</width><height>56</height>
+          <left>104</left><top>712</top><width>188</width><height>56</height>
           <label>Continue Watching</label>
           <font>HBM_Nav_M</font>
           <textcolor>FF161C24</textcolor>
@@ -216,7 +244,7 @@
         </control>
         <!-- Label: Watch Ep 1 (tv show, not started) -->
         <control type="label">
-          <left>104</left><top>650</top><width>188</width><height>56</height>
+          <left>104</left><top>712</top><width>188</width><height>56</height>
           <label>Watch Ep 1</label>
           <font>HBM_Nav_M</font>
           <textcolor>FF161C24</textcolor>
@@ -225,7 +253,7 @@
         </control>
         <!-- Label: TMDb Helper fallback first episode -->
         <control type="label">
-          <left>104</left><top>650</top><width>188</width><height>56</height>
+          <left>104</left><top>712</top><width>188</width><height>56</height>
           <label>Watch S$INFO[Container(511).ListItemAbsolute(0).Season] E$INFO[Container(511).ListItemAbsolute(0).Episode]</label>
           <font>HBM_Nav_M</font>
           <textcolor>FF161C24</textcolor>
@@ -234,7 +262,7 @@
         </control>
         <!-- Label: TMDb Helper fallback resumable episode -->
         <control type="label">
-          <left>104</left><top>650</top><width>188</width><height>56</height>
+          <left>104</left><top>712</top><width>188</width><height>56</height>
           <label>Continue S$INFO[Container(511).ListItemAbsolute(0).Season] E$INFO[Container(511).ListItemAbsolute(0).Episode]</label>
           <font>HBM_Nav_M</font>
           <textcolor>FF161C24</textcolor>
@@ -243,7 +271,7 @@
         </control>
         <!-- Label: Trakt-resolved up next target -->
         <control type="label">
-          <left>104</left><top>650</top><width>188</width><height>56</height>
+          <left>104</left><top>712</top><width>188</width><height>56</height>
           <label>Watch S$INFO[Container(510).ListItemAbsolute(0).Season] E$INFO[Container(510).ListItemAbsolute(0).Episode]</label>
           <font>HBM_Nav_M</font>
           <textcolor>FF161C24</textcolor>
@@ -252,7 +280,7 @@
         </control>
         <!-- Label: Trakt-resolved resumable target -->
         <control type="label">
-          <left>104</left><top>650</top><width>188</width><height>56</height>
+          <left>104</left><top>712</top><width>188</width><height>56</height>
           <label>Continue S$INFO[Container(510).ListItemAbsolute(0).Season] E$INFO[Container(510).ListItemAbsolute(0).Episode]</label>
           <font>HBM_Nav_M</font>
           <textcolor>FF161C24</textcolor>
@@ -262,7 +290,7 @@
 
         <!-- Restart button (id=6) — ghost, only when resumable -->
         <control type="button" id="6">
-          <left>312</left><top>650</top><width>200</width><height>56</height>
+          <left>312</left><top>712</top><width>200</width><height>56</height>
           <label>Restart</label>
           <font>HBM_Nav_M</font>
           <align>center</align><aligny>center</aligny>
@@ -287,7 +315,7 @@
 
         <!-- My List (id=4) — no background, icon above label -->
         <control type="button" id="4">
-          <left>312</left><top>650</top><width>180</width><height>56</height>
+          <left>312</left><top>712</top><width>180</width><height>56</height>
           <label></label>
           <texturenofocus>-</texturenofocus>
           <texturefocus>-</texturefocus>
@@ -303,18 +331,18 @@
         </control>
         <!-- My List icon — bright when focused, dim when not -->
         <control type="image">
-          <left>332</left><top>662</top><width>32</width><height>32</height>
+          <left>332</left><top>724</top><width>32</width><height>32</height>
           <texture colordiffuse="FFFFFFFF">special://skin/media/icons/plus-bold.png</texture>
           <visible>Control.HasFocus(4)</visible>
         </control>
         <control type="image">
-          <left>332</left><top>662</top><width>32</width><height>32</height>
+          <left>332</left><top>724</top><width>32</width><height>32</height>
           <texture colordiffuse="66FFFFFF">special://skin/media/icons/plus-bold.png</texture>
           <visible>!Control.HasFocus(4)</visible>
         </control>
         <!-- My List label — bright when focused, dim when not -->
         <control type="label">
-          <left>372</left><top>650</top><width>112</width><height>56</height>
+          <left>372</left><top>712</top><width>112</width><height>56</height>
           <label>My List</label>
           <font>HBM_Meta_S</font>
           <textcolor>FFFFFFFF</textcolor>
@@ -323,7 +351,7 @@
           <visible>Control.HasFocus(4)</visible>
         </control>
         <control type="label">
-          <left>372</left><top>650</top><width>112</width><height>56</height>
+          <left>372</left><top>712</top><width>112</width><height>56</height>
           <label>My List</label>
           <font>HBM_Meta_S</font>
           <textcolor>66FFFFFF</textcolor>
@@ -332,57 +360,59 @@
           <visible>!Control.HasFocus(4)</visible>
         </control>
 
-        <!-- Trailer (id=5) — only shown when ListItem.Trailer is populated -->
+        <!-- Trailer (id=5) — next to My List. Opens the trailer through slyguy.trailers by IMDb id, the same source the auto preview uses. -->
         <control type="button" id="5">
-          <left>120</left><top>718</top><width>110</width><height>58</height>
+          <left>500</left><top>712</top><width>170</width><height>56</height>
           <label></label>
           <texturenofocus>-</texturenofocus>
           <texturefocus>-</texturefocus>
           <onclick>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onclick>
-          <onclick>PlayMedia($INFO[ListItem.Trailer])</onclick>
+          <onclick condition="!String.IsEmpty(ListItem.UniqueID(imdb))">PlayMedia(plugin://slyguy.trailers/imdb/?video_id=$INFO[ListItem.UniqueID(imdb)])</onclick>
+          <onclick condition="String.IsEmpty(ListItem.UniqueID(imdb)) + !String.IsEmpty(ListItem.IMDBNumber)">PlayMedia(plugin://slyguy.trailers/imdb/?video_id=$INFO[ListItem.IMDBNumber])</onclick>
           <onfocus>Skin.SetString(HBM.ReturnFocus,5)</onfocus>
           <onup>2</onup>
           <onleft>4</onleft>
           <onright>200</onright>
+          <ondown condition="String.IsEqual(ListItem.DBTYPE,movie)">504</ondown>
           <ondown>502</ondown>
-          <visible>!String.IsEmpty(ListItem.Trailer)</visible>
+          <visible>System.HasAddon(slyguy.trailers) + [!String.IsEmpty(ListItem.UniqueID(imdb)) | !String.IsEmpty(ListItem.IMDBNumber)]</visible>
         </control>
         <!-- Trailer icon — bright when focused, dim when not -->
         <control type="image">
-          <left>159</left><top>720</top><width>32</width><height>32</height>
+          <left>520</left><top>724</top><width>32</width><height>32</height>
           <texture colordiffuse="FFFFFFFF">special://skin/media/icons/film-slate-fill.png</texture>
-          <visible>Control.HasFocus(5) + !String.IsEmpty(ListItem.Trailer)</visible>
+          <visible>Control.HasFocus(5) + System.HasAddon(slyguy.trailers) + [!String.IsEmpty(ListItem.UniqueID(imdb)) | !String.IsEmpty(ListItem.IMDBNumber)]</visible>
         </control>
         <control type="image">
-          <left>159</left><top>720</top><width>32</width><height>32</height>
+          <left>520</left><top>724</top><width>32</width><height>32</height>
           <texture colordiffuse="66FFFFFF">special://skin/media/icons/film-slate-fill.png</texture>
-          <visible>!Control.HasFocus(5) + !String.IsEmpty(ListItem.Trailer)</visible>
+          <visible>!Control.HasFocus(5) + System.HasAddon(slyguy.trailers) + [!String.IsEmpty(ListItem.UniqueID(imdb)) | !String.IsEmpty(ListItem.IMDBNumber)]</visible>
         </control>
         <!-- Trailer label — bright when focused, dim when not -->
         <control type="label">
-          <left>120</left><top>756</top><width>110</width><height>22</height>
+          <left>560</left><top>712</top><width>106</width><height>56</height>
           <label>Trailer</label>
           <font>HBM_Meta_S</font>
           <textcolor>FFFFFFFF</textcolor>
-          <align>center</align>
+          <align>left</align>
           <aligny>center</aligny>
-          <visible>Control.HasFocus(5) + !String.IsEmpty(ListItem.Trailer)</visible>
+          <visible>Control.HasFocus(5) + System.HasAddon(slyguy.trailers) + [!String.IsEmpty(ListItem.UniqueID(imdb)) | !String.IsEmpty(ListItem.IMDBNumber)]</visible>
         </control>
         <control type="label">
-          <left>120</left><top>756</top><width>110</width><height>22</height>
+          <left>560</left><top>712</top><width>106</width><height>56</height>
           <label>Trailer</label>
           <font>HBM_Meta_S</font>
           <textcolor>66FFFFFF</textcolor>
-          <align>center</align>
+          <align>left</align>
           <aligny>center</aligny>
-          <visible>!Control.HasFocus(5) + !String.IsEmpty(ListItem.Trailer)</visible>
+          <visible>!Control.HasFocus(5) + System.HasAddon(slyguy.trailers) + [!String.IsEmpty(ListItem.UniqueID(imdb)) | !String.IsEmpty(ListItem.IMDBNumber)]</visible>
         </control>
 
         </control>
 
         <!-- Plot — below buttons, autoscrolls long descriptions -->
         <control type="textbox">
-          <left>0</left><top>730</top><width>600</width><height>112</height>
+          <left>0</left><top>792</top><width>600</width><height>112</height>
           <font>HBM_Body_M</font>
           <textcolor>FFFFFFFF</textcolor>
           <label>$INFO[ListItem.Plot]</label>
