@@ -1,44 +1,45 @@
+import sys
+
 import xbmc
+
+
+# Starts the in-page trailer (the same backdrop animation as before: the video plays behind the page content,
+# the clear logo centres at the top, the buttons fade out). It no longer starts on its own: it is run by the
+# Trailer button on the info page, and a second press stops the trailer again.
+
+STOP = "RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)"
 
 
 def log(msg):
     xbmc.log("[dialoginfo_trailer_start] " + msg, level=xbmc.LOGINFO)
 
 
+def notify(msg):
+    xbmc.executebuiltin("Notification(Trailer,%s,3000)" % msg)
+
+
 def main():
-    # The 7s wait elapsed — if the dialog was already closed, there's nothing
-    # to start.
     if not xbmc.getCondVisibility("Window.IsActive(movieinformation)"):
         return
 
-    # Movie related-title browsing is intentionally static.  Do not begin the
-    # delayed preview after focus has already left the hero.
-    if (
-        xbmc.getCondVisibility("String.IsEqual(Skin.String(HBM.InfoDbType),movie)")
-        and xbmc.getCondVisibility("Control.HasFocus(504) | Control.HasFocus(507)")
-    ):
-        log("movie related content focused, skipping trailer preview")
-        return
-
-    # Don't stomp on something the user actually pressed Play/Trailer/Restart on.
-    if xbmc.Player().isPlaying():
+    # Button pressed while a trailer is already running (or still resolving): stop it.
+    if xbmc.getCondVisibility("String.IsEqual(Skin.String(HBM.InfoTrailerPlaying),1)") or xbmc.Player().isPlaying():
+        xbmc.executebuiltin(STOP)
+        log("trailer stopped by button")
         return
 
     if not xbmc.getCondVisibility("System.HasAddon(slyguy.trailers)"):
-        log("slyguy.trailers not installed, skipping")
+        notify("The SlyGuy Trailers add-on is not installed")
         return
 
-    imdb_id = xbmc.getInfoLabel("ListItem.UniqueID(imdb)")
+    imdb_id = xbmc.getInfoLabel("ListItem.UniqueID(imdb)") or xbmc.getInfoLabel("ListItem.IMDBNumber")
     if not imdb_id:
-        imdb_id = xbmc.getInfoLabel("ListItem.IMDBNumber")
-    if not imdb_id:
-        log("no imdb id available")
+        notify("No trailer available for this title")
         return
 
     xbmc.executebuiltin("Skin.SetString(HBM.InfoTrailerReadyTicks,0)")
-    xbmc.executebuiltin(
-        "PlayMedia(plugin://slyguy.trailers/imdb/?video_id=%s,1)" % imdb_id
-    )
+    # The trailing 1 plays it windowed, so it shows behind the page instead of opening the full-screen player.
+    xbmc.executebuiltin("PlayMedia(plugin://slyguy.trailers/imdb/?video_id=%s,1)" % imdb_id)
     xbmc.executebuiltin(
         "AlarmClock(HBMInfoTrailerReady,RunScript(special://skin/resources/scripts/dialoginfo_trailer_ready_poll.py),00:00:01,silent,loop)"
     )

@@ -20,10 +20,8 @@
   <onload>RunScript(special://skin/resources/scripts/ratings.py)</onload>
   <onunload>ClearProperty(HBM.RateIMDb,home)</onunload>
   <onunload>ClearProperty(HBM.RateRT,home)</onunload>
-  <!-- Auto trailer preview: same 7s-wait / spinner-while-resolving / reveal-on-
-       actually-playing pattern as the Home hero, adapted for this dialog's single
-       fixed ListItem (no rotation/advance needed — see dialoginfo_trailer_*.py). -->
-  <onload>AlarmClock(HBMInfoTrailerStart,RunScript(special://skin/resources/scripts/dialoginfo_trailer_start.py),00:00:07,silent)</onload>
+  <!-- Trailer preview: started only by the Trailer button (id 5), which runs dialoginfo_trailer_start.py -
+       resolve, then reveal once actually playing (see dialoginfo_trailer_*.py). Nothing starts on its own. -->
   <onunload>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onunload>
   <onunload>Skin.SetString(HBM.InfoClearLogo,)</onunload>
   <onunload>Skin.Reset(HBM.InfoDbType)</onunload>
@@ -360,15 +358,13 @@
           <visible>!Control.HasFocus(4)</visible>
         </control>
 
-        <!-- Trailer (id=5) — next to My List. Opens the trailer through slyguy.trailers by IMDb id, the same source the auto preview uses. -->
+        <!-- Trailer (id=5) — next to My List. Plays the trailer behind the page (slyguy.trailers, by IMDb id); press again to stop. -->
         <control type="button" id="5">
           <left>500</left><top>712</top><width>170</width><height>56</height>
           <label></label>
           <texturenofocus>-</texturenofocus>
           <texturefocus>-</texturefocus>
-          <onclick>RunScript(special://skin/resources/scripts/dialoginfo_trailer_stop.py)</onclick>
-          <onclick condition="!String.IsEmpty(ListItem.UniqueID(imdb))">PlayMedia(plugin://slyguy.trailers/imdb/?video_id=$INFO[ListItem.UniqueID(imdb)])</onclick>
-          <onclick condition="String.IsEmpty(ListItem.UniqueID(imdb)) + !String.IsEmpty(ListItem.IMDBNumber)">PlayMedia(plugin://slyguy.trailers/imdb/?video_id=$INFO[ListItem.IMDBNumber])</onclick>
+          <onclick>RunScript(special://skin/resources/scripts/dialoginfo_trailer_start.py)</onclick>
           <onfocus>Skin.SetString(HBM.ReturnFocus,5)</onfocus>
           <onup>2</onup>
           <onleft>4</onleft>
