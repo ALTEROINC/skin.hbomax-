@@ -971,4 +971,9 @@
     <value condition="String.Contains(Skin.String(HBM.GenreURL),themoviedb.helper) + !String.IsEmpty(Skin.String(HBM.GenreURL))">$INFO[Skin.String(HBM.GenreURL)]&amp;length=$INFO[Skin.String(HBM.GenreLen)]&amp;nextpage=False</value>
     <value condition="!String.IsEmpty(Skin.String(HBM.GenreURL))">$INFO[Skin.String(HBM.GenreURL)]</value>
   </variable>
+  <!-- Shown instead of the key itself, so it is never displayed on screen. -->
+  <variable name="HBM_TMDbKeyState">
+    <value condition="!String.IsEmpty(Skin.String(HBM.TMDbKey))">Set</value>
+    <value>Not set</value>
+  </variable>
 </includes>

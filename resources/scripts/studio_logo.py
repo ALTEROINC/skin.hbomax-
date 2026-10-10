@@ -1,6 +1,8 @@
 import json
 import re
 import time
+import urllib.error
+import urllib.request
 
 import xbmc
 import xbmcgui
@@ -23,6 +25,7 @@ import xbmcvfs
 
 HOME = 10000
 PROP = 'HBM.StudioLogo'
+BADGE_PROP = 'HBM.StudioLogoBadge'   # set when the logo is TMDb's (drawn on a light badge)
 POLLER_PROP = 'HBM.StudioPoller'
 LOGO_DIR = 'special://skin/media/studios/'
 CACHE_FILE = 'special://profile/addon_data/skin.hbomax.dev/studio_cache.json'
@@ -96,6 +99,38 @@ def save_cache(cache):
         log('could not save cache: %s' % e)
 
 
+def tmdb_logo(tmdb_type, tmdb_id):
+    """TMDb's own logo URL for the original network (TV) or first studio with a logo (movies), or ''.
+    Needs the key from Skin Settings (a v3 API key, or a v4 read access token). Returns None when there is no key or the
+    request failed, so the caller doesn't remember it."""
+    key = xbmc.getInfoLabel('Skin.String(HBM.TMDbKey)').strip()
+    if not key:
+        return None          # no key yet: don't remember an answer
+    url = 'https://api.themoviedb.org/3/%s/%s' % (tmdb_type, tmdb_id)
+    headers = {'Accept': 'application/json'}
+    if key.startswith('eyJ'):
+        headers['Authorization'] = 'Bearer ' + key
+    else:
+        url += '?api_key=' + key
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=6) as r:
+            data = json.loads(r.read().decode('utf-8'))
+    except urllib.error.HTTPError as e:
+        log('TMDb request for %s %s failed: HTTP %s' % (tmdb_type, tmdb_id, e.code))
+        return None
+    except Exception as e:
+        log('TMDb request for %s %s failed: %s' % (tmdb_type, tmdb_id, type(e).__name__))
+        return None
+    if tmdb_type == 'tv':
+        entries = (data.get('networks') or [])[:1]          # original network only
+    else:
+        entries = data.get('production_companies') or []
+    for entry in entries:
+        if entry.get('logo_path'):
+            return 'https://image.tmdb.org/t/p/w300' + entry['logo_path']
+    return ''
+
+
 def info(prefix, field):
     return xbmc.getInfoLabel('%s.%s' % (prefix, field))
 
@@ -158,6 +193,11 @@ def focused_title():
     return prefix, tmdb_type, tmdb_id
 
 
+def clear(win):
+    win.clearProperty(PROP)
+    win.clearProperty(BADGE_PROP)
+
+
 def main():
     win = xbmcgui.Window(HOME)
     beat = win.getProperty(POLLER_PROP)
@@ -185,13 +225,13 @@ def main():
             title = focused_title()
             if not title:
                 if current is not None or pending is not None:
-                    win.clearProperty(PROP)
+                    clear(win)
                 current = pending = None
             else:
                 prefix, tmdb_type, tmdb_id = title
                 ident = (tmdb_type, tmdb_id)
                 if ident != current and (pending is None or pending[:2] != ident):
-                    win.clearProperty(PROP)            # focus moved: drop the old logo now
+                    clear(win)                         # focus moved: drop the old logo now
                     current = None
                     pending = (tmdb_type, tmdb_id, prefix, time.time())
                 elif pending is not None and time.time() - pending[3] >= DEBOUNCE:
@@ -203,19 +243,30 @@ def main():
                             cache[key] = names
                             save_cache(cache)
                     logo = pick(names, tmdb_type) or ''
-                    log('%s -> %s (names: %s)' % (key, logo or 'no bundled logo', ', '.join(names[:4])))
+                    remote = ''
+                    if not logo:
+                        remote = cache.get('logo:' + key)
+                        if remote is None:
+                            remote = tmdb_logo(tmdb_type, tmdb_id)
+                            if remote is not None:        # None = request failed; try again next time
+                                cache['logo:' + key] = remote
+                                save_cache(cache)
+                    log('%s -> %s (names: %s)' % (key, logo or ('TMDb logo' if remote else 'no logo'), ', '.join(names[:4])))
                     # Only publish if focus is still on this title.
                     again = focused_title()
                     if again and (again[1], again[2]) == (tmdb_type, tmdb_id):
                         if logo:
                             win.setProperty(PROP, '%s%s.png' % (LOGO_DIR, logo))
+                        elif remote:
+                            win.setProperty(BADGE_PROP, '1')
+                            win.setProperty(PROP, remote)
                         current = (tmdb_type, tmdb_id)
                     pending = None
 
             if monitor.waitForAbort(POLL_SECONDS):
                 break
     finally:
-        win.clearProperty(PROP)
+        clear(win)
         win.clearProperty(POLLER_PROP)
 
 

@@ -657,20 +657,36 @@
     <!-- Network / studio logo for the focused title, bottom right of the hero image. HBM.StudioLogo is set by
          studio_logo.py and cleared whenever focus moves. Two spots: hero focused (image runs to y~968) and a row focused. -->
     <control type="image">
-      <left>1500</left><top>838</top><width>320</width><height>104</height>
+      <left>1580</left><top>862</top><width>240</width><height>78</height>
       <aspectratio align="right" aligny="bottom">keep</aspectratio>
       <texture>$INFO[Window(Home).Property(HBM.StudioLogo)]</texture>
-      <visible>!String.IsEmpty(Window(Home).Property(HBM.StudioLogo)) + String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
+      <visible>!String.IsEmpty(Window(Home).Property(HBM.StudioLogo)) + String.IsEmpty(Window(Home).Property(HBM.StudioLogoBadge)) + String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
       <animation effect="fade" start="0" end="100" time="250" tween="sine">Visible</animation>
       <animation effect="fade" start="100" end="0" time="120" tween="sine">Hidden</animation>
     </control>
-    <control type="image">
-      <left>1500</left><top>436</top><width>320</width><height>104</height>
-      <aspectratio align="right" aligny="bottom">keep</aspectratio>
-      <texture>$INFO[Window(Home).Property(HBM.StudioLogo)]</texture>
-      <visible>!String.IsEmpty(Window(Home).Property(HBM.StudioLogo)) + !String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
+    <control type="group">
+      <left>1620</left><top>870</top><width>200</width><height>70</height>
+      <visible>!String.IsEmpty(Window(Home).Property(HBM.StudioLogoBadge)) + !String.IsEmpty(Window(Home).Property(HBM.StudioLogo)) + String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
       <animation effect="fade" start="0" end="100" time="250" tween="sine">Visible</animation>
       <animation effect="fade" start="100" end="0" time="120" tween="sine">Hidden</animation>
+      <control type="image"><left>0</left><top>0</top><width>200</width><height>70</height><aspectratio>stretch</aspectratio><texture colordiffuse="E6EEF2F8" border="14">special://skin/media/panel_rounded.png</texture></control>
+      <control type="image"><left>14</left><top>9</top><width>172</width><height>52</height><aspectratio>keep</aspectratio><texture>$INFO[Window(Home).Property(HBM.StudioLogo)]</texture></control>
+    </control>
+    <control type="image">
+      <left>1580</left><top>460</top><width>240</width><height>78</height>
+      <aspectratio align="right" aligny="bottom">keep</aspectratio>
+      <texture>$INFO[Window(Home).Property(HBM.StudioLogo)]</texture>
+      <visible>!String.IsEmpty(Window(Home).Property(HBM.StudioLogo)) + String.IsEmpty(Window(Home).Property(HBM.StudioLogoBadge)) + !String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
+      <animation effect="fade" start="0" end="100" time="250" tween="sine">Visible</animation>
+      <animation effect="fade" start="100" end="0" time="120" tween="sine">Hidden</animation>
+    </control>
+    <control type="group">
+      <left>1620</left><top>468</top><width>200</width><height>70</height>
+      <visible>!String.IsEmpty(Window(Home).Property(HBM.StudioLogoBadge)) + !String.IsEmpty(Window(Home).Property(HBM.StudioLogo)) + !String.IsEqual(Skin.String(HBM.ActiveRow),0)</visible>
+      <animation effect="fade" start="0" end="100" time="250" tween="sine">Visible</animation>
+      <animation effect="fade" start="100" end="0" time="120" tween="sine">Hidden</animation>
+      <control type="image"><left>0</left><top>0</top><width>200</width><height>70</height><aspectratio>stretch</aspectratio><texture colordiffuse="E6EEF2F8" border="14">special://skin/media/panel_rounded.png</texture></control>
+      <control type="image"><left>14</left><top>9</top><width>172</width><height>52</height><aspectratio>keep</aspectratio><texture>$INFO[Window(Home).Property(HBM.StudioLogo)]</texture></control>
     </control>
 
     <!-- Hero backdrop group — rendered AFTER scroll wrapper so rows disappear behind it.
