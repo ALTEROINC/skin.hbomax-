@@ -8,6 +8,8 @@ import xbmc
 import xbmcgui
 import xbmcvfs
 
+import pngtool
+
 # Shows the focused title's original network (TV) or studio (movies) as a logo in the hero.
 #
 # One poller, started from Home's onload. About every 0.25s it looks at the focused title (a row item, or the
@@ -25,7 +27,7 @@ import xbmcvfs
 
 HOME = 10000
 PROP = 'HBM.StudioLogo'
-BADGE_PROP = 'HBM.StudioLogoBadge'   # set when the logo is TMDb's (drawn on a light badge)
+REMOTE_DIR = 'special://profile/addon_data/skin.hbomax.dev/studios/'   # TMDb logos, processed like the bundled ones
 POLLER_PROP = 'HBM.StudioPoller'
 LOGO_DIR = 'special://skin/media/studios/'
 CACHE_FILE = 'special://profile/addon_data/skin.hbomax.dev/studio_cache.json'
@@ -100,9 +102,9 @@ def save_cache(cache):
 
 
 def tmdb_logo(tmdb_type, tmdb_id):
-    """TMDb's own logo URL for the original network (TV) or first studio with a logo (movies), or ''.
-    Needs the key from Skin Settings (a v3 API key, or a v4 read access token). Returns None when there is no key or the
-    request failed, so the caller doesn't remember it."""
+    """Local path of TMDb's logo for the original network (TV) or first studio with a logo (movies), processed to
+    match the bundled logos. '' = none available. Needs the key from Skin Settings (a v3 API key, or a v4 read
+    access token). Returns None when there is no key or a request failed, so the caller doesn't remember it."""
     key = xbmc.getInfoLabel('Skin.String(HBM.TMDbKey)').strip()
     if not key:
         return None          # no key yet: don't remember an answer
@@ -126,8 +128,26 @@ def tmdb_logo(tmdb_type, tmdb_id):
     else:
         entries = data.get('production_companies') or []
     for entry in entries:
-        if entry.get('logo_path'):
-            return 'https://image.tmdb.org/t/p/w300' + entry['logo_path']
+        path = entry.get('logo_path') or ''
+        if not path.lower().endswith('.png'):                # svg logos can't be processed here
+            continue
+        name = re.sub(r'[^A-Za-z0-9]', '', path)
+        target = '%s%s' % (REMOTE_DIR, name)
+        if xbmcvfs.exists(target):
+            return target
+        try:
+            with urllib.request.urlopen('https://image.tmdb.org/t/p/w300' + path, timeout=8) as r:
+                png = pngtool.normalise(r.read())
+        except Exception as e:
+            log('TMDb logo %s could not be fetched or processed: %s' % (path, type(e).__name__))
+            return None
+        xbmcvfs.mkdirs(REMOTE_DIR)
+        f = xbmcvfs.File(target, 'w')
+        try:
+            f.write(bytearray(png))
+        finally:
+            f.close()
+        return target
     return ''
 
 
@@ -193,9 +213,42 @@ def focused_title():
     return prefix, tmdb_type, tmdb_id
 
 
+TILE_CONDITION = ('[String.IsEqual(ListItem.Property(specialsort),bottom) | String.Contains(ListItem.Label,Next page) | '
+                  'String.Contains(ListItem.Label,Next >) | String.Contains(ListItem.Label,>>) | '
+                  'String.Contains(ListItem.Label,\u00bb) | String.IsEqual(ListItem.Label,Next) | '
+                  'String.IsEqual(ListItem.Label,More) | String.IsEqual(ListItem.Label,More...) | '
+                  'String.IsEqual(ListItem.Label,See All) | String.Contains(ListItem.Art(icon),nextpage) | '
+                  'String.Contains(ListItem.Art(landscape),nextpage) | String.Contains(ListItem.Art(thumb),nextpage) | '
+                  'String.Contains(ListItem.FolderPath,&page=)]')
+
+
+def log_patch_state():
+    """One line saying whether the TMDb Helper See All patch is in place (it needs a Kodi restart to take effect)."""
+    try:
+        import xbmcaddon
+        addon = xbmcaddon.Addon('plugin.video.themoviedb.helper')
+        path = addon.getAddonInfo('path') + '/resources/tmdbhelper/lib/items/container.py'
+        f = xbmcvfs.File(path)
+        try:
+            text = f.read()
+        finally:
+            f.close()
+        log('TMDb Helper %s: See All patch %s' % (addon.getAddonInfo('version'),
+                                                  'present' if 'HBM_SEEALL2' in text else 'MISSING'))
+    except Exception as e:
+        log('could not check the TMDb Helper patch: %s' % type(e).__name__)
+
+
+def log_row_end(row):
+    """Called when focus is on the last item of a row: what that item looks like, and whether the tile matches."""
+    log('row end %s: label=%r path=%r specialsort=%r icon=%r tile_match=%s' % (
+        row, info('ListItem', 'Label')[:40], info('ListItem', 'FolderPath')[-70:],
+        info('ListItem', 'Property(specialsort)'), info('ListItem', 'Art(icon)')[-40:],
+        xbmc.getCondVisibility(TILE_CONDITION)))
+
+
 def clear(win):
     win.clearProperty(PROP)
-    win.clearProperty(BADGE_PROP)
 
 
 def main():
@@ -205,7 +258,9 @@ def main():
         return  # one poller at a time
 
     monitor = xbmc.Monitor()
+    log_patch_state()
     cache = load_cache()
+    last_row_end = None
     current = None        # (type, id) of the title the published logo belongs to
     pending = None        # (type, id, prefix, since) waiting out the debounce
     closed_since = None
@@ -221,6 +276,16 @@ def main():
                     break
                 continue
             closed_since = None
+
+            row = xbmc.getInfoLabel('Skin.String(HBM.ActiveRow)')
+            if row not in ('', '0') and xbmc.getInfoLabel('Container(%s).CurrentItem' % row) \
+                    and xbmc.getInfoLabel('Container(%s).CurrentItem' % row) == xbmc.getInfoLabel('Container(%s).NumItems' % row):
+                marker = (row, xbmc.getInfoLabel('Skin.String(HBM.HomeActivePage)'), xbmc.getInfoLabel('Container(%s).NumItems' % row))
+                if marker != last_row_end:
+                    last_row_end = marker
+                    log_row_end(row)
+            else:
+                last_row_end = None
 
             title = focused_title()
             if not title:
@@ -246,6 +311,8 @@ def main():
                     remote = ''
                     if not logo:
                         remote = cache.get('logo:' + key)
+                        if remote and not xbmcvfs.exists(remote):
+                            remote = None             # file was cleared: fetch it again
                         if remote is None:
                             remote = tmdb_logo(tmdb_type, tmdb_id)
                             if remote is not None:        # None = request failed; try again next time
@@ -258,7 +325,6 @@ def main():
                         if logo:
                             win.setProperty(PROP, '%s%s.png' % (LOGO_DIR, logo))
                         elif remote:
-                            win.setProperty(BADGE_PROP, '1')
                             win.setProperty(PROP, remote)
                         current = (tmdb_type, tmdb_id)
                     pending = None
