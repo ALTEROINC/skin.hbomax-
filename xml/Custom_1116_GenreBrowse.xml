@@ -60,31 +60,28 @@
       <scrolltime tween="cubic" easing="out">300</scrolltime>
       <preloaditems>3</preloaditems>
       <!-- Another addon's own Next page item (TMDb lists never have one here: nextpage=False): load that page in place. -->
-      <onclick condition="[String.IsEqual(ListItem.Property(specialsort),bottom) | String.Contains(ListItem.Label,Next page) | String.Contains(ListItem.Label,Next &gt;) | String.Contains(ListItem.Label,&gt;&gt;) | String.Contains(ListItem.Label,») | String.IsEqual(ListItem.Label,Next) | String.IsEqual(ListItem.Label,More) | String.IsEqual(ListItem.Label,More...) | String.IsEqual(ListItem.Label,See All) | String.Contains(ListItem.Art(icon),nextpage) | String.Contains(ListItem.Art(landscape),nextpage) | String.Contains(ListItem.Art(thumb),nextpage) | String.Contains(ListItem.FolderPath,&amp;page=)]">Skin.SetString(HBM.GenreURL,$INFO[ListItem.FolderPath])</onclick>
-      <onclick condition="![String.IsEqual(ListItem.Property(specialsort),bottom) | String.Contains(ListItem.Label,Next page) | String.Contains(ListItem.Label,Next &gt;) | String.Contains(ListItem.Label,&gt;&gt;) | String.Contains(ListItem.Label,») | String.IsEqual(ListItem.Label,Next) | String.IsEqual(ListItem.Label,More) | String.IsEqual(ListItem.Label,More...) | String.IsEqual(ListItem.Label,See All) | String.Contains(ListItem.Art(icon),nextpage) | String.Contains(ListItem.Art(landscape),nextpage) | String.Contains(ListItem.Art(thumb),nextpage) | String.Contains(ListItem.FolderPath,&amp;page=)]">Action(info)</onclick>
+      <onclick condition="$EXP[HBM_IsSeeAll]">Skin.SetString(HBM.GenreURL,$INFO[ListItem.FolderPath])</onclick>
+      <onclick condition="!$EXP[HBM_IsSeeAll]">Action(info)</onclick>
       <onleft>700</onleft>
       <onright>800</onright>
       <content target="videos">$VAR[HBM_GenreSource]</content>
 
-        <itemlayout width="305" height="465" condition="[String.IsEqual(ListItem.Property(specialsort),bottom) | String.Contains(ListItem.Label,Next page) | String.Contains(ListItem.Label,Next &gt;) | String.Contains(ListItem.Label,&gt;&gt;) | String.Contains(ListItem.Label,») | String.IsEqual(ListItem.Label,Next) | String.IsEqual(ListItem.Label,More) | String.IsEqual(ListItem.Label,More...) | String.IsEqual(ListItem.Label,See All) | String.Contains(ListItem.Art(icon),nextpage) | String.Contains(ListItem.Art(landscape),nextpage) | String.Contains(ListItem.Art(thumb),nextpage) | String.Contains(ListItem.FolderPath,&amp;page=)]">
-          <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>scale</aspectratio><texture>special://skin/media/seeall_poster.png</texture></control>
-        </itemlayout>
-        <focusedlayout width="305" height="465" condition="[String.IsEqual(ListItem.Property(specialsort),bottom) | String.Contains(ListItem.Label,Next page) | String.Contains(ListItem.Label,Next &gt;) | String.Contains(ListItem.Label,&gt;&gt;) | String.Contains(ListItem.Label,») | String.IsEqual(ListItem.Label,Next) | String.IsEqual(ListItem.Label,More) | String.IsEqual(ListItem.Label,More...) | String.IsEqual(ListItem.Label,See All) | String.Contains(ListItem.Art(icon),nextpage) | String.Contains(ListItem.Art(landscape),nextpage) | String.Contains(ListItem.Art(thumb),nextpage) | String.Contains(ListItem.FolderPath,&amp;page=)]">
-          <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture></control>
-          <control type="image"><left>3</left><top>3</top><width>288</width><height>435</height><aspectratio>scale</aspectratio><texture>special://skin/media/seeall_poster.png</texture></control>
-        </focusedlayout>
+
 
       <itemlayout width="305" height="465">
-        <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
-        <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
-        <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+        <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture><visible>!$EXP[HBM_IsSeeAll]</visible></control>
+        <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture><visible>!$EXP[HBM_IsSeeAll]</visible></control>
+        <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture><visible>!$EXP[HBM_IsSeeAll]</visible></control>
+              <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>scale</aspectratio><texture>special://skin/media/seeall_poster.png</texture><visible>$EXP[HBM_IsSeeAll]</visible></control>
       </itemlayout>
 
       <focusedlayout width="305" height="465">
-        <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture></control>
-        <control type="image"><left>2</left><top>2</top><width>290</width><height>437</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture></control>
-        <control type="image"><left>2</left><top>2</top><width>290</width><height>437</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture></control>
-        <control type="image"><left>2</left><top>2</top><width>290</width><height>437</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture></control>
+        <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture><visible>!$EXP[HBM_IsSeeAll]</visible></control>
+        <control type="image"><left>2</left><top>2</top><width>290</width><height>437</height><aspectratio>stretch</aspectratio><texture colordiffuse="1A161C24">white.png</texture><visible>!$EXP[HBM_IsSeeAll]</visible></control>
+        <control type="image"><left>2</left><top>2</top><width>290</width><height>437</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(poster)]</texture><visible>!$EXP[HBM_IsSeeAll]</visible></control>
+        <control type="image"><left>2</left><top>2</top><width>290</width><height>437</height><aspectratio>scale</aspectratio><texture>$INFO[ListItem.Art(thumb)]</texture><visible>!$EXP[HBM_IsSeeAll]</visible></control>
+              <control type="image"><left>0</left><top>0</top><width>294</width><height>441</height><aspectratio>stretch</aspectratio><texture colordiffuse="FFFFFFFF">white.png</texture><visible>$EXP[HBM_IsSeeAll]</visible></control>
+        <control type="image"><left>3</left><top>3</top><width>288</width><height>435</height><aspectratio>scale</aspectratio><texture>special://skin/media/seeall_poster.png</texture><visible>$EXP[HBM_IsSeeAll]</visible></control>
       </focusedlayout>
     </control>
 

@@ -52,7 +52,7 @@ ALIASES = {
     'metrogoldwynmayer': 'mgm', 'metrogoldwynmayerpictures': 'mgm', 'mgmplus': 'mgm', 'marvelstudios': 'marvel',
     'marveltelevision': 'marvel', 'marvelentertainment': 'marvel', 'marvel': 'marvel', 'nbc': 'nbc',
     'nationalgeographic': 'nationalgeographic', 'natgeo': 'nationalgeographic', 'netflix': 'netflix',
-    'paramountplus': 'paramountplus', 'paramount': 'paramount', 'paramountpictures': 'paramount',
+    'paramountplus': 'paramountplus', 'paramountpluswithshowtime': 'paramountplus', 'paramount': 'paramount', 'paramountpictures': 'paramount',
     'paramountnetwork': 'paramountnetwork', 'peacock': 'peacock', 'primevideo': 'primevideo', 'amazon': 'primevideo',
     'amazonprimevideo': 'primevideo', 'amazonstudios': 'primevideo', 'amazonmgmstudios': 'primevideo',
     'starz': 'starz', 'tlc': 'tlc', 'universalpictures': 'universal', 'universalstudios': 'universal',
